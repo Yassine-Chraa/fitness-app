@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
-function Example() {
+function Dashboard() {
     return (
         <div className="container">
             <div className="row justify-content-center">
@@ -10,6 +11,7 @@ function Example() {
                         <div className="card-header">Example Component</div>
 
                         <div className="card-body">I'm an example component!</div>
+                        <FontAwesomeIcon icon={['fas', 'coffee']} />
                     </div>
                 </div>
             </div>
@@ -17,14 +19,14 @@ function Example() {
     );
 }
 
-export default Example;
+export default Dashboard;
 
-if (document.getElementById('example')) {
-    const Index = ReactDOM.createRoot(document.getElementById("example"));
+if (document.getElementById('dashboard')) {
+    const Index = ReactDOM.createRoot(document.getElementById("dashboard"));
 
     Index.render(
         <React.StrictMode>
-            <Example/>
+            <Dashboard/>
         </React.StrictMode>
     )
 }
