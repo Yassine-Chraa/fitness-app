@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\API\EquipementsController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,5 +24,6 @@ use Illuminate\Support\Facades\Route;
     return ['token' => $token->plainTextToken];
 });*/
 
-Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+Route::apiResource('users', UserController::class);
 Route::apiResource('equipements', EquipementsController::class)->middleware('auth:sanctum');
+Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
