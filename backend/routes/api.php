@@ -1,6 +1,8 @@
 <?php
 
+use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\EquipementsController;
+use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -14,14 +16,12 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-
-/*Route::get('/user', function (Request $request) {
-    return $request->user();
-});*/
 /*Route::post('/tokens/create', function (Request $request) {
     $token = $request->user()->createToken($request->token_name);
     return ['token' => $token->plainTextToken];
 });*/
 
-Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
+Route::apiResource('users', UserController::class);
 Route::apiResource('equipements', EquipementsController::class)->middleware('auth:sanctum');
+Route::apiResource('meals', MealController::class)->middleware('auth:sanctum');
+Route::apiResource('activities', ActivityController::class)->middleware('auth:sanctum');
