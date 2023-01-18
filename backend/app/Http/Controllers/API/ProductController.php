@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Equipement;
+use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class EquipementsController extends Controller
+class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,8 +15,8 @@ class EquipementsController extends Controller
      */
     public function index()
     {
-        $equipements = Equipement::all();
-        return response()->json($equipements);
+        $products = Product::all();
+        return response()->json($products);
     }
 
     /**
@@ -32,16 +31,20 @@ class EquipementsController extends Controller
             'name' => 'required|min:4',
             'category' => 'required',
             'description' => 'required',
+            'prix' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
         ]);
 
-        $newEquipement = new Equipement([
+        $newProduct = new Product([
             'name' => $request->get('name'),
             'category' => $request->get('category'),
             'description' => $request->get('description'),
             'image' => $request->get('image'),
+            'stock' => $request->get('stock'),
+            'prix' => $request->get('prix'),
         ]);
-        $newEquipement->save();
-        return response()->json(['message' => 'Equipement stored']);
+        $newProduct->save();
+        return response()->json(['message' => 'Product stored']);
     }
 
     /**
@@ -52,8 +55,8 @@ class EquipementsController extends Controller
      */
     public function show($id)
     {
-        $equipement = Equipement::findOrFail($id);
-        return response()->json($equipement);
+        $product = Product::findOrFail($id);
+        return response()->json($product);
     }
 
     /**
@@ -65,19 +68,23 @@ class EquipementsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipement = Equipement::findOrFail($id);
+        $product = Product::findOrFail($id);
         $request->validate([
             'name' => 'required|min:4',
             'category' => 'required',
             'description' => 'required',
+            'prix' => 'required|numeric|min:0',
+            'stock' => 'required|integer|min:0',
         ]);
-        $equipement->name = $request->get('name');
-        $equipement->category = $request->get('category');
-        $equipement->description = $request->get('description');
-        $equipement->image = $request->get('image');
+        $product->name = $request->get('name');
+        $product->category = $request->get('category');
+        $product->description = $request->get('description');
+        $product->image = $request->get('image');
+        $product->prix = $request->get('prix');
+        $product->stock = $request->get('stock');
 
-        $equipement->save();
-        return response()->json(['message' => 'Equipement updated']);
+        $product->save();
+        return response()->json(['message' => 'Product updated']);
     }
 
     /**
@@ -88,9 +95,9 @@ class EquipementsController extends Controller
      */
     public function destroy($id)
     {
-        $equipement = Equipement::findOrFail($id);
-        $equipement->delete();
+        $product = Product::findOrFail($id);
+        $product->delete();
 
-        return response()->json(['message' => 'Equipement deleted']);
+        return response()->json(['message' => 'Product deleted']);
     }
 }
