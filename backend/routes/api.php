@@ -22,7 +22,7 @@ use Illuminate\Support\Facades\Route;
     return ['token' => $token->plainTextToken];
 });*/
 
-Route::apiResource('users', UserController::class);
+Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
 Route::apiResource('equipements', EquipementsController::class)->middleware('auth:sanctum');
 Route::apiResource('meals', MealController::class)->middleware('auth:sanctum');
 Route::apiResource('activities', ActivityController::class)->middleware('auth:sanctum');
