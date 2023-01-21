@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ActivityController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET: api/activities
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST: api/activities
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -43,7 +43,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET: api/activities/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -55,7 +55,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT/PATCH: api/activities/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -78,7 +78,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE: api/activities/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

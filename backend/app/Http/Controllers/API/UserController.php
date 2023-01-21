@@ -58,7 +58,7 @@ class UserController extends Controller
     }
 
     /**
-     * PUT/PATCH: api/users
+     * PUT/PATCH: api/users/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id

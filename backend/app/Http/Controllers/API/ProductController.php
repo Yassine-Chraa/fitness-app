@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class ProductController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET: api/products
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST: api/products
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -48,7 +48,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET: api/products/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -60,7 +60,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT/PATCH: api/products/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -88,7 +88,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE: api/products/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

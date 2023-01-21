@@ -19,7 +19,6 @@ return new class extends Migration
             $table->enum('category', ['Fruits', 'Vegetables', 'Grains', 'Protein Foods','Dairy']);
             $table->string('description');
             $table->float('weight');
-            $table->boolean('isVegetarian');
             $table->boolean('isVegan');
             $table->timestamps();
         });

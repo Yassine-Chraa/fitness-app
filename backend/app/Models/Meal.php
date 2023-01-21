@@ -16,7 +16,6 @@ class Meal extends Model
         'category',
         'description',
         'weight',
-        'isVegetarian',
         'isVegan',
     ];
 }
