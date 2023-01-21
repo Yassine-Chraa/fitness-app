@@ -5,12 +5,11 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Equipement;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
 
-class EquipementsController extends Controller
+class EquipementController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET: api/equipements
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +20,7 @@ class EquipementsController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST: api/equipements
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -38,13 +37,14 @@ class EquipementsController extends Controller
             'name' => $request->get('name'),
             'category' => $request->get('category'),
             'description' => $request->get('description'),
+            'image' => $request->get('image'),
         ]);
         $newEquipement->save();
         return response()->json(['message' => 'Equipement stored']);
     }
 
     /**
-     * Display the specified resource.
+     * GET: api/equipements/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -56,7 +56,7 @@ class EquipementsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT/PATCH: api/equipements/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -73,13 +73,14 @@ class EquipementsController extends Controller
         $equipement->name = $request->get('name');
         $equipement->category = $request->get('category');
         $equipement->description = $request->get('description');
+        $equipement->image = $request->get('image');
 
         $equipement->save();
         return response()->json(['message' => 'Equipement updated']);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE: api/equipements/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

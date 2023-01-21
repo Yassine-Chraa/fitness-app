@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Activity extends Model
+class Product extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
         'name',
         'category',
-        'description'
+        'description',
+        'image',
+        'stock',
+        'prix',
     ];
 }

@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Hash;
 class UserController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET: api/users
      *
      * @return \Illuminate\Http\Response
      */
@@ -21,7 +21,7 @@ class UserController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST: api/users
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -38,14 +38,15 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'profile' => $request->get('profile')
         ]);
         $newUser->save();
-        $newUser->createToken("api_token");
-        return response()->json(['message' => 'User stored']);
+        $token = $newUser->createToken("api_token")->plainTextToken;
+        return response()->json(['token' => $token]);
     }
 
     /**
-     * Display the specified resource.
+     * GET: api/users/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -57,7 +58,7 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT/PATCH: api/users/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -73,6 +74,7 @@ class UserController extends Controller
             ]);
             $user->name = $request->get('name');
             $user->email = $request->get('email');
+            $user->profile = $request->get('profile');
             $user->save();
 
             return response()->json(['message' => 'User updated']);
@@ -95,7 +97,7 @@ class UserController extends Controller
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE: api/users/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response

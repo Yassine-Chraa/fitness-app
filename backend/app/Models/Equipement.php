@@ -20,5 +20,6 @@ class Equipement extends Model
         'name',
         'category',
         'description',
+        'image',
     ];
 }
