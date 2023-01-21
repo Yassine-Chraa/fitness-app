@@ -4,14 +4,8 @@
  * building robust, powerful web applications using React + Laravel.
  */
 
-import './bootstrap';
-
-
-
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { fas } from '@fortawesome/free-solid-svg-icons'
-
-library.add(fas)
+import "./bootstrap";
+console.log("helo hello hello")
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -19,4 +13,4 @@ library.add(fas)
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-import './pages/Dashboard';
+import "./DashBoard";
