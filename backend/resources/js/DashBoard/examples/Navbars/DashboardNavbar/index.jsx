@@ -5,11 +5,16 @@ import AppBar from "@mui/material/AppBar";
 import Toolbar from "@mui/material/Toolbar";
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
-import Icon from "@mui/material/Icon";
 import MDBox from "../../../components/MDBox";
 import MDInput from "../../../components/MDInput";
 import Breadcrumbs from "../../../examples/Breadcrumbs";
 import NotificationItem from "../../../examples/Items/NotificationItem";
+import MenuOpenIcon from '@mui/icons-material/MenuOpen';
+import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded';
+import NotificationsIcon from '@mui/icons-material/Notifications';
+import HomeIcon from '@mui/icons-material/Home';
+
 
 import {
     navbar,
@@ -26,6 +31,7 @@ import {
     setMiniSidenav,
     setOpenConfigurator,
 } from "../../../context";
+import { Avatar } from "@mui/material";
 
 function DashboardNavbar({ absolute, light, isMini }) {
     const [navbarType, setNavbarType] = useState();
@@ -35,28 +41,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
     const route = useLocation().pathname.split("/").slice(1);
 
     useEffect(() => {
-        // Setting the navbar type
         if (fixedNavbar) {
             setNavbarType("sticky");
         } else {
             setNavbarType("static");
         }
-
-        // A function that sets the transparent state of the navbar.
         function handleTransparentNavbar() {
             setTransparentNavbar(dispatch, (fixedNavbar && window.scrollY === 0) || !fixedNavbar);
         }
-
-        /**
-         The event listener that's calling the handleTransparentNavbar function when
-         scrolling the window.
-        */
         window.addEventListener("scroll", handleTransparentNavbar);
 
-        // Call the handleTransparentNavbar function to set the state with the initial value.
         handleTransparentNavbar();
 
-        // Remove event listener on cleanup
         return () => window.removeEventListener("scroll", handleTransparentNavbar);
     }, [dispatch, fixedNavbar]);
 
@@ -65,7 +61,7 @@ function DashboardNavbar({ absolute, light, isMini }) {
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
 
-    // Render the notifications menu
+    //notifications menu
     const renderMenu = () => (
         <Menu
             anchorEl={openMenu}
@@ -78,9 +74,9 @@ function DashboardNavbar({ absolute, light, isMini }) {
             onClose={handleCloseMenu}
             sx={{ mt: 2 }}
         >
-            <NotificationItem icon={<Icon>email</Icon>} title="Check new messages" />
-            <NotificationItem icon={<Icon>podcasts</Icon>} title="Manage Podcast sessions" />
-            <NotificationItem icon={<Icon>shopping_cart</Icon>} title="Payment successfully completed" />
+            <NotificationItem icon={<NotificationsIcon />} title="an Item here" />
+            <NotificationItem icon={<NotificationsIcon />} title="an Item here" />
+            <NotificationItem icon={<NotificationsIcon />} title="an Item here" />
         </Menu>
     );
 
@@ -105,38 +101,28 @@ function DashboardNavbar({ absolute, light, isMini }) {
         >
             <Toolbar sx={(theme) => navbarContainer(theme)}>
                 <MDBox color="inherit" mb={{ xs: 1, md: 0 }} sx={(theme) => navbarRow(theme, { isMini })}>
-                    <Breadcrumbs icon="home" title={route[route.length - 1]} route={route} light={light} />
+                    <Breadcrumbs icon={<HomeIcon />} title={route[route.length - 1]} route={route} light={light} />
                 </MDBox>
                 {isMini ? null : (
                     <MDBox sx={(theme) => navbarRow(theme, { isMini })}>
-                        <MDBox pr={1}>
-                            <MDInput label="Search here" />
-                        </MDBox>
+                        {console.log("miniSidenav => " + miniSidenav)}
+                        {console.log("isMini => " + isMini)}
+                        {false ? null :
+                            <MDBox pr={1}>
+                                <MDInput label="Search here" />
+                            </MDBox>
+                        }
                         <MDBox color={light ? "white" : "inherit"}>
-                            <Link to="/authentication/sign-in/basic">
-                                <IconButton sx={navbarIconButton} size="small" disableRipple>
-                                    <Icon sx={iconsStyle}>account_circle</Icon>
-                                </IconButton>
-                            </Link>
+
                             <IconButton
                                 size="small"
                                 disableRipple
                                 color="inherit"
-                                sx={navbarMobileMenu}
                                 onClick={handleMiniSidenav}
                             >
-                                <Icon sx={iconsStyle} fontSize="medium">
-                                    {miniSidenav ? "menu_open" : "menu"}
-                                </Icon>
-                            </IconButton>
-                            <IconButton
-                                size="small"
-                                disableRipple
-                                color="inherit"
-                                sx={navbarIconButton}
-                                onClick={handleConfiguratorOpen}
-                            >
-                                <Icon sx={iconsStyle}>settings</Icon>
+                                {miniSidenav ? <MenuOpenIcon sx={iconsStyle} fontSize="medium" />
+                                    : <CloseRoundedIcon sx={iconsStyle} fontSize="medium" />
+                                }
                             </IconButton>
                             <IconButton
                                 size="small"
@@ -148,9 +134,25 @@ function DashboardNavbar({ absolute, light, isMini }) {
                                 variant="contained"
                                 onClick={handleOpenMenu}
                             >
-                                <Icon sx={iconsStyle}>notifications</Icon>
+                                <NotificationsIcon sx={iconsStyle} />
                             </IconButton>
                             {renderMenu()}
+                            <IconButton
+                                size="small"
+                                disableRipple
+                                color="inherit"
+                                sx={navbarIconButton}
+                                onClick={handleConfiguratorOpen}
+                            >
+                                <SettingsRoundedIcon sx={iconsStyle} />
+                            </IconButton>
+
+                            <Link to="/authentication/sign-in/basic">
+                                <IconButton size="small" sx={navbarIconButton} disableRipple>
+                                    <Avatar sx={{ width: 24, height: 24, iconsStyle }}
+                                        src="https://bit.ly/34BY10g" />
+                                </IconButton>
+                            </Link>
                         </MDBox>
                     </MDBox>
                 )}

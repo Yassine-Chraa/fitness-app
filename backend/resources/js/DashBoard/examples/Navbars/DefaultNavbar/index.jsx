@@ -23,7 +23,7 @@ function DefaultNavbar({ transparent, light, action }) {
     const closeMobileNavbar = () => setMobileNavbar(false);
 
     useEffect(() => {
-        // A function that sets the display state for the DefaultNavbarMobile.
+
         function displayMobileNavbar() {
             if (window.innerWidth < breakpoints.values.lg) {
                 setMobileView(true);
@@ -34,16 +34,10 @@ function DefaultNavbar({ transparent, light, action }) {
             }
         }
 
-        /**
-         The event listener that's calling the displayMobileNavbar function when
-         resizing the window.
-        */
         window.addEventListener("resize", displayMobileNavbar);
 
-        // Call the displayMobileNavbar function to set the state with the initial value.
         displayMobileNavbar();
 
-        // Remove event listener on cleanup
         return () => window.removeEventListener("resize", displayMobileNavbar);
     }, []);
 
@@ -147,14 +141,12 @@ function DefaultNavbar({ transparent, light, action }) {
     );
 }
 
-// Setting default values for the props of DefaultNavbar
 DefaultNavbar.defaultProps = {
     transparent: false,
     light: false,
     action: false,
 };
 
-// Typechecking props for the DefaultNavbar
 DefaultNavbar.propTypes = {
     transparent: PropTypes.bool,
     light: PropTypes.bool,

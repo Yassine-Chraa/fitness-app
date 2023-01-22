@@ -19,23 +19,38 @@ import colors from "./colors";
 const { info, dark } = colors;
 
 const globals = {
-  html: {
-    scrollBehavior: "smooth",
-  },
-  "*, *::before, *::after": {
-    margin: 0,
-    padding: 0,
-  },
-  "a, a:link, a:visited": {
-    textDecoration: "none !important",
-  },
-  "a.link, .link, a.link:link, .link:link, a.link:visited, .link:visited": {
-    color: `${dark.main} !important`,
-    transition: "color 150ms ease-in !important",
-  },
-  "a.link:hover, .link:hover, a.link:focus, .link:focus": {
-    color: `${info.main} !important`,
-  },
+    html: {
+        scrollBehavior: "smooth",
+    },
+    "*, *::before, *::after": {
+        margin: 0,
+        padding: 0,
+    },
+    "a, a:link, a:visited": {
+        textDecoration: "none !important",
+    },
+    "a.link, .link, a.link:link, .link:link, a.link:visited, .link:visited": {
+        color: `${dark.main} !important`,
+        transition: "color 150ms ease-in !important",
+    },
+    "a.link:hover, .link:hover, a.link:focus, .link:focus": {
+        color: `${info.main} !important`,
+    },
+    "::-webkit-scrollbar": {
+        width: '8px',
+    },
+    "::-webkit-scrollbar-track": {
+        boxShadow: 'inset 0 0 5px #a0a0a0',
+        borderRadius: '4px',
+    },
+    "::-webkit-scrollbar-thumb ": {
+        background: '#afafafd6',
+        borderRadius: '4px',
+        boxShadow: '#ffff 1px 1px 1px',
+    },
+    "::-webkit-scrollbar-thumb : hover": {
+        background: "#afafafd6",
+    },
 };
 
 export default globals;

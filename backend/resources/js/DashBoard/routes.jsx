@@ -7,22 +7,27 @@ import Profile from "./layouts/profile";
 import SignIn from "./layouts/authentication/sign-in";
 import SignUp from "./layouts/authentication/sign-up";
 
-import Icon from "@mui/material/Icon";
+import HomeIcon from '@mui/icons-material/Home';
+import InfoIcon from '@mui/icons-material/Info';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import BubbleChartIcon from '@mui/icons-material/BubbleChart';
+import CoronavirusIcon from '@mui/icons-material/Coronavirus';
+import DashboardIcon from '@mui/icons-material/Dashboard';
 
 const routes = [
     {
         type: "collapse",
-        name: "Dashboard",
-        key: "dashboard",
-        icon: <Icon fontSize="small">dashboard</Icon>,
-        route: "/dashboard",
+        name: "Home",
+        key: "home",
+        icon: <DashboardIcon color="error" />,
+        route: "/home",
         component: <Dashboard />,
     },
     {
         type: "collapse",
         name: "Tables",
         key: "tables",
-        icon: <Icon fontSize="small">table_view</Icon>,
+        icon: <HomeIcon color="secondary" />,
         route: "/tables",
         component: <Tables />,
     },
@@ -30,7 +35,7 @@ const routes = [
         type: "collapse",
         name: "Billing",
         key: "billing",
-        icon: <Icon fontSize="small">receipt_long</Icon>,
+        icon: <HomeIcon color="primary" />,
         route: "/billing",
         component: <Billing />,
     },
@@ -38,7 +43,7 @@ const routes = [
         type: "collapse",
         name: "RTL",
         key: "rtl",
-        icon: <Icon fontSize="small">format_textdirection_r_to_l</Icon>,
+        icon: <CalendarMonthIcon color="primary" />,
         route: "/rtl",
         component: <RTL />,
     },
@@ -46,7 +51,7 @@ const routes = [
         type: "collapse",
         name: "Notifications",
         key: "notifications",
-        icon: <Icon fontSize="small">notifications</Icon>,
+        icon: <CoronavirusIcon color="warning" />,
         route: "/notifications",
         component: <Notifications />,
     },
@@ -54,7 +59,7 @@ const routes = [
         type: "collapse",
         name: "Profile",
         key: "profile",
-        icon: <Icon fontSize="small">person</Icon>,
+        icon: <HomeIcon color="primary" />,
         route: "/profile",
         component: <Profile />,
     },
@@ -62,7 +67,7 @@ const routes = [
         type: "collapse",
         name: "Sign In",
         key: "sign-in",
-        icon: <Icon fontSize="small">login</Icon>,
+        icon: <BubbleChartIcon color="info" />,
         route: "/authentication/sign-in",
         component: <SignIn />,
     },
@@ -70,7 +75,7 @@ const routes = [
         type: "collapse",
         name: "Sign Up",
         key: "sign-up",
-        icon: <Icon fontSize="small">assignment</Icon>,
+        icon: <InfoIcon color="success" />,
         route: "/authentication/sign-up",
         component: <SignUp />,
     },
