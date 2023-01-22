@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 class MealController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * GET: api/meals
      *
      * @return \Illuminate\Http\Response
      */
@@ -20,7 +20,7 @@ class MealController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * POST: api/meals
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
@@ -32,7 +32,6 @@ class MealController extends Controller
             'category' => 'required',
             'description' => 'required',
             'weight' => 'required',
-            'isVegetarian' => 'required',
             'isVegan' => 'required',
         ]);
 
@@ -41,7 +40,6 @@ class MealController extends Controller
             'category' => $request->get('category'),
             'description' => $request->get('description'),
             'weight' => $request->get('weight'),
-            'isVegetarian' => $request->get('isVegetarian'),
             'isVegan' => $request->get('isVegan'),
         ]);
         $newMeal->save();
@@ -49,7 +47,7 @@ class MealController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * GET: api/meals/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
@@ -61,7 +59,7 @@ class MealController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * PUT/PATCH: api/meals/{id}
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
@@ -69,35 +67,34 @@ class MealController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $equipement = Meal::findOrFail($id);
+        $meal = Meal::findOrFail($id);
         $request->validate([
-            'name' => $request->get('name'),
-            'category' => $request->get('category'),
-            'description' => $request->get('description'),
-            'weight' => $request->get('weight'),
-            'isVegetarian' => $request->get('isVegetarian'),
-            'isVegan' => $request->get('isVegan'),
+            'name' => 'required|min:4',
+            'category' => 'required',
+            'description' => 'required',
+            'weight' => 'required',
+            'isVegan' => 'required',
         ]);
-        $equipement->name = $request->get('name');
-        $equipement->category = $request->get('category');
-        $equipement->description = $request->get('description');
-        $equipement->description = $request->get('weight');
-        $equipement->description = $request->get('isVegetarian');
-        $equipement->description = $request->get('isVegan');
-        $equipement->save();
-        return response()->json(['message' => 'meal updated']);
+        $meal->name = $request->get('name');
+        $meal->category = $request->get('category');
+        $meal->description = $request->get('description');
+        $meal->weight = $request->get('weight');
+        $meal->isVegan = $request->get('isVegan');
+
+        $meal->save();
+        return response()->json(['message' => 'Meal updated']);
     }
 
     /**
-     * Remove the specified resource from storage.
+     * DELETE: api/meals/{id}
      *
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
     {
-        $equipement = Meal::findOrFail($id);
-        $equipement->delete();
+        $meal = Meal::findOrFail($id);
+        $meal->delete();
 
         return response()->json(['message' => 'Meal deleted']);
     }

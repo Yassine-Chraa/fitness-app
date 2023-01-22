@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\API\ActivityController;
-use App\Http\Controllers\API\EquipementsController;
+use App\Http\Controllers\API\EquipementController;
+use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +24,8 @@ use Illuminate\Support\Facades\Route;
 });*/
 
 Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
-Route::apiResource('equipements', EquipementsController::class)->middleware('auth:sanctum');
+Route::apiResource('equipements', EquipementController::class)->middleware('auth:sanctum');
+Route::apiResource('products', ProductController::class)->middleware('auth:sanctum');
 Route::apiResource('meals', MealController::class)->middleware('auth:sanctum');
 Route::apiResource('activities', ActivityController::class)->middleware('auth:sanctum');
+Route::apiResource('feedbacks', FeedbackController::class)->middleware('auth:sanctum');

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('name');
             $table->enum('category', ['Core', 'Chest', 'Shoulder', 'Biceps', 'Triceps', 'Back', 'Forearms', 'Upper legs', 'Glutes', 'Cardio', 'Calves']);
             $table->string('description');
+            $table->string('image')->nullable(true);
+            $table->integer('amount');
             $table->timestamps();
         });
     }
