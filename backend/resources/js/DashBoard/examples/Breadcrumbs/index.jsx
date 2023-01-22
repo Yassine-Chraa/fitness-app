@@ -5,7 +5,7 @@ import Icon from "@mui/material/Icon";
 import MDBox from "../../components/MDBox";
 import MDTypography from "../../components/MDTypography";
 
-function Breadcrumbs({ icon, title, route, light }) {
+const Breadcrumbs = ({ icon, title, route, light }) => {
     const routes = route.slice(0, -1);
 
     return (
@@ -25,7 +25,7 @@ function Breadcrumbs({ icon, title, route, light }) {
                         opacity={light ? 0.8 : 0.5}
                         sx={{ lineHeight: 0 }}
                     >
-                        <Icon>{icon}</Icon>
+                        {icon}
                     </MDTypography>
                 </Link>
                 {routes.map((el) => (
@@ -66,17 +66,15 @@ function Breadcrumbs({ icon, title, route, light }) {
     );
 }
 
-// Setting default values for the props of Breadcrumbs
 Breadcrumbs.defaultProps = {
     light: false,
 };
 
-// Typechecking props for the Breadcrumbs
 Breadcrumbs.propTypes = {
     icon: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     route: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-    light: PropTypes.bool,
+    light: PropTypes.bool
 };
 
 export default Breadcrumbs;

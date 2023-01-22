@@ -6,8 +6,11 @@ import MDTypography from "../../components/MDTypography";
 import MDAlert from "../../components/MDAlert";
 import MDButton from "../../components/MDButton";
 import MDSnackbar from "../../components/MDSnackbar";
+import DashboardLayout from "../../examples/LayoutContainers/DashboardLayout";
+import DashboardNavbar from "../../examples/Navbars/DashboardNavbar";
+import Footer from "../../examples/Footer";
 
-function Notifications() {
+const Notifications = () => {
     const [successSB, setSuccessSB] = useState(false);
     const [infoSB, setInfoSB] = useState(false);
     const [warningSB, setWarningSB] = useState(false);
@@ -87,8 +90,8 @@ function Notifications() {
     );
 
     return (
-        <>
-
+        <DashboardLayout>
+            <DashboardNavbar />
             <MDBox mt={6} mb={3}>
                 <Grid container spacing={3} justifyContent="center">
                     <Grid item xs={12} lg={8}>
@@ -165,7 +168,8 @@ function Notifications() {
                     </Grid>
                 </Grid>
             </MDBox>
-        </>
+            <Footer />
+        </DashboardLayout>
     );
 }
 
