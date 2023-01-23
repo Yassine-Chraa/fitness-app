@@ -4,12 +4,12 @@
     <meta charset="utf-8">
     <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <title>FitnessApp Documentation</title>
+    <title>1</title>
 
     <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet">
 
-    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.style.css") }}" media="screen">
-    <link rel="stylesheet" href="{{ asset("/vendor/scribe/css/theme-default.print.css") }}" media="print">
+    <link rel="stylesheet" href="../docs/css/theme-default.style.css" media="screen">
+    <link rel="stylesheet" href="../docs/css/theme-default.print.css" media="print">
 
     <script src="https://cdn.jsdelivr.net/npm/lodash@4.17.10/lodash.min.js"></script>
 
@@ -26,13 +26,13 @@
             </style>
 
     <script>
-        var baseUrl = "http://127.0.0.1:8000";
+        var baseUrl = "192.168.43.41:8000";
         var useCsrf = Boolean(1);
         var csrfUrl = "/sanctum/csrf-cookie";
     </script>
-    <script src="{{ asset("/vendor/scribe/js/tryitout-4.12.0.js") }}"></script>
+    <script src="../docs/js/tryitout-4.12.0.js"></script>
 
-    <script src="{{ asset("/vendor/scribe/js/theme-default-4.12.0.js") }}"></script>
+    <script src="../docs/js/theme-default-4.12.0.js"></script>
 
 </head>
 
@@ -41,7 +41,7 @@
 <a href="#" id="nav-button">
     <span>
         MENU
-        <img src="{{ asset("/vendor/scribe/images/navbar.png") }}" alt="navbar-image"/>
+        <img src="../docs/images/navbar.png" alt="navbar-image"/>
     </span>
 </a>
 <div class="tocify-wrapper">
@@ -166,13 +166,13 @@
             </div>
 
     <ul class="toc-footer" id="toc-footer">
-                    <li style="padding-bottom: 5px;"><a href="{{ route("scribe.postman") }}">View Postman collection</a></li>
-                            <li style="padding-bottom: 5px;"><a href="{{ route("scribe.openapi") }}">View OpenAPI spec</a></li>
+                    <li style="padding-bottom: 5px;"><a href="../docs/collection.json">View Postman collection</a></li>
+                            <li style="padding-bottom: 5px;"><a href="../docs/openapi.yaml">View OpenAPI spec</a></li>
                 <li><a href="http://github.com/knuckleswtf/scribe">Documentation powered by Scribe ✍</a></li>
     </ul>
 
     <ul class="toc-footer" id="last-updated">
-        <li>Last updated: January 20, 2023</li>
+        <li>Last updated: January 23, 2023</li>
     </ul>
 </div>
 
@@ -181,14 +181,14 @@
     <div class="content">
         <h1 id="introduction">Introduction</h1>
 <aside>
-    <strong>Base URL</strong>: <code>http://127.0.0.1:8000</code>
+    <strong>Base URL</strong>: <code>192.168.43.41:8000</code>
 </aside>
 <p>This documentation aims to provide all the information you need to work with our API.</p>
 <aside>As you scroll, you'll see code examples for working with the API in different programming languages in the dark area to the right (or as part of the content on mobile).
 You can switch the language used with the tabs at the top right (or from the nav menu at the top left on mobile).</aside>
 
         <h1 id="authenticating-requests">Authenticating requests</h1>
-<p>This API is authenticated by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
+<p>Authenticate requests to this API's endpoints by sending an <strong><code>Authorization</code></strong> header with the value <strong><code>"Bearer {YOUR_AUTH_KEY}"</code></strong>.</p>
 <p>All authenticated endpoints are marked with a <code>requires authentication</code> badge in the documentation below.</p>
 <p>You can retrieve your token by visiting your dashboard and clicking <b>Generate API token</b>.</p>
 
@@ -210,7 +210,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/users" \
+    --get "192.168.43.41:8000/api/users" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -218,7 +218,7 @@ You can switch the language used with the tabs at the top right (or from the nav
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/users"
+    "192.168.43.41:8000/api/users"
 );
 
 const headers = {
@@ -245,7 +245,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 47
+x-ratelimit-remaining: 59
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -259,6 +259,16 @@ access-control-allow-origin: *
         &quot;profile&quot;: null,
         &quot;created_at&quot;: &quot;2023-01-20T03:35:58.000000Z&quot;,
         &quot;updated_at&quot;: &quot;2023-01-20T03:35:58.000000Z&quot;
+    },
+    {
+        &quot;id&quot;: 2,
+        &quot;role&quot;: &quot;client&quot;,
+        &quot;name&quot;: &quot;Ahmed alam&quot;,
+        &quot;email&quot;: &quot;ahmed1234@gmail.com&quot;,
+        &quot;email_verified_at&quot;: null,
+        &quot;profile&quot;: null,
+        &quot;created_at&quot;: &quot;2023-01-21T19:19:04.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2023-01-21T19:19:04.000000Z&quot;
     }
 ]</code>
  </pre>
@@ -351,21 +361,21 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/users" \
+    "192.168.43.41:8000/api/users" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"ljseijgmdyrfsmrwxtoemqfmfxjrfxdbovlufhbzbvwjqkaxvikmlghjvkbn\",
-    \"email\": \"bailey.carley@example.org\",
-    \"password\": \"3ToL*b\\\"\\\"1X\"
+    \"name\": \"ygsvhfaounfgjdxvwdibeiqdp\",
+    \"email\": \"imarquardt@example.com\",
+    \"password\": \"8YlXv*0w`~-k#)q@&gt;Yf-\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/users"
+    "192.168.43.41:8000/api/users"
 );
 
 const headers = {
@@ -375,9 +385,9 @@ const headers = {
 };
 
 let body = {
-    "name": "ljseijgmdyrfsmrwxtoemqfmfxjrfxdbovlufhbzbvwjqkaxvikmlghjvkbn",
-    "email": "bailey.carley@example.org",
-    "password": "3ToL*b\"\"1X"
+    "name": "ygsvhfaounfgjdxvwdibeiqdp",
+    "email": "imarquardt@example.com",
+    "password": "8YlXv*0w`~-k#)q@&gt;Yf-"
 };
 
 fetch(url, {
@@ -469,10 +479,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="POSTapi-users"
-               value="ljseijgmdyrfsmrwxtoemqfmfxjrfxdbovlufhbzbvwjqkaxvikmlghjvkbn"
+               value="ygsvhfaounfgjdxvwdibeiqdp"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>ljseijgmdyrfsmrwxtoemqfmfxjrfxdbovlufhbzbvwjqkaxvikmlghjvkbn</code></p>
+<p>Must be at least 4 characters. Example: <code>ygsvhfaounfgjdxvwdibeiqdp</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>email</code></b>&nbsp;&nbsp;
@@ -480,10 +490,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="email"                data-endpoint="POSTapi-users"
-               value="bailey.carley@example.org"
+               value="imarquardt@example.com"
                data-component="body">
     <br>
-<p>Must be a valid email address. Example: <code>bailey.carley@example.org</code></p>
+<p>Must be a valid email address. Example: <code>imarquardt@example.com</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>password</code></b>&nbsp;&nbsp;
@@ -491,10 +501,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="password"                data-endpoint="POSTapi-users"
-               value="3ToL*b""1X"
+               value="8YlXv*0w`~-k#)q@>Yf-"
                data-component="body">
     <br>
-<p>Must be at least 6 characters. Example: <code>3ToL*b""1X</code></p>
+<p>Must be at least 6 characters. Example: <code>8YlXv*0w</code>~-k#)q@&gt;Yf-`</p>
         </div>
         </form>
 
@@ -512,7 +522,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/users/1" \
+    --get "192.168.43.41:8000/api/users/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -520,7 +530,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/users/1"
+    "192.168.43.41:8000/api/users/1"
 );
 
 const headers = {
@@ -547,7 +557,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 46
+x-ratelimit-remaining: 58
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -663,7 +673,7 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/users/1" \
+    "192.168.43.41:8000/api/users/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -671,7 +681,7 @@ access-control-allow-origin: *
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/users/1"
+    "192.168.43.41:8000/api/users/1"
 );
 
 const headers = {
@@ -793,7 +803,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/users/1" \
+    "192.168.43.41:8000/api/users/1" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -801,7 +811,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/users/1"
+    "192.168.43.41:8000/api/users/1"
 );
 
 const headers = {
@@ -919,7 +929,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/equipements" \
+    --get "192.168.43.41:8000/api/equipements" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -927,7 +937,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/equipements"
+    "192.168.43.41:8000/api/equipements"
 );
 
 const headers = {
@@ -954,7 +964,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 45
+x-ratelimit-remaining: 57
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -1049,21 +1059,21 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/equipements" \
+    "192.168.43.41:8000/api/equipements" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"bfvnabvijjb\",
-    \"category\": \"et\",
-    \"description\": \"suscipit\"
+    \"name\": \"qiwdsv\",
+    \"category\": \"excepturi\",
+    \"description\": \"quidem\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/equipements"
+    "192.168.43.41:8000/api/equipements"
 );
 
 const headers = {
@@ -1073,9 +1083,9 @@ const headers = {
 };
 
 let body = {
-    "name": "bfvnabvijjb",
-    "category": "et",
-    "description": "suscipit"
+    "name": "qiwdsv",
+    "category": "excepturi",
+    "description": "quidem"
 };
 
 fetch(url, {
@@ -1167,10 +1177,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="POSTapi-equipements"
-               value="bfvnabvijjb"
+               value="qiwdsv"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>bfvnabvijjb</code></p>
+<p>Must be at least 4 characters. Example: <code>qiwdsv</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -1178,10 +1188,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="POSTapi-equipements"
-               value="et"
+               value="excepturi"
                data-component="body">
     <br>
-<p>Example: <code>et</code></p>
+<p>Example: <code>excepturi</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1189,10 +1199,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="POSTapi-equipements"
-               value="suscipit"
+               value="quidem"
                data-component="body">
     <br>
-<p>Example: <code>suscipit</code></p>
+<p>Example: <code>quidem</code></p>
         </div>
         </form>
 
@@ -1210,7 +1220,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/equipements/2" \
+    --get "192.168.43.41:8000/api/equipements/16" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1218,7 +1228,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/equipements/2"
+    "192.168.43.41:8000/api/equipements/16"
 );
 
 const headers = {
@@ -1245,12 +1255,12 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 44
+x-ratelimit-remaining: 56
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Equipement] 2&quot;,
+    &quot;message&quot;: &quot;No query results for model [App\\Models\\Equipement] 16&quot;,
     &quot;exception&quot;: &quot;Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException&quot;,
     &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
     &quot;line&quot;: 391,
@@ -1772,10 +1782,10 @@ access-control-allow-origin: *
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-equipements--id-"
-               value="2"
+               value="16"
                data-component="url">
     <br>
-<p>The ID of the equipement. Example: <code>2</code></p>
+<p>The ID of the equipement. Example: <code>16</code></p>
             </div>
                     </form>
 
@@ -1793,21 +1803,21 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/equipements/7" \
+    "192.168.43.41:8000/api/equipements/3" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"iiiixnnzdecmvxvcyesnnlcbhxxevqtwwjhfqx\",
-    \"category\": \"eos\",
-    \"description\": \"sint\"
+    \"name\": \"fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk\",
+    \"category\": \"et\",
+    \"description\": \"vero\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/equipements/7"
+    "192.168.43.41:8000/api/equipements/3"
 );
 
 const headers = {
@@ -1817,9 +1827,9 @@ const headers = {
 };
 
 let body = {
-    "name": "iiiixnnzdecmvxvcyesnnlcbhxxevqtwwjhfqx",
-    "category": "eos",
-    "description": "sint"
+    "name": "fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk",
+    "category": "et",
+    "description": "vero"
 };
 
 fetch(url, {
@@ -1915,10 +1925,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-equipements--id-"
-               value="7"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the equipement. Example: <code>7</code></p>
+<p>The ID of the equipement. Example: <code>3</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -1927,10 +1937,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-equipements--id-"
-               value="iiiixnnzdecmvxvcyesnnlcbhxxevqtwwjhfqx"
+               value="fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>iiiixnnzdecmvxvcyesnnlcbhxxevqtwwjhfqx</code></p>
+<p>Must be at least 4 characters. Example: <code>fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -1938,10 +1948,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="PUTapi-equipements--id-"
-               value="eos"
+               value="et"
                data-component="body">
     <br>
-<p>Example: <code>eos</code></p>
+<p>Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -1949,10 +1959,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="PUTapi-equipements--id-"
-               value="sint"
+               value="vero"
                data-component="body">
     <br>
-<p>Example: <code>sint</code></p>
+<p>Example: <code>vero</code></p>
         </div>
         </form>
 
@@ -1970,7 +1980,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/equipements/13" \
+    "192.168.43.41:8000/api/equipements/11" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -1978,7 +1988,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/equipements/13"
+    "192.168.43.41:8000/api/equipements/11"
 );
 
 const headers = {
@@ -2075,10 +2085,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-equipements--id-"
-               value="13"
+               value="11"
                data-component="url">
     <br>
-<p>The ID of the equipement. Example: <code>13</code></p>
+<p>The ID of the equipement. Example: <code>11</code></p>
             </div>
                     </form>
 
@@ -2096,7 +2106,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/products" \
+    --get "192.168.43.41:8000/api/products" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2104,7 +2114,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/products"
+    "192.168.43.41:8000/api/products"
 );
 
 const headers = {
@@ -2131,7 +2141,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 43
+x-ratelimit-remaining: 55
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -2226,23 +2236,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/products" \
+    "192.168.43.41:8000/api/products" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"cijpvnubvcnnxeogpnvkvcvkyqniskdbiirmutayamgtsrmeefkyxeniijskkobx\",
-    \"category\": \"dolor\",
-    \"description\": \"soluta\",
-    \"prix\": 59,
-    \"stock\": 27
+    \"name\": \"ejnspzfisnlwrhyiwgtrncecy\",
+    \"category\": \"necessitatibus\",
+    \"description\": \"voluptatem\",
+    \"prix\": 37,
+    \"stock\": 65
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/products"
+    "192.168.43.41:8000/api/products"
 );
 
 const headers = {
@@ -2252,11 +2262,11 @@ const headers = {
 };
 
 let body = {
-    "name": "cijpvnubvcnnxeogpnvkvcvkyqniskdbiirmutayamgtsrmeefkyxeniijskkobx",
-    "category": "dolor",
-    "description": "soluta",
-    "prix": 59,
-    "stock": 27
+    "name": "ejnspzfisnlwrhyiwgtrncecy",
+    "category": "necessitatibus",
+    "description": "voluptatem",
+    "prix": 37,
+    "stock": 65
 };
 
 fetch(url, {
@@ -2348,10 +2358,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="POSTapi-products"
-               value="cijpvnubvcnnxeogpnvkvcvkyqniskdbiirmutayamgtsrmeefkyxeniijskkobx"
+               value="ejnspzfisnlwrhyiwgtrncecy"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>cijpvnubvcnnxeogpnvkvcvkyqniskdbiirmutayamgtsrmeefkyxeniijskkobx</code></p>
+<p>Must be at least 4 characters. Example: <code>ejnspzfisnlwrhyiwgtrncecy</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -2359,10 +2369,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="POSTapi-products"
-               value="dolor"
+               value="necessitatibus"
                data-component="body">
     <br>
-<p>Example: <code>dolor</code></p>
+<p>Example: <code>necessitatibus</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -2370,10 +2380,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="POSTapi-products"
-               value="soluta"
+               value="voluptatem"
                data-component="body">
     <br>
-<p>Example: <code>soluta</code></p>
+<p>Example: <code>voluptatem</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>prix</code></b>&nbsp;&nbsp;
@@ -2381,10 +2391,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="prix"                data-endpoint="POSTapi-products"
-               value="59"
+               value="37"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>59</code></p>
+<p>Must be at least 0. Example: <code>37</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>stock</code></b>&nbsp;&nbsp;
@@ -2392,10 +2402,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="stock"                data-endpoint="POSTapi-products"
-               value="27"
+               value="65"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>27</code></p>
+<p>Must be at least 0. Example: <code>65</code></p>
         </div>
         </form>
 
@@ -2413,7 +2423,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/products/13" \
+    --get "192.168.43.41:8000/api/products/7" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -2421,7 +2431,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/products/13"
+    "192.168.43.41:8000/api/products/7"
 );
 
 const headers = {
@@ -2448,12 +2458,12 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 42
+x-ratelimit-remaining: 54
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Product] 13&quot;,
+    &quot;message&quot;: &quot;No query results for model [App\\Models\\Product] 7&quot;,
     &quot;exception&quot;: &quot;Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException&quot;,
     &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
     &quot;line&quot;: 391,
@@ -2975,10 +2985,10 @@ access-control-allow-origin: *
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-products--id-"
-               value="13"
+               value="7"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>13</code></p>
+<p>The ID of the product. Example: <code>7</code></p>
             </div>
                     </form>
 
@@ -2996,23 +3006,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/products/8" \
+    "192.168.43.41:8000/api/products/15" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"yralevjddtesrzgsygfpbjtylvzmmfdullrevncbsgsmfnqbnhfpcvp\",
-    \"category\": \"facere\",
-    \"description\": \"aut\",
-    \"prix\": 17,
-    \"stock\": 55
+    \"name\": \"uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr\",
+    \"category\": \"dolor\",
+    \"description\": \"et\",
+    \"prix\": 2,
+    \"stock\": 59
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/products/8"
+    "192.168.43.41:8000/api/products/15"
 );
 
 const headers = {
@@ -3022,11 +3032,11 @@ const headers = {
 };
 
 let body = {
-    "name": "yralevjddtesrzgsygfpbjtylvzmmfdullrevncbsgsmfnqbnhfpcvp",
-    "category": "facere",
-    "description": "aut",
-    "prix": 17,
-    "stock": 55
+    "name": "uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr",
+    "category": "dolor",
+    "description": "et",
+    "prix": 2,
+    "stock": 59
 };
 
 fetch(url, {
@@ -3122,10 +3132,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-products--id-"
-               value="8"
+               value="15"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>8</code></p>
+<p>The ID of the product. Example: <code>15</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -3134,10 +3144,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-products--id-"
-               value="yralevjddtesrzgsygfpbjtylvzmmfdullrevncbsgsmfnqbnhfpcvp"
+               value="uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>yralevjddtesrzgsygfpbjtylvzmmfdullrevncbsgsmfnqbnhfpcvp</code></p>
+<p>Must be at least 4 characters. Example: <code>uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -3145,10 +3155,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="PUTapi-products--id-"
-               value="facere"
+               value="dolor"
                data-component="body">
     <br>
-<p>Example: <code>facere</code></p>
+<p>Example: <code>dolor</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -3156,10 +3166,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="PUTapi-products--id-"
-               value="aut"
+               value="et"
                data-component="body">
     <br>
-<p>Example: <code>aut</code></p>
+<p>Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>prix</code></b>&nbsp;&nbsp;
@@ -3167,10 +3177,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="prix"                data-endpoint="PUTapi-products--id-"
-               value="17"
+               value="2"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>17</code></p>
+<p>Must be at least 0. Example: <code>2</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>stock</code></b>&nbsp;&nbsp;
@@ -3178,10 +3188,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="stock"                data-endpoint="PUTapi-products--id-"
-               value="55"
+               value="59"
                data-component="body">
     <br>
-<p>Must be at least 0. Example: <code>55</code></p>
+<p>Must be at least 0. Example: <code>59</code></p>
         </div>
         </form>
 
@@ -3199,7 +3209,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/products/19" \
+    "192.168.43.41:8000/api/products/20" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3207,7 +3217,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/products/19"
+    "192.168.43.41:8000/api/products/20"
 );
 
 const headers = {
@@ -3304,10 +3314,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-products--id-"
-               value="19"
+               value="20"
                data-component="url">
     <br>
-<p>The ID of the product. Example: <code>19</code></p>
+<p>The ID of the product. Example: <code>20</code></p>
             </div>
                     </form>
 
@@ -3325,7 +3335,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/meals" \
+    --get "192.168.43.41:8000/api/meals" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3333,7 +3343,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/meals"
+    "192.168.43.41:8000/api/meals"
 );
 
 const headers = {
@@ -3360,7 +3370,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 41
+x-ratelimit-remaining: 53
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -3455,23 +3465,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/meals" \
+    "192.168.43.41:8000/api/meals" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"casidlgvofrkddwmqkmgvwldxkiqegjwycpgppcn\",
-    \"category\": \"reprehenderit\",
-    \"description\": \"quia\",
-    \"weight\": \"eaque\",
-    \"isVegan\": \"enim\"
+    \"name\": \"cgyaxufccnezzalafticujxqviqwypognymuhv\",
+    \"category\": \"dicta\",
+    \"description\": \"eos\",
+    \"weight\": \"repellat\",
+    \"isVegan\": \"voluptatem\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/meals"
+    "192.168.43.41:8000/api/meals"
 );
 
 const headers = {
@@ -3481,11 +3491,11 @@ const headers = {
 };
 
 let body = {
-    "name": "casidlgvofrkddwmqkmgvwldxkiqegjwycpgppcn",
-    "category": "reprehenderit",
-    "description": "quia",
-    "weight": "eaque",
-    "isVegan": "enim"
+    "name": "cgyaxufccnezzalafticujxqviqwypognymuhv",
+    "category": "dicta",
+    "description": "eos",
+    "weight": "repellat",
+    "isVegan": "voluptatem"
 };
 
 fetch(url, {
@@ -3577,10 +3587,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="POSTapi-meals"
-               value="casidlgvofrkddwmqkmgvwldxkiqegjwycpgppcn"
+               value="cgyaxufccnezzalafticujxqviqwypognymuhv"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>casidlgvofrkddwmqkmgvwldxkiqegjwycpgppcn</code></p>
+<p>Must be at least 4 characters. Example: <code>cgyaxufccnezzalafticujxqviqwypognymuhv</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -3588,10 +3598,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="POSTapi-meals"
-               value="reprehenderit"
+               value="dicta"
                data-component="body">
     <br>
-<p>Example: <code>reprehenderit</code></p>
+<p>Example: <code>dicta</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -3599,10 +3609,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="POSTapi-meals"
-               value="quia"
+               value="eos"
                data-component="body">
     <br>
-<p>Example: <code>quia</code></p>
+<p>Example: <code>eos</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>weight</code></b>&nbsp;&nbsp;
@@ -3610,10 +3620,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="weight"                data-endpoint="POSTapi-meals"
-               value="eaque"
+               value="repellat"
                data-component="body">
     <br>
-<p>Example: <code>eaque</code></p>
+<p>Example: <code>repellat</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>isVegan</code></b>&nbsp;&nbsp;
@@ -3621,10 +3631,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="isVegan"                data-endpoint="POSTapi-meals"
-               value="enim"
+               value="voluptatem"
                data-component="body">
     <br>
-<p>Example: <code>enim</code></p>
+<p>Example: <code>voluptatem</code></p>
         </div>
         </form>
 
@@ -3642,7 +3652,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/meals/16" \
+    --get "192.168.43.41:8000/api/meals/20" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -3650,7 +3660,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/meals/16"
+    "192.168.43.41:8000/api/meals/20"
 );
 
 const headers = {
@@ -3677,12 +3687,12 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 40
+x-ratelimit-remaining: 52
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Meal] 16&quot;,
+    &quot;message&quot;: &quot;No query results for model [App\\Models\\Meal] 20&quot;,
     &quot;exception&quot;: &quot;Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException&quot;,
     &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
     &quot;line&quot;: 391,
@@ -4204,10 +4214,10 @@ access-control-allow-origin: *
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-meals--id-"
-               value="16"
+               value="20"
                data-component="url">
     <br>
-<p>The ID of the meal. Example: <code>16</code></p>
+<p>The ID of the meal. Example: <code>20</code></p>
             </div>
                     </form>
 
@@ -4225,23 +4235,23 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/meals/19" \
+    "192.168.43.41:8000/api/meals/3" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"hglmuswlwshopmmcnxsfelnphaovbxfoeoybg\",
-    \"category\": \"sed\",
-    \"description\": \"aperiam\",
-    \"weight\": \"non\",
-    \"isVegan\": \"expedita\"
+    \"name\": \"jawwtexpctnc\",
+    \"category\": \"nesciunt\",
+    \"description\": \"ut\",
+    \"weight\": \"deserunt\",
+    \"isVegan\": \"quis\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/meals/19"
+    "192.168.43.41:8000/api/meals/3"
 );
 
 const headers = {
@@ -4251,11 +4261,11 @@ const headers = {
 };
 
 let body = {
-    "name": "hglmuswlwshopmmcnxsfelnphaovbxfoeoybg",
-    "category": "sed",
-    "description": "aperiam",
-    "weight": "non",
-    "isVegan": "expedita"
+    "name": "jawwtexpctnc",
+    "category": "nesciunt",
+    "description": "ut",
+    "weight": "deserunt",
+    "isVegan": "quis"
 };
 
 fetch(url, {
@@ -4351,10 +4361,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-meals--id-"
-               value="19"
+               value="3"
                data-component="url">
     <br>
-<p>The ID of the meal. Example: <code>19</code></p>
+<p>The ID of the meal. Example: <code>3</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -4363,10 +4373,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-meals--id-"
-               value="hglmuswlwshopmmcnxsfelnphaovbxfoeoybg"
+               value="jawwtexpctnc"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>hglmuswlwshopmmcnxsfelnphaovbxfoeoybg</code></p>
+<p>Must be at least 4 characters. Example: <code>jawwtexpctnc</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -4374,10 +4384,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="PUTapi-meals--id-"
-               value="sed"
+               value="nesciunt"
                data-component="body">
     <br>
-<p>Example: <code>sed</code></p>
+<p>Example: <code>nesciunt</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -4385,10 +4395,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="PUTapi-meals--id-"
-               value="aperiam"
+               value="ut"
                data-component="body">
     <br>
-<p>Example: <code>aperiam</code></p>
+<p>Example: <code>ut</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>weight</code></b>&nbsp;&nbsp;
@@ -4396,10 +4406,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="weight"                data-endpoint="PUTapi-meals--id-"
-               value="non"
+               value="deserunt"
                data-component="body">
     <br>
-<p>Example: <code>non</code></p>
+<p>Example: <code>deserunt</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>isVegan</code></b>&nbsp;&nbsp;
@@ -4407,10 +4417,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="isVegan"                data-endpoint="PUTapi-meals--id-"
-               value="expedita"
+               value="quis"
                data-component="body">
     <br>
-<p>Example: <code>expedita</code></p>
+<p>Example: <code>quis</code></p>
         </div>
         </form>
 
@@ -4428,7 +4438,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/meals/12" \
+    "192.168.43.41:8000/api/meals/6" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4436,7 +4446,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/meals/12"
+    "192.168.43.41:8000/api/meals/6"
 );
 
 const headers = {
@@ -4533,10 +4543,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-meals--id-"
-               value="12"
+               value="6"
                data-component="url">
     <br>
-<p>The ID of the meal. Example: <code>12</code></p>
+<p>The ID of the meal. Example: <code>6</code></p>
             </div>
                     </form>
 
@@ -4554,7 +4564,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/activities" \
+    --get "192.168.43.41:8000/api/activities" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4562,7 +4572,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/activities"
+    "192.168.43.41:8000/api/activities"
 );
 
 const headers = {
@@ -4589,11 +4599,20 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 39
+x-ratelimit-remaining: 51
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
-<code class="language-json" style="max-height: 300px;">[]</code>
+<code class="language-json" style="max-height: 300px;">[
+    {
+        &quot;id&quot;: 2,
+        &quot;name&quot;: &quot;test&quot;,
+        &quot;category&quot;: &quot;Core&quot;,
+        &quot;description&quot;: &quot;some text&quot;,
+        &quot;created_at&quot;: &quot;2023-01-21T19:23:39.000000Z&quot;,
+        &quot;updated_at&quot;: &quot;2023-01-21T19:23:39.000000Z&quot;
+    }
+]</code>
  </pre>
     </span>
 <span id="execution-results-GETapi-activities" hidden>
@@ -4684,21 +4703,21 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/activities" \
+    "192.168.43.41:8000/api/activities" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"evmaxzwcpkwquylygzfuudsuhwwt\",
-    \"category\": \"explicabo\",
-    \"description\": \"non\"
+    \"name\": \"zvbd\",
+    \"category\": \"fugit\",
+    \"description\": \"velit\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/activities"
+    "192.168.43.41:8000/api/activities"
 );
 
 const headers = {
@@ -4708,9 +4727,9 @@ const headers = {
 };
 
 let body = {
-    "name": "evmaxzwcpkwquylygzfuudsuhwwt",
-    "category": "explicabo",
-    "description": "non"
+    "name": "zvbd",
+    "category": "fugit",
+    "description": "velit"
 };
 
 fetch(url, {
@@ -4802,10 +4821,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="POSTapi-activities"
-               value="evmaxzwcpkwquylygzfuudsuhwwt"
+               value="zvbd"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>evmaxzwcpkwquylygzfuudsuhwwt</code></p>
+<p>Must be at least 4 characters. Example: <code>zvbd</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -4813,10 +4832,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="POSTapi-activities"
-               value="explicabo"
+               value="fugit"
                data-component="body">
     <br>
-<p>Example: <code>explicabo</code></p>
+<p>Example: <code>fugit</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -4824,10 +4843,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="POSTapi-activities"
-               value="non"
+               value="velit"
                data-component="body">
     <br>
-<p>Example: <code>non</code></p>
+<p>Example: <code>velit</code></p>
         </div>
         </form>
 
@@ -4845,7 +4864,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/activities/8" \
+    --get "192.168.43.41:8000/api/activities/2" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -4853,7 +4872,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/activities/8"
+    "192.168.43.41:8000/api/activities/2"
 );
 
 const headers = {
@@ -4871,7 +4890,7 @@ fetch(url, {
 
 <span id="example-responses-GETapi-activities--id-">
             <blockquote>
-            <p>Example response (404):</p>
+            <p>Example response (200):</p>
         </blockquote>
                 <details class="annotation">
             <summary style="cursor: pointer;">
@@ -4880,451 +4899,17 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 38
+x-ratelimit-remaining: 50
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Activity] 8&quot;,
-    &quot;exception&quot;: &quot;Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException&quot;,
-    &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
-    &quot;line&quot;: 391,
-    &quot;trace&quot;: [
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
-            &quot;line&quot;: 367,
-            &quot;function&quot;: &quot;prepareException&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Exceptions\\Handler&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php&quot;,
-            &quot;line&quot;: 54,
-            &quot;function&quot;: &quot;render&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Exceptions\\Handler&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php&quot;,
-            &quot;line&quot;: 51,
-            &quot;function&quot;: &quot;render&quot;,
-            &quot;class&quot;: &quot;NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 143,
-            &quot;function&quot;: &quot;handleException&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php&quot;,
-            &quot;line&quot;: 50,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\SubstituteBindings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php&quot;,
-            &quot;line&quot;: 126,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php&quot;,
-            &quot;line&quot;: 92,
-            &quot;function&quot;: &quot;handleRequest&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php&quot;,
-            &quot;line&quot;: 54,
-            &quot;function&quot;: &quot;handleRequestUsingNamedLimiter&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Middleware\\ThrottleRequests&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php&quot;,
-            &quot;line&quot;: 44,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Auth\\Middleware\\Authenticate&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 116,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php&quot;,
-            &quot;line&quot;: 797,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php&quot;,
-            &quot;line&quot;: 776,
-            &quot;function&quot;: &quot;runRouteWithinStack&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php&quot;,
-            &quot;line&quot;: 740,
-            &quot;function&quot;: &quot;runRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php&quot;,
-            &quot;line&quot;: 729,
-            &quot;function&quot;: &quot;dispatchToRoute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php&quot;,
-            &quot;line&quot;: 190,
-            &quot;function&quot;: &quot;dispatch&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Routing\\Router&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 141,
-            &quot;function&quot;: &quot;Illuminate\\Foundation\\Http\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php&quot;,
-            &quot;line&quot;: 31,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php&quot;,
-            &quot;line&quot;: 21,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php&quot;,
-            &quot;line&quot;: 40,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\TrimStrings&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php&quot;,
-            &quot;line&quot;: 27,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php&quot;,
-            &quot;line&quot;: 86,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php&quot;,
-            &quot;line&quot;: 62,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Http\\Middleware\\HandleCors&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php&quot;,
-            &quot;line&quot;: 39,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 180,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Http\\Middleware\\TrustProxies&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php&quot;,
-            &quot;line&quot;: 116,
-            &quot;function&quot;: &quot;Illuminate\\Pipeline\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php&quot;,
-            &quot;line&quot;: 165,
-            &quot;function&quot;: &quot;then&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Pipeline\\Pipeline&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php&quot;,
-            &quot;line&quot;: 134,
-            &quot;function&quot;: &quot;sendRequestThroughRouter&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php&quot;,
-            &quot;line&quot;: 299,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Http\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php&quot;,
-            &quot;line&quot;: 287,
-            &quot;function&quot;: &quot;callLaravelOrLumenRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php&quot;,
-            &quot;line&quot;: 92,
-            &quot;function&quot;: &quot;makeApiCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php&quot;,
-            &quot;line&quot;: 45,
-            &quot;function&quot;: &quot;makeResponseCall&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php&quot;,
-            &quot;line&quot;: 35,
-            &quot;function&quot;: &quot;makeResponseCallIfConditionsPass&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php&quot;,
-            &quot;line&quot;: 209,
-            &quot;function&quot;: &quot;__invoke&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php&quot;,
-            &quot;line&quot;: 163,
-            &quot;function&quot;: &quot;iterateThroughStrategies&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php&quot;,
-            &quot;line&quot;: 95,
-            &quot;function&quot;: &quot;fetchResponses&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 122,
-            &quot;function&quot;: &quot;processRoute&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Extracting\\Extractor&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 69,
-            &quot;function&quot;: &quot;extractEndpointsInfoFromLaravelApp&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php&quot;,
-            &quot;line&quot;: 47,
-            &quot;function&quot;: &quot;extractEndpointsInfoAndWriteToDisk&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php&quot;,
-            &quot;line&quot;: 51,
-            &quot;function&quot;: &quot;get&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php&quot;,
-            &quot;line&quot;: 36,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Knuckles\\Scribe\\Commands\\GenerateDocumentation&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php&quot;,
-            &quot;line&quot;: 41,
-            &quot;function&quot;: &quot;Illuminate\\Container\\{closure}&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php&quot;,
-            &quot;line&quot;: 93,
-            &quot;function&quot;: &quot;unwrapIfClosure&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Util&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php&quot;,
-            &quot;line&quot;: 35,
-            &quot;function&quot;: &quot;callBoundMethod&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php&quot;,
-            &quot;line&quot;: 663,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\BoundMethod&quot;,
-            &quot;type&quot;: &quot;::&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php&quot;,
-            &quot;line&quot;: 182,
-            &quot;function&quot;: &quot;call&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Container\\Container&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Command\\Command.php&quot;,
-            &quot;line&quot;: 312,
-            &quot;function&quot;: &quot;execute&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php&quot;,
-            &quot;line&quot;: 151,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Command\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php&quot;,
-            &quot;line&quot;: 1022,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Command&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php&quot;,
-            &quot;line&quot;: 314,
-            &quot;function&quot;: &quot;doRunCommand&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php&quot;,
-            &quot;line&quot;: 168,
-            &quot;function&quot;: &quot;doRun&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php&quot;,
-            &quot;line&quot;: 102,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Symfony\\Component\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php&quot;,
-            &quot;line&quot;: 155,
-            &quot;function&quot;: &quot;run&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Console\\Application&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        },
-        {
-            &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\artisan&quot;,
-            &quot;line&quot;: 35,
-            &quot;function&quot;: &quot;handle&quot;,
-            &quot;class&quot;: &quot;Illuminate\\Foundation\\Console\\Kernel&quot;,
-            &quot;type&quot;: &quot;-&gt;&quot;
-        }
-    ]
+    &quot;id&quot;: 2,
+    &quot;name&quot;: &quot;test&quot;,
+    &quot;category&quot;: &quot;Core&quot;,
+    &quot;description&quot;: &quot;some text&quot;,
+    &quot;created_at&quot;: &quot;2023-01-21T19:23:39.000000Z&quot;,
+    &quot;updated_at&quot;: &quot;2023-01-21T19:23:39.000000Z&quot;
 }</code>
  </pre>
     </span>
@@ -5407,10 +4992,10 @@ access-control-allow-origin: *
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-activities--id-"
-               value="8"
+               value="2"
                data-component="url">
     <br>
-<p>The ID of the activity. Example: <code>8</code></p>
+<p>The ID of the activity. Example: <code>2</code></p>
             </div>
                     </form>
 
@@ -5428,21 +5013,21 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/activities/2" \
+    "192.168.43.41:8000/api/activities/2" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"name\": \"sxfjzehpmhjqgeqjxrrgjjrukikkrstlmnrkhtcowevujtfdieatvylncseqtdmahskuczfsddhcmrhx\",
-    \"category\": \"harum\",
-    \"description\": \"harum\"
+    \"name\": \"yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb\",
+    \"category\": \"et\",
+    \"description\": \"reprehenderit\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/activities/2"
+    "192.168.43.41:8000/api/activities/2"
 );
 
 const headers = {
@@ -5452,9 +5037,9 @@ const headers = {
 };
 
 let body = {
-    "name": "sxfjzehpmhjqgeqjxrrgjjrukikkrstlmnrkhtcowevujtfdieatvylncseqtdmahskuczfsddhcmrhx",
-    "category": "harum",
-    "description": "harum"
+    "name": "yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb",
+    "category": "et",
+    "description": "reprehenderit"
 };
 
 fetch(url, {
@@ -5562,10 +5147,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="name"                data-endpoint="PUTapi-activities--id-"
-               value="sxfjzehpmhjqgeqjxrrgjjrukikkrstlmnrkhtcowevujtfdieatvylncseqtdmahskuczfsddhcmrhx"
+               value="yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb"
                data-component="body">
     <br>
-<p>Must be at least 4 characters. Example: <code>sxfjzehpmhjqgeqjxrrgjjrukikkrstlmnrkhtcowevujtfdieatvylncseqtdmahskuczfsddhcmrhx</code></p>
+<p>Must be at least 4 characters. Example: <code>yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>category</code></b>&nbsp;&nbsp;
@@ -5573,10 +5158,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="category"                data-endpoint="PUTapi-activities--id-"
-               value="harum"
+               value="et"
                data-component="body">
     <br>
-<p>Example: <code>harum</code></p>
+<p>Example: <code>et</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>description</code></b>&nbsp;&nbsp;
@@ -5584,10 +5169,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="description"                data-endpoint="PUTapi-activities--id-"
-               value="harum"
+               value="reprehenderit"
                data-component="body">
     <br>
-<p>Example: <code>harum</code></p>
+<p>Example: <code>reprehenderit</code></p>
         </div>
         </form>
 
@@ -5605,7 +5190,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/activities/13" \
+    "192.168.43.41:8000/api/activities/2" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5613,7 +5198,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/activities/13"
+    "192.168.43.41:8000/api/activities/2"
 );
 
 const headers = {
@@ -5710,10 +5295,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-activities--id-"
-               value="13"
+               value="2"
                data-component="url">
     <br>
-<p>The ID of the activity. Example: <code>13</code></p>
+<p>The ID of the activity. Example: <code>2</code></p>
             </div>
                     </form>
 
@@ -5731,7 +5316,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/feedbacks" \
+    --get "192.168.43.41:8000/api/feedbacks" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -5739,7 +5324,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/feedbacks"
+    "192.168.43.41:8000/api/feedbacks"
 );
 
 const headers = {
@@ -5766,7 +5351,7 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 37
+x-ratelimit-remaining: 49
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
@@ -5861,20 +5446,20 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request POST \
-    "http://127.0.0.1:8000/api/feedbacks" \
+    "192.168.43.41:8000/api/feedbacks" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"aut\",
-    \"message\": \"minima\"
+    \"user_id\": \"vel\",
+    \"message\": \"sit\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/feedbacks"
+    "192.168.43.41:8000/api/feedbacks"
 );
 
 const headers = {
@@ -5884,8 +5469,8 @@ const headers = {
 };
 
 let body = {
-    "user_id": "aut",
-    "message": "minima"
+    "user_id": "vel",
+    "message": "sit"
 };
 
 fetch(url, {
@@ -5977,10 +5562,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="user_id"                data-endpoint="POSTapi-feedbacks"
-               value="aut"
+               value="vel"
                data-component="body">
     <br>
-<p>Example: <code>aut</code></p>
+<p>Example: <code>vel</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>message</code></b>&nbsp;&nbsp;
@@ -5988,10 +5573,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="message"                data-endpoint="POSTapi-feedbacks"
-               value="minima"
+               value="sit"
                data-component="body">
     <br>
-<p>Example: <code>minima</code></p>
+<p>Example: <code>sit</code></p>
         </div>
         </form>
 
@@ -6009,7 +5594,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request GET \
-    --get "http://127.0.0.1:8000/api/feedbacks/15" \
+    --get "192.168.43.41:8000/api/feedbacks/9" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6017,7 +5602,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/feedbacks/15"
+    "192.168.43.41:8000/api/feedbacks/9"
 );
 
 const headers = {
@@ -6044,12 +5629,12 @@ fetch(url, {
             <pre><code class="language-http">cache-control: no-cache, private
 content-type: application/json
 x-ratelimit-limit: 60
-x-ratelimit-remaining: 36
+x-ratelimit-remaining: 48
 access-control-allow-origin: *
  </code></pre></details>         <pre>
 
 <code class="language-json" style="max-height: 300px;">{
-    &quot;message&quot;: &quot;No query results for model [App\\Models\\Feedback] 15&quot;,
+    &quot;message&quot;: &quot;No query results for model [App\\Models\\Feedback] 9&quot;,
     &quot;exception&quot;: &quot;Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException&quot;,
     &quot;file&quot;: &quot;C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php&quot;,
     &quot;line&quot;: 391,
@@ -6571,10 +6156,10 @@ access-control-allow-origin: *
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="GETapi-feedbacks--id-"
-               value="15"
+               value="9"
                data-component="url">
     <br>
-<p>The ID of the feedback. Example: <code>15</code></p>
+<p>The ID of the feedback. Example: <code>9</code></p>
             </div>
                     </form>
 
@@ -6592,20 +6177,20 @@ access-control-allow-origin: *
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request PUT \
-    "http://127.0.0.1:8000/api/feedbacks/3" \
+    "192.168.43.41:8000/api/feedbacks/13" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json" \
     --data "{
-    \"user_id\": \"vel\",
-    \"message\": \"dolores\"
+    \"user_id\": \"corrupti\",
+    \"message\": \"blanditiis\"
 }"
 </code></pre></div>
 
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/feedbacks/3"
+    "192.168.43.41:8000/api/feedbacks/13"
 );
 
 const headers = {
@@ -6615,8 +6200,8 @@ const headers = {
 };
 
 let body = {
-    "user_id": "vel",
-    "message": "dolores"
+    "user_id": "corrupti",
+    "message": "blanditiis"
 };
 
 fetch(url, {
@@ -6712,10 +6297,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="PUTapi-feedbacks--id-"
-               value="3"
+               value="13"
                data-component="url">
     <br>
-<p>The ID of the feedback. Example: <code>3</code></p>
+<p>The ID of the feedback. Example: <code>13</code></p>
             </div>
                             <h4 class="fancy-heading-panel"><b>Body Parameters</b></h4>
         <div style=" padding-left: 28px;  clear: unset;">
@@ -6724,10 +6309,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="user_id"                data-endpoint="PUTapi-feedbacks--id-"
-               value="vel"
+               value="corrupti"
                data-component="body">
     <br>
-<p>Example: <code>vel</code></p>
+<p>Example: <code>corrupti</code></p>
         </div>
                 <div style=" padding-left: 28px;  clear: unset;">
             <b style="line-height: 2;"><code>message</code></b>&nbsp;&nbsp;
@@ -6735,10 +6320,10 @@ fetch(url, {
  &nbsp;
                 <input type="text" style="display: none"
                name="message"                data-endpoint="PUTapi-feedbacks--id-"
-               value="dolores"
+               value="blanditiis"
                data-component="body">
     <br>
-<p>Example: <code>dolores</code></p>
+<p>Example: <code>blanditiis</code></p>
         </div>
         </form>
 
@@ -6756,7 +6341,7 @@ fetch(url, {
 
 <div class="bash-example">
     <pre><code class="language-bash">curl --request DELETE \
-    "http://127.0.0.1:8000/api/feedbacks/16" \
+    "192.168.43.41:8000/api/feedbacks/12" \
     --header "Authorization: Bearer {YOUR_AUTH_KEY}" \
     --header "Content-Type: application/json" \
     --header "Accept: application/json"</code></pre></div>
@@ -6764,7 +6349,7 @@ fetch(url, {
 
 <div class="javascript-example">
     <pre><code class="language-javascript">const url = new URL(
-    "http://127.0.0.1:8000/api/feedbacks/16"
+    "192.168.43.41:8000/api/feedbacks/12"
 );
 
 const headers = {
@@ -6861,10 +6446,10 @@ fetch(url, {
  &nbsp;
                 <input type="number" style="display: none"
                name="id"                data-endpoint="DELETEapi-feedbacks--id-"
-               value="16"
+               value="12"
                data-component="url">
     <br>
-<p>The ID of the feedback. Example: <code>16</code></p>
+<p>The ID of the feedback. Example: <code>12</code></p>
             </div>
                     </form>
 

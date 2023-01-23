@@ -1,11 +1,14 @@
 import React from 'react';
-import {SafeAreaView, StatusBar, useColorScheme} from 'react-native';
+import {StatusBar, useColorScheme} from 'react-native';
 
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {ProductContextProvider} from './src/Context/ProductContext';
-import Home from './src/screens/Home';
+import Authentification from './src/screens/Authentification';
+import BottomNavigation from './src/navigation/BottomNavigation';
 
+const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark';
 
@@ -14,14 +17,16 @@ function App(): JSX.Element {
   };
   return (
     <ProductContextProvider>
-      <SafeAreaView style={backgroundStyle}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
-        />
-        <NavigationContainer>{/* Rest of your app code */}</NavigationContainer>
-        <Home/>
-      </SafeAreaView>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={backgroundStyle.backgroundColor}
+      />
+      <NavigationContainer>
+        <Stack.Navigator initialRouteName="Home">
+          <Stack.Screen name="Home" component={BottomNavigation} />
+          <Stack.Screen name="Auth" component={Authentification} />
+        </Stack.Navigator>
+      </NavigationContainer>
     </ProductContextProvider>
   );
 }

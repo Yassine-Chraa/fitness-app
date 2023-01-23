@@ -1,3 +1,6 @@
 {
   "extends": "@tsconfig/react-native/tsconfig.json",
+  "compilerOptions": {
+    "typeRoots": ["./src/types/env.d.ts"]
+  }
 }
