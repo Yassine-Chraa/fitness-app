@@ -1,14 +1,12 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-} from 'react-native';
-import { useProduct } from '../Context/ProductContext';
+import {StyleSheet, Text} from 'react-native';
+import {useProduct} from '../Context/ProductContext';
 
 function Home(): JSX.Element {
   const {getProducts} = useProduct();
-  const data = getProducts();
-  console.log(data);
+  getProducts().then(res => {
+    console.log(res);
+  });
   return <Text>Home</Text>;
 }
 
