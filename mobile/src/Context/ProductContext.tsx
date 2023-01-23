@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {createContext, useContext, useEffect, useState} from 'react';
-import {Alert} from 'react-native/types';
+import {Alert} from 'react-native';
 import {getUrl} from '../API';
 import {Product} from '../types/Product';
 import {User} from '../types/User';
@@ -30,25 +30,23 @@ const currentUser: User = {
   profile: null,
   created_at: '',
   updated_at: '',
-  token: 'token',
+  token: '1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U',
 };
 export const ProductContextProvider = ({children}: any) => {
   const [loading, setLoading] = useState(false);
   const getProducts = async () => {
     try {
-      setLoading(true);
       const config = {
         headers: {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
+
       const {data} = await axios.get(`${productUrl}`, config);
-      setLoading(false);
       return data;
     } catch (error) {
       Alert.alert('Something went wrong');
       console.log(error);
-      setLoading(false);
     }
   };
   const getProduct = async (id: number) => {
