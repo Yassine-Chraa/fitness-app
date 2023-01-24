@@ -6,6 +6,7 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\UserController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,10 +19,11 @@ use Illuminate\Support\Facades\Route;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-/*Route::post('/tokens/create', function (Request $request) {
-    $token = $request->user()->createToken($request->token_name);
-    return ['token' => $token->plainTextToken];
-});*/
+
+// Route::post('/tokens/create', function (Request $request) {
+//     $token = $request->user()->createToken($request->token_name);
+//     return ['token' => $token->plainTextToken];
+// });
 
 Route::apiResource('users', UserController::class)->middleware('auth:sanctum');
 Route::apiResource('equipements', EquipementController::class)->middleware('auth:sanctum');
