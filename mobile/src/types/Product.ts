@@ -1,4 +1,4 @@
-export interface Product {
+export default interface Product {
   id: number;
   name: string;
   category: 'gym_cloths' | 'mass_gainers';

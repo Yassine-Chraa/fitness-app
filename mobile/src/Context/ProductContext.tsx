@@ -2,8 +2,8 @@ import axios from 'axios';
 import {createContext, useContext, useEffect, useState} from 'react';
 import {Alert} from 'react-native';
 import {getUrl} from '../API';
-import {Product} from '../types/Product';
-import {User} from '../types/User';
+import Product from '../types/Product';
+import User from '../types/User';
 
 export type ProductContextType = {
   getProducts: () => Promise<Array<Product>>;
@@ -30,7 +30,7 @@ const currentUser: User = {
   profile: null,
   created_at: '',
   updated_at: '',
-  token: '1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U',
+  token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
 };
 export const ProductContextProvider = ({children}: any) => {
   const [loading, setLoading] = useState(false);
@@ -43,9 +43,9 @@ export const ProductContextProvider = ({children}: any) => {
       };
 
       const {data} = await axios.get(`${productUrl}`, config);
+      console.log(data)
       return data;
     } catch (error) {
-      Alert.alert('Something went wrong');
       console.log(error);
     }
   };

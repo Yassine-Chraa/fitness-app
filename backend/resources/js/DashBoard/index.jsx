@@ -1,19 +1,20 @@
 import React from "react";
 import App from "./App";
 import ReactDOM from "react-dom/client";
-import { MaterialUIControllerProvider } from "./context";
+import { MaterialUIControllerProvider } from "./dashboardContext";
 import { BrowserRouter } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
+import { ProductContextProvider } from "./apiContext/Context/ProductContext";
 
-
-if (document.getElementById('app')) {
-    const root = ReactDOM.createRoot(document.getElementById('app'));
+if (document.getElementById("dashboard")) {
+    const root = ReactDOM.createRoot(document.getElementById("dashboard"));
 
     root.render(
-        <BrowserRouter>
-            <MaterialUIControllerProvider>
-                <App />
-            </MaterialUIControllerProvider>
-        </BrowserRouter>
+        <ProductContextProvider>
+            <BrowserRouter>
+                <MaterialUIControllerProvider>
+                    <App />
+                </MaterialUIControllerProvider>
+            </BrowserRouter>
+        </ProductContextProvider>
     );
-};
+}
