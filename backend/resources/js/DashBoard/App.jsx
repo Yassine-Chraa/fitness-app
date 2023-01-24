@@ -2,27 +2,28 @@ import { useState, useEffect, useMemo } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import SettingsIcon from '@mui/icons-material/Settings';
-import MDBox from "./components/MDBox";
-import Sidenav from "./examples/Sidenav";
-import Configurator from "./examples/Configurator";
+import SettingsIcon from "@mui/icons-material/Settings";
 import theme from "./assets/theme";
-import themeRTL from "./assets/theme/theme-rtl";
 import themeDark from "./assets/theme-dark";
-import themeDarkRTL from "./assets/theme-dark/theme-rtl";
-import rtlPlugin from "stylis-plugin-rtl";
-import { CacheProvider } from "@emotion/react";
-import createCache from "@emotion/cache";
+import MDBox from "./components/MDBox";
+import Sidenav from "./components/Sidenav";
+import Configurator from "./components/Configurator";
 import routes from "./routes";
-import { useMaterialUIController, setMiniSidenav, setOpenConfigurator } from "./context";
+import {
+    useMaterialUIController,
+    setMiniSidenav,
+    setOpenConfigurator,
+} from "./dashboardContext";
 import brandWhite from "./assets/images/logo-ct.png";
 import brandDark from "./assets/images/logo-ct-dark.png";
+import DashboardNavbar from "./components/Navbars";
+import DashboardLayout from "./components/DashboardLayout";
+import Footer from "./components/Footer";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
     const {
         miniSidenav,
-        direction,
         layout,
         openConfigurator,
         sidenavColor,
@@ -31,17 +32,7 @@ export default function App() {
         darkMode,
     } = controller;
     const [onMouseEnter, setOnMouseEnter] = useState(false);
-    const [rtlCache, setRtlCache] = useState(null);
     const { pathname } = useLocation();
-
-    useMemo(() => {
-        const cacheRtl = createCache({
-            key: "rtl",
-            stylisPlugins: [rtlPlugin],
-        });
-
-        setRtlCache(cacheRtl);
-    }, []);
 
     const handleOnMouseEnter = () => {
         if (miniSidenav && !onMouseEnter) {
@@ -57,11 +48,8 @@ export default function App() {
         }
     };
 
-    const handleConfiguratorOpen = () => setOpenConfigurator(dispatch, !openConfigurator);
-
-    useEffect(() => {
-        document.body.setAttribute("dir", direction);
-    }, [direction]);
+    const handleConfiguratorOpen = () =>
+        setOpenConfigurator(dispatch, !openConfigurator);
 
     useEffect(() => {
         document.documentElement.scrollTop = 0;
@@ -75,7 +63,14 @@ export default function App() {
             }
 
             if (route.route) {
-                return <Route exact path={route.route} element={route.component} key={route.key} />;
+                return (
+                    <Route
+                        exact
+                        path={route.route}
+                        element={route.component}
+                        key={route.key}
+                    />
+                );
             }
 
             return null;
@@ -103,16 +98,22 @@ export default function App() {
         </MDBox>
     );
 
-    return direction === "rtl" ? (
-        <CacheProvider value={rtlCache}>
-            <ThemeProvider theme={darkMode ? themeDarkRTL : themeRTL}>
+    return (
+        <ThemeProvider theme={darkMode ? themeDark : theme}>
+            <DashboardLayout>
+                <DashboardNavbar />
                 <CssBaseline />
                 {layout === "dashboard" && (
                     <>
                         <Sidenav
                             color={sidenavColor}
-                            brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                            brandName="Material Dashboard 2"
+                            brand={
+                                (transparentSidenav && !darkMode) ||
+                                whiteSidenav
+                                    ? brandDark
+                                    : brandWhite
+                            }
+                            brandName="Fitness App"
                             routes={routes}
                             onMouseEnter={handleOnMouseEnter}
                             onMouseLeave={handleOnMouseLeave}
@@ -123,35 +124,11 @@ export default function App() {
                 )}
                 {layout === "vr" && <Configurator />}
                 <Routes>
+                    <Route path="*" element={<Navigate to="/home" />} />
                     {getRoutes(routes)}
-                    <Route path="*" element={<Navigate to="/dashboard" />} />
                 </Routes>
-            </ThemeProvider>
-        </CacheProvider>
-    ) : (
-        // <CacheProvider value={rtlCache}>
-        <ThemeProvider theme={darkMode ? themeDark : theme}>
-            <CssBaseline />
-            {layout === "dashboard" && (
-                <>
-                    <Sidenav
-                        color={sidenavColor}
-                        brand={(transparentSidenav && !darkMode) || whiteSidenav ? brandDark : brandWhite}
-                        brandName="Fitness App"
-                        routes={routes}
-                        onMouseEnter={handleOnMouseEnter}
-                        onMouseLeave={handleOnMouseLeave}
-                    />
-                    <Configurator />
-                    {configsButton}
-                </>
-            )}
-            {layout === "vr" && <Configurator />}
-            <Routes>
-                {getRoutes(routes)}
-                <Route path="*" element={<Navigate to="/home" />} />
-            </Routes>
+                <Footer />
+            </DashboardLayout>
         </ThemeProvider>
-        // </CacheProvider>
     );
 }

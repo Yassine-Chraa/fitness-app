@@ -1,4 +1,4 @@
-export interface User {
+export default interface User {
   id: number;
   role: 'admin' | 'vip' | 'client' | 'coach' | 'doctar';
   name: string;
