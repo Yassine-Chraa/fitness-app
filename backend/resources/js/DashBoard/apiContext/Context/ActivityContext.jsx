@@ -1,15 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { getUrl } from "../API/Helper";
 
-const productContext = createContext();
+const activityContext = createContext();
 
-export const useProduct = () => {
-    const context = useContext(productContext);
-    if (!context) throw new Error("Product Provider is missing");
+export const useActivity = () => {
+    const context = useContext(activityContext);
+    if (!context) throw new Error("Activity Provider is missing");
     return context;
 };
 
-const ProductUrl = getUrl("Products");
+const ActivityUrl = getUrl("Activitys");
 
 //-------------
 const currentUser = {
@@ -25,9 +25,9 @@ const currentUser = {
 };
 //-------------
 
-export const ProductContextProvider = ({ children }) => {
+export const ActivityContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const getProducts = async () => {
+    const getActivitys = async () => {
         try {
             setLoading(true);
             const config = {
@@ -36,7 +36,7 @@ export const ProductContextProvider = ({ children }) => {
                 },
             };
 
-            const { data } = await axios.get(`${ProductUrl}`, config);
+            const { data } = await axios.get(`${ActivityUrl}`, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -44,7 +44,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const getProduct = async (id) => {
+    const getActivity = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -52,7 +52,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${ActivityUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -60,7 +60,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addProduct = async (Product) => {
+    const addActivity = async (Activity) => {
         try {
             setLoading(true);
             const config = {
@@ -68,7 +68,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${ProductUrl}`, Product, config);
+            const { data } = await axios.post(`${ActivityUrl}`, Activity, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -76,7 +76,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const updateProduct = async (id, Product) => {
+    const updateActivity = async (id, Activity) => {
         try {
             setLoading(true);
             const config = {
@@ -84,7 +84,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${ProductUrl}`, id, Product, config);
+            const { data } = await axios.put(`${ActivityUrl}`, id, Activity, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -92,7 +92,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const deleteProduct = async (id) => {
+    const deleteActivity = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -100,7 +100,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${ActivityUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -110,16 +110,16 @@ export const ProductContextProvider = ({ children }) => {
     };
 
     return (
-        <productContext.Provider
+        <activityContext.Provider
             value={{
-                getProducts,
-                getProduct,
-                addProduct,
-                updateProduct,
-                deleteProduct,
+                getActivitys,
+                getActivity,
+                addActivity,
+                updateActivity,
+                deleteActivity,
             }}
         >
             {children}
-        </productContext.Provider>
+        </activityContext.Provider>
     );
 };

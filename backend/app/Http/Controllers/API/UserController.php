@@ -38,11 +38,11 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'profile' => $request->get('profile')
+            // 'profile' => $request->get('profile')
         ]);
         $newUser->save();
         $token = $newUser->createToken("api_token")->plainTextToken;
-        return response()->json(['token' => $token]);
+        return response()->json(['MyTokon' => $token]);
     }
 
     /**
@@ -93,6 +93,7 @@ class UserController extends Controller
             } else {
                 return response(["error" => "Password is incorrect"], 422);
             }
+
         }
     }
 

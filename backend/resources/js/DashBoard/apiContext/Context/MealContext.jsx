@@ -1,15 +1,15 @@
 import { createContext, useContext, useState } from "react";
 import { getUrl } from "../API/Helper";
 
-const productContext = createContext();
+const mealContext = createContext();
 
-export const useProduct = () => {
-    const context = useContext(productContext);
-    if (!context) throw new Error("Product Provider is missing");
+export const useMeal = () => {
+    const context = useContext(mealContext);
+    if (!context) throw new Error("Meal Provider is missing");
     return context;
 };
 
-const ProductUrl = getUrl("Products");
+const MealUrl = getUrl("Meals");
 
 //-------------
 const currentUser = {
@@ -25,9 +25,9 @@ const currentUser = {
 };
 //-------------
 
-export const ProductContextProvider = ({ children }) => {
+export const MealContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const getProducts = async () => {
+    const getMeals = async () => {
         try {
             setLoading(true);
             const config = {
@@ -36,7 +36,7 @@ export const ProductContextProvider = ({ children }) => {
                 },
             };
 
-            const { data } = await axios.get(`${ProductUrl}`, config);
+            const { data } = await axios.get(`${MealUrl}`, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -44,7 +44,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const getProduct = async (id) => {
+    const getMeal = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -52,7 +52,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${MealUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -60,7 +60,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addProduct = async (Product) => {
+    const addMeal = async (Meal) => {
         try {
             setLoading(true);
             const config = {
@@ -68,7 +68,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${ProductUrl}`, Product, config);
+            const { data } = await axios.post(`${MealUrl}`, Meal, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -76,7 +76,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const updateProduct = async (id, Product) => {
+    const updateMeal = async (id, Meal) => {
         try {
             setLoading(true);
             const config = {
@@ -84,7 +84,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${ProductUrl}`, id, Product, config);
+            const { data } = await axios.put(`${MealUrl}`, id, Meal, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -92,7 +92,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const deleteProduct = async (id) => {
+    const deleteMeal = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -100,7 +100,7 @@ export const ProductContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${MealUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -110,16 +110,16 @@ export const ProductContextProvider = ({ children }) => {
     };
 
     return (
-        <productContext.Provider
+        <mealContext.Provider
             value={{
-                getProducts,
-                getProduct,
-                addProduct,
-                updateProduct,
-                deleteProduct,
+                getMeals,
+                getMeal,
+                addMeal,
+                updateMeal,
+                deleteMeal,
             }}
         >
             {children}
-        </productContext.Provider>
+        </mealContext.Provider>
     );
 };
