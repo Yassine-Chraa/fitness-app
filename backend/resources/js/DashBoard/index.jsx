@@ -1,19 +1,21 @@
 import React from "react";
 import App from "./App";
 import ReactDOM from "react-dom/client";
-import { MaterialUIControllerProvider } from "./context";
-import { BrowserRouter } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom"
 
+import { MaterialUIControllerProvider } from "./dashboardContext";
+import {APIHandlerProvider} from "./apiContext/API/APIHandlerProvider";
 
-if (document.getElementById('app')) {
-    const root = ReactDOM.createRoot(document.getElementById('app'));
+if (document.getElementById("dashboard")) {
+    const root = ReactDOM.createRoot(document.getElementById("dashboard"));
 
     root.render(
-        <BrowserRouter>
-            <MaterialUIControllerProvider>
-                <App />
-            </MaterialUIControllerProvider>
-        </BrowserRouter>
+        <APIHandlerProvider>
+            <BrowserRouter>
+                <MaterialUIControllerProvider>
+                    <App />
+                </MaterialUIControllerProvider>
+            </BrowserRouter>
+        </APIHandlerProvider>
     );
-};
+}

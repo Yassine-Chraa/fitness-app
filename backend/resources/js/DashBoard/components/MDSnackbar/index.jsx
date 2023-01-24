@@ -31,7 +31,7 @@ import MDTypography from "../MDTypography";
 import MDSnackbarIconRoot from "./MDSnackbarIconRoot";
 
 // Material Dashboard 2 React context
-import { useMaterialUIController } from "../../context";
+import { useMaterialUIController } from "../../dashboardContext";
 
 function MDSnackbar({ color, icon, title, dateTime, content, close, bgWhite, ...rest }) {
     const [controller] = useMaterialUIController();

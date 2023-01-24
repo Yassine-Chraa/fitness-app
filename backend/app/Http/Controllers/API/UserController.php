@@ -38,7 +38,7 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'profile' => $request->get('profile')
+            // 'profile' => $request->get('profile')
         ]);
         $newUser->save();
         $token = $newUser->createToken("api_token")->plainTextToken;
