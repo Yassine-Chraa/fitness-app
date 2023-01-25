@@ -2,21 +2,9 @@ import MDBox from "../components/MDBox";
 import { Card, Grid } from "@mui/material";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import StatisticsCard from "../components/Cards/StatisticsCar";
-import { useEffect, useState } from "react";
-import { useUser } from "../apiContext/Context/UserContext";
 
 const Dashboard = () => {
-    const { getUsers } = useUser();
-    const [data, setData] = useState([]);
-    const fetchData = async () => {
-        const res = await getUsers();
-        console.log(res)
-        setData(res);
-    };
 
-    useEffect(() => {
-        fetchData();
-    }, []);
 
     return (
         <MDBox py={3}>
@@ -98,13 +86,7 @@ const Dashboard = () => {
                     </Card>
                 </Grid>
             </Grid>
-            {/* <p>{window.api_token}</p>
 
-            <p>{count(data) != 0 ? data[0].name+' / '+data[0].prix : null}</p> */}
-
-            <MDBox>
-                {window.api_token}
-            </MDBox>
         </MDBox>
     );
 };
