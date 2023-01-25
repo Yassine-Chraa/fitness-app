@@ -17,7 +17,7 @@ import {
     setMiniSidenav,
     setTransparentSidenav,
     setWhiteSidenav,
-} from "../../dashboardContext";
+} from "../../context/UIContext";
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
     const [controller, dispatch] = useMaterialUIController();

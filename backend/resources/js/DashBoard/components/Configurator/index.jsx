@@ -21,7 +21,7 @@ import {
     setFixedNavbar,
     setSidenavColor,
     setDarkMode,
-} from "../../dashboardContext";
+} from "../../context/UIContext";
 
 function Configurator() {
     const [controller, dispatch] = useMaterialUIController();

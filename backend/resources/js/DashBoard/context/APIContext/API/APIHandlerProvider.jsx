@@ -5,13 +5,6 @@ import { MealContextProvider } from "../Context/MealContext";
 import { ProductContextProvider } from "../Context/ProductContext";
 import { Composer } from "./Composer";
 
-const Compose = (providers) =>
-    providers.reduce((Prev, Curr) => ({ children }) => (
-        <Prev>
-            <Curr>{children}</Curr>
-        </Prev>
-    ));
-
 const providers = [
     ActivityContextProvider,
     UserContextProvider,

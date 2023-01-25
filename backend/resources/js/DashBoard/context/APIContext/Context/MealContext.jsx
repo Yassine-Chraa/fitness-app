@@ -1,33 +1,19 @@
 import { createContext, useContext, useState } from "react";
-import { getUrl } from "../API/Helper";
+import { getUrl, currentUser } from "../API/Helper";
 
-const activityContext = createContext();
+const mealContext = createContext();
 
-export const useActivity = () => {
-    const context = useContext(activityContext);
-    if (!context) throw new Error("Activity Provider is missing");
+export const useMeal = () => {
+    const context = useContext(mealContext);
+    if (!context) throw new Error("Meal Provider is missing");
     return context;
 };
 
-const ActivityUrl = getUrl("Activitys");
+const MealUrl = getUrl("Meals");
 
-//-------------
-const currentUser = {
-    id: 1,
-    role: "admin",
-    name: "Yassine Chraa",
-    email: "yassinechraa@gmail.com",
-    email_verified_at: null,
-    profile: null,
-    created_at: "",
-    updated_at: "",
-    token: "1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U",
-};
-//-------------
-
-export const ActivityContextProvider = ({ children }) => {
+export const MealContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const getActivitys = async () => {
+    const getMeals = async () => {
         try {
             setLoading(true);
             const config = {
@@ -36,7 +22,7 @@ export const ActivityContextProvider = ({ children }) => {
                 },
             };
 
-            const { data } = await axios.get(`${ActivityUrl}`, config);
+            const { data } = await axios.get(`${MealUrl}`, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -44,7 +30,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const getActivity = async (id) => {
+    const getMeal = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -52,7 +38,7 @@ export const ActivityContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ActivityUrl}`,id, config);
+            const { data } = await axios.get(`${MealUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -60,7 +46,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addActivity = async (Activity) => {
+    const addMeal = async (Meal) => {
         try {
             setLoading(true);
             const config = {
@@ -68,7 +54,7 @@ export const ActivityContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${ActivityUrl}`, Activity, config);
+            const { data } = await axios.post(`${MealUrl}`, Meal, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -76,7 +62,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const updateActivity = async (id, Activity) => {
+    const updateMeal = async (id, Meal) => {
         try {
             setLoading(true);
             const config = {
@@ -84,7 +70,7 @@ export const ActivityContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${ActivityUrl}`, id, Activity, config);
+            const { data } = await axios.put(`${MealUrl}`, id, Meal, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -92,7 +78,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const deleteActivity = async (id) => {
+    const deleteMeal = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -100,7 +86,7 @@ export const ActivityContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${ActivityUrl}`,id, config);
+            const { data } = await axios.get(`${MealUrl}`,id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -110,16 +96,16 @@ export const ActivityContextProvider = ({ children }) => {
     };
 
     return (
-        <activityContext.Provider
+        <mealContext.Provider
             value={{
-                getActivitys,
-                getActivity,
-                addActivity,
-                updateActivity,
-                deleteActivity,
+                getMeals,
+                getMeal,
+                addMeal,
+                updateMeal,
+                deleteMeal,
             }}
         >
             {children}
-        </activityContext.Provider>
+        </mealContext.Provider>
     );
 };

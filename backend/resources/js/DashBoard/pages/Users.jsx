@@ -1,9 +1,9 @@
 import { ListItem } from "@mui/material";
 import { useEffect, useState } from "react";
-import { useUser } from "../apiContext/Context/UserContext";
-import DashboardLayout from "../components/DashboardLayout";
+import DashboardLayout from "../layouts/DashboardLayout";
 import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
+import { useUser } from "../context/APIContext/Context/UserContext";
 const Users = () => {
 
     const { getUsers } = useUser();
@@ -21,6 +21,8 @@ const Users = () => {
 
     return (
         <DashboardLayout>
+            <DashBoardNavBar />
+
             <MDTypography color='dark'>token : {window.api_token}</MDTypography>
 
             <MDBox color='dark'>{

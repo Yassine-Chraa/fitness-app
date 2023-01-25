@@ -11,16 +11,6 @@ use Illuminate\Support\Facades\Hash;
 class AuthController extends Controller
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function index()
-    {
-        //
-    }
-
-    /**
      * sign-up a new user.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -40,7 +30,7 @@ class AuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
-        $token = $user->createToken('apiToken')->plainTextToken;
+        $token = $user->createToken('api_Token')->plainTextToken;
 
         $result = [
             'user' => $user,
@@ -50,12 +40,12 @@ class AuthController extends Controller
     }
 
     /**
-     * Login with password and username(email).
+     * sign_in with password and username(email).
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function login(Request $request)
+    public function sign_in(Request $request)
     {
         $data = $request->validate([
             'email' => 'required|string',
@@ -70,7 +60,7 @@ class AuthController extends Controller
             ], 401);
         }
 
-        $token = $user->createToken('apiToken')->plainTextToken;
+        $token = $user->createToken('api_Token')->plainTextToken;
 
         $result = [
             'user' => $user,
@@ -94,5 +84,26 @@ class AuthController extends Controller
         });
 
         return response()->json(['message' => 'user logged out']);
+    }
+
+    /**
+     * delete account.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteAccount()
+    {
+        $user = Auth::user();
+
+        $user->tokens->each(function ($token, $key) {
+            $token->delete();
+        });
+
+        $user = User::findOrFail($user->id);
+
+        $user->delete();
+
+        return response()->json(['message' => 'User deleted']);
     }
 }

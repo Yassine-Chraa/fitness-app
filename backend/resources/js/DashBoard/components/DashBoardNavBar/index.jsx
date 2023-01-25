@@ -28,10 +28,10 @@ import {
     setTransparentNavbar,
     setMiniSidenav,
     setOpenConfigurator,
-} from "../../dashboardContext";
+} from "../../context/UIContext";
 import { Avatar } from "@mui/material";
 
-function DashboardNavbar({ absolute, light, isMini }) {
+const DashBoardNavBar = ({ absolute, light, isMini }) => {
     const [navbarType, setNavbarType] = useState();
     const [controller, dispatch] = useMaterialUIController();
     const { miniSidenav, transparentNavbar, fixedNavbar, openConfigurator, darkMode } = controller;
@@ -151,18 +151,18 @@ function DashboardNavbar({ absolute, light, isMini }) {
     );
 }
 
-// Setting default values for the props of DashboardNavbar
-DashboardNavbar.defaultProps = {
+
+DashBoardNavBar.defaultProps = {
     absolute: false,
     light: false,
     isMini: false,
 };
 
-// Typechecking props for the DashboardNavbar
-DashboardNavbar.propTypes = {
+
+DashBoardNavBar.propTypes = {
     absolute: PropTypes.bool,
     light: PropTypes.bool,
     isMini: PropTypes.bool,
 };
 
-export default DashboardNavbar;
+export default DashBoardNavBar;
