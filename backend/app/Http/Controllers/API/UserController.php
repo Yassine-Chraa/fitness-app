@@ -93,7 +93,6 @@ class UserController extends Controller
             } else {
                 return response(["error" => "Password is incorrect"], 422);
             }
-
         }
     }
 
