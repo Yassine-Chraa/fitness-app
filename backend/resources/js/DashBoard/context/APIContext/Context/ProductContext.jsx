@@ -1,33 +1,19 @@
 import { createContext, useContext, useState } from "react";
-import { getUrl } from "../API/Helper";
+import { getUrl, currentUser } from "../API/Helper";
 
-const equipmentContext = createContext();
+const productContext = createContext();
 
-export const useEquipment = () => {
-    const context = useContext(equipmentContext);
-    if (!context) throw new Error("Equipment Provider is missing");
+export const useProduct = () => {
+    const context = useContext(productContext);
+    if (!context) throw new Error("Product Provider is missing");
     return context;
 };
 
-const EquipmentUrl = getUrl("Equipments");
+const ProductUrl = getUrl("Products");
 
-//-------------
-const currentUser = {
-    id: 1,
-    role: "admin",
-    name: "Yassine Chraa",
-    email: "yassinechraa@gmail.com",
-    email_verified_at: null,
-    profile: null,
-    created_at: "",
-    updated_at: "",
-    token: "1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U",
-};
-//-------------
-
-export const EquipmentContextProvider = ({ children }) => {
+export const ProductContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const getEquipments = async () => {
+    const getProducts = async () => {
         try {
             setLoading(true);
             const config = {
@@ -36,7 +22,7 @@ export const EquipmentContextProvider = ({ children }) => {
                 },
             };
 
-            const { data } = await axios.get(`${EquipmentUrl}`, config);
+            const { data } = await axios.get(`${ProductUrl}`, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -44,7 +30,7 @@ export const EquipmentContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const getEquipment = async (id) => {
+    const getProduct = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -52,7 +38,7 @@ export const EquipmentContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${EquipmentUrl}`,id, config);
+            const { data } = await axios.get(`${ProductUrl}`, id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -60,7 +46,7 @@ export const EquipmentContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addEquipment = async (Equipment) => {
+    const addProduct = async (Product) => {
         try {
             setLoading(true);
             const config = {
@@ -68,7 +54,7 @@ export const EquipmentContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${EquipmentUrl}`, Equipment, config);
+            const { data } = await axios.post(`${ProductUrl}`, Product, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -76,7 +62,7 @@ export const EquipmentContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const updateEquipment = async (id, Equipment) => {
+    const updateProduct = async (id, Product) => {
         try {
             setLoading(true);
             const config = {
@@ -84,7 +70,7 @@ export const EquipmentContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${EquipmentUrl}`, id, Equipment, config);
+            const { data } = await axios.put(`${ProductUrl}`, id, Product, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -92,7 +78,7 @@ export const EquipmentContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const deleteEquipment = async (id) => {
+    const deleteProduct = async (id) => {
         try {
             setLoading(true);
             const config = {
@@ -100,7 +86,7 @@ export const EquipmentContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${EquipmentUrl}`,id, config);
+            const { data } = await axios.get(`${ProductUrl}`, id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -110,16 +96,16 @@ export const EquipmentContextProvider = ({ children }) => {
     };
 
     return (
-        <equipmentContext.Provider
+        <productContext.Provider
             value={{
-                getEquipments,
-                getEquipment,
-                addEquipment,
-                updateEquipment,
-                deleteEquipment,
+                getProducts,
+                getProduct,
+                addProduct,
+                updateProduct,
+                deleteProduct,
             }}
         >
             {children}
-        </equipmentContext.Provider>
+        </productContext.Provider>
     );
 };

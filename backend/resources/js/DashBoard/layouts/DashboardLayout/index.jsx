@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import PropTypes from "prop-types";
-import MDBox from "../MDBox";
-import { useMaterialUIController, setLayout } from "../../dashboardContext";
+import MDBox from "../../components/MDBox";
+import { useMaterialUIController, setLayout } from "../../context/UIContext";
 
 function DashboardLayout({ children }) {
     const [controller, dispatch] = useMaterialUIController();

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { getUrl } from "../API/Helper";
+import { getUrl, currentUser } from "../API/Helper";
 
 const userContext = createContext();
 
@@ -10,20 +10,6 @@ export const useUser = () => {
 };
 
 const UserUrl = getUrl('Users');
-
-//-------------
-const currentUser = {
-    id: 5,
-    role: "client",
-    name: "tester",
-    email: "tester@gmail.com",
-    email_verified_at: null,
-    profile: null,
-    created_at: "",
-    updated_at: "",
-    token: "7|QPzOqFEdVNVDavkKBF0wyh0pGyuQIE9uQecRFJaW",
-};
-//-------------
 
 export const UserContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);

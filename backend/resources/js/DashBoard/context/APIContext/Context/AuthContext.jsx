@@ -1,42 +1,50 @@
 import { createContext, useContext, useState } from "react";
-import { getUrl } from "../API/Helper";
+import { getUrl, currentUser } from "../API/Helper";
 
-const mealContext = createContext();
+const authContext = createContext();
 
-export const useMeal = () => {
-    const context = useContext(mealContext);
-    if (!context) throw new Error("Meal Provider is missing");
+export const useAuth = () => {
+    const context = useContext(authContext);
+    if (!context) throw new Error("User Provider is missing");
     return context;
 };
 
-const MealUrl = getUrl("Meals");
+const signInUrl = getUrl('SignIn');
+const signUpUrl = getUrl('SignUp');
+const logOutUrl = getUrl('LogOut');
+const resetPasswordUrl = getUrl('ResetPassword');
+const deleteAccountUrl = getUrl('DeleteAccount');
 
-//-------------
-const currentUser = {
-    id: 1,
-    role: "admin",
-    name: "Yassine Chraa",
-    email: "yassinechraa@gmail.com",
-    email_verified_at: null,
-    profile: null,
-    created_at: "",
-    updated_at: "",
-    token: "1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U",
-};
-//-------------
 
-export const MealContextProvider = ({ children }) => {
+export const authContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
-    const getMeals = async () => {
-        try {
-            setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser.token}`,
-                },
-            };
 
-            const { data } = await axios.get(`${MealUrl}`, config);
+    const signIn = async (user) => {
+        try {
+            setLoading(true);
+            // const config = {
+            //     headers: {
+            //         authorization: `Bearer ${currentUser.token}`,
+            //     },
+            // };
+
+            const { data } = await axios.post(`${signInUrl}`, user);
+            setLoading(false);
+            return data;
+        } catch (error) {
+            setLoading(false);
+            return null;
+        }
+    };
+    const signUp = async (user) => {
+        try {
+            setLoading(true);
+            // const config = {
+            //     headers: {
+            //         authorization: `Bearer ${currentUser.token}`,
+            //     },
+            // };
+            const { data } = await axios.post(`${signUpUrl}`, user);
             setLoading(false);
             return data;
         } catch (error) {
@@ -44,7 +52,7 @@ export const MealContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const getMeal = async (id) => {
+    const logOut = async () => {
         try {
             setLoading(true);
             const config = {
@@ -52,7 +60,7 @@ export const MealContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${MealUrl}`,id, config);
+            const { data } = await axios.post(`${logOutUrl}`, User, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -60,7 +68,7 @@ export const MealContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addMeal = async (Meal) => {
+    const resetPassword = async () => {
         try {
             setLoading(true);
             const config = {
@@ -68,7 +76,7 @@ export const MealContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${MealUrl}`, Meal, config);
+            const { data } = await axios.put(`${resetPasswordUrl}`, id, User, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -76,7 +84,7 @@ export const MealContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const updateMeal = async (id, Meal) => {
+    const deleteAccount = async () => {
         try {
             setLoading(true);
             const config = {
@@ -84,23 +92,7 @@ export const MealContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${MealUrl}`, id, Meal, config);
-            setLoading(false);
-            return data;
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-        }
-    };
-    const deleteMeal = async (id) => {
-        try {
-            setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser.token}`,
-                },
-            };
-            const { data } = await axios.get(`${MealUrl}`,id, config);
+            const { data } = await axios.get(`${deleteAccountUrl}`, id, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -110,16 +102,16 @@ export const MealContextProvider = ({ children }) => {
     };
 
     return (
-        <mealContext.Provider
+        <authContext.Provider
             value={{
-                getMeals,
-                getMeal,
-                addMeal,
-                updateMeal,
-                deleteMeal,
+                signIn,
+                signUp,
+                logOut,
+                resetPassword,
+                deleteAccount,
             }}
         >
             {children}
-        </mealContext.Provider>
+        </authContext.Provider>
     );
 };

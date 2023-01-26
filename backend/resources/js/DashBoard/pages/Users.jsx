@@ -1,7 +1,44 @@
-import DataTable from "../components/DataTable";
+import { ListItem } from "@mui/material";
+import { useEffect, useState } from "react";
+import DashboardLayout from "../layouts/DashboardLayout";
+import MDBox from "../components/MDBox";
+import MDTypography from "../components/MDTypography";
+import { useUser } from "../context/APIContext/Context/UserContext";
 const Users = () => {
+
+    const { getUsers } = useUser();
+    const [data, setData] = useState([]);
+    const fetchData = async () => {
+        const res = await getUsers();
+        console.log(res)
+        setData(res);
+    };
+
+    useEffect(() => {
+        fetchData();
+    }, []);
+
+
     return (
-        <p>Users</p>
+        <DashboardLayout>
+            <DashBoardNavBar />
+
+            <MDTypography color='dark'>token : {window.api_token}</MDTypography>
+
+            <MDBox color='dark'>{
+                data != null ? data.map((element) => (
+                    <ListItem key={element.id}>
+                        <MDTypography>Name : {element.name}</MDTypography>
+                        <MDTypography>Email : {element.email}</MDTypography>
+                        <MDTypography>Password : {element.password}</MDTypography>
+                    </ListItem>
+                )) : ""
+            }</MDBox>
+
+            <MDBox>
+                {window.api_token}
+            </MDBox>
+        </DashboardLayout>
     );
 };
 
