@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, redirect, useNavigate } from "react-router-dom";
 import Card from "@mui/material/Card";
 import Switch from "@mui/material/Switch";
 import Grid from "@mui/material/Grid";
@@ -22,8 +22,10 @@ import { useAuth } from "../../context/APIContext/Context/AuthContext";
 const SignIn = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-
     const [rememberMe, setRememberMe] = useState(false);
+    const nav = useNavigate();
+
+
     const handleSetRememberMe = () => setRememberMe(!rememberMe);
 
     const { signIn } = useAuth();
@@ -36,11 +38,14 @@ const SignIn = () => {
     const SignInHandler = async () => {
         const res = await signIn(user);
         console.log(res)
+        if(res != null){
+            nav("/dashboard")
+        }
     }
 
     return (
         <BasicLayout image={bgImage}>
-            <Card sx={{ minWidth:"340px", marginTop: "2rem"}}>
+            <Card sx={{ minWidth:"300px", maxWidth: "420px", flex: 1 ,marginTop: "2rem"}}>
                 <MDBox
                     variant="gradient"
                     bgColor="info"
@@ -103,7 +108,7 @@ const SignIn = () => {
                                 Don&apos;t have an account?{" "}
                                 <MDTypography
                                     component={Link}
-                                    to="/authentication/sign-up"
+                                    to="/sign-up"
                                     variant="button"
                                     color="info"
                                     fontWeight="medium"

@@ -32,20 +32,19 @@ export const authContextProvider = ({ children }) => {
             setLoading(false);
             return data;
         } catch (error) {
-            console.log(error);
-            alert(error);
             setLoading(false);
+            return null;
         }
     };
     const signUp = async (user) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser.token}`,
-                },
-            };
-            const { data } = await axios.post(`${signUpUrl}`, user, config);
+            // const config = {
+            //     headers: {
+            //         authorization: `Bearer ${currentUser.token}`,
+            //     },
+            // };
+            const { data } = await axios.post(`${signUpUrl}`, user);
             setLoading(false);
             return data;
         } catch (error) {
