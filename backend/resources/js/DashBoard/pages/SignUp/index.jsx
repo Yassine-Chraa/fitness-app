@@ -61,22 +61,22 @@ const SignUp = () => {
                 </MDBox>
 
                 <Grid container spacing={2} >
-                    <Grid item xs={11} sm={6} md={6} lg={6} xl={6}>
+                    <Grid item xs={11} sm={12} md={6} lg={6} xl={6}>
                         <MDBox component="form" role="form">
-                            <MDBox mb={2}>
+                            <MDBox mb={3}>
                                 <MDInput onChange={(val) => setName(val.target.value)} type="text" label="Name" variant="standard" fullWidth />
                             </MDBox>
-                            <MDBox mb={2}>
+                            <MDBox mb={3}>
                                 <MDInput onChange={(val) => setEmail(val.target.value)} type="email" label="Email" variant="standard" fullWidth />
                             </MDBox>
                         </MDBox>
                     </Grid>
-                    <Grid item xs={11} sm={6} md={6} lg={6} xl={6}>
+                    <Grid item xs={11} sm={12} md={6} lg={6} xl={6}>
                         <MDBox component="form" role="form">
-                            <MDBox mb={2}>
+                            <MDBox mb={3}>
                                 <MDInput onChange={(val) => setPassword(val.target.value)} type="password" label="Password" variant="standard" fullWidth />
                             </MDBox>
-                            <MDBox mb={2}>
+                            <MDBox mb={3}>
                                 <MDInput onChange={(val) => setPasswordConfirmation(val.target.value)} type="password" label="Confirm Password" variant="standard" fullWidth />
                             </MDBox>
                         </MDBox>
@@ -112,7 +112,7 @@ const SignUp = () => {
                     </MDButton>
                 </MDBox>
 
-                <MDBox mt={1} mb={1} textAlign="center">
+                <MDBox mt={3} mb={1} textAlign="center">
                     <MDTypography variant="button" color="text">
                         Do you have an account?{" "}
                         <MDTypography
