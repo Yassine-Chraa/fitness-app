@@ -7,9 +7,6 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\UserController;
-use App\Http\Controllers\Auth\LoginController;
-use App\Http\Controllers\Auth\RegisterController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -39,9 +36,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
+    Route::get('/delete_account', [AuthController::class, 'delete_account']);
 });
 
 // this route is public
 
-Route::post('/signup', [AuthController::class, 'sign_up']);
-Route::post('/signin', [AuthController::class, 'sign_in']);
+Route::post('/sign_up', [AuthController::class, 'sign_up']);
+Route::post('/sign_in', [AuthController::class, 'sign_in']);

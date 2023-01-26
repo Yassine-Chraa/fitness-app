@@ -9,6 +9,12 @@ export const useAuth = () => {
     return context;
 };
 
+const signInUrl = getUrl('SignIn');
+const signUpUrl = getUrl('SignUp');
+const logOutUrl = getUrl('LogOut');
+const resetPasswordUrl = getUrl('ResetPassword');
+const deleteAccountUrl = getUrl('DeleteAccount');
+
 
 export const authContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
@@ -16,13 +22,13 @@ export const authContextProvider = ({ children }) => {
     const signIn = async (user) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser.token}`,
-                },
-            };
+            // const config = {
+            //     headers: {
+            //         authorization: `Bearer ${currentUser.token}`,
+            //     },
+            // };
 
-            const { data } = await axios.post(`${getUrl('sign_in')}`, config);
+            const { data } = await axios.post(`${signInUrl}`, user);
             setLoading(false);
             return data;
         } catch (error) {
@@ -31,7 +37,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const signUp = async () => {
+    const signUp = async (user) => {
         try {
             setLoading(true);
             const config = {
@@ -39,7 +45,7 @@ export const authContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${AuthUrl}`, config);
+            const { data } = await axios.post(`${signUpUrl}`, user, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -55,7 +61,7 @@ export const authContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.post(`${AuthUrl}`, User, config);
+            const { data } = await axios.post(`${logOutUrl}`, User, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -71,7 +77,7 @@ export const authContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.put(`${AuthUrl}`, id, User, config);
+            const { data } = await axios.put(`${resetPasswordUrl}`, id, User, config);
             setLoading(false);
             return data;
         } catch (error) {
@@ -87,7 +93,7 @@ export const authContextProvider = ({ children }) => {
                     authorization: `Bearer ${currentUser.token}`,
                 },
             };
-            const { data } = await axios.get(`${AuthUrl}`, id, config);
+            const { data } = await axios.get(`${deleteAccountUrl}`, id, config);
             setLoading(false);
             return data;
         } catch (error) {

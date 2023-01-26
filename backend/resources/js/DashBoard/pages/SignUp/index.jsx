@@ -8,13 +8,30 @@ import MDButton from "../../components/MDButton";
 import BasicLayout from "../../layouts/auth-layouts/BasicLayout";
 import bgImage from "../../assets/images/bg-sign-in-basic.jpeg";
 import { Checkbox } from "@mui/material";
+import { useAuth } from "../../context/APIContext/Context/AuthContext";
+
 const SignUp = () => {
 
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    const [confirm_password,setConfirmPassword ] = useState("");
+    const [password_confirmation,setPasswordConfirmation ] = useState("");
     const [isAgree, setIsAgree] = useState(false);
+
+
+    const { signUp } = useAuth();
+
+    const user = {
+        name:name,
+        email: email,
+        password: password,
+        password_confirmation: password_confirmation,
+    }
+
+    const SignUpHandler = async () => {
+        const res = await signUp(user);
+        console.log(res)
+    }
 
     return (
         <BasicLayout image={bgImage}>
@@ -42,27 +59,27 @@ const SignUp = () => {
                     <Grid item xs={11} sm={12} md={6} lg={6} xl={6}>
                         <MDBox component="form" role="form">
                             <MDBox mb={3}>
-                                <MDInput type="text" label="Name" variant="standard" fullWidth />
+                                <MDInput onChange={(val) => setName(val.target.value)} type="text" label="Name" variant="standard" fullWidth/>
                             </MDBox>
                             <MDBox mb={3}>
-                                <MDInput type="email" label="Email" variant="standard" fullWidth />
+                                <MDInput onChange={(val) => setEmail(val.target.value)}  type="email" label="Email" variant="standard"  fullWidth/>
                             </MDBox>
                         </MDBox>
                     </Grid>
                     <Grid item xs={11} sm={12} md={6} lg={6} xl={6}>
                         <MDBox component="form" role="form">
                             <MDBox mb={3}>
-                                <MDInput type="password" label="Password" variant="standard" fullWidth />
+                                <MDInput onChange={(val) => setPassword(val.target.value)}  type="password" label="Password" variant="standard" fullWidth />
                             </MDBox>
                             <MDBox mb={3}>
-                                <MDInput type="password" label="Confirm Password" variant="standard" fullWidth />
+                                <MDInput onChange={(val) => setPasswordConfirmation(val.target.value)}  type="password" label="Confirm Password" variant="standard"  fullWidth />
                             </MDBox>
                         </MDBox>
                     </Grid>
                 </Grid>
 
                 <MDBox mt={2} display="flex" alignItems="center" ml={-1}>
-                    <Checkbox style={{ marginRight: "1rem" }} />
+                    <Checkbox style={{ marginRight: "1rem" }} onChange={ (val) => setIsAgree(val.target.checked) } />
                     <MDTypography
                         variant="button"
                         fontWeight="regular"
@@ -84,8 +101,8 @@ const SignUp = () => {
                     </MDTypography>
                 </MDBox>
 
-                <MDBox fullWidth display="flex" justifyContent="center" mt={3} mb={3}>
-                    <MDButton variant="gradient" color="info" style={{ padding: "1rem", minWidth: "10rem", maxWidth: "15rem", flex: 1 }}>
+                <MDBox display="flex" justifyContent="center" mt={3} mb={3}>
+                    <MDButton onClick={SignUpHandler} variant="gradient" color="info" style={{ padding: "1rem", minWidth: "10rem", maxWidth: "15rem", flex: 1 }}>
                         sign in
                     </MDButton>
                 </MDBox>

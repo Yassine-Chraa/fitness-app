@@ -17,11 +17,26 @@ import MDButton from "../../components/MDButton";
 import BasicLayout from "../../layouts/auth-layouts/BasicLayout";
 
 import bgImage from "../../assets/images/bg-sign-in-basic.jpeg";
+import { useAuth } from "../../context/APIContext/Context/AuthContext";
 
 const SignIn = () => {
-    const [rememberMe, setRememberMe] = useState(false);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
 
+    const [rememberMe, setRememberMe] = useState(false);
     const handleSetRememberMe = () => setRememberMe(!rememberMe);
+
+    const { signIn } = useAuth();
+
+    const user = {
+        email: email,
+        password: password,
+    }
+
+    const SignInHandler = async () => {
+        const res = await signIn(user);
+        console.log(res)
+    }
 
     return (
         <BasicLayout image={bgImage}>
@@ -61,10 +76,10 @@ const SignIn = () => {
                 <MDBox pt={4} pb={3} px={3}>
                     <MDBox component="form" role="form">
                         <MDBox mb={2}>
-                            <MDInput type="email" label="Email" fullWidth />
+                            <MDInput onChange={(val) => setEmail(val.target.value)} type="email" label="Email" fullWidth />
                         </MDBox>
                         <MDBox mb={2}>
-                            <MDInput type="password" label="Password" fullWidth />
+                            <MDInput onChange={(val) => setPassword(val.target.value)} type="password" label="Password" fullWidth />
                         </MDBox>
                         <MDBox display="flex" alignItems="center" ml={-1}>
                             <Switch checked={rememberMe} onChange={handleSetRememberMe} />
@@ -79,7 +94,7 @@ const SignIn = () => {
                             </MDTypography>
                         </MDBox>
                         <MDBox mt={4} mb={1}>
-                            <MDButton variant="gradient" color="info" fullWidth>
+                            <MDButton onClick={SignInHandler} variant="gradient" color="info" fullWidth>
                                 sign in
                             </MDButton>
                         </MDBox>

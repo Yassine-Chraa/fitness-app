@@ -124,7 +124,7 @@ export default function App() {
             )}
             {layout === "vr" && <Configurator />}
             <Routes>
-                <Route path="*" element={<Navigate to="/sign-up" />} />
+                <Route path="*" element={<Navigate to="/dashboard" />} />
                 {getRoutes(routes)}
             </Routes>
         </ThemeProvider>
