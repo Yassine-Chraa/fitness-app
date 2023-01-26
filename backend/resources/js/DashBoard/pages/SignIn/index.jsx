@@ -40,7 +40,7 @@ const SignIn = () => {
 
     return (
         <BasicLayout image={bgImage}>
-            <Card>
+            <Card sx={{ minWidth:"340px", marginTop: "2rem"}}>
                 <MDBox
                     variant="gradient"
                     bgColor="info"
