@@ -5,12 +5,11 @@ import MDBox from "../components/MDBox";
 import MDTypography from "../components/MDTypography";
 import { useUser } from "../context/APIContext/Context/UserContext";
 const Users = () => {
-
     const { getUsers } = useUser();
     const [data, setData] = useState([]);
     const fetchData = async () => {
         const res = await getUsers();
-        console.log(res)
+        console.log(res);
         setData(res);
     };
 
@@ -18,26 +17,27 @@ const Users = () => {
         fetchData();
     }, []);
 
-
     return (
         <DashboardLayout>
-            <DashBoardNavBar />
+            <MDTypography color="dark">token : {window.api_token}</MDTypography>
 
-            <MDTypography color='dark'>token : {window.api_token}</MDTypography>
-
-            <MDBox color='dark'>{
-                data != null ? data.map((element) => (
-                    <ListItem key={element.id}>
-                        <MDTypography>Name : {element.name}</MDTypography>
-                        <MDTypography>Email : {element.email}</MDTypography>
-                        <MDTypography>Password : {element.password}</MDTypography>
-                    </ListItem>
-                )) : ""
-            }</MDBox>
-
-            <MDBox>
-                {window.api_token}
+            <MDBox color="dark">
+                {data != null
+                    ? data.map((element) => (
+                          <ListItem key={element.id}>
+                              <MDTypography>Name : {element.name}</MDTypography>
+                              <MDTypography>
+                                  Email : {element.email}
+                              </MDTypography>
+                              <MDTypography>
+                                  Password : {element.password}
+                              </MDTypography>
+                          </ListItem>
+                      ))
+                    : ""}
             </MDBox>
+
+            <MDBox>{window.api_token}</MDBox>
         </DashboardLayout>
     );
 };
