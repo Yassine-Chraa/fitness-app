@@ -5,7 +5,6 @@
  */
 
 import "./bootstrap";
-console.log("helo hello hello")
 
 /**
  * Next, we will create a fresh React component instance and attach it to
@@ -14,3 +13,4 @@ console.log("helo hello hello")
  */
 
 import "./DashBoard";
+import "./MainApp";

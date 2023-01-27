@@ -21,13 +21,8 @@ import {
 
 function Sidenav({ color, brand, brandName, routes, ...rest }) {
     const [controller, dispatch] = useMaterialUIController();
-    const {
-        miniSidenav,
-        transparentSidenav,
-        whiteSidenav,
-        darkMode,
-        sidenavColor,
-    } = controller;
+    const { miniSidenav, transparentSidenav, whiteSidenav, darkMode } =
+        controller;
     const location = useLocation();
     const collapseName = location.pathname.replace("/", "");
 
@@ -127,11 +122,14 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                     />
                 );
             }
-
             return returnValue;
         }
     );
 
+    const logout = (e) => {
+        e.preventDefault();
+        document.getElementById("logout-form").submit();
+    };
     return (
         <SidenavRoot
             {...rest}
@@ -195,7 +193,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             <List>{renderRoutes}</List>
 
             <MDBox
-                href="/#"
+                href="/home"
                 p={2}
                 mt="auto"
                 display="flex"
@@ -205,7 +203,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
             >
                 {miniSidenav ? null : (
                     <>
-                        <NavLink>
+                        <NavLink to="">
                             <MDAvatar
                                 src="https://bit.ly/34BY10g"
                                 alt="Avatar"
@@ -233,9 +231,24 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                         </MDBox>
                     </>
                 )}
-                <NavLink>
+                <a href="/logout" onClick={(e) => logout(e)}>
                     <LogoutIcon color={textColor} />
-                </NavLink>
+                </a>
+                <form
+                    id="logout-form"
+                    action="/logout"
+                    method="POST"
+                    style={{ display: "none" }}
+                >
+                    <input
+                        type="hidden"
+                        name="_token"
+                        value={
+                            document.querySelector("meta[name=csrf-token]")
+                                .content
+                        }
+                    ></input>
+                </form>
             </MDBox>
         </SidenavRoot>
     );
