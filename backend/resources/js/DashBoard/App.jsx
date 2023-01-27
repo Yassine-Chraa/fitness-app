@@ -13,12 +13,14 @@ import {
     useMaterialUIController,
     setMiniSidenav,
     setOpenConfigurator,
-} from "./dashboardContext";
+} from "./context/UIContext";
 import brandWhite from "./assets/images/logo-ct.png";
 import brandDark from "./assets/images/logo-ct-dark.png";
-import DashboardNavbar from "./components/Navbars";
-import DashboardLayout from "./components/DashboardLayout";
+import DashboardLayout from "./layouts/DashboardLayout";
 import Footer from "./components/Footer";
+import SignIn from "./pages/SignIn";
+import SignUp from "./pages/SignUp";
+import DashboardNavBar from "./components/DashBoardNavBar"
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -100,35 +102,31 @@ export default function App() {
 
     return (
         <ThemeProvider theme={darkMode ? themeDark : theme}>
-            <DashboardLayout>
-                <DashboardNavbar />
-                <CssBaseline />
-                {layout === "dashboard" && (
-                    <>
-                        <Sidenav
-                            color={sidenavColor}
-                            brand={
-                                (transparentSidenav && !darkMode) ||
+            <CssBaseline />
+            {layout === "dashboard" && (
+                <>
+                    <Sidenav
+                        color={sidenavColor}
+                        brand={
+                            (transparentSidenav && !darkMode) ||
                                 whiteSidenav
-                                    ? brandDark
-                                    : brandWhite
-                            }
-                            brandName="Fitness App"
-                            routes={routes}
-                            onMouseEnter={handleOnMouseEnter}
-                            onMouseLeave={handleOnMouseLeave}
-                        />
-                        <Configurator />
-                        {configsButton}
-                    </>
-                )}
-                {layout === "vr" && <Configurator />}
-                <Routes>
-                    <Route path="*" element={<Navigate to="/home" />} />
-                    {getRoutes(routes)}
-                </Routes>
-                <Footer />
-            </DashboardLayout>
+                                ? brandDark
+                                : brandWhite
+                        }
+                        brandName="Fitness App"
+                        routes={routes}
+                        onMouseEnter={handleOnMouseEnter}
+                        onMouseLeave={handleOnMouseLeave}
+                    />
+                    <Configurator />
+                    {configsButton}
+                </>
+            )}
+            {layout === "vr" && <Configurator />}
+            <Routes>
+                <Route path="*" element={<Navigate to="/dashboard" />} />
+                {getRoutes(routes)}
+            </Routes>
         </ThemeProvider>
     );
 }

@@ -22,7 +22,7 @@ import PropTypes from "prop-types";
 import MDButtonRoot from "./MDButtonRoot";
 
 // Material Dashboard 2 React contexts
-import { useMaterialUIController } from "../../dashboardContext";
+import { useMaterialUIController } from "../../context/UIContext";
 
 const MDButton = forwardRef(
   ({ color, variant, size, circular, iconOnly, children, ...rest }, ref) => {
