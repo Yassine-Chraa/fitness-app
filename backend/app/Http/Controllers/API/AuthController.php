@@ -77,7 +77,7 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function logout()
+    public function logOut()
     {
         Auth::user()->tokens->each(function ($token, $key) {
             $token->delete();

@@ -13,8 +13,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {ProductContextProvider} from './src/Context/ProductContext';
 import Authentification from './src/screens/Authentification';
+import APIHandlerProvider from './src/context/APIHandlerProvider';
 import TabNavigation from './src/navigators/TabNavigation';
 import AppIntroSlider from 'react-native-app-intro-slider';
 
@@ -88,14 +88,14 @@ function App(): JSX.Element {
   };
   if (showRealApp) {
     return (
-      <ProductContextProvider>
+      <APIHandlerProvider>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <NavigationContainer>
           <Stack.Navigator
-            initialRouteName="App"
+            initialRouteName="Auth"
             screenOptions={{
               headerBackTitleVisible: false,
               headerShown: false,
@@ -104,7 +104,7 @@ function App(): JSX.Element {
             <Stack.Screen name="Auth" component={Authentification} />
           </Stack.Navigator>
         </NavigationContainer>
-      </ProductContextProvider>
+      </APIHandlerProvider>
     );
   } else {
     return (

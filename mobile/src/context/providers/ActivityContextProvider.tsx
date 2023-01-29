@@ -1,16 +1,15 @@
 import axios from 'axios';
-import {createContext, useContext, useEffect, useState} from 'react';
-import {Alert} from 'react-native';
-import {getUrl} from '../API';
-import Product from '../types/Product';
-import User from '../types/User';
+import { createContext, useContext, useState } from 'react';
+import { Alert } from 'react-native';
+import { getUrl, currentUser } from '../../Helpers/APIConfig';
+import Product from '../../types/Product';
 
 export type ProductContextType = {
   getProducts: () => Promise<Array<Product>>;
   getProduct: (id: number) => Promise<Product>;
-  addProduct: (product: Product) => Promise<{message: string}>;
-  updateProduct: (id: number, product: Product) => Promise<{message: string}>;
-  deleteProduct: (id: number) => Promise<{message: string}>;
+  addProduct: (product: Product) => Promise<{ message: string }>;
+  updateProduct: (id: number, product: Product) => Promise<{ message: string }>;
+  deleteProduct: (id: number) => Promise<{ message: string }>;
 };
 const productContext = createContext<ProductContextType | null>(null);
 
@@ -21,18 +20,8 @@ export const useProduct = () => {
 };
 
 const productUrl = getUrl('Products');
-const currentUser: User = {
-  id: 1,
-  role: 'admin',
-  name: 'Yassine Chraa',
-  email: 'yassinechraa@gmail.com',
-  email_verified_at: null,
-  profile: null,
-  created_at: '',
-  updated_at: '',
-  token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
-};
-export const ProductContextProvider = ({children}: any) => {
+
+export const ProductContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
   const getProducts = async () => {
     try {
@@ -41,7 +30,8 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const {data} = await axios.get(`${productUrl}`, config);
+
+      const { data } = await axios.get(`${productUrl}`, config);
       console.log(data)
       return data;
     } catch (error) {
@@ -56,7 +46,7 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const {data} = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}`, config);
       setLoading(false);
       return data;
     } catch (error) {
@@ -73,7 +63,7 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const {data} = await axios.post(`${productUrl}`, product, config);
+      const { data } = await axios.post(`${productUrl}`, product, config);
       setLoading(false);
       return data;
     } catch (error) {
@@ -90,7 +80,7 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const {data} = await axios.put(`${productUrl}`, product, config);
+      const { data } = await axios.put(`${productUrl}`, product, config);
       setLoading(false);
       return data;
     } catch (error) {
@@ -107,7 +97,7 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const {data} = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}`, config);
       setLoading(false);
       return data;
     } catch (error) {
