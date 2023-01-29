@@ -36,10 +36,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
-    Route::get('/delete_account', [AuthController::class, 'delete_account']);
+    Route::get('/deleteaccount', [AuthController::class, 'delete_account']);
 });
 
 // this route is public
 
-Route::post('/sign_up', [AuthController::class, 'sign_up']);
-Route::post('/sign_in', [AuthController::class, 'sign_in']);
+Route::post('/signup', [AuthController::class, 'sign_up']);
+Route::post('/signin', [AuthController::class, 'sign_in']);

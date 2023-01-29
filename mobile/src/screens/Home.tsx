@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import {FlatList, StyleSheet, Text, View} from 'react-native';
-import {useProduct} from '../Context/ProductContext';
+import {useProduct} from '../context/providers/ProductContextProvider';
 import Product from '../types/Product';
 
 function Home(): JSX.Element {

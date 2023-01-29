@@ -4,7 +4,6 @@ import GroupIcon from '@mui/icons-material/Group';
 import Users from "./pages/Users";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
-import MainApp from "./pages/MainApp";
 
 const routes = [
     {
@@ -14,14 +13,6 @@ const routes = [
         icon: <DashboardIcon />,
         route: "/dashboard",
         component: <Dashboard />,
-    },
-    {
-        type: "collapse",
-        name: "MainApp",
-        key: "main-app",
-        icon: <DashboardIcon />,
-        route: "/main-app",
-        component: <MainApp />,
     },
     {
         type: "collapse",

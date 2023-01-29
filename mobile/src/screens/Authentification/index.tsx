@@ -1,13 +1,7 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-} from 'react-native';
+import SignIn from './SignIn';
 
 function Authentification(): JSX.Element {
-  return <Text>Authentification</Text>;
+  return <SignIn/>
 }
-
-const styles = StyleSheet.create({});
-
 export default Authentification;
