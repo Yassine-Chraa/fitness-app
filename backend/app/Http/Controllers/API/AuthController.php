@@ -16,7 +16,7 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function sign_up(Request $request)
+    public function signUp(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -45,7 +45,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function sign_in(Request $request)
+    public function signIn(Request $request)
     {
         $data = $request->validate([
             'email' => 'required|string',
@@ -77,7 +77,7 @@ class AuthController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function logout()
+    public function logOut()
     {
         Auth::user()->tokens->each(function ($token, $key) {
             $token->delete();

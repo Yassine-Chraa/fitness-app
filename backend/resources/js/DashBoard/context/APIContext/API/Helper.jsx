@@ -1,10 +1,10 @@
-const API_URL = "http://192.168.1.3:8000/";
+const API_URL = "http://127.0.0.1:8000/";
 
 const endpoints = {
-    SignIn: 'api/sign_in',
-    SignUp: 'api/sign_up',
+    SignIn: 'api/signin',
+    SignUp: 'api/signup',
     LogOut: 'api/logout',
-    DeleteAccount: 'api/delete_account',
+    DeleteAccount: 'api/deleteaccount',
     Products: 'api/products',
     Users: 'api/users',
     Meals: 'api/meals',
