@@ -80,9 +80,7 @@ export default function SignIn({ navigation }: any) {
         secureTextEntry
       />
       <View style={styles.forgotPassword}>
-        <TouchableOpacity
-          onPress={() => navigation.navigate('ResetPasswordScreen')}
-        >
+        <TouchableOpacity onPress={() => navigation.navigate("resetPassword", null)}>
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
@@ -91,7 +89,7 @@ export default function SignIn({ navigation }: any) {
       </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.replace('Home')}>
+        <TouchableOpacity onPress={() => navigation.navigate("signUp", null)}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>
