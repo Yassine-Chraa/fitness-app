@@ -21,7 +21,7 @@ function App(): JSX.Element {
         backgroundColor={backgroundStyle.backgroundColor}
       />
       <NavigationContainer>
-        <Stack.Navigator initialRouteName="App">
+        <Stack.Navigator initialRouteName="Auth">
           <Stack.Screen name="App" component={BottomNavigation} />
           <Stack.Screen name="Auth" component={Authentification} />
         </Stack.Navigator>

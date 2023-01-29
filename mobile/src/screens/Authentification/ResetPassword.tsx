@@ -7,7 +7,7 @@ import TextInput from './components/InputText'
 import Button from './components/Button'
 import { emailValidator } from '../../Helpers/emailValidator'
 
-export default function ResetPasswordScreen({ navigation }:any):JSX.Element {
+export default function ResetPassword({ navigation }:any):JSX.Element {
     const [email, setEmail] = useState({ value: '', error: '' })
 
     const sendResetPasswordEmail = () => {
@@ -23,12 +23,12 @@ export default function ResetPasswordScreen({ navigation }:any):JSX.Element {
         <Background>
             <BackButton goBack={navigation.goBack} />
             <Logo />
-            <Header>Restore Password</Header>
+            <Header>Reset Your Password</Header>
             <TextInput
                 label="E-mail address"
                 returnKeyType="done"
                 value={email.value}
-                onChangeText={(text) => setEmail({ value: text, error: '' })}
+                onChangeText={(val: any) => setEmail({ value: val, error: '' })}
                 error={!!email.error}
                 errorText={email.error}
                 autoCapitalize="none"
@@ -42,7 +42,7 @@ export default function ResetPasswordScreen({ navigation }:any):JSX.Element {
                 onPress={sendResetPasswordEmail}
                 style={{ marginTop: 16 }}
             >
-                Send Instructions
+                Send
             </Button>
         </Background>
     )

@@ -55,7 +55,7 @@ export default function SignIn({ navigation }: any) {
 
   return (
     <Background>
-      <BackButton goBack={navigation.goBack} />
+      <BackButton />
       <Logo />
       <Header>Welcome Back To FitnessApp</Header>
       <TextInput

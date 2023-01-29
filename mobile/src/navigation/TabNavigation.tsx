@@ -3,6 +3,7 @@ import React from 'react';
 import {
   StyleSheet,
 } from 'react-native';
+import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
 import SignUp from '../screens/Authentification/SignUp';
 import Exercices from '../screens/Exercices';
@@ -16,8 +17,6 @@ function TabNavigation(): JSX.Element {
       <Tab.Screen name="Home" component={Home}/>
       <Tab.Screen name="Exercices" component={Exercices} />
       <Tab.Screen name="Settings" component={Settings} />
-      <Tab.Screen name="Sign Up" component={SignUp} />
-      <Tab.Screen name="Sign in" component={SignIn} />
     </Tab.Navigator>
   )
 }
