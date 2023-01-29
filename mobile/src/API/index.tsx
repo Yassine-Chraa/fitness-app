@@ -1,6 +1,4 @@
-import {API_URL} from "@env"
-
-const baseURL = API_URL;
+const baseURL = "http://192.168.1.3:8000";
 const endpoints:any = {
   Products: '/api/products'
 };

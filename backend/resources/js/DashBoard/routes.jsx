@@ -1,51 +1,68 @@
 import Dashboard from "./pages/Dashboard";
-import DashboardIcon from '@mui/icons-material/Dashboard';
-import GroupIcon from '@mui/icons-material/Group';
 import Users from "./pages/Users";
-import SignIn from "./pages/SignIn";
-import SignUp from "./pages/SignUp";
-import MainApp from "./pages/MainApp";
+import { Icon } from "@mui/material";
+import Products from "./pages/Products";
+import Meals from "./pages/Meals";
+import Equipements from "./pages/Equipements";
+import Activities from "./pages/Activities";
+import Feedbacks from "./pages/Feedbacks";
 
 const routes = [
     {
         type: "collapse",
         name: "DashBoard",
-        key: "dashboard",
-        icon: <DashboardIcon />,
+        key: "",
+        icon: <Icon>dashboard</Icon>,
         route: "/dashboard",
         component: <Dashboard />,
     },
     {
         type: "collapse",
-        name: "MainApp",
-        key: "main-app",
-        icon: <DashboardIcon />,
-        route: "/main-app",
-        component: <MainApp />,
-    },
-    {
-        type: "collapse",
         name: "Users",
         key: "users",
-        icon: <GroupIcon />,
-        route: "/users",
+        icon: <Icon>group</Icon>,
+        route: "/dashboard/users",
         component: <Users />,
     },
     {
         type: "collapse",
-        name: "Sign-in",
-        key: "sign-in",
-        icon: <GroupIcon />,
-        route: "/sign-in",
-        component: <SignIn />,
+        name: "Products",
+        key: "products",
+        icon: <Icon>store</Icon>,
+        route: "/dashboard/products",
+        component: <Products />,
     },
     {
         type: "collapse",
-        name: "Sign-up",
-        key: "sign-up",
-        icon: <GroupIcon />,
-        route: "/sign-up",
-        component: <SignUp />,
+        name: "Meals",
+        key: "meals",
+        icon: <Icon>restaurant</Icon>,
+        route: "/dashboard/meals",
+        component: <Meals />,
+    },
+    {
+        type: "collapse",
+        name: "Equipements",
+        key: "equipements",
+        icon: <Icon>fitness_center</Icon>,
+        route: "/dashboard/equipements",
+        component: <Equipements />,
+    },
+    {
+        type: "collapse",
+        name: "Activities",
+        key: "activities",
+        icon: <Icon>timeline</Icon>,
+        route: "/dashboard/activities",
+        component: <Activities />,
+    },
+    {
+        type: "collapse",
+        name: "Feedbacks",
+        key: "feedbacks",
+        icon: <Icon>reviews</Icon>,
+        route: "/dashboard/feedbacks",
+        component: <Feedbacks />,
     },
 ];
 

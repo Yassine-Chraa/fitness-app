@@ -41,7 +41,6 @@ export const ProductContextProvider = ({children}: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-
       const {data} = await axios.get(`${productUrl}`, config);
       console.log(data)
       return data;

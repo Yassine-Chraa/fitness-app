@@ -16,7 +16,7 @@ class AuthController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function sign_up(Request $request)
+    public function signUp(Request $request)
     {
         $data = $request->validate([
             'name' => ['required', 'string', 'max:255'],
@@ -27,7 +27,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' =>  Hash::make($request->get('password')),
         ]);
 
         $token = $user->createToken('api_Token')->plainTextToken;
@@ -40,12 +40,12 @@ class AuthController extends Controller
     }
 
     /**
-     * sign_in with password and username(email).
+     * login with password and username(email).
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
      */
-    public function sign_in(Request $request)
+    public function signIn(Request $request)
     {
         $data = $request->validate([
             'email' => 'required|string',
