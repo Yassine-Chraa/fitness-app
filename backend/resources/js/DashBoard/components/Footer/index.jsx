@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
-import { Icon,Link } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
+import { Link } from '@mui/material';
+import Icon from '@mui/material/Icon';
 import MDBox from "../../components/MDBox";
 import MDTypography from "../../components/MDTypography";
 import typography from "../../assets/theme/base/typography";
@@ -40,8 +40,8 @@ const Footer = ({ company, links }) => {
                 px={1.5}
             >
                 &copy; {new Date().getFullYear()}, made with
-                <MDBox fontSize={size.md} color="text" mx={0.25}>
-                  <FavoriteIcon fontSize="inherit" color="inherit"/>
+                <MDBox fontSize={size.md} color="text" mx={0.25} mb={-0.5}>
+                  <Icon fontSize="inherit" color="inherit">favorite</Icon>
                 </MDBox>
                 by
                 <Link href={href} target="_blank">

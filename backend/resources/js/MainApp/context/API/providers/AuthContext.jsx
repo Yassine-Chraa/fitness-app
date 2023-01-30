@@ -24,7 +24,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(true);
             // const config = {
             //     headers: {
-            //         authorization: `Bearer ${currentUser.token}`,
+            //         authorization: `Bearer ${localStorage.getItem('api_token')}`,
             //     },
             // };
 
@@ -41,7 +41,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(true);
             // const config = {
             //     headers: {
-            //         authorization: `Bearer ${currentUser.token}`,
+            //         authorization: `Bearer ${localStorage.getItem('api_token')}`,
             //     },
             // };
             const { data } = await axios.post(`${signUpUrl}`, user);
@@ -57,7 +57,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.post(`${logOutUrl}`, User, config);
@@ -73,7 +73,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.put(`${resetPasswordUrl}`, id, User, config);
@@ -89,7 +89,7 @@ export const authContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${deleteAccountUrl}`, id, config);

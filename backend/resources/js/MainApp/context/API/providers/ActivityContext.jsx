@@ -18,7 +18,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
 
@@ -35,7 +35,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${ActivityUrl}`,id, config);
@@ -51,7 +51,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.post(`${ActivityUrl}`, Activity, config);
@@ -67,7 +67,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.put(`${ActivityUrl}`, id, Activity, config);
@@ -83,7 +83,7 @@ export const ActivityContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${ActivityUrl}`,id, config);

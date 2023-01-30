@@ -34,7 +34,7 @@ function Configurator() {
         darkMode,
     } = controller;
     const [disabled, setDisabled] = useState(false);
-    const sidenavColors = ["primary", "dark", "info", "success", "warning", "error"];
+    const sidenavColors = ["primary","secondary", "dark", "info", "success", "warning", "error"];
 
     // Use the useEffect hook to change the button state for the sidenav type based on window size.
     useEffect(() => {

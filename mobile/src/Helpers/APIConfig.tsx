@@ -1,13 +1,12 @@
-import { API_URL } from "@env"
 import User from "../types/User";
 
-const baseURL = 'http://192.168.0.101:8000';
+const baseURL = "http://192.168.1.3:8000";
 
 const endpoints: any = {
-  SignIn: '/api/signin',
-  SignUp: '/api/signup',
+  SignIn: '/api/signIn',
+  SignUp: '/api/signUp',
   LogOut: '/api/logout',
-  DeleteAccount: '/api/deleteaccount',
+  DeleteAccount: '/api/deleteAccount',
   Products: '/api/products',
   Users: '/api/users',
   Meals: '/api/meals',
