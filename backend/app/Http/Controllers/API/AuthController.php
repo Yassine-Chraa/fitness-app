@@ -27,7 +27,7 @@ class AuthController extends Controller
         $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
-            'password' => bcrypt($data['password']),
+            'password' =>  Hash::make($request->get('password')),
         ]);
 
         $token = $user->createToken('api_Token')->plainTextToken;
@@ -40,7 +40,7 @@ class AuthController extends Controller
     }
 
     /**
-     * sign_in with password and username(email).
+     * login with password and username(email).
      *
      * @param Request $request
      * @return \Illuminate\Http\Response
