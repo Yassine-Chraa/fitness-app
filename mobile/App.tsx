@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 import {
   StatusBar,
   useColorScheme,
@@ -6,17 +6,15 @@ import {
   Text,
   Image,
   View,
-  Button,
-  TouchableOpacity,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import Authentification from './src/screens/Authentification';
 import APIHandlerProvider from './src/context/APIHandlerProvider';
-import TabNavigation from './src/navigators/TabNavigation';
 import AppIntroSlider from 'react-native-app-intro-slider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import MainNavigator from './src/navigators/MainNavigator';
 
 const Stack = createNativeStackNavigator();
 function App(): JSX.Element {
@@ -25,28 +23,28 @@ function App(): JSX.Element {
       key: 1,
       title: 'Transform your body',
       text: '',
-      image: require('./src/assets/intro1.png'),
+      image: require('./src/assets/images/intro1.png'),
       bg: '#5B8FB9',
     },
     {
       key: 2,
       title: 'Achieve your fitness goals',
       text: '',
-      image: require('./src/assets/intro2.png'),
+      image: require('./src/assets/images/intro2.png'),
       bg: '#BFDB38',
     },
     {
       key: 3,
       title: 'Get expert guidance',
       text: '',
-      image: require('./src/assets/intro1.png'),
+      image: require('./src/assets/images/intro1.png'),
       bg: '#00425A',
     },
     {
       key: 4,
       title: 'Create your account and get started',
       text: '',
-      image: require('./src/assets/intro1.png'),
+      image: require('./src/assets/images/intro1.png'),
       bg: '#301E67',
     },
   ];
@@ -69,7 +67,7 @@ function App(): JSX.Element {
   const renderNextButton = () => {
     return (
       <View style={styles.buttonCircle}>
-        <Icon name="forward" color="rgba(255, 255, 255, .9)" size={24} />
+        <Icon name="arrow-right" color="rgba(255, 255, 255, .9)" size={24} />
       </View>
     );
   };
@@ -86,7 +84,12 @@ function App(): JSX.Element {
   const backgroundStyle = {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
-  if (showRealApp) {
+  const [introDone, setIntroDone] = useState(false);
+  AsyncStorage.getItem('intro_done').then((res: string | null) => {
+    if (res == 'true') setIntroDone(true);
+    else setIntroDone(false);
+  });
+  if (showRealApp || introDone) {
     return (
       <APIHandlerProvider>
         <StatusBar
@@ -94,15 +97,7 @@ function App(): JSX.Element {
           backgroundColor={backgroundStyle.backgroundColor}
         />
         <NavigationContainer>
-          <Stack.Navigator
-            initialRouteName="Auth"
-            screenOptions={{
-              headerBackTitleVisible: false,
-              headerShown: false,
-            }}>
-            <Stack.Screen name="App" component={TabNavigation} />
-            <Stack.Screen name="Auth" component={Authentification} />
-          </Stack.Navigator>
+          <MainNavigator />
         </NavigationContainer>
       </APIHandlerProvider>
     );
@@ -113,7 +108,10 @@ function App(): JSX.Element {
         data={slides}
         renderDoneButton={renderDoneButton}
         renderNextButton={renderNextButton}
-        onDone={() => setShowRealApp(true)}
+        onDone={() => {
+          setShowRealApp(true);
+          AsyncStorage.setItem('intro_done', 'true');
+        }}
       />
     );
   }

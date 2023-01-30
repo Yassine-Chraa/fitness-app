@@ -1,9 +1,6 @@
 import React, { useState } from 'react'
-import Background from './components/Background'
-import BackButton from './components/BackButton'
-import Logo from './components/Logo'
-import Header from './components/Header'
-import TextInput from './components/InputText'
+import AuthScreen from './components/AuthScreen'
+import TextInput from './components/TextInput'
 import Button from './components/Button'
 import { emailValidator } from '../../Helpers/emailValidator'
 
@@ -20,10 +17,7 @@ export default function ResetPassword({ navigation }:any):JSX.Element {
     }
 
     return (
-        <Background>
-            <BackButton goBack={navigation.goBack} />
-            <Logo />
-            <Header>Reset Your Password</Header>
+        <AuthScreen title="Reset Your Password">
             <TextInput
                 label="E-mail address"
                 returnKeyType="done"
@@ -44,6 +38,6 @@ export default function ResetPassword({ navigation }:any):JSX.Element {
             >
                 Send
             </Button>
-        </Background>
+        </AuthScreen>
     )
 }

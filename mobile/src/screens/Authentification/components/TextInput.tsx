@@ -1,7 +1,7 @@
 import React from 'react'
 import { View, StyleSheet, Text } from 'react-native'
 import { TextInput as Input } from 'react-native-paper'
-import { theme } from '../../../core/theme'
+import { theme } from '../../../constants/theme'
 
 export default function TextInput({ errorText, description, ...props }: any): JSX.Element {
     return (
@@ -11,6 +11,7 @@ export default function TextInput({ errorText, description, ...props }: any): JS
                 selectionColor={theme.colors.primary}
                 underlineColor="transparent"
                 mode="outlined"
+                outlineColor={theme.colors.secondaryContainer}
                 {...props}
             />
             {description && !errorText ? (<Text style={styles.description}>{description}</Text>) : null}
