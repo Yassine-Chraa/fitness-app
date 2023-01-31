@@ -4,10 +4,12 @@ import AppNavigator from './AppNavigator';
 import AuthNavigator from './AuthNavigator';
 
 const Stack = createNativeStackNavigator();
+
 const MainNavigator = (): JSX.Element => {
-  const {updateState} = useAuth();
-  updateState();
+  const {getState} = useAuth();
+  getState();
   const {isLogged} = useAuth();
+
   return (
     <Stack.Navigator
       initialRouteName="Auth"

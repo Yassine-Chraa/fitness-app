@@ -2,11 +2,14 @@
 
 use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\AuthController;
+use App\Http\Controllers\API\CodeCheckController;
 use App\Http\Controllers\API\EquipementController;
 use App\Http\Controllers\API\EquipmentController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\ForgotPasswordController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
+use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -42,5 +45,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // this route is public
 
-Route::post('/signUp', [AuthController::class, 'signUp']);
-Route::post('/signIn', [AuthController::class, 'signIn']);
+Route::post('/signup', [AuthController::class, 'signUp']);
+Route::post('/signin', [AuthController::class, 'signIn']);
+
+Route::post('sendEmail',  [ForgotPasswordController::class, 'sendEmail']);
+Route::post('checkCode', [CodeCheckController::class, 'checkCode']);
+Route::post('newPassword', [ResetPasswordController::class, 'resetPassword']);

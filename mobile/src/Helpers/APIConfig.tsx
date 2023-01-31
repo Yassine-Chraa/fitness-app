@@ -1,10 +1,14 @@
 import User from "../types/User";
+import getData from "./Storage/getData";
 
-const baseURL = "http://192.168.1.3:8000";
+const baseURL = "http://192.168.68.126:8000";
 
 const endpoints: any = {
-  SignIn: '/api/signIn',
-  SignUp: '/api/signUp',
+  sendEmail: '/api/sendEmail',
+  newPassword: '/api/newPassword',
+  checkCode: '/api/checkCode',
+  SignIn: '/api/signin',
+  SignUp: '/api/signup',
   LogOut: '/api/logout',
   DeleteAccount: '/api/deleteAccount',
   Products: '/api/products',
@@ -14,17 +18,11 @@ const endpoints: any = {
   Activitys: '/api/activitys',
 };
 
-export const currentUser: User = {
-  id: 1,
-  role: 'admin',
-  name: 'Yassine Chraa',
-  email: 'yassinechraa@gmail.com',
-  email_verified_at: null,
-  profile: null,
-  created_at: '',
-  updated_at: '',
-  token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
-};
+
+export const currentUser = getData('user-info').then((res) => {
+  if (res) return JSON.parse(res);
+  else return null;
+});
 
 export function getUrl(endpoint: PropertyKey) {
   return baseURL + endpoints[endpoint];
