@@ -3,11 +3,11 @@ import { Card, Grid } from "@mui/material";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import StatisticsCard from "../components/Cards/StatisticsCar";
 import DashboardLayout from "../layouts/DashboardLayout";
-
+import Footer from "../components/Footer";
 const Dashboard = () => {
     return (
         <DashboardLayout>
-            <MDBox py={3}>
+            <MDBox pb={4}>
                 <Grid container spacing={3}>
                     <Grid item xs={12} lg={3} md={6}>
                         <Card>
@@ -87,6 +87,7 @@ const Dashboard = () => {
                     </Grid>
                 </Grid>
             </MDBox>
+            <Footer />
         </DashboardLayout>
     );
 };

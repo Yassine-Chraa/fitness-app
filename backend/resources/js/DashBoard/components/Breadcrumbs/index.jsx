@@ -52,15 +52,6 @@ const Breadcrumbs = ({ icon, title, route, light }) => {
                     {title.replace("-", " ")}
                 </MDTypography>
             </MuiBreadcrumbs>
-            <MDTypography
-                fontWeight="bold"
-                textTransform="capitalize"
-                variant="h6"
-                color={light ? "white" : "dark"}
-                noWrap
-            >
-                {title.replace("-", " ")}
-            </MDTypography>
         </MDBox>
     );
 }

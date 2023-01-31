@@ -6,7 +6,6 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import theme from "./assets/theme";
 import themeDark from "./assets/theme-dark";
 import MDBox from "./components/MDBox";
-import Sidenav from "./components/Sidenav";
 import Configurator from "./components/Configurator";
 import routes from "./routes";
 import {

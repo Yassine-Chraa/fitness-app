@@ -10,7 +10,9 @@ if (document.getElementById("mainApp")) {
 
     root.render(
         <APIHandlerProvider>
-            <App />
+            <BrowserRouter>
+                <App />
+            </BrowserRouter>
         </APIHandlerProvider>
     );
 }

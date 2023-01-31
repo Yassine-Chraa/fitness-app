@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
 import { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
@@ -21,9 +22,9 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => {
-    const context = useContext(AuthContext);
-    if (!context) throw new Error('Auth Provider is missing !');
-    return context;
+  const context = useContext(AuthContext);
+  if (!context) throw new Error('Auth Provider is missing !');
+  return context;
 };
 
 const sendEmailUrl = getUrl('sendEmail');

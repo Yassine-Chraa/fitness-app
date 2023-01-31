@@ -18,7 +18,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
 
@@ -36,7 +36,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                     id: id,
                 },
             };
@@ -53,7 +53,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.post(`${UserUrl}`, User, config);
@@ -69,7 +69,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.put(`${UserUrl}`, id, User, config);
@@ -85,7 +85,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${UserUrl}`, id, config);

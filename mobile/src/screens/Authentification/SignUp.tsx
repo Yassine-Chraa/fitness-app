@@ -1,33 +1,26 @@
-import React, { useState } from 'react';
-import {
-  StyleSheet,
-  TouchableOpacity,
-  View,
-  Alert
-} from 'react-native';
-import { Text } from 'react-native-paper'
-import Background from './components/Background'
-import Logo from './components/Logo'
-import Header from './components/Header'
-import Button from './components/Button'
-import TextInput from './components/InputText'
-import BackButton from './components/BackButton'
-import { theme } from '../../core/theme'
-import { emailValidator } from '../../Helpers/emailValidator'
-import { passwordValidator } from '../../Helpers/passwordValidator'
-import { nameValidator } from '../../Helpers/nameValidator'
-import SignUpObj from '../../types/SignUpObj'
-import storeData from '../../Helpers/Storage/storeData'
-import getData from '../../Helpers/Storage/getData'
-import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator'
-import { useAuth } from '../../context/providers/AuthContextProvider';
+import React, {useState} from 'react';
+import {StyleSheet, TouchableOpacity, View, Alert} from 'react-native';
+import {Text} from 'react-native-paper';
+import AuthScreen from './components/AuthScreen';
+import Button from './components/Button';
+import TextInput from './components/TextInput';
+import {theme} from '../../constants/theme';
+import {emailValidator} from '../../Helpers/emailValidator';
+import {passwordValidator} from '../../Helpers/passwordValidator';
+import {nameValidator} from '../../Helpers/nameValidator';
+import SignUpObj from '../../types/SignUpObj';
+import {passwordConfirmValidator} from '../../Helpers/passwordConfirmValidator';
+import {useAuth} from '../../context/providers/AuthContextProvider';
 
-export default function SignUp({ navigation }: any) {
-  const [name, setName] = useState({ value: '', error: '' })
-  const [email, setEmail] = useState({ value: '', error: '' })
-  const [password, setPassword] = useState({ value: '', error: '' })
-  const [password_confirmation, setPasswordConfirmation] = useState({ value: '', error: '' })
-  const { signUp } = useAuth()
+export default function SignUp({navigation}: any) {
+  const [name, setName] = useState({value: '', error: ''});
+  const [email, setEmail] = useState({value: '', error: ''});
+  const [password, setPassword] = useState({value: '', error: ''});
+  const [password_confirmation, setPasswordConfirmation] = useState({
+    value: '',
+    error: '',
+  });
+  const {signUp} = useAuth();
 
   const onSignUpPressed = async () => {
     const nameError = nameValidator(name.value)
@@ -44,47 +37,44 @@ export default function SignUp({ navigation }: any) {
         name: name.value,
         email: email.value,
         password: password.value,
-        password_confirmation: password_confirmation.value
+        password_confirmation: password_confirmation.value,
       };
 
       let signUpResult = await signUp(signUpData);
 
       switch (signUpResult) {
-        case "_STORAGE_ERROR_":
-          Alert.alert('ERROR', "Ooops! something went wrong !", [
-            { text: 'Close', onPress: () => console.log('') },
+        case '_STORAGE_ERROR_':
+          Alert.alert('ERROR', 'Ooops! something went wrong !', [
+            {text: 'Close', onPress: () => console.log('')},
           ]);
-          break
-        case "_FAILURE_":
-          Alert.alert('ERROR', "Ooops! something went wrong !", [
-            { text: 'Close', onPress: () => console.log('') },
+          break;
+        case '_FAILURE_':
+          Alert.alert('ERROR', 'Ooops! something went wrong !', [
+            {text: 'Close', onPress: () => console.log('')},
           ]);
-          break
+          break;
         default:
           navigation.navigate("signIn", null)
           break
       }
     }
-  }
+  };
 
   return (
-    <Background>
-      <BackButton goBack={navigation.goBack} />
-      <Logo />
-      <Header>Create Account</Header>
+    <AuthScreen title="Create Account">
       <TextInput
         label="Name"
         returnKeyType="next"
         value={name.value}
-        onChangeText={(val: string) => setName({ value: val, error: '' })}
-        error={!!name.error}
+        onChangeText={(val: string) => setName({value: val, error: ''})}
+        error={name.error}
         errorText={name.error}
       />
       <TextInput
         label="Email"
         returnKeyType="next"
         value={email.value}
-        onChangeText={(val: string) => setEmail({ value: val, error: '' })}
+        onChangeText={(val: string) => setEmail({value: val, error: ''})}
         error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
@@ -96,7 +86,7 @@ export default function SignUp({ navigation }: any) {
         label="Password"
         returnKeyType="done"
         value={password.value}
-        onChangeText={(val: string) => setPassword({ value: val, error: '' })}
+        onChangeText={(val: string) => setPassword({value: val, error: ''})}
         error={!!password.error}
         errorText={password.error}
         secureTextEntry
@@ -105,7 +95,9 @@ export default function SignUp({ navigation }: any) {
         label="Confirm Password"
         returnKeyType="done"
         value={password_confirmation.value}
-        onChangeText={(val: string) => setPasswordConfirmation({ value: val, error: '' })}
+        onChangeText={(val: string) =>
+          setPasswordConfirmation({value: val, error: ''})
+        }
         error={!!password_confirmation.error}
         errorText={password_confirmation.error}
         secureTextEntry
@@ -113,8 +105,7 @@ export default function SignUp({ navigation }: any) {
       <Button
         mode="contained"
         onPress={() => onSignUpPressed()}
-        style={{ marginTop: 24 }}
-      >
+        style={{marginTop: 24}}>
         Sign Up
       </Button>
       <View style={styles.row}>
@@ -123,9 +114,9 @@ export default function SignUp({ navigation }: any) {
           <Text style={styles.link}>Sign in</Text>
         </TouchableOpacity>
       </View>
-    </Background>
-  )
-};
+    </AuthScreen>
+  );
+}
 
 const styles = StyleSheet.create({
   row: {
@@ -136,4 +127,9 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: theme.colors.primary,
   },
-})
+  image: {
+    width: 110,
+    height: 110,
+    marginBottom: 8,
+  },
+});

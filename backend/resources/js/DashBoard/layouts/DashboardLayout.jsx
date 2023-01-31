@@ -15,8 +15,7 @@ import {
 import Sidenav from "../components/Sidenav";
 import { DarkMode } from "@mui/icons-material";
 import routes from "../routes";
-import Footer from "./auth-layouts/Footer";
-import DashBoardNavBar from "../components/DashBoardNavBar";
+import Navbar from "../components/Navbar";
 
 function DashboardLayout({ children }) {
     const [controller, dispatch] = useMaterialUIController();
@@ -70,9 +69,10 @@ function DashboardLayout({ children }) {
                 onMouseEnter={handleOnMouseEnter}
                 onMouseLeave={handleOnMouseLeave}
             />
-            <DashBoardNavBar />
-            {children}
-            <Footer />
+            <Navbar />
+            <MDBox pt={4}>
+                {children}
+            </MDBox>
         </MDBox>
     );
 }

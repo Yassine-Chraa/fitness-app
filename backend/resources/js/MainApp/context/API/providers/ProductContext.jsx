@@ -18,7 +18,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
 
@@ -35,7 +35,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${ProductUrl}`, id, config);
@@ -51,7 +51,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.post(`${ProductUrl}`, Product, config);
@@ -67,7 +67,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.put(`${ProductUrl}`, id, Product, config);
@@ -83,7 +83,7 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${currentUser.token}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${ProductUrl}`, id, config);
