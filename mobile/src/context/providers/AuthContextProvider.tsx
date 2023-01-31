@@ -1,8 +1,12 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios';
-import {createContext, useContext, useState} from 'react';
-import {getUrl, currentUser} from '../../Helpers/APIConfig';
+import { createContext, useContext, useState } from 'react';
+import { getUrl } from '../../Helpers/APIConfig';
+import getData from '../../Helpers/Storage/getData';
 import storeData from '../../Helpers/Storage/storeData';
+import CodeType from '../../types/CodeType';
+import EmailType from '../../types/EmailType';
+import ResetPasswordType from '../../types/ResetPasswordType';
 import SignInObj from '../../types/SignInObj';
 import SignUpObj from '../../types/SignUpObj';
 
@@ -15,29 +19,27 @@ export type AuthContextType = {
   resetPassword: (newPassword: string) => Promise<any>;
   deleteAccount: () => Promise<any>;
 };
+
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('Auth Provider is missing !');
-  return context;
+    const context = useContext(AuthContext);
+    if (!context) throw new Error('Auth Provider is missing !');
+    return context;
 };
 
+const sendEmailUrl = getUrl('sendEmail');
+const checkCodeUrl = getUrl('checkCode');
+const newPasswordUrl = getUrl('newPassword');
 const signInUrl = getUrl('SignIn');
 const signUpUrl = getUrl('SignUp');
 const logOutUrl = getUrl('LogOut');
 const resetPasswordUrl = getUrl('ResetPassword');
 const deleteAccountUrl = getUrl('DeleteAccount');
 
-const config = {
-  headers: {
-    authorization: `Bearer ${currentUser.token}`,
-  },
-};
-
-export const AuthContextProvider = ({children}: any) => {
-  const [loading, setLoading] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
+export const AuthContextProvider = ({ children }: any) => {
+    const [loading, setLoading] = useState(false);
+    const [isLogged, setIsLogged] = useState(false);
 
   const updateState = () => {
     AsyncStorage.getItem('isLogged').then((res: string | null) => {
