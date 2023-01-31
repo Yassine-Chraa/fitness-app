@@ -1,23 +1,16 @@
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Header } from '@rneui/themed';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {Header} from '@rneui/themed';
 import React from 'react';
-import { Text } from 'react-native-paper';
+import {Text} from 'react-native-paper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { TouchableOpacity } from 'react-native';
+import {TouchableOpacity} from 'react-native';
 import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
 import SignUp from '../screens/Authentification/SignUp';
 import { theme } from '../constants/theme';
-import SendResetEmail from '../screens/Authentification/SendResetEmail';
-import CheckCode from '../screens/Authentification/CheckCode';
 const AuthStack = createNativeStackNavigator();
 
-function AuthNavigator({ navigation }: any): JSX.Element {
-
-  const navigateParentTo = () => {
-    navigation.navigate("App", null)
-  }
-
+function AuthNavigator({navigation}: any): JSX.Element {
   return (
     <AuthStack.Navigator
       initialRouteName="signIn"
@@ -28,7 +21,7 @@ function AuthNavigator({ navigation }: any): JSX.Element {
           <Header
             leftComponent={
               <TouchableOpacity onPress={() => navigation.goBack()}>
-                <Icon name="arrow-left" size={18} />
+                <Icon name="arrow-left" size={18}/>
               </TouchableOpacity>
             }
             centerComponent={
@@ -41,7 +34,7 @@ function AuthNavigator({ navigation }: any): JSX.Element {
                 Fitness App
               </Text>
             }
-
+            
             containerStyle={{
               backgroundColor: theme.colors.inversePrimary,
               top: 8,
@@ -49,11 +42,9 @@ function AuthNavigator({ navigation }: any): JSX.Element {
           />
         ),
       }}>
-      <AuthStack.Screen name="signIn" component={SignIn}/>
+      <AuthStack.Screen name="signIn" component={SignIn} />
       <AuthStack.Screen name="signUp" component={SignUp} />
-      <AuthStack.Screen name="checkCode" component={CheckCode} />
       <AuthStack.Screen name="resetPassword" component={ResetPassword} />
-      <AuthStack.Screen name="sendResetEmail" component={SendResetEmail} />
     </AuthStack.Navigator>
   );
 }

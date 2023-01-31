@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\CodeCheckController;
 use App\Http\Controllers\API\EquipementController;
 use App\Http\Controllers\API\EquipmentController;
 use App\Http\Controllers\API\FeedbackController;

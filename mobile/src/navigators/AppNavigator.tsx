@@ -11,7 +11,6 @@ import {
 } from 'react-native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import TabNavigator from './TabNavigator';
-import Home from '../screens/Home';
 
 const Stack = createNativeStackNavigator();
 function AppNavigator(): JSX.Element {
@@ -23,7 +22,6 @@ function AppNavigator(): JSX.Element {
         headerShown: false,
       }}>
       <Stack.Screen name="Tab" component={TabNavigator} />
-      <Stack.Screen name="home" component={Home} />
     </Stack.Navigator>
   );
 }
