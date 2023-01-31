@@ -1,20 +1,16 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
-import { Button as PaperButton } from 'react-native-paper';
+import { StyleSheet,Button,View } from 'react-native';
 import { theme } from '../../../constants/theme';
 
-export default function Button({ mode, style, ...props }: any):JSX.Element {
+export default function CustomButton({ mode, style, ...props }: any):JSX.Element {
   return (
-    <PaperButton
-      style={[
-        styles.button,
-        mode === 'outlined' && { backgroundColor: theme.colors.surface },
-        style,
-      ]}
-      labelStyle={styles.text}
+    <View style={styles.button}>
+      <Button
+      style={styles.text}
       mode={mode}
       {...props}
     />
+    </View>
   )
 }
 

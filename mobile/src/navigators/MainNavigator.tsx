@@ -1,13 +1,15 @@
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import {useEffect} from 'react';
 import {useAuth} from '../context/providers/AuthContextProvider';
-import AppNavigator from './AppNavigator';
-import AuthNavigator from './AuthNavigator';
+import ResetPassword from '../screens/Authentification/ResetPassword';
+import SignIn from '../screens/Authentification/SignIn';
+import SignUp from '../screens/Authentification/SignUp';
+import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
 const MainNavigator = (): JSX.Element => {
-  const {updateState} = useAuth();
+  const {isLogged, updateState} = useAuth();
   updateState();
-  const {isLogged} = useAuth();
   return (
     <Stack.Navigator
       initialRouteName="Auth"
@@ -16,9 +18,13 @@ const MainNavigator = (): JSX.Element => {
         headerShown: false,
       }}>
       {isLogged ? (
-        <Stack.Screen name="App" component={AppNavigator} />
+        <Stack.Screen name="Tab" component={TabNavigator} />
       ) : (
-        <Stack.Screen name="Auth" component={AuthNavigator} />
+        <>
+          <Stack.Screen name="signIn" component={SignIn} />
+          <Stack.Screen name="signUp" component={SignUp} />
+          <Stack.Screen name="resetPassword" component={ResetPassword} />
+        </>
       )}
     </Stack.Navigator>
   );

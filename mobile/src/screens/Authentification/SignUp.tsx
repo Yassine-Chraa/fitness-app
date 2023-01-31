@@ -1,6 +1,5 @@
 import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View, Alert} from 'react-native';
-import {Text} from 'react-native-paper';
+import {StyleSheet, TouchableOpacity, View, Alert,Text} from 'react-native';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
 import TextInput from './components/TextInput';
@@ -12,7 +11,7 @@ import SignUpObj from '../../types/SignUpObj';
 import {passwordConfirmValidator} from '../../Helpers/passwordConfirmValidator';
 import {useAuth} from '../../context/providers/AuthContextProvider';
 
-export default function SignUp({navigation}: any) {
+const SignUp = ({navigation}: any) => {
   const [name, setName] = useState({value: '', error: ''});
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
@@ -37,22 +36,6 @@ export default function SignUp({navigation}: any) {
       ...prev,
       error: passwordConfirmationError,
     }));
-
-    //---------------------------------------------------------
-
-    // const val = await getData('user-info-sign-up');
-    // if (val) {
-    //   Alert.alert('Message', val.token, [
-    //     {
-    //       text: 'Cancel',
-    //       onPress: () => console.log('Cancel Pressed'),
-    //       style: 'cancel',
-    //     },
-    //     { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //   ]);
-    // }
-
-    //---------------------------------------------------------
 
     if (
       emailError == '' &&
@@ -80,8 +63,6 @@ export default function SignUp({navigation}: any) {
             {text: 'Close', onPress: () => console.log('')},
           ]);
           break;
-        default:
-        // redirect to sign in
       }
     }
   };
@@ -89,19 +70,15 @@ export default function SignUp({navigation}: any) {
   return (
     <AuthScreen title="Create Account">
       <TextInput
-        label="Name"
-        returnKeyType="next"
+        placeholder="Name"
         value={name.value}
         onChangeText={(val: string) => setName({value: val, error: ''})}
-        error={name.error}
         errorText={name.error}
       />
       <TextInput
-        label="Email"
-        returnKeyType="next"
+        placeholder="Email"
         value={email.value}
         onChangeText={(val: string) => setEmail({value: val, error: ''})}
-        error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
         autoCompleteType="email"
@@ -109,17 +86,14 @@ export default function SignUp({navigation}: any) {
         keyboardType="email-address"
       />
       <TextInput
-        label="Password"
-        returnKeyType="done"
+        placeholder="Password"
         value={password.value}
         onChangeText={(val: string) => setPassword({value: val, error: ''})}
-        error={!!password.error}
         errorText={password.error}
         secureTextEntry
       />
       <TextInput
-        label="Confirm Password"
-        returnKeyType="done"
+        placeholder="Confirm Password"
         value={password_confirmation.value}
         onChangeText={(val: string) =>
           setPasswordConfirmation({value: val, error: ''})
@@ -129,20 +103,20 @@ export default function SignUp({navigation}: any) {
         secureTextEntry
       />
       <Button
+        title="Sign Up"
         mode="contained"
         onPress={() => onSignUpPressed()}
-        style={{marginTop: 24}}>
-        Sign Up
-      </Button>
+      />
+
       <View style={styles.row}>
         <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('signIn', null)}>
+        <TouchableOpacity onPress={() => navigation.navigate('signIn')}>
           <Text style={styles.link}>Sign in</Text>
         </TouchableOpacity>
       </View>
     </AuthScreen>
   );
-}
+};
 
 const styles = StyleSheet.create({
   row: {
@@ -159,3 +133,4 @@ const styles = StyleSheet.create({
     marginBottom: 8,
   },
 });
+export default SignUp;

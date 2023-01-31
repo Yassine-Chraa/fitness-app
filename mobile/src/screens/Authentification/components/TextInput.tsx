@@ -1,19 +1,11 @@
 import React from 'react'
-import { View, StyleSheet, Text } from 'react-native'
-import { TextInput as Input } from 'react-native-paper'
+import { View, StyleSheet, Text,TextInput } from 'react-native'
 import { theme } from '../../../constants/theme'
 
-export default function TextInput({ errorText, description, ...props }: any): JSX.Element {
+export default function CustomTextInput({ errorText, description, ...props }: any): JSX.Element {
     return (
         <View style={styles.container}>
-            <Input
-                style={styles.input}
-                selectionColor={theme.colors.primary}
-                underlineColor="transparent"
-                mode="outlined"
-                outlineColor={theme.colors.secondaryContainer}
-                {...props}
-            />
+            <TextInput style={styles.input} selectionColor={theme.colors.primary} underlineColorAndroid='transparent' {...props}/>
             {description && !errorText ? (<Text style={styles.description}>{description}</Text>) : null}
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
         </View>
@@ -26,7 +18,9 @@ const styles = StyleSheet.create({
         marginVertical: 12,
     },
     input: {
-        backgroundColor: theme.colors.surface,
+        backgroundColor: theme.colors.primaryContainer,
+        borderRadius: 8,
+        paddingHorizontal: 12
     },
     description: {
         fontSize: 13,
