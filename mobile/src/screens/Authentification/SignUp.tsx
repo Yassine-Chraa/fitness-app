@@ -50,6 +50,22 @@ export default function SignUp({navigation}: any) {
 
     //---------------------------------------------------------
 
+    //---------------------------------------------------------
+
+    // const val = await getData('user-info-sign-up');
+    // if (val) {
+    //   Alert.alert('Message', val.token, [
+    //     {
+    //       text: 'Cancel',
+    //       onPress: () => console.log('Cancel Pressed'),
+    //       style: 'cancel',
+    //     },
+    //     { text: 'OK', onPress: () => console.log('OK Pressed') },
+    //   ]);
+    // }
+
+    //---------------------------------------------------------
+
     if (
       emailError == '' &&
       passwordError == '' &&
