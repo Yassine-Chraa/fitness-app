@@ -31,8 +31,7 @@ export default function SendResetEmail({ navigation }: any): JSX.Element {
 
     return (
         <AuthScreen title="Restore Your Password">
-            <Logo />
-            <Header>Restore Your Password</Header>
+            
             <TextInput
                 label="E-mail address"
                 returnKeyType="done"

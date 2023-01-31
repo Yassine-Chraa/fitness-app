@@ -35,9 +35,7 @@ export default function CheckCode({ navigation }: any): JSX.Element {
 
     return (
         <AuthScreen title="Checking Your Code">
-            <Logo />
-            <Header>Checking Your Code</Header>
-            <View style={{ width: 200 }}>
+            <View >
                 <TextInput
                     label="Your Code Here"
                     returnKeyType="done"
@@ -49,13 +47,13 @@ export default function CheckCode({ navigation }: any): JSX.Element {
                     textContentType="numeric"
                     keyboardType="numeric"
                     description="Type the code you received in your email."
-
+                    style={{ width: 300 }}
                 />
             </View>
             <Button
                 mode="contained"
                 onPress={ckeckCodeHandler}
-                style={{ marginTop: 15, width: 200 }}
+                style={{ marginTop: 18, width: 300 }}
             >
                 Verify Code
             </Button>

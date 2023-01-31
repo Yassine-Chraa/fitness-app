@@ -8,13 +8,11 @@ import SignInObj from '../../types/SignInObj';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
 import TextInput from './components/TextInput';
-import Logo from './components/Logo';
-import Header from './components/Header';
 
 export default function SignIn({ navigation }: any) {
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
-  const { signIn } = useAuth();
+  const { signIn, setState } = useAuth();
 
   const onSignInPressed = async () => {
     const emailError = emailValidator(email.value);
@@ -42,18 +40,16 @@ export default function SignIn({ navigation }: any) {
           ]);
           break
         case '_SUCCESS_':
+          setState(true);
           break;
         default:
-        // redirect to main page
+          break;
       }
     }
   };
 
   return (
     <AuthScreen title="Welcome Back To FitnessApp">
-      <Logo />
-      <Header>Welcome Back</Header>
-      <Header>To FitnessApp</Header>
       <TextInput
         label="Email"
         returnKeyType="next"

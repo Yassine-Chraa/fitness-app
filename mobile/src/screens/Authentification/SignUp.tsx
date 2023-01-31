@@ -64,8 +64,6 @@ export default function SignUp({ navigation }: any) {
 
   return (
     <AuthScreen title="Create Account">
-      <Logo />
-      <Header>Create Account</Header>
       <TextInput
         label="Name"
         returnKeyType="next"

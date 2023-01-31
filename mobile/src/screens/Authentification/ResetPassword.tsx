@@ -42,8 +42,6 @@ export default function ResetPassword({ navigation, route }: any): JSX.Element {
 
     return (
         <AuthScreen title="Restore Your Password">
-            <Logo />
-            <Header>Restore Your Password</Header>
             <TextInput
                 label="New Password"
                 returnKeyType="done"
