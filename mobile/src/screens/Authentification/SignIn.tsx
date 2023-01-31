@@ -80,7 +80,7 @@ export default function SignIn({ navigation }: any) {
         secureTextEntry
       />
       <View style={styles.forgotPassword}>
-        <TouchableOpacity onPress={() => navigation.navigate("resetPassword", null)}>
+        <TouchableOpacity onPress={() => navigation.navigate("sendResetEmail", null)}>
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>

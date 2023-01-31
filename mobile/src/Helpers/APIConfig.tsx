@@ -4,6 +4,9 @@ import User from "../types/User";
 const baseURL = 'http://192.168.0.101:8000';
 
 const endpoints: any = {
+  sendEmail: '/api/sendEmail',
+  newPassword: '/api/newPassword',
+  checkCode: '/api/checkCode',
   SignIn: '/api/signin',
   SignUp: '/api/signup',
   LogOut: '/api/logout',

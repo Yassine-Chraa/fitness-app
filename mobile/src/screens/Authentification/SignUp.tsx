@@ -39,23 +39,6 @@ export default function SignUp({ navigation }: any) {
     setPassword((prev) => ({ ...prev, error: passwordError }))
     setPasswordConfirmation((prev) => ({ ...prev, error: passwordConfirmationError }))
 
-    //---------------------------------------------------------
-
-    // const val = await getData('user-info-sign-up');
-    // if (val) {
-    //   Alert.alert('Message', val.token, [
-    //     {
-    //       text: 'Cancel',
-    //       onPress: () => console.log('Cancel Pressed'),
-    //       style: 'cancel',
-    //     },
-    //     { text: 'OK', onPress: () => console.log('OK Pressed') },
-    //   ]);
-    // }
-
-
-    //---------------------------------------------------------
-
     if (emailError == '' && passwordError == '' && nameError == '' && passwordConfirmationError == '') {
       const signUpData: SignUpObj = {
         name: name.value,
@@ -78,7 +61,8 @@ export default function SignUp({ navigation }: any) {
           ]);
           break
         default:
-        // redirect to sign in
+          navigation.navigate("signIn", null)
+          break
       }
     }
   }
@@ -134,7 +118,7 @@ export default function SignUp({ navigation }: any) {
         Sign Up
       </Button>
       <View style={styles.row}>
-          <Text>Already have an account? </Text>
+        <Text>Already have an account? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("signIn", null)}>
           <Text style={styles.link}>Sign in</Text>
         </TouchableOpacity>
