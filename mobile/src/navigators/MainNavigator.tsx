@@ -7,6 +7,7 @@ import SignUp from '../screens/Authentification/SignUp';
 import TabNavigator from './TabNavigator';
 
 const Stack = createNativeStackNavigator();
+
 const MainNavigator = (): JSX.Element => {
   const {isLogged, updateState} = useAuth();
   updateState();
