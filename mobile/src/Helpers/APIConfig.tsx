@@ -17,6 +17,8 @@ const endpoints: any = {
   Activitys: '/api/activitys',
 };
 
+
+
 export const currentUser: User = {
   id: 1,
   role: 'admin',

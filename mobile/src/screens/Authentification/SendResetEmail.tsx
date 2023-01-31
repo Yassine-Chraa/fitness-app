@@ -1,14 +1,13 @@
 import React, { useState } from 'react'
-import Background from './components/Background'
-import BackButton from './components/BackButton'
-import Logo from './components/Logo'
-import Header from './components/Header'
-import TextInput from './components/InputText'
-import Button from './components/Button'
 import { emailValidator } from '../../Helpers/emailValidator'
 import { useAuth } from '../../context/providers/AuthContextProvider'
 import { Alert } from 'react-native'
 import EmailType from '../../types/EmailType'
+import AuthScreen from './components/AuthScreen';
+import Button from './components/Button'
+import TextInput from './components/TextInput'
+import Logo from './components/Logo'
+import Header from './components/Header'
 
 export default function SendResetEmail({ navigation }: any): JSX.Element {
     const [email, setEmail] = useState({ value: '', error: '' });
@@ -18,7 +17,7 @@ export default function SendResetEmail({ navigation }: any): JSX.Element {
         const emailError = emailValidator(email.value)
         setEmail({ ...email, error: emailError })
         if (emailError == '') {
-            const emailObj:EmailType = {email: email.value}
+            const emailObj: EmailType = { email: email.value }
             const sendEmailResult = await sendEmail(emailObj);
             if (sendEmailResult) {
                 navigation.navigate("checkCode", null);
@@ -31,8 +30,7 @@ export default function SendResetEmail({ navigation }: any): JSX.Element {
     }
 
     return (
-        <Background>
-            <BackButton goBack={navigation.goBack} />
+        <AuthScreen title="Restore Your Password">
             <Logo />
             <Header>Restore Your Password</Header>
             <TextInput
@@ -55,6 +53,6 @@ export default function SendResetEmail({ navigation }: any): JSX.Element {
             >
                 Send
             </Button>
-        </Background>
+        </AuthScreen>
     )
 }

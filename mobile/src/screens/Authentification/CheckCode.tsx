@@ -1,25 +1,24 @@
 import React, { useState } from 'react'
-import Background from './components/Background'
-import BackButton from './components/BackButton'
 import Logo from './components/Logo'
 import Header from './components/Header'
-import TextInput from './components/InputText'
 import Button from './components/Button'
 import { codeValidator } from '../../Helpers/codeValidator'
 import { View, Alert } from 'react-native';
 import CodeType from '../../types/CodeType'
 import { useAuth } from '../../context/providers/AuthContextProvider'
+import AuthScreen from './components/AuthScreen'
+import TextInput from './components/TextInput'
 
 export default function CheckCode({ navigation }: any): JSX.Element {
     const [code, setCode] = useState({ value: '', error: '' })
-    const {checkCode} = useAuth();
+    const { checkCode } = useAuth();
 
     const ckeckCodeHandler = async () => {
         const codeError = codeValidator(code.value)
         setCode({ ...code, error: codeError })
 
         if (codeError == '') {
-            const codeObj:CodeType = {code: code.value}
+            const codeObj: CodeType = { code: code.value }
             const checkCodeResult = await checkCode(codeObj);
             if (checkCodeResult) {
                 navigation.navigate("resetPassword", codeObj);
@@ -31,12 +30,11 @@ export default function CheckCode({ navigation }: any): JSX.Element {
 
         }
 
-        
+
     }
 
     return (
-        <Background>
-            <BackButton goBack={navigation.goBack} />
+        <AuthScreen title="Checking Your Code">
             <Logo />
             <Header>Checking Your Code</Header>
             <View style={{ width: 200 }}>
@@ -61,6 +59,6 @@ export default function CheckCode({ navigation }: any): JSX.Element {
             >
                 Verify Code
             </Button>
-        </Background>
+        </AuthScreen>
     )
 }

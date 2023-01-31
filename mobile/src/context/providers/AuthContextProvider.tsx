@@ -22,9 +22,9 @@ export type AuthContextType = {
 const AuthContext = createContext<AuthContextType | null>(null);
 
 export const useAuth = () => {
-  const context = useContext(AuthContext);
-  if (!context) throw new Error('Auth Provider is missing !');
-  return context;
+    const context = useContext(AuthContext);
+    if (!context) throw new Error('Auth Provider is missing !');
+    return context;
 };
 
 const sendEmailUrl = getUrl('sendEmail');
@@ -101,10 +101,10 @@ export const AuthContextProvider = ({ children }: any) => {
     const checkCode = async (code: CodeType) => {
         try {
             setLoading(true);
-            console.log("code ===> "+code.code)
-            console.log("url ===> "+checkCodeUrl)
+            console.log("code ===> " + code.code)
+            console.log("url ===> " + checkCodeUrl)
             const { data } = await axios.post(`${checkCodeUrl}`, code);
-            console.log("data ===> "+JSON.stringify(data))
+            console.log("data ===> " + JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {
@@ -117,7 +117,7 @@ export const AuthContextProvider = ({ children }: any) => {
         try {
             setLoading(true);
             const { data } = await axios.post(`${newPasswordUrl}`, form);
-            console.log("data ===> "+JSON.stringify(data))
+            console.log("data ===> " + JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {

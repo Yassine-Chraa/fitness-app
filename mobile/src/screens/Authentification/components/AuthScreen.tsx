@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Image, Text} from 'react-native';
 import { theme } from '../../../constants/theme';
 
-const Screen = ({children, title}: any): JSX.Element => {
+const AuthScreen = ({children, title}: any): JSX.Element => {
   return (
     <View style={styles.screen}>
       <Image
@@ -35,4 +35,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
 });
-export default Screen;
+export default AuthScreen;

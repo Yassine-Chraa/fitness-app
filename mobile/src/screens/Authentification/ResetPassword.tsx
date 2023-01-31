@@ -1,15 +1,14 @@
 import React, { useState } from 'react';
 import { Alert } from 'react-native';
-import Background from './components/Background';
-import BackButton from './components/BackButton';
 import Logo from './components/Logo';
 import Header from './components/Header';
-import TextInput from './components/InputText';
 import Button from './components/Button';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { passwordValidator } from '../../Helpers/passwordValidator';
 import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator';
 import ResetPasswordType from '../../types/ResetPasswordType';
+import TextInput from './components/TextInput';
+import AuthScreen from './components/AuthScreen'
 
 export default function ResetPassword({ navigation, route }: any): JSX.Element {
     const [password, setPassword] = useState({ value: '', error: '' })
@@ -42,8 +41,7 @@ export default function ResetPassword({ navigation, route }: any): JSX.Element {
     }
 
     return (
-        <Background>
-            <BackButton goBack={navigation.goBack} />
+        <AuthScreen title="Restore Your Password">
             <Logo />
             <Header>Restore Your Password</Header>
             <TextInput
@@ -71,6 +69,6 @@ export default function ResetPassword({ navigation, route }: any): JSX.Element {
             >
                 Reset
             </Button>
-        </Background>
+        </AuthScreen>
     )
 }
