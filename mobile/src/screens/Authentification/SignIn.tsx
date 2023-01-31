@@ -9,8 +9,9 @@ import SignInObj from '../../types/SignInObj';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
 import TextInput from './components/TextInput';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const SignIn = ({navigation}: any) => {
+export default function SignIn({navigation}: any) {
   const [email, setEmail] = useState({value: '', error: ''});
   const [password, setPassword] = useState({value: '', error: ''});
   const {signIn} = useAuth();
@@ -51,9 +52,11 @@ const SignIn = ({navigation}: any) => {
   return (
     <AuthScreen title="Welcome Back To FitnessApp">
       <TextInput
-        placeholder="Email"
+        label="Email"
+        returnKeyType="next"
         value={email.value}
         onChangeText={(val: string) => setEmail({value: val, error: ''})}
+        error={!!email.error}
         errorText={email.error}
         autoCapitalize="none"
         autoCompleteType="email"
@@ -61,27 +64,32 @@ const SignIn = ({navigation}: any) => {
         keyboardType="email-address"
       />
       <TextInput
-        placeholder="Password"
+        label="Password"
+        returnKeyType="done"
         value={password.value}
         onChangeText={(val: string) => setPassword({value: val, error: ''})}
+        error={!!password.error}
         errorText={password.error}
         secureTextEntry
       />
       <View style={styles.forgotPassword}>
-        <TouchableOpacity onPress={() => navigation.navigate('resetPassword')}>
+        <TouchableOpacity
+          onPress={() => navigation.navigate('resetPassword', null)}>
           <Text style={styles.forgot}>Forgot your password?</Text>
         </TouchableOpacity>
       </View>
-      <Button onPress={onSignInPressed} title="Sign In"/>
+      <Button mode="contained" onPress={onSignInPressed}>
+        Sign In
+      </Button>
       <View style={styles.row}>
         <Text>Don’t have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('signUp')}>
+        <TouchableOpacity onPress={() => navigation.navigate('signUp', null)}>
           <Text style={styles.link}>Sign up</Text>
         </TouchableOpacity>
       </View>
     </AuthScreen>
   );
-};
+}
 
 const styles = StyleSheet.create({
   row: {
@@ -102,4 +110,3 @@ const styles = StyleSheet.create({
     marginBottom: 24,
   },
 });
-export default SignIn;

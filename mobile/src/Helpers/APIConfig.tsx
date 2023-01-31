@@ -1,18 +1,17 @@
 import User from "../types/User";
 
-const baseURL = "http:///192.168.68.131:8000";
+const baseURL = "http://192.168.1.3:8000";
 
 const endpoints: any = {
   SignIn: '/api/signIn',
   SignUp: '/api/signUp',
+  LogOut: '/api/logout',
   DeleteAccount: '/api/deleteAccount',
-  ResetPassword: '/password/email',
   Products: '/api/products',
   Users: '/api/users',
   Meals: '/api/meals',
   Equipments: '/api/equipments',
   Activitys: '/api/activitys',
-  CsrfToken: '/csrf-token'
 };
 
 export const currentUser: User = {

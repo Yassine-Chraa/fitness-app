@@ -11,8 +11,8 @@ export type AuthContextType = {
   updateState: () => void;
   signIn: (form: any) => Promise<any>;
   signUp: (form: any) => Promise<any>;
-  logout: () => void;
-  resetPassword: (email: string) => Promise<any>;
+  logOut: () => Promise<any>;
+  resetPassword: (newPassword: string) => Promise<any>;
   deleteAccount: () => Promise<any>;
 };
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -25,9 +25,9 @@ export const useAuth = () => {
 
 const signInUrl = getUrl('SignIn');
 const signUpUrl = getUrl('SignUp');
+const logOutUrl = getUrl('LogOut');
 const resetPasswordUrl = getUrl('ResetPassword');
 const deleteAccountUrl = getUrl('DeleteAccount');
-const csrfTokenUrl = getUrl('CsrfToken');
 
 const config = {
   headers: {
@@ -45,20 +45,21 @@ export const AuthContextProvider = ({children}: any) => {
       else setIsLogged(false);
     });
   };
+  const clearState = () => {
+    setIsLogged(false);
+  };
   const signIn = async (form: SignInObj) => {
     setLoading(true);
     try {
       const {data} = await axios.post(`${signInUrl}`, form);
       if (data) {
-        const storeResult = await storeData('current_user', data);
-
+        const storeResult = await storeData('user-info', data);
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
-        AsyncStorage.setItem('isLogged', 'true');
-        updateState();
       }
       setLoading(false);
+      updateState();
       return '_SUCCESS_';
     } catch (error) {
       setLoading(false);
@@ -70,13 +71,10 @@ export const AuthContextProvider = ({children}: any) => {
     try {
       const {data} = await axios.post(`${signUpUrl}`, form);
       if (data) {
-        const storeResult = await storeData('current_user', data);
-        console.log(storeResult);
+        const storeResult = await storeData('user-info', data);
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
-        AsyncStorage.setItem('isLogged', 'true');
-        updateState();
       }
       setLoading(false);
       return '_SUCCESS_';
@@ -85,27 +83,30 @@ export const AuthContextProvider = ({children}: any) => {
       return '_FAILURE_';
     }
   };
-  const logout = async () => {
-    //Todo: clear user tokens from db 
-    await AsyncStorage.removeItem('current_user');
-    await AsyncStorage.setItem('isLogged', 'false');
-    setIsLogged(false);
-  };
-  const resetPassword = async (email: string) => {
+  const logOut = async () => {
     try {
       setLoading(true);
-      console.log(csrfTokenUrl);
-      const res = await axios.get(csrfTokenUrl);
-      const csrfToken = res.data.csrfToken;
-      axios.post(resetPasswordUrl, {
-        _token: csrfToken,
-        email,
-      });
+      const {data} = await axios.get(`${logOutUrl}`, config);
       setLoading(false);
-      return 'You will receive email with your password reset link!';
+      return data;
     } catch (error) {
       setLoading(false);
-      return '';
+      return false;
+    }
+  };
+  const resetPassword = async (newPassword: string) => {
+    try {
+      setLoading(true);
+      const {data} = await axios.post(
+        `${resetPasswordUrl}`,
+        newPassword,
+        config,
+      );
+      setLoading(false);
+      return data;
+    } catch (error) {
+      setLoading(false);
+      return false;
     }
   };
   const deleteAccount = async () => {
@@ -127,7 +128,7 @@ export const AuthContextProvider = ({children}: any) => {
         updateState,
         signIn,
         signUp,
-        logout,
+        logOut,
         resetPassword,
         deleteAccount,
       }}>

@@ -3,14 +3,11 @@ import React from 'react';
 import {StyleSheet} from 'react-native';
 import Exercices from '../screens/Exercices';
 import Home from '../screens/Home';
-import Profile from '../screens/Profile';
+import Settings from '../screens/Settings';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import Workout from '../screens/Workout';
-import Store from '../screens/Store';
-import Restaurant from '../screens/Restaurant';
 
 const Tab = createBottomTabNavigator();
-function TabNavigator(): JSX.Element {
+function TabNavigation(): JSX.Element {
   return (
     <Tab.Navigator
       screenOptions={({route}) => ({
@@ -18,45 +15,31 @@ function TabNavigator(): JSX.Element {
           let iconName;
           switch (route.name) {
             case 'Home':
-              iconName = 'home';
+              iconName = focused ? 'home' : 'home';
               break;
             case 'Exercices':
-              iconName = 'dumbbell';
+              iconName = focused ? 'dumbbell' : 'dumbbell';
               break;
-            case 'Workout':
-              iconName = 'list-alt';
-              break;
-            case 'Store':
-              iconName = 'store';
-              break;
-            case 'Restaurant':
-              iconName = 'utensils';
-              break;
-            case 'Profile':
-              iconName = 'user';
+            case 'Settings':
+              iconName = focused ? 'cog' : 'cog';
               break;
             default:
               iconName = focused ? '' : '';
               break;
           }
           // You can return any component that you like here!
-          return (
-            <Icon name={iconName} size={20} color={color} solid />
-          );
+          return <Icon name={iconName} size={20} color={color} />;
         },
-        headerShown: false,
+        headerShown: false
       })}
       initialRouteName="Home">
       <Tab.Screen name="Home" component={Home} />
-      <Tab.Screen name="Workout" component={Workout} />
       <Tab.Screen name="Exercices" component={Exercices} />
-      <Tab.Screen name="Store" component={Store} />
-      <Tab.Screen name="Restaurant" component={Restaurant} />
-      <Tab.Screen name="Profile" component={Profile} />
+      <Tab.Screen name="Settings" component={Settings} />
     </Tab.Navigator>
   );
 }
 
 const styles = StyleSheet.create({});
 
-export default TabNavigator;
+export default TabNavigation;

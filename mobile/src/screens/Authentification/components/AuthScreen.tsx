@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleSheet, View, Image, Text} from 'react-native';
 import { theme } from '../../../constants/theme';
 
-const AuthScreen = ({children, title}: any): JSX.Element => {
+const Screen = ({children, title}: any): JSX.Element => {
   return (
     <View style={styles.screen}>
       <Image
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     top: '-5%',
-    backgroundColor: theme.colors.background,
   },
   image: {
     width: 150,
@@ -36,4 +35,4 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
 });
-export default AuthScreen;
+export default Screen;
