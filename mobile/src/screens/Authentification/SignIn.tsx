@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import { useAuth } from '../../context/providers/AuthContextProvider';
-import { theme } from '../../constants/theme';
-import { emailValidator } from '../../Helpers/emailValidator';
-import { passwordValidator } from '../../Helpers/passwordValidator';
+import {Image} from '@rneui/base';
+import React, {useState} from 'react';
+import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {useAuth} from '../../context/providers/AuthContextProvider';
+import {theme} from '../../constants/theme';
+import {emailValidator} from '../../Helpers/emailValidator';
+import {passwordValidator} from '../../Helpers/passwordValidator';
 import SignInObj from '../../types/SignInObj';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
@@ -18,8 +19,8 @@ const SignIn = ({navigation}: any) => {
     const emailError = emailValidator(email.value);
     const passwordError = passwordValidator(password.value);
 
-    setEmail({ ...email, error: emailError });
-    setPassword({ ...password, error: passwordError });
+    setEmail({...email, error: emailError});
+    setPassword({...password, error: passwordError});
 
     if (emailError == '' && passwordError == '') {
       const sentData: SignInObj = {
@@ -31,18 +32,18 @@ const SignIn = ({navigation}: any) => {
       switch (signInResult) {
         case '_STORAGE_ERROR_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            { text: 'Close', onPress: () => console.log('') },
+            {text: 'Close', onPress: () => console.log('')},
           ]);
           break;
         case '_FAILURE_':
           Alert.alert('ERROR', 'Ooops! password or email is not correct !', [
-            { text: 'Close', onPress: () => console.log('') },
+            {text: 'Close', onPress: () => console.log('')},
           ]);
-          break
+          break;
         case '_SUCCESS_':
           break;
         default:
-          break;
+        // redirect to main page
       }
     }
   };

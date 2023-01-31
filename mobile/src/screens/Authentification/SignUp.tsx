@@ -3,15 +3,13 @@ import {StyleSheet, TouchableOpacity, View, Alert,Text} from 'react-native';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
 import TextInput from './components/TextInput';
-import { theme } from '../../constants/theme';
-import { emailValidator } from '../../Helpers/emailValidator';
-import { passwordValidator } from '../../Helpers/passwordValidator';
-import { nameValidator } from '../../Helpers/nameValidator';
+import {theme} from '../../constants/theme';
+import {emailValidator} from '../../Helpers/emailValidator';
+import {passwordValidator} from '../../Helpers/passwordValidator';
+import {nameValidator} from '../../Helpers/nameValidator';
 import SignUpObj from '../../types/SignUpObj';
-import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator';
-import { useAuth } from '../../context/providers/AuthContextProvider';
-import Logo from './components/Logo';
-import Header from './components/Header';
+import {passwordConfirmValidator} from '../../Helpers/passwordConfirmValidator';
+import {useAuth} from '../../context/providers/AuthContextProvider';
 
 const SignUp = ({navigation}: any) => {
   const [name, setName] = useState({value: '', error: ''});
@@ -21,17 +19,23 @@ const SignUp = ({navigation}: any) => {
     value: '',
     error: '',
   });
-  const { signUp } = useAuth();
+  const {signUp} = useAuth();
 
   const onSignUpPressed = async () => {
-    const nameError = nameValidator(name.value)
-    const emailError = emailValidator(email.value)
-    const passwordError = passwordValidator(password.value)
-    const passwordConfirmationError = passwordConfirmValidator(password.value, password_confirmation.value)
-    setName((prev) => ({ ...prev, error: nameError }))
-    setEmail((prev) => ({ ...prev, error: emailError }))
-    setPassword((prev) => ({ ...prev, error: passwordError }))
-    setPasswordConfirmation((prev) => ({ ...prev, error: passwordConfirmationError }))
+    const nameError = nameValidator(name.value);
+    const emailError = emailValidator(email.value);
+    const passwordError = passwordValidator(password.value);
+    const passwordConfirmationError = passwordConfirmValidator(
+      password.value,
+      password_confirmation.value,
+    );
+    setName(prev => ({...prev, error: nameError}));
+    setEmail(prev => ({...prev, error: emailError}));
+    setPassword(prev => ({...prev, error: passwordError}));
+    setPasswordConfirmation(prev => ({
+      ...prev,
+      error: passwordConfirmationError,
+    }));
 
     if (
       emailError == '' &&
@@ -51,12 +55,12 @@ const SignUp = ({navigation}: any) => {
       switch (signUpResult) {
         case '_STORAGE_ERROR_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            { text: 'Close', onPress: () => console.log('') },
+            {text: 'Close', onPress: () => console.log('')},
           ]);
           break;
         case '_FAILURE_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            { text: 'Close', onPress: () => console.log('') },
+            {text: 'Close', onPress: () => console.log('')},
           ]);
           break;
       }
@@ -92,7 +96,7 @@ const SignUp = ({navigation}: any) => {
         placeholder="Confirm Password"
         value={password_confirmation.value}
         onChangeText={(val: string) =>
-          setPasswordConfirmation({ value: val, error: '' })
+          setPasswordConfirmation({value: val, error: ''})
         }
         error={!!password_confirmation.error}
         errorText={password_confirmation.error}
