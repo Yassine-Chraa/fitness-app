@@ -1,21 +1,19 @@
 import User from "../types/User";
 import getData from "./Storage/getData";
 
-const baseURL = "http://192.168.68.126:8000";
+const baseURL = "http:///192.168.68.131:8000";
 
 const endpoints: any = {
-  sendEmail: '/api/sendEmail',
-  newPassword: '/api/newPassword',
-  checkCode: '/api/checkCode',
-  SignIn: '/api/signin',
-  SignUp: '/api/signup',
-  LogOut: '/api/logout',
+  SignIn: '/api/signIn',
+  SignUp: '/api/signUp',
   DeleteAccount: '/api/deleteAccount',
+  ResetPassword: '/password/email',
   Products: '/api/products',
   Users: '/api/users',
   Meals: '/api/meals',
   Equipments: '/api/equipments',
   Activitys: '/api/activitys',
+  CsrfToken: '/csrf-token'
 };
 
 

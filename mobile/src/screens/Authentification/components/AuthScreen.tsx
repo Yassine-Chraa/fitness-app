@@ -22,6 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     top: '-5%',
+    backgroundColor: theme.colors.background,
   },
   image: {
     width: 150,
