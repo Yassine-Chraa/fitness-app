@@ -40,7 +40,6 @@ const SignIn = ({navigation}: any) => {
           ]);
           break
         case '_SUCCESS_':
-          setState(true);
           break;
         default:
           break;

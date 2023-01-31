@@ -1,5 +1,5 @@
 import User from "../types/User";
-import getData from "./Storage/getData";
+//import getData from "./Storage/getData";
 
 const baseURL = "http:///192.168.68.131:8000";
 
@@ -17,10 +17,10 @@ const endpoints: any = {
 };
 
 
-export const currentUser = getData('user-info').then((res) => {
+/*export const currentUser = getData('user-info').then((res) => {
   if (res) return JSON.parse(res);
   else return null;
-});
+});*/
 
 export function getUrl(endpoint: PropertyKey) {
   return baseURL + endpoints[endpoint];
