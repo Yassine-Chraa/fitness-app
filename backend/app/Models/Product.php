@@ -18,4 +18,9 @@ class Product extends Model
         'stock',
         'prix',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Resource::class,"product_id");
+    }
 }

@@ -10,6 +10,7 @@ import Store from '../screens/Store';
 import Restaurant from '../screens/Restaurant';
 
 const Tab = createBottomTabNavigator();
+
 function TabNavigator(): JSX.Element {
   return (
     <Tab.Navigator

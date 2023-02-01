@@ -18,4 +18,9 @@ class Meal extends Model
         'weight',
         'isVegan',
     ];
+
+    public function images()
+    {
+        return $this->hasMany(Resource::class,"meal_id");
+    }
 }
