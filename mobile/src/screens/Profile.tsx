@@ -10,7 +10,7 @@ function Profile(): JSX.Element {
   return (
     <Screen>
       {/* <UserProfile /> */}
-      <ListOfDC />
+      <ListOfDC/>
     </Screen>
   );
 }
