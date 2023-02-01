@@ -9,19 +9,19 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 function Header(): JSX.Element {
     return (
-        <View
-            style={styles.profile}>
+        <View style={styles.profile}>
             <View style={styles.avatarName}>
                 <View style={styles.avatarContainer}>
-                    <Avatar
-                        size={70}
-                        rounded
-                        source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
-                        title="test"
-                        containerStyle={{ backgroundColor: 'grey' }}
-                    >
-                    </Avatar>
-                    <TouchableOpacity>
+                    <View>
+                        <Avatar
+                            size={70}
+                            rounded
+                            source={{ uri: 'https://randomuser.me/api/portraits/women/57.jpg' }}
+                            title="test"
+                            containerStyle={{ backgroundColor: 'grey' }}
+                        />
+                    </View>
+                    <TouchableOpacity activeOpacity={0.7}>
                         <Icon name={'user'} size={22} solid
                             style={styles.avatarIcon} />
                     </TouchableOpacity>
@@ -49,6 +49,8 @@ const styles = StyleSheet.create({
         backgroundColor: '#ddd',
         padding: 4,
         borderRadius: 5,
+        overflow: 'hidden',
+        height: 80
     },
     avatarName: {
         alignSelf: 'center',
@@ -57,7 +59,7 @@ const styles = StyleSheet.create({
     },
     avatarContainer: {
         position: 'relative',
-        alignSelf: 'baseline',
+        //alignSelf: 'baseline',
         marginEnd: 14
     },
     avatarIcon: {

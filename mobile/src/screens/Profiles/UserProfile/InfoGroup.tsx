@@ -1,28 +1,28 @@
 import React from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 
-export const Component1 = () => (
-    <View style={{...styles.card, borderBottomLeftRadius:8, borderTopLeftRadius:8}}>
-        <Text style={styles.data}>150</Text>
-        <Text style={styles.title}>weight LBS</Text>
-    </View >);
-export const Component2 = () => (
-    <View style={{...styles.card, marginHorizontal:4}}>
-        <Text style={styles.data}>0.0</Text>
-        <Text style={styles.title}>Body fat %</Text>
-    </View>);
-export const Component3 = () => (
-    <View style={{...styles.card, borderBottomRightRadius:8, borderTopRightRadius:8}}>
-        <Text style={styles.data}>22.14</Text>
-        <Text style={styles.title}>BMI</Text>
-    </View>);
+export const Component1 = ({ title, value }: any) => (
+    <TouchableOpacity activeOpacity={0.6} style={{ ...styles.card, borderBottomLeftRadius: 8, borderTopLeftRadius: 8 }}>
+        <Text style={styles.data}>{title}</Text>
+        <Text style={styles.title}>{value}</Text>
+    </TouchableOpacity >);
+export const Component2 = ({ title, value }: any) => (
+    <TouchableOpacity activeOpacity={0.6} style={{ ...styles.card, marginHorizontal: 4 }}>
+        <Text style={styles.data}>{title}</Text>
+        <Text style={styles.title}>{value}</Text>
+    </TouchableOpacity>);
+export const Component3 = ({ title, value }: any) => (
+    <TouchableOpacity activeOpacity={0.6} style={{ ...styles.card, borderBottomRightRadius: 8, borderTopRightRadius: 8 }}>
+        <Text style={styles.data}>{title}</Text>
+        <Text style={styles.title}>{value}</Text>
+    </TouchableOpacity>);
 
-const InfoGroup = (): JSX.Element => {
+const InfoGroup = ({ titles, values }: any): JSX.Element => {
     return (
         <View style={styles.container}>
-            <Component1 />
-            <Component2 />
-            <Component3 />
+            <Component1 title={titles[0]} value={values[0]} />
+            <Component2 title={titles[1]} value={values[1]} />
+            <Component3 title={titles[2]} value={values[2]} />
         </View>
     )
 }
@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     card: {
-        paddingVertical:8,
+        paddingVertical: 14,
         justifyContent: 'center',
         alignItems: 'center',
         flexDirection: 'column',
