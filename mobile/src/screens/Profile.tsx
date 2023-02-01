@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import Screen from '../components/Screen';
 import { useAuth } from '../context/providers/AuthContextProvider';
-import ListOfDoctors from './Profiles/ListOfDoctors';
+import ListOfDC from './Profiles/ListOfDC';
 // import UserProfile from './Profiles/UserProfile';
 
 function Profile(): JSX.Element {
@@ -10,7 +10,7 @@ function Profile(): JSX.Element {
   return (
     <Screen>
       {/* <UserProfile /> */}
-      <ListOfDoctors />
+      <ListOfDC />
     </Screen>
   );
 }
