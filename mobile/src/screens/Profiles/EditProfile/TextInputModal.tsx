@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import { theme } from '../../../constants/theme';
 import { nameValidator } from '../../../Helpers/nameValidator';
 
-const UserNameModal = ({ setIsUserNameModalOpen, isUserNameModalOpen, setName }: any): JSX.Element => {
+const TextInputModal = ({ setIsUserNameModalOpen, isUserNameModalOpen, setName }: any): JSX.Element => {
     const [localName, setLocalName] = useState({ value: '', error: '' });
     const description = "Your user name should not contain";
 
@@ -54,7 +54,7 @@ const UserNameModal = ({ setIsUserNameModalOpen, isUserNameModalOpen, setName }:
     );
 };
 
-export default UserNameModal;
+export default TextInputModal;
 
 const modalStyle = StyleSheet.create({
     modalContainer: {

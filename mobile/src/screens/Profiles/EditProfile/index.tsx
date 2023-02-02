@@ -3,7 +3,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { theme } from '../../../constants/theme';
-import UserNameModal from './UserNameModal';
+import ListModal from './ListModal';
+import TextInputModal from './TextInputModal';
 
 export const Item = ({ setState, fieldName, fieldValue }: any): JSX.Element => {
     return (
@@ -46,12 +47,20 @@ const itemStyle = StyleSheet.create({
     }
 });
 
+const GENDER = [
+    { label: 'male', value: '1' },
+    { label: 'female', value: '2' },
+    { label: 'animal', value: '3' },
+];
 
 const EditProfile = (): JSX.Element => {
     const [isUserNameModalOpen, setIsUserNameModalOpen] = useState(false);
     const [isDatePickerModalOpen, setIsDatePickerModalOpen] = useState(false);
+    const [isListModalOpen, setIsListModalOpen] = useState(true);
+
     const [name, setName] = useState({ value: '', error: '' });
-    const [date, setDate] = useState(new Date())
+    const [date, setDate] = useState(new Date());
+    const [gender, setGender] = useState(GENDER[0]);
 
     return (
         <View>
@@ -65,31 +74,51 @@ const EditProfile = (): JSX.Element => {
             </View>
             {/* --------------( click handlers )--------------- */}
             <Item setState={setIsUserNameModalOpen} fieldName={'User Name'} fieldValue={name.value} />
-            <Item setState={setIsDatePickerModalOpen} fieldName={'Birthday'} fieldValue={"2000-02-02"} />
+            <Item setState={setIsDatePickerModalOpen} fieldName={'Birthday'} fieldValue={date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate()} />
+            <Item setState={setIsListModalOpen} fieldName={'Birthday'} fieldValue={gender.label} />
+
+
+
+
+
+
+            {/* --------------( modals )--------------- */}
+            <TextInputModal
+                isUserNameModalOpen={isUserNameModalOpen}
+                setIsUserNameModalOpen={setIsUserNameModalOpen}
+                name={name}
+                setName={setName}
+            />
 
             <DatePicker
+                dividerHeight={5}
+                fadeToColor="#111"
+                title={'Pick up a date'}
+                textColor={'black'}
+                androidVariant='nativeAndroid'
+                theme={'dark'}
                 modal
                 open={isDatePickerModalOpen}
+                mode="date"
                 date={date}
+                cancelText={'Cancel'}
+                confirmText={'Apply'}
                 onConfirm={(date) => {
                     setIsDatePickerModalOpen(false)
                     setDate(date)
+                    console.log();
                 }}
                 onCancel={() => {
                     setIsDatePickerModalOpen(false)
                 }}
             />
 
-
-
-
-            {/* --------------( modals )--------------- */}
-            <UserNameModal
-                isUserNameModalOpen={isUserNameModalOpen}
-                setIsUserNameModalOpen={setIsUserNameModalOpen}
-                name={name}
-                setName={setName}
-            />
+            <ListModal
+                setIsListModalOpen={setIsListModalOpen}
+                isListModalOpen={isListModalOpen}
+                item={gender}
+                items={GENDER}
+                setItem={setGender} />
 
 
         </View>
