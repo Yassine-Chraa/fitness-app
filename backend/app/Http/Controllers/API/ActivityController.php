@@ -63,6 +63,7 @@ class ActivityController extends Controller
      */
     public function update(Request $request, $id)
     {
+        
         $activity = Activity::findOrFail($id);
         $request->validate([
             'name' => 'required|min:4',

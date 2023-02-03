@@ -22,4 +22,10 @@ class Equipments extends Model
         'description',
         'image',
     ];
+
+
+    public function images()
+    {
+        return $this->hasMany(Resource::class,"equipment_id");
+    }
 }
