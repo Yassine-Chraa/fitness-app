@@ -16,4 +16,10 @@ class Activity extends Model
         'category',
         'description'
     ];
+
+
+    public function images()
+    {
+        return $this->hasMany(Resource::class,"activity_id");
+    }
 }

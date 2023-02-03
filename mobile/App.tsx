@@ -10,7 +10,6 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import {NavigationContainer} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import APIHandlerProvider from './src/context/APIHandlerProvider';
 import AppIntroSlider from 'react-native-app-intro-slider';
 import AsyncStorage from '@react-native-async-storage/async-storage';

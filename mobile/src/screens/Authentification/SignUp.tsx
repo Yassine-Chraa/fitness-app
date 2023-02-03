@@ -1,25 +1,25 @@
-import React, {useState} from 'react';
-import {StyleSheet, TouchableOpacity, View, Alert,Text} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, TouchableOpacity, View, Alert, Text } from 'react-native';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
 import TextInput from './components/TextInput';
-import {theme} from '../../constants/theme';
-import {emailValidator} from '../../Helpers/emailValidator';
-import {passwordValidator} from '../../Helpers/passwordValidator';
-import {nameValidator} from '../../Helpers/nameValidator';
+import { theme } from '../../constants/theme';
+import { emailValidator } from '../../Helpers/emailValidator';
+import { passwordValidator } from '../../Helpers/passwordValidator';
+import { nameValidator } from '../../Helpers/nameValidator';
 import SignUpObj from '../../types/SignUpObj';
-import {passwordConfirmValidator} from '../../Helpers/passwordConfirmValidator';
-import {useAuth} from '../../context/providers/AuthContextProvider';
+import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const SignUp = ({navigation}: any) => {
-  const [name, setName] = useState({value: '', error: ''});
-  const [email, setEmail] = useState({value: '', error: ''});
-  const [password, setPassword] = useState({value: '', error: ''});
+const SignUp = ({ navigation }: any) => {
+  const [name, setName] = useState({ value: '', error: '' });
+  const [email, setEmail] = useState({ value: '', error: '' });
+  const [password, setPassword] = useState({ value: '', error: '' });
   const [password_confirmation, setPasswordConfirmation] = useState({
     value: '',
     error: '',
   });
-  const {signUp} = useAuth();
+  const { signUp } = useAuth();
 
   const onSignUpPressed = async () => {
     const nameError = nameValidator(name.value);
@@ -29,9 +29,9 @@ const SignUp = ({navigation}: any) => {
       password.value,
       password_confirmation.value,
     );
-    setName(prev => ({...prev, error: nameError}));
-    setEmail(prev => ({...prev, error: emailError}));
-    setPassword(prev => ({...prev, error: passwordError}));
+    setName(prev => ({ ...prev, error: nameError }));
+    setEmail(prev => ({ ...prev, error: emailError }));
+    setPassword(prev => ({ ...prev, error: passwordError }));
     setPasswordConfirmation(prev => ({
       ...prev,
       error: passwordConfirmationError,
@@ -55,12 +55,12 @@ const SignUp = ({navigation}: any) => {
       switch (signUpResult) {
         case '_STORAGE_ERROR_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            {text: 'Close', onPress: () => console.log('')},
+            { text: 'Close', onPress: () => console.log('') },
           ]);
           break;
         case '_FAILURE_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            {text: 'Close', onPress: () => console.log('')},
+            { text: 'Close', onPress: () => console.log('') },
           ]);
           break;
       }
@@ -72,13 +72,13 @@ const SignUp = ({navigation}: any) => {
       <TextInput
         placeholder="Name"
         value={name.value}
-        onChangeText={(val: string) => setName({value: val, error: ''})}
+        onChangeText={(val: string) => setName({ value: val, error: '' })}
         errorText={name.error}
       />
       <TextInput
         placeholder="Email"
         value={email.value}
-        onChangeText={(val: string) => setEmail({value: val, error: ''})}
+        onChangeText={(val: string) => setEmail({ value: val, error: '' })}
         errorText={email.error}
         autoCapitalize="none"
         autoCompleteType="email"
@@ -88,7 +88,7 @@ const SignUp = ({navigation}: any) => {
       <TextInput
         placeholder="Password"
         value={password.value}
-        onChangeText={(val: string) => setPassword({value: val, error: ''})}
+        onChangeText={(val: string) => setPassword({ value: val, error: '' })}
         errorText={password.error}
         secureTextEntry
       />
@@ -96,7 +96,7 @@ const SignUp = ({navigation}: any) => {
         placeholder="Confirm Password"
         value={password_confirmation.value}
         onChangeText={(val: string) =>
-          setPasswordConfirmation({value: val, error: ''})
+          setPasswordConfirmation({ value: val, error: '' })
         }
         error={!!password_confirmation.error}
         errorText={password_confirmation.error}
