@@ -7,8 +7,6 @@ import Item from './Item';
 const ListOfDC = (): JSX.Element => {
     return (
         <View>
-
-
             <ScrollView>
                 <Header />
                 <View style={{ flex: 1 }}>
