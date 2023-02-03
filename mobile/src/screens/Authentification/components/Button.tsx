@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet,Button,View } from 'react-native';
-import { theme } from '../../../constants/theme';
 
 export default function CustomButton({ mode, style, ...props }: any):JSX.Element {
   return (

@@ -1,14 +1,13 @@
-import {Image} from '@rneui/base';
 import React, {useState} from 'react';
 import {Alert, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {useAuth} from '../../context/providers/AuthContextProvider';
-import {theme} from '../../constants/theme';
+import theme from '../../constants/theme';
 import {emailValidator} from '../../Helpers/emailValidator';
 import {passwordValidator} from '../../Helpers/passwordValidator';
 import SignInObj from '../../types/SignInObj';
 import AuthScreen from './components/AuthScreen';
 import Button from './components/Button';
-import TextInput from './components/TextInput';
+import CustomTextInput from './components/CustomTextInput';
 
 const SignIn = ({navigation}: any) => {
   const [email, setEmail] = useState({value: '', error: ''});
@@ -50,7 +49,7 @@ const SignIn = ({navigation}: any) => {
 
   return (
     <AuthScreen title="Welcome Back To FitnessApp">
-      <TextInput
+      <CustomTextInput
         placeholder="Email"
         value={email.value}
         onChangeText={(val: string) => setEmail({value: val, error: ''})}
@@ -60,7 +59,7 @@ const SignIn = ({navigation}: any) => {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <CustomTextInput
         placeholder="Password"
         value={password.value}
         onChangeText={(val: string) => setPassword({value: val, error: ''})}

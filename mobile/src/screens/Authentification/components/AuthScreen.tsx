@@ -1,6 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
-import { theme } from '../../../constants/theme';
+import {StyleSheet, View, Text,Image} from 'react-native';
 
 const AuthScreen = ({children, title}: any): JSX.Element => {
   return (
@@ -21,17 +20,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     alignItems: 'center',
     justifyContent: 'center',
-    top: '-5%',
-    backgroundColor: theme.colors.background,
+    backgroundColor: '#ECECEC',
   },
   image: {
     width: 150,
     height: 150,
-    marginBottom: 8,
   },
   header: {
     fontSize: 21,
-    color: theme.colors.primary,
+    color: 'blue',
     fontWeight: 'bold',
     paddingVertical: 12,
   },

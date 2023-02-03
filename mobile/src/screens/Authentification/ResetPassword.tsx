@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import AuthScreen from './components/AuthScreen';
-import TextInput from './components/TextInput';
+import CustomTextInput from './components/CustomTextInput';
 import Button from './components/Button';
 import {emailValidator} from '../../Helpers/emailValidator';
 import {useAuth} from '../../context/providers/AuthContextProvider';
@@ -32,7 +32,7 @@ const ResetPassword = () => {
 
   return (
     <AuthScreen title="Reset Your Password">
-      <TextInput
+      <CustomTextInput
         placeholder="E-mail address"
         returnKeyType="done"
         value={email.value}
