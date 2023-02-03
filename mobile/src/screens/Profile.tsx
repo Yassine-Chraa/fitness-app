@@ -1,17 +1,20 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import React from 'react';
-import {StyleSheet, Text} from 'react-native';
-import {TouchableOpacity} from 'react-native';
+import { StyleSheet } from 'react-native';
 import Screen from '../components/Screen';
-import {useAuth} from '../context/providers/AuthContextProvider';
+import { useAuth } from '../context/providers/AuthContextProvider';
+import EditProfile from './Profiles/EditProfile';
+import ListOfDC from './Profiles/ListOfDC';
+import ViewProfile from './Profiles/ViewProfile';
+// import UserProfile from './Profiles/UserProfile';
 
 function Profile(): JSX.Element {
-  const {logout} = useAuth();
+  const { logout } = useAuth();
   return (
     <Screen>
-      <TouchableOpacity onPress={logout}>
-        <Text>Logout</Text>
-      </TouchableOpacity>
+      {/* <UserProfile /> */}
+      {/* <ListOfDC/> */}
+      {/* <EditProfile/> */}
+      <ViewProfile/>
     </Screen>
   );
 }
