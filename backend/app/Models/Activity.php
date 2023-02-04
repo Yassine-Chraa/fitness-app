@@ -14,12 +14,18 @@ class Activity extends Model
     protected $fillable = [
         'name',
         'category',
-        'description'
+        'description',
+        'duration',
     ];
 
 
     public function images()
     {
         return $this->hasMany(Resource::class,"activity_id");
+    }
+
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class,"activity_id");
     }
 }

@@ -14,13 +14,12 @@ class MealItem extends Model
     protected $fillable = [
         'name',
         'img_url',
-        'description',
-        // 'weight',
-        // 'isVegan',
+        'carbohydrates',
+        'fats',
+        'proteins',
+        'miniral_salts',
+        'vitamins',
+        'water',
+        'fiber',
     ];
-
-    public function images()
-    {
-        return $this->hasMany(Resource::class,"meal_item_id");
-    }
 }

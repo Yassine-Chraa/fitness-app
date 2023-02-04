@@ -13,12 +13,26 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('activities', function (Blueprint $table) {
+        Schema::create('activities_table', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('category', ['Core', 'Chest', 'Shoulder', 'Biceps', 'Triceps', 'Back', 'Forearms', 'Upper legs', 'Glutes', 'Cardio', 'Calves']);
+            $table->enum(
+                'category',
+                [
+                    'Core',
+                    'Chest',
+                    'Shoulder',
+                    'Biceps',
+                    'Triceps', 'Back',
+                    'Forearms',
+                    'Upper legs',
+                    'Glutes',
+                    'Cardio',
+                    'Calves'
+                ]
+            )->default('Cardio');
             $table->string('description');
-            $table->number('duration');
+            $table->integer('duration');
             $table->timestamps();
         });
     }
@@ -30,6 +44,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities');
+        Schema::dropIfExists('activities_table');
     }
 };

@@ -13,7 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('exercises_table', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('activity_id')->nullable();
+            $table->string('name');
+            $table->string('img_url');
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('exercises_table');
     }
 };
