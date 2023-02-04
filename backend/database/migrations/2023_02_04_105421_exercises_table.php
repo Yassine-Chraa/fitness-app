@@ -13,15 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('exercises_table', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('activity_id')->nullable();
             $table->string('name');
-            $table->enum('category', ['Fruits', 'Vegetables', 'Grains', 'Protein Foods','Dairy']);
-            $table->string('description');
-            $table->float('weight');
-            $table->float('total_energy');
-            $table->boolean('isVegan');
-            $table->boolean('isVegetable');
+            $table->string('img_url');
             $table->timestamps();
         });
     }
@@ -33,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('exercises_table');
     }
 };

@@ -6,22 +6,60 @@ import { useUser } from "../context/APIContext/providers/UserContextProvider";
 import MDBox from "../components/MDBox";
 import { Card, Grid, Icon, IconButton, Tooltip } from "@mui/material";
 import MDButton from "../components/MDButton";
+import MDAvatar from "../components/MDAvatar";
+import { Button } from "bootstrap";
+
+export const Profile = ({ image, name, email }) => (
+    <MDBox display="flex" alignItems="center" lineHeight={1}>
+        <MDAvatar src={image} name={name} size="sm" />
+        <MDBox ml={2} lineHeight={1}>
+            <MDTypography display="block" variant="button" fontWeight="medium">{name}</MDTypography>
+            <MDTypography variant="caption">{email}</MDTypography>
+        </MDBox>
+    </MDBox>
+);
+
+
 const Users = () => {
     const { getUsers } = useUser();
     const [data, setData] = useState([]);
+
+    const dataLabels = [
+        {
+            Header: "Profile",
+            accessor: "profile",
+            width: "12%",
+        },
+        {
+            Header: "Id",
+            accessor: "id",
+            width: "12%",
+        },
+        {
+            Header: "Role",
+            accessor: "role",
+            width: "12%",
+        },
+        {
+            Header: "Actions",
+            isSorted: false,
+            accessor: "actions",
+        },
+    ]
+
     const fetchData = async () => {
         let res = await getUsers();
         res = res.map((ele) => {
             const { id, name, email, role } = ele;
             return {
+                profile: <Profile name={name} email={email} image={'https://bit.ly/34BY10g'} />,
                 id,
-                name,
-                email,
                 role,
                 actions: <MDButton>edit</MDButton>,
             };
         });
         setData(res);
+        console.log(res)
     };
 
     useEffect(() => {
@@ -32,7 +70,7 @@ const Users = () => {
         <DashboardLayout>
             <MDBox>
                 <Grid container spacing={6} justifyContent={"center"}>
-                    <Grid item lg={9}>
+                    <Grid item lg={12}>
                         <Card>
                             <MDBox
                                 display={"flex"}
@@ -60,35 +98,7 @@ const Users = () => {
                             <MDBox pt={3}>
                                 <DataTable
                                     canSearch={true}
-                                    table={{
-                                        columns: [
-                                            {
-                                                Header: "Id",
-                                                accessor: "id",
-                                                width: "12%",
-                                            },
-                                            {
-                                                Header: "Full Name",
-                                                accessor: "name",
-                                                width: "30%",
-                                            },
-                                            {
-                                                Header: "email",
-                                                accessor: "email",
-                                            },
-                                            {
-                                                Header: "Role",
-                                                accessor: "role",
-                                                width: "12%",
-                                            },
-                                            {
-                                                Header: "Actions",
-                                                isSorted: false,
-                                                accessor: "actions",
-                                            },
-                                        ],
-                                        rows: data,
-                                    }}
+                                    table={{ columns: dataLabels, rows: data, }}
                                 />
                             </MDBox>
                         </Card>
