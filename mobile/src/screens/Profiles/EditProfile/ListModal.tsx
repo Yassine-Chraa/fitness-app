@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, TouchableWithoutFeedback, View, Button, ScrollView } from 'react-native';
+import { StyleSheet, TouchableWithoutFeedback, View, Button } from 'react-native';
 import { Dropdown } from 'react-native-element-dropdown';
 import Modal from "react-native-modal";
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { theme } from '../../../constants/theme';
+import theme from '../../../constants/theme';
 
 const ListModal = ({ setIsListModalOpen, isListModalOpen, setItem, item, items }: any): JSX.Element => {
     const [itemIndex, setItemIndex] = useState(item.value);
@@ -79,7 +78,7 @@ const modalStyle = StyleSheet.create({
         marginVertical: 12,
     },
     input: {
-        backgroundColor: theme.colors.primaryContainer,
+        backgroundColor: theme.colors.textInput,
         borderRadius: 8,
         paddingHorizontal: 12
     },
@@ -90,7 +89,7 @@ const modalStyle = StyleSheet.create({
     },
     inputError: {
         fontSize: 13,
-        color: theme.colors.error,
+        color: 'red',
         paddingTop: 8,
     },
     button: {

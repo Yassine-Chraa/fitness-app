@@ -1,54 +1,31 @@
-import { Image } from '@rneui/themed';
+import {Image} from '@rneui/themed';
 import React from 'react';
-import {
-    StyleSheet, View, Text, TouchableOpacity
-} from 'react-native';
+import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-
-
-export const Button = ({ MEnd = 0, MStart = 0 }: any): JSX.Element => {
-    return (
-
-        <TouchableOpacity activeOpacity={0.8} style={{ ...styles.CustomBtnContainer, marginEnd: MEnd, marginStart: MStart }} >
-            <View>
-                <Icon name={'user'} color={'white'} size={24} solid />
-            </View>
-            <Text style={{ color: 'white' }}>UpGrade</Text>
-        </TouchableOpacity >
-
-    )
-}
+import theme from '../../../constants/theme';
 
 function TopButtons(): JSX.Element {
-    return (
-        <View style={styles.buttonsContainer}>
-            <Button MEnd={5} />
-            <Button MStart={5} />
-        </View>
-    );
+  return (
+    <TouchableOpacity activeOpacity={0.8} style={styles.CustomBtnContainer}>
+      <Icon name={'gem'} color={'white'} size={18} solid />
+      <Text style={{color: 'white', marginLeft: 16, fontSize: 18,letterSpacing: 2}}>
+        Upgrade
+      </Text>
+    </TouchableOpacity>
+  );
 }
 
 const styles = StyleSheet.create({
-    button: {
-        width: 20,
-        height: 10,
-    },
-    buttonsContainer: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        marginTop: 10
-    },
-    CustomBtnContainer: {
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        flexDirection: 'row',
-        backgroundColor: '#222',
-        paddingHorizontal: 30,
-        paddingVertical: 12,
-        borderRadius: 6,
-        flex: 1,
-    }
+  CustomBtnContainer: {
+    marginTop: 12,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    backgroundColor: theme.colors.button,
+    paddingVertical: 12,
+    borderRadius: 6,
+    flex: 1,
+  },
 });
 
 export default TopButtons;

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Alert, Text } from 'react-native';
-import AuthScreen from './components/AuthScreen';
-import Button from './components/Button';
-import TextInput from './components/TextInput';
-import { theme } from '../../constants/theme';
-import { emailValidator } from '../../Helpers/emailValidator';
-import { passwordValidator } from '../../Helpers/passwordValidator';
-import { nameValidator } from '../../Helpers/nameValidator';
+import AuthScreen from '../../components/authentification/AuthScreen';
+import Button from '../../components/authentification/Button';
+import CustomTextInput from '../../components/authentification/CustomTextInput';
+import theme from '../../constants/theme';
+import {emailValidator} from '../../Helpers/emailValidator';
+import {passwordValidator} from '../../Helpers/passwordValidator';
+import {nameValidator} from '../../Helpers/nameValidator';
 import SignUpObj from '../../types/SignUpObj';
 import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator';
 import { useAuth } from '../../context/providers/AuthContextProvider';
@@ -69,13 +69,13 @@ const SignUp = ({ navigation }: any) => {
 
   return (
     <AuthScreen title="Create Account">
-      <TextInput
+      <CustomTextInput
         placeholder="Name"
         value={name.value}
         onChangeText={(val: string) => setName({ value: val, error: '' })}
         errorText={name.error}
       />
-      <TextInput
+      <CustomTextInput
         placeholder="Email"
         value={email.value}
         onChangeText={(val: string) => setEmail({ value: val, error: '' })}
@@ -85,14 +85,14 @@ const SignUp = ({ navigation }: any) => {
         textContentType="emailAddress"
         keyboardType="email-address"
       />
-      <TextInput
+      <CustomTextInput
         placeholder="Password"
         value={password.value}
         onChangeText={(val: string) => setPassword({ value: val, error: '' })}
         errorText={password.error}
         secureTextEntry
       />
-      <TextInput
+      <CustomTextInput
         placeholder="Confirm Password"
         value={password_confirmation.value}
         onChangeText={(val: string) =>

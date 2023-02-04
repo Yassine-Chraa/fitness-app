@@ -1,24 +1,23 @@
 import React from 'react'
 import { View, Text, StyleSheet, Image, Button, ScrollView } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import InfoGroup from '../UserProfile/InfoGroup';
 import LittleSwipper from './LittleSwipper';
 import PostCard from './PostCard';
 
 const ViewProfile = (): JSX.Element => {
     const badgets = [
-        require('../../../assets/slider/image1.png'),
-        require('../../../assets/slider/image2.png'),
-        require('../../../assets/slider/image3.png'),
-        require('../../../assets/slider/image4.png'),
-        require('../../../assets/slider/image1.png'),
-        require('../../../assets/slider/image2.png'),
-        require('../../../assets/slider/image3.png'),
-        require('../../../assets/slider/image4.png'),
-        require('../../../assets/slider/image1.png'),
-        require('../../../assets/slider/image2.png'),
-        require('../../../assets/slider/image3.png'),
-        require('../../../assets/slider/image4.png'),
+        require('../../../assets/images/slider/image1.png'),
+        require('../../../assets/images/slider/image2.png'),
+        require('../../../assets/images/slider/image3.png'),
+        require('../../../assets/images/slider/image4.png'),
+        require('../../../assets/images/slider/image1.png'),
+        require('../../../assets/images/slider/image2.png'),
+        require('../../../assets/images/slider/image3.png'),
+        require('../../../assets/images/slider/image4.png'),
+        require('../../../assets/images/slider/image1.png'),
+        require('../../../assets/images/slider/image2.png'),
+        require('../../../assets/images/slider/image3.png'),
+        require('../../../assets/images/slider/image4.png'),
     ];
 
     const titles = ['150', '0.0', '22.14']
