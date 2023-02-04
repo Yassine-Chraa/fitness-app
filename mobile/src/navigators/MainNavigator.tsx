@@ -7,8 +7,9 @@ import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
 import SignUp from '../screens/Authentification/SignUp';
 import TabNavigator from './TabNavigator';
-import MuscleExercices from '../screens/MuscleExercices';
+import MuscleExercices from '../screens/Exercices/MuscleExercices';
 import WorkoutDetails from '../screens/WorkoutDetails';
+import ExerciceDetails from '../screens/Exercices/ExerciceDetails';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -29,6 +30,7 @@ const MainNavigator = () => {
         <>
           <Stack.Screen name="Tab" component={TabNavigator} />
           <Stack.Screen name="MuscleExercices" component={MuscleExercices} />
+          <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
           <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
         </>
       ) : (

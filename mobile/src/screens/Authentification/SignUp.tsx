@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { StyleSheet, TouchableOpacity, View, Alert, Text } from 'react-native';
-import AuthScreen from './components/AuthScreen';
-import Button from './components/Button';
-import CustomTextInput from './components/CustomTextInput';
+import AuthScreen from '../../components/authentification/AuthScreen';
+import Button from '../../components/authentification/Button';
+import CustomTextInput from '../../components/authentification/CustomTextInput';
 import theme from '../../constants/theme';
 import {emailValidator} from '../../Helpers/emailValidator';
 import {passwordValidator} from '../../Helpers/passwordValidator';

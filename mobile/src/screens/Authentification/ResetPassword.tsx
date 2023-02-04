@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
-import AuthScreen from './components/AuthScreen';
-import CustomTextInput from './components/CustomTextInput';
-import Button from './components/Button';
+import AuthScreen from '../../components/authentification/AuthScreen';
+import CustomTextInput from '../../components/authentification/CustomTextInput';
+import Button from '../../components/authentification/Button';
 import {emailValidator} from '../../Helpers/emailValidator';
 import {useAuth} from '../../context/providers/AuthContextProvider';
 import {useFocusEffect} from '@react-navigation/native';

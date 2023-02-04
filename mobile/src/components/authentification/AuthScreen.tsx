@@ -6,7 +6,7 @@ const AuthScreen = ({children, title}: any): JSX.Element => {
     <View style={styles.screen}>
       <Image
         style={styles.image}
-        source={require('../../../assets/images/logo.png')}
+        source={require('../../assets/images/logo.png')}
       />
       <Text style={styles.header}>{title}</Text>
       {children}

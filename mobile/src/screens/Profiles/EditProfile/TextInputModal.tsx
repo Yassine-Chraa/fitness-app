@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, TextInput, TouchableWithoutFeedback, View, Button } from 'react-native';
 import Modal from "react-native-modal";
-import Icon from 'react-native-vector-icons/FontAwesome5';
-import { theme } from '../../../constants/theme';
+import theme from '../../../constants/theme';
 import { nameValidator } from '../../../Helpers/nameValidator';
 
 const TextInputModal = ({ setIsUserNameModalOpen, isUserNameModalOpen, setName }: any): JSX.Element => {
@@ -76,7 +75,7 @@ const modalStyle = StyleSheet.create({
         marginVertical: 12,
     },
     input: {
-        backgroundColor: theme.colors.primaryContainer,
+        backgroundColor: theme.colors.textInput,
         borderRadius: 8,
         paddingHorizontal: 12
     },
@@ -87,7 +86,7 @@ const modalStyle = StyleSheet.create({
     },
     inputError: {
         fontSize: 13,
-        color: theme.colors.error,
+        color: 'red',
         paddingTop: 8,
     },
     button: {

@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, StyleSheet, Text,TextInput } from 'react-native'
-import theme from '../../../constants/theme'
+import theme from '../../constants/theme'
 
 export default function CustomTextInput({ errorText, description, ...props }: any): JSX.Element {
     return (

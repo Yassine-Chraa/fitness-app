@@ -7,11 +7,11 @@ import {
   ActivityIndicator,
   Dimensions,
 } from 'react-native';
-import Screen from '../components/Screen';
-import theme from '../constants/theme';
+import Screen from '../../components/Screen';
+import theme from '../../constants/theme';
 
 const Exercices = ({navigation}: any) => {
-  const imageWidth = Dimensions.get('screen').width / 3 - 16;
+  const imageWidth = Dimensions.get('screen').width / 3 - 19;
   const muscles: any = [
     {
       id: 1,

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import { theme } from '../../../constants/theme';
 import ListModal from './ListModal';
 import TextInputModal from './TextInputModal';
 

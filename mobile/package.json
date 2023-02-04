@@ -22,15 +22,17 @@
     "path": "^0.12.7",
     "react": "18.2.0",
     "react-native": "^0.71.1",
-    "react-native-gesture-handler": "^2.9.0",
     "react-native-date-picker": "^4.2.6",
     "react-native-element-dropdown": "^2.5.3",
+    "react-native-gesture-handler": "^2.9.0",
     "react-native-modal": "^13.0.1",
     "react-native-reanimated": "^2.14.4",
     "react-native-safe-area-context": "^4.5.0",
     "react-native-screens": "^3.19.0",
     "react-native-swiper": "^1.6.0",
-    "react-native-vector-icons": "^9.2.0"
+    "react-native-vector-icons": "^9.2.0",
+    "react-native-video": "^5.2.1",
+    "react-native-webview": "^11.26.1"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",
@@ -42,6 +44,7 @@
     "@types/node": "^18.11.18",
     "@types/react": "^18.0.26",
     "@types/react-native-vector-icons": "^6.4.13",
+    "@types/react-native-video": "^5.0.14",
     "@types/react-test-renderer": "^18.0.0",
     "babel-jest": "^29.2.1",
     "eslint": "^8.19.0",
