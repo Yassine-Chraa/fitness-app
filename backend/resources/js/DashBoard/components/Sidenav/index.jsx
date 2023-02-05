@@ -26,12 +26,12 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     const location = useLocation();
     const collapseName = location.pathname.replace("/", "");
 
-    let textColor = "white";
+    let textColor = "primary";
 
     if (transparentSidenav || (whiteSidenav && !darkMode)) {
         textColor = "dark";
     } else if (whiteSidenav && darkMode) {
-        textColor = "inherit";
+        textColor = "primary";
     }
 
     const closeSidenav = () => setMiniSidenav(dispatch, true);

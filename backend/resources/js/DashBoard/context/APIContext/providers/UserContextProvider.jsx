@@ -28,6 +28,7 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             alert(error)
+            alert(UserUrl)
             setLoading(false);
         }
     };
@@ -37,14 +38,14 @@ export const UserContextProvider = ({ children }) => {
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}}`,
-                    id: id,
                 },
             };
-            const { data } = await axios.get(`${UserUrl}`, config);
+            const { data } = await axios.get(`${UserUrl}/${id}`, config);
             setLoading(false);
             return data;
         } catch (error) {
             console.log(error);
+            alert(error)
             setLoading(false);
         }
     };
@@ -61,10 +62,11 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
+            alert(error)
             setLoading(false);
         }
     };
-    const updateUser = async (id, User) => {
+    const updateUser = async (User) => {
         try {
             setLoading(true);
             const config = {
@@ -72,11 +74,14 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.put(`${UserUrl}`, id, User, config);
+            alert(UserUrl)
+            const { data } = await axios.post(`${UserUrl}/${User.id}`, User, config);
+            alert(JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {
             console.log(error);
+            alert(error)
             setLoading(false);
         }
     };
@@ -93,6 +98,7 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
+            alert(error)
             setLoading(false);
         }
     };

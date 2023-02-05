@@ -7,7 +7,6 @@ import brandDark from "../assets/images/logo-ct-dark.png";
 import {
     useMaterialUIController,
     setLayout,
-    setSidenavColor,
     setTransparentSidenav,
     setWhiteSidenav,
     setMiniSidenav,
@@ -18,9 +17,12 @@ import routes from "../routes";
 import Navbar from "../components/Navbar";
 
 function DashboardLayout({ children }) {
-    const [controller, dispatch] = useMaterialUIController();
     const [onMouseEnter, setOnMouseEnter] = useState(false);
-    const { miniSidenav } = controller;
+    const [controller, dispatch] = useMaterialUIController();
+    const {
+        miniSidenav,
+        sidenavColor,
+    } = controller;
     const { pathname } = useLocation();
 
     useEffect(() => {
@@ -58,7 +60,7 @@ function DashboardLayout({ children }) {
             })}
         >
             <Sidenav
-                color={setSidenavColor}
+                color={sidenavColor}
                 brand={
                     (setTransparentSidenav && !DarkMode) || setWhiteSidenav
                         ? brandDark
