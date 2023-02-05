@@ -75,7 +75,7 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
             alert(UserUrl)
-            const { data } = await axios.post(`${UserUrl}/${User.id}`, User, config);
+            const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
             alert(JSON.stringify(data))
             setLoading(false);
             return data;

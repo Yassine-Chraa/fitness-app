@@ -66,28 +66,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
+
         $user = User::findOrFail($id);
         if ($request->get('type') == "emailForm") {
             $request->validate([
                 'name' => 'required|min:4',
                 'email' => 'required|email',
             ]);
+
             $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->role = $request->get('role');
-            $user->country = $request->get('country');
-            $user->city = $request->get('city');
-            $user->weight = $request->get('weight');
-            $user->height = $request->get('height');
-            $user->gender = $request->get('gender');
-            $user->birth_date = $request->get('birth_date');
-            $user->age = $request->get('age');
-            $user->img_url = $request->get('img_url');
-            $user->score = $request->get('score');
-            $user->work_out_level = $request->get('work_out_level');
-            $user->top_goal = $request->get('top_goal');
-            $user->save();
 
+            $user->save();
             return response()->json(['message' => 'User updated']);
         } elseif ($request->get('type') == "passwordForm") {
             $request->validate([
@@ -104,6 +94,53 @@ class UserController extends Controller
             } else {
                 return response(["error" => "Password is incorrect"], 422);
             }
+        } else {
+            if ($request->get('name')) {
+                $user->name = $request->get('name');
+            }
+            if ($request->get('email')) {
+                $user->email = $request->get('email');
+            }
+            if ($request->get('role')) {
+                $user->role = $request->get('role');
+            }
+            if ($request->get('country')) {
+                $user->country = $request->get('country');
+            }
+            if ($request->get('city')) {
+                $user->city = $request->get('city');
+            }
+            if ($request->get('weight')) {
+                $user->weight = $request->get('weight');
+            }
+            if ($request->get('height')) {
+                $user->height = $request->get('height');
+            }
+            if ($request->get('birth_date')) {
+                $user->birth_date = $request->get('birth_date');
+            }
+            if ($request->get('gender')) {
+                $user->gender = $request->get('gender');
+            }
+            if ($request->get('age')) {
+                $user->age = $request->get('age');
+            }
+            if ($request->get('img_url')) {
+                $user->img_url = $request->get('img_url');
+            }
+            if ($request->get('score')) {
+                $user->score = $request->get('score');
+            }
+            if ($request->get('work_out_level')) {
+                $user->work_out_level = $request->get('work_out_level');
+            }
+            if ($request->get('top_goal')) {
+                $user->top_goal = $request->get('top_goal');
+            }
+
+            $user->save();
+
+            return response()->json(['message' => $user]);
         }
     }
 

@@ -99,8 +99,21 @@ const EditUserModal = ({ selectedID }) => {
     }
 
     const confirmEditUserHandler = async () => {
+        user.name = localName;
+        user.email = localEmail;
+        user.weight = localWeight;
+        user.height = localHeight;
+        user.role = localRole;
+        user.country = localCountry;
+        user.birth_date = localBirthDay;
+        user.city = localCity;
+        user.gender = localGender;
+        user.score = localScore;
+        user.work_out_level = localLevel;
+        user.top_goal = localTopGoal;
+
         const result = await updateUser(user);
-        if(result){
+        if (result) {
             alert("updated Successfully !")
         }
     };
