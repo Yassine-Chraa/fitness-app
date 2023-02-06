@@ -57,7 +57,7 @@ const EditUserModal = ({ selectedID }) => {
         const user = await getUser(selectedID);
         if (user) {
             setUser(() => user);
-            const { name, email, weight, height, role, country, birth_date, city, gender, score, work_out_level, top_goal } = user;
+            const { name, email, weight, height, role, country, birth_date,img_url, city, gender, score, work_out_level, top_goal } = user;
             setLocalGender(gender ? gender : genders[0]);
             setLocalRole(role ? role : roles[0]);
             setLocalLevel(work_out_level ? work_out_level : work_out_levels[0]);
@@ -72,13 +72,14 @@ const EditUserModal = ({ selectedID }) => {
             setLocalWeight(() => weight ? weight : 0);
             setLocalHeight(() => height ? height : 0);
             setLocalBirthDay(() => birth_date ? birth_date : "2022-02-02");
+
+            setImgUrl(() => img_url ? img_url : '');
         }
     }
 
     useEffect(() => {
         fetchUser();
     }, [selectedID])
-
 
     const upLoadImageHandler = (event) => {
         var file = event.target.files[0];
@@ -114,12 +115,12 @@ const EditUserModal = ({ selectedID }) => {
 
         const result = await updateUser(user);
         if (result) {
-            alert("updated Successfully !")
+            setOpenEditModalHandler(dispatch, false);
         }
     };
 
     const cancelEditUserHandler = () => {
-
+        setOpenEditModalHandler(dispatch, false);
     }
 
 

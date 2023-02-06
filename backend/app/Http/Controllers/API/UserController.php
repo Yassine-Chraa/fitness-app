@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -28,7 +29,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -38,11 +40,29 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            // 'profile' => $request->get('profile')
+            'birth_date' => $request->get('birth_date'),
+            'height' => $request->get('height'),
+            'gender' => $request->get('gender'),
+            'country' => $request->get('country'),
+            'top_goal' => $request->get('top_goal'),
+            'role' => $request->get('role'),
+            'score' => $request->get('score'),
+            'weight' => $request->get('weight'),
+            'city' => $request->get('city'),
+            'img_url' => $request->get('img_url'),
+            'work_out_level' => $request->get('work_out_level'),
+            'bio' => $request->get('bio'),
+            'age' => 0,
         ]);
+
+
+        $newUser->age  = Carbon::parse($request->get('birth_date'))->age;
+
         $newUser->save();
-        $token = $newUser->createToken("api_token")->plainTextToken;
-        return response()->json(['MyTokon' => $token]);
+
+        // $token = $newUser->createToken("api_token")->plainTextToken;
+
+        return response()->json(['message' => 'User Was Added successfully !']);
     }
 
     /**
@@ -115,6 +135,7 @@ class UserController extends Controller
             }
             if ($request->get('height')) {
                 $user->height = $request->get('height');
+                $user->age  = Carbon::parse($request->get('birth_date'))->age;
             }
             if ($request->get('birth_date')) {
                 $user->birth_date = $request->get('birth_date');

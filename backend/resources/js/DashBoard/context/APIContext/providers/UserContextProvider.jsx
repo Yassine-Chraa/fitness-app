@@ -13,6 +13,7 @@ const UserUrl = getUrl('Users');
 
 export const UserContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
+    //-------------> perfect
     const getUsers = async () => {
         try {
             setLoading(true);
@@ -32,12 +33,13 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    //-------------> perfect
     const getUser = async (id) => {
         try {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${UserUrl}/${id}`, config);
@@ -49,6 +51,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    //-------------> perfect
     const addUser = async (User) => {
         try {
             setLoading(true);
@@ -57,7 +60,9 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
+            alert("before")
             const { data } = await axios.post(`${UserUrl}`, User, config);
+            console.log(JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {
@@ -66,6 +71,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    //-------------> perfect
     const updateUser = async (User) => {
         try {
             setLoading(true);
@@ -74,9 +80,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert(UserUrl)
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
-            alert(JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {
@@ -85,6 +89,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+
     const deleteUser = async (id) => {
         try {
             setLoading(true);
@@ -93,7 +98,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.get(`${UserUrl}`, id, config);
+            const { data } = await axios.delete(`${UserUrl}/${id}`, config);
             setLoading(false);
             return data;
         } catch (error) {
