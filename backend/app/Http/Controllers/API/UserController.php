@@ -29,7 +29,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $data = $request->validate([
+
+        $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -50,15 +51,18 @@ class UserController extends Controller
             'city' => $request->get('city'),
             'img_url' => $request->get('img_url'),
             'work_out_level' => $request->get('work_out_level'),
+            'bio' => $request->get('bio'),
+            'age' => 0,
         ]);
+
 
         $newUser->age  = Carbon::parse($request->get('birth_date'))->age;
 
         $newUser->save();
 
-        $token = $newUser->createToken("api_token")->plainTextToken;
+        // $token = $newUser->createToken("api_token")->plainTextToken;
 
-        return response()->json(['MyTokon' => $token]);
+        return response()->json(['message' => 'User Was Added successfully !']);
     }
 
     /**
@@ -131,6 +135,7 @@ class UserController extends Controller
             }
             if ($request->get('height')) {
                 $user->height = $request->get('height');
+                $user->age  = Carbon::parse($request->get('birth_date'))->age;
             }
             if ($request->get('birth_date')) {
                 $user->birth_date = $request->get('birth_date');

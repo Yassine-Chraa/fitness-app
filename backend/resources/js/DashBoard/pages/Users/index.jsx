@@ -13,7 +13,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditUserModal from "./EditModal";
 import DeleteUserModal from "./DeleteUserModal";
 import AddUserModal from "./AddUserModal";
-import { useMaterialUIController, setOpenEditModalHandler, setOpenAddModalHandler } from "../../context/UIContext";
+import { useMaterialUIController, setOpenEditModalHandler, setOpenAddModalHandler, setOpenDeleteModalHandler } from "../../context/UIContext";
 import MDButton from "../../components/MDButton";
 import { async } from "regenerator-runtime";
 
@@ -44,6 +44,11 @@ export const ActionMenu = ({ id, setSelectedID }) => {
     const openEditHandler = () => {
         setSelectedID(() => id);
         setOpenEditModalHandler(dispatch, true);
+    }
+
+    const openDeleteHandler = () => {
+        setSelectedID(() => id);
+        setOpenDeleteModalHandler(dispatch, true);
     }
 
     const settingMenu = () => (
@@ -81,7 +86,7 @@ export const ActionMenu = ({ id, setSelectedID }) => {
                     disableRipple
                     color="inherit"
                     variant="outlined"
-                    onClick={() => console.log('delete')}
+                    onClick={openDeleteHandler}
                 >
                     <DeleteIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
                 </IconButton>
@@ -199,7 +204,7 @@ const Users = () => {
         <DashboardLayout>
 
             {selectedID ? <EditUserModal selectedID={selectedID} /> : ''}
-            {/* <DeleteUserModal /> */}
+            {selectedID ? <DeleteUserModal selectedID={selectedID} /> : ''}
             <AddUserModal />
 
             <MDBox>

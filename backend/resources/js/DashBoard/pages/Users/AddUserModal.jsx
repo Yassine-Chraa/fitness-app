@@ -84,12 +84,14 @@ const AddUserModal = () => {
             score: localScore,
             work_out_level: localLevel,
             top_goal: localTopGoal,
-            img_url: localImgUrl,
+            img_url: localImgUrl ? localImgUrl : 'https://bit.ly/34BY10g',
             password: 'fitnessapp',
+            password_confirmation: 'fitnessapp',
+            bio: 'short description about the user here !',
         }
         const result = await addUser(user);
         if (result) {
-            alert("updated Successfully !")
+            setOpenAddModalHandler(dispatch, false);
         }
     };
 
