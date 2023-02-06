@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     backgroundColor: theme.colors.button,
-    paddingVertical: 12,
+    paddingVertical: 10,
     borderRadius: 6,
     flex: 1,
   },

@@ -4,67 +4,64 @@ import {
   Text,
   View,
   StyleSheet,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
   ActivityIndicator,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../constants/theme';
 
-
 const Card = ({food, navigation}: any) => {
   return (
-    <TouchableWithoutFeedback onPress={() => navigation.navigate('Home', food)}>
-      <View style={styles.card}>
+    <TouchableOpacity style={styles.card}>
+      <View>
+        <Image
+          source={{uri: 'https://placehold.jp/180x260.png'}}
+          style={{height: 150, width: 150}}
+          PlaceholderContent={<ActivityIndicator />}
+        />
+      </View>
+      <View style={styles.itemDesc}>
         <View>
-          <Image
-            source={{uri: 'https://placehold.jp/180x260.png'}}
-            style={{height: 150, width: 150}}
-            PlaceholderContent={<ActivityIndicator />}
-          />
-        </View>
-        <View style={styles.mealDesc}>
-          <View>
-            <Text
-              style={{
-                color: theme.colors.text,
-                fontSize: 20,
-                fontWeight: 'bold',
-              }}>
-              {food.name}
-            </Text>
-            <Text
-              style={{
-                color: theme.colors.secondary,
-                fontSize: 14,
-                marginTop: 2,
-                fontWeight: '500',
-              }}>
-              {food.ingredients}
-            </Text>
-          </View>
-          <View
+          <Text
             style={{
-              flexDirection: 'row',
-              gap: 10,
-              position: 'absolute',
-              bottom: 0,
-              width: '100%',
+              color: theme.colors.text,
+              fontSize: 20,
+              fontWeight: 'bold',
             }}>
-            <Text
-              style={{
-                color: theme.colors.text,
-                fontSize: 18,
-                fontWeight: 'bold',
-              }}>
-              ${food.price}
-            </Text>
-            <View style={styles.addToCartBtn}>
-              <Icon name="plus" size={18} color={'#fff'} />
-            </View>
+            {food.name}
+          </Text>
+          <Text
+            style={{
+              color: theme.colors.secondary,
+              fontSize: 14,
+              marginTop: 2,
+              fontWeight: '500',
+            }}>
+            {food.ingredients}
+          </Text>
+        </View>
+        <View
+          style={{
+            flexDirection: 'row',
+            gap: 10,
+            position: 'absolute',
+            bottom: 0,
+            width: '100%',
+          }}>
+          <Text
+            style={{
+              color: theme.colors.text,
+              fontSize: 18,
+              fontWeight: 'bold',
+            }}>
+            ${food.price}
+          </Text>
+          <View style={styles.addToCartBtn}>
+            <Icon name="plus" size={18} color={'#fff'} />
           </View>
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </TouchableOpacity>
   );
 };
 
@@ -90,7 +87,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: 0,
   },
-  mealDesc: {
+  itemDesc: {
     justifyContent: 'space-between',
     marginLeft: 'auto',
     marginRight: 'auto',

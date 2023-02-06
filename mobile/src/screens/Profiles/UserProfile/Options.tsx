@@ -9,7 +9,7 @@ const Options = () => {
     <View style={styles.container}>
       <Option title="Coaches" iconName="user-alt" BadgeColor={theme.colors.primary}/>
       <Option title="Doctors" iconName="user-md" BadgeColor={theme.colors.specialColor1}/>
-      <Option title="Gym Locaction" iconName="dumbbell" BadgeColor={theme.colors.secondary}/>
+      <Option title="Gym Location" iconName="dumbbell" BadgeColor={theme.colors.secondary}/>
       <Option title="Settings" iconName="wrench" BadgeColor={theme.colors.text}/>
       <Option title="FeedBack" iconName="comment"  BadgeColor={theme.colors.button}/>
       <Option title="Share" iconName="share" BadgeColor={theme.colors.primary}/>
