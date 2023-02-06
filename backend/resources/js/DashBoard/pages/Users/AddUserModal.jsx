@@ -1,19 +1,19 @@
 import { Card, Grid, Modal } from '@mui/material';
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import MDAvatar from '../../components/MDAvatar';
 import MDBox from '../../components/MDBox';
 import MDButton from '../../components/MDButton';
 import MDInput from '../../components/MDInput';
 import MDTypography from '../../components/MDTypography';
-import { useMaterialUIController, setOpenEditModalHandler } from '../../context/UIContext';
+import { useMaterialUIController, setOpenAddModalHandler } from '../../context/UIContext';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import { async } from 'regenerator-runtime';
 import { useUser } from '../../context/APIContext/providers/UserContextProvider';
-import { get, result } from 'lodash';
+import { async } from 'regenerator-runtime';
+import { result } from 'lodash';
 
 
 const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif)$/i;
@@ -26,12 +26,11 @@ const top_goals = ['maintaining', 'bulking', 'cutting'];
 const AddUserModal = () => {
 
     const [controller, dispatch] = useMaterialUIController();
-    const { openEditModalHandler } = controller;
-    const [imgUrl, setImgUrl] = useState(null);
+    const { openAddModalHandler } = controller;
+    const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
-    const { getUser, updateUser } = useUser();
+    const { addUser } = useUser();
     const ImageRef = useRef();
-    const [user, setUser] = useState();
 
     const [localRole, setLocalRole] = useState(roles[0]);
     const [localGender, setLocalGender] = useState(genders[0]);
@@ -54,80 +53,54 @@ const AddUserModal = () => {
     const top_goals_options = () => top_goals.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
 
 
-    const fetchUser = async () => {
-        const user = await getUser(selectedID);
-        if (user) {
-            setUser(() => user);
-            const { name, email, weight, height, role, country, birth_date, city, gender, score, work_out_level, top_goal } = user;
-            setLocalGender(gender ? gender : genders[0]);
-            setLocalRole(role ? role : roles[0]);
-            setLocalLevel(work_out_level ? work_out_level : work_out_levels[0]);
-            setLocalTopGoal(top_goal ? top_goal : top_goals[0]);
-
-            setLocalName(name ? name : '');
-            setLocalEmail(email ? email : '');
-            setLocalCountry(country ? country : '');
-            setLocalCity(city ? city : '');
-
-            setLocalScore(() => score ? score : 0);
-            setLocalWeight(() => weight ? weight : 0);
-            setLocalHeight(() => height ? height : 0);
-            setLocalBirthDay(() => birth_date ? birth_date : "2022-02-02");
-        }
-    }
-
-    useEffect(() => {
-        fetchUser();
-    }, [selectedID])
-
-
     const upLoadImageHandler = (event) => {
         var file = event.target.files[0];
-        console.log(file.type)
+        setImageFile(file);
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
             return;
         }
-
         const fileReader = new FileReader();
         fileReader.onload = (e) => {
             const { result } = e.target;
             if (result) {
-                setImgUrl(result)
+                setLocalImgUrl(result)
             }
         }
         fileReader.readAsDataURL(file);
     }
 
-    const confirmEditUserHandler = async () => {
-        user.name = localName;
-        user.email = localEmail;
-        user.weight = localWeight;
-        user.height = localHeight;
-        user.role = localRole;
-        user.country = localCountry;
-        user.birth_date = localBirthDay;
-        user.city = localCity;
-        user.gender = localGender;
-        user.score = localScore;
-        user.work_out_level = localLevel;
-        user.top_goal = localTopGoal;
-
-        const result = await updateUser(user);
+    const confirmAddUserHandler = async () => {
+        const user = {
+            name: localName,
+            email: localEmail,
+            weight: localWeight,
+            height: localHeight,
+            role: localRole,
+            country: localCountry,
+            birth_date: localBirthDay,
+            city: localCity,
+            gender: localGender,
+            score: localScore,
+            work_out_level: localLevel,
+            top_goal: localTopGoal,
+            img_url: localImgUrl,
+            password: 'fitnessapp',
+        }
+        const result = await addUser(user);
         if (result) {
             alert("updated Successfully !")
         }
     };
 
-    const cancelEditUserHandler = () => {
-
+    const cancelAddUserHandler = () => {
+        setOpenAddModalHandler(dispatch, false);
     }
-
 
     return (
         <Modal
-            open={openEditModalHandler}
-            onClose={() => setOpenEditModalHandler(dispatch, false)}
+            open={openAddModalHandler}
+            onClose={() => setOpenAddModalHandler(dispatch, false)}
             style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
         >
             <Card sx={{
@@ -149,14 +122,14 @@ const AddUserModal = () => {
                     textAlign="center"
                 >
                     <MDTypography variant="h4" fontWeight="medium" mx={1}>
-                        Edit User
+                        Add User
                     </MDTypography>
                 </MDBox>
                 <Grid container spacing={2} >
 
                     <Grid item xs={11} sm={6} md={6} lg={6} xl={6}>
                         <MDBox component="form" role="form" style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                            <MDAvatar onClick={() => ImageRef.current.click()} variant="gradient" src={imgUrl == null ? 'https://bit.ly/34BY10g' : imgUrl} name={'ismail ben alla'} size="xxl" style={{ cursor: 'pointer' }} />
+                            <MDAvatar onClick={() => ImageRef.current.click()} variant="gradient" src={localImgUrl == null ? 'https://bit.ly/34BY10g' : imgUrl} name={'ismail ben alla'} size="xxl" style={{ cursor: 'pointer' }} />
                             <MDButton onClick={() => ImageRef.current.click()} variant="gradient" color="info" style={{ padding: "0rem", minWidth: "12rem", maxWidth: "14rem", flex: 1 }}>
                                 Upload Image
                                 <input ref={ImageRef} onChange={upLoadImageHandler} hidden accept="image/*" multiple type="file" onClick={() => console.log('upload is invoked !')} />
@@ -185,8 +158,6 @@ const AddUserModal = () => {
                             </MDBox>
                         </MDBox>
                     </Grid>
-
-
 
 
                     {/* ---------( dropdown lists )----------- */}
@@ -264,10 +235,6 @@ const AddUserModal = () => {
                     </Grid>
                     {/* ---------( number inputs )----------- */}
 
-
-
-
-
                     <Grid item xs={6} sm={3} md={3} lg={3} xl={3}>
                         <MDBox component="form" role="form">
                             <MDBox mb={2}>
@@ -290,17 +257,13 @@ const AddUserModal = () => {
                         </MDBox>
                     </Grid>
 
-
                 </Grid>
 
-
-
-
                 <MDBox display="flex" justifyContent="space-around" mx={2} mt={2}>
-                    <MDButton onClick={cancelEditUserHandler} variant="gradient" color="warning" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
+                    <MDButton onClick={cancelAddUserHandler} variant="gradient" color="warning" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
                         Cancel
                     </MDButton>
-                    <MDButton onClick={confirmEditUserHandler} variant="gradient" color="success" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
+                    <MDButton onClick={confirmAddUserHandler} variant="gradient" color="success" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
                         Done
                     </MDButton>
                 </MDBox>

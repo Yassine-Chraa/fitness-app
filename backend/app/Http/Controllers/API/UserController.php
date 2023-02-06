@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -38,10 +39,25 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            // 'profile' => $request->get('profile')
+            'birth_date' => $request->get('birth_date'),
+            'height' => $request->get('height'),
+            'gender' => $request->get('gender'),
+            'country' => $request->get('country'),
+            'top_goal' => $request->get('top_goal'),
+            'role' => $request->get('role'),
+            'score' => $request->get('score'),
+            'weight' => $request->get('weight'),
+            'city' => $request->get('city'),
+            'img_url' => $request->get('img_url'),
+            'work_out_level' => $request->get('work_out_level'),
         ]);
+
+        $newUser->age  = Carbon::parse($request->get('birth_date'))->age;
+
         $newUser->save();
+
         $token = $newUser->createToken("api_token")->plainTextToken;
+
         return response()->json(['MyTokon' => $token]);
     }
 

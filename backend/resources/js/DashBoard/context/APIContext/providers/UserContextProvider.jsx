@@ -58,6 +58,7 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
             const { data } = await axios.post(`${UserUrl}`, User, config);
+            alert(JSON.stringify(data))
             setLoading(false);
             return data;
         } catch (error) {
@@ -74,7 +75,6 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert(UserUrl)
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
             alert(JSON.stringify(data))
             setLoading(false);

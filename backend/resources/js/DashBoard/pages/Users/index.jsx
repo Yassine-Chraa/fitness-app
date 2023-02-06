@@ -13,7 +13,9 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import EditUserModal from "./EditModal";
 import DeleteUserModal from "./DeleteUserModal";
 import AddUserModal from "./AddUserModal";
-import { useMaterialUIController, setOpenEditModalHandler } from "../../context/UIContext";
+import { useMaterialUIController, setOpenEditModalHandler, setOpenAddModalHandler } from "../../context/UIContext";
+import MDButton from "../../components/MDButton";
+import { async } from "regenerator-runtime";
 
 
 export const Profile = ({ image, name, email }) => (
@@ -115,6 +117,7 @@ const Users = () => {
     const { getUsers } = useUser();
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState();
+    const [controller, dispatch] = useMaterialUIController();
 
 
     const dataLabels = [
@@ -147,7 +150,7 @@ const Users = () => {
     const fetchData = async () => {
         let res = await getUsers();
         res = res.map((user) => {
-            const { id, name, email, role, country, city, gender, score, work_out_level, } = user;
+            const { id, name, email, role, country, city, gender, score, work_out_level } = user;
             return {
                 profile: <Profile name={name} email={email} image={'https://bit.ly/34BY10g'} />,
                 id: (
@@ -183,16 +186,22 @@ const Users = () => {
         console.log(res)
     };
 
+
     useEffect(() => {
         fetchData();
     }, []);
+
+    const openAddmodalInvoker = () => {
+        setOpenAddModalHandler(dispatch, true);
+    }
 
     return (
         <DashboardLayout>
 
             {selectedID ? <EditUserModal selectedID={selectedID} /> : ''}
-            {/* <DeleteUserModal openEditModalHandler={openAddModalHandler} setOpenEditModalHandler={setOpenEditModalHandler}/> */}
-            {/* <AddUserModal openEditModalHandler={openAddModalHandler} setOpenEditModalHandler={setOpenEditModalHandler}/> */}
+            {/* <DeleteUserModal /> */}
+            <AddUserModal />
+
             <MDBox>
                 <Grid container spacing={6} justifyContent={"center"}>
                     <Grid item lg={12}>
@@ -220,11 +229,21 @@ const Users = () => {
                                     </Tooltip>
                                 </MDBox>
                             </MDBox>
-                            <MDBox pt={3}>
+
+
+
+                            <MDBox pt={3} >
                                 <DataTable
                                     canSearch={true}
                                     table={{ columns: dataLabels, rows: data, }}
                                 />
+                                <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem', marginBottom: '1rem' }}>
+                                    <Tooltip title="Add new User">
+                                        <IconButton onClick={openAddmodalInvoker} color="black" sx={{ backgroundColor: '#ddd' }}>
+                                            <Icon>add</Icon>
+                                        </IconButton>
+                                    </Tooltip>
+                                </MDBox>
                             </MDBox>
                         </Card>
                     </Grid>

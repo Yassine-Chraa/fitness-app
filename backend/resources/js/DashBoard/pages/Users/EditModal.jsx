@@ -119,7 +119,7 @@ const EditUserModal = ({ selectedID }) => {
     };
 
     const cancelEditUserHandler = () => {
-
+        setOpenEditModalHandler(dispatch, false);
     }
 
 
