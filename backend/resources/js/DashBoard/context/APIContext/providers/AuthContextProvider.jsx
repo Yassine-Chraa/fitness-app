@@ -22,12 +22,6 @@ export const authContextProvider = ({ children }) => {
     const signIn = async (user) => {
         try {
             setLoading(true);
-            // const config = {
-            //     headers: {
-            //         authorization: `Bearer ${localStorage.getItem('api_token')}`,
-            //     },
-            // };
-
             const { data } = await axios.post(`${signInUrl}`, user);
             setLoading(false);
             return data;
@@ -39,11 +33,6 @@ export const authContextProvider = ({ children }) => {
     const signUp = async (user) => {
         try {
             setLoading(true);
-            // const config = {
-            //     headers: {
-            //         authorization: `Bearer ${localStorage.getItem('api_token')}`,
-            //     },
-            // };
             const { data } = await axios.post(`${signUpUrl}`, user);
             setLoading(false);
             return data;
