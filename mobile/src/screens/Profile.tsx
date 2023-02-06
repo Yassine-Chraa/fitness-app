@@ -10,7 +10,7 @@ import ViewProfile from './Profiles/ViewProfile';
 
 function Profile(): JSX.Element {
   return (
-    <Screen name="Profile" action="none">
+    <Screen name="Profile" allowScroll>
       {/* <UserProfile /> */}
       {/* <ListOfDC/> */}
       {/* <EditProfile/> */}

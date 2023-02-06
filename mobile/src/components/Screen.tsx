@@ -4,13 +4,16 @@ import {
   ScrollView,
   Text,
   TouchableNativeFeedback,
-  TouchableOpacity
+  TouchableOpacity,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import {useNavigation} from '@react-navigation/native';
 import theme from '../constants/theme';
 
 const Header = ({name, action, backButton, noAction}: any) => {
+  const navigation = useNavigation();
+
   let icon;
   switch (action) {
     case 'search':
@@ -28,7 +31,9 @@ const Header = ({name, action, backButton, noAction}: any) => {
         marginBottom: 16,
       }}>
       {backButton ? (
-        <TouchableOpacity><Icon name="arrow-left" size={22} solid color="#000" /></TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={22} solid color="#000" />
+        </TouchableOpacity>
       ) : null}
       <Text
         style={{
@@ -51,22 +56,28 @@ const Screen = ({
   name,
   action,
   backButton,
-  addButton,
+  actionButton,
+  actionButtonType,
   noAction,
+  allowScroll
 }: any) => {
   return (
     <SafeAreaView style={styles.screen}>
-      <Header name={name} action={action} backButton={backButton} noAction />
-      {name != 'Restaurant' && name != 'Store' ? (
+      <Header
+        name={name}
+        action={action}
+        backButton={backButton}
+        noAction={noAction}
+      />
+      {allowScroll ? (
         <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
       ) : (
         <View style={{flex: 1}}>{children}</View>
       )}
-      {addButton ? (
+      {actionButton ? (
         <TouchableOpacity style={styles.addButton}>
-          <Icon name="plus" color={'#fff'} size={16} />
           <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
-            New
+            {actionButtonType}
           </Text>
         </TouchableOpacity>
       ) : null}
@@ -76,7 +87,7 @@ const Screen = ({
 const styles = StyleSheet.create({
   screen: {
     flex: 1,
-    paddingHorizontal: 16,
+    paddingHorizontal: 12,
     paddingTop: 16,
   },
   addButton: {
@@ -85,7 +96,7 @@ const styles = StyleSheet.create({
     bottom: 20,
     paddingVertical: 10,
     paddingHorizontal: 24,
-    borderRadius: 16,
+    borderRadius: 12,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',

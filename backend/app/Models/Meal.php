@@ -17,10 +17,15 @@ class Meal extends Model
         'description',
         'weight',
         'isVegan',
+        'isVegetable'
     ];
 
     public function images()
     {
         return $this->hasMany(Resource::class,"meal_id");
+    }
+    public function mealItems()
+    {
+        return $this->hasMany(MealItem::class,"meal_id");
     }
 }

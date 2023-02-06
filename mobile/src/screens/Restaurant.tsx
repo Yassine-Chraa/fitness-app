@@ -19,7 +19,7 @@ import theme from '../constants/theme';
 
 const Restaurant = ({navigation}: any): JSX.Element => {
   return (
-    <Screen name="Restaurant">
+    <Screen name="Restaurant" allowScroll={false}>
       <FlatList
         ListHeaderComponent={() => (
           <>

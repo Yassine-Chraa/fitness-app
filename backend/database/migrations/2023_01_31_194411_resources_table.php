@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('resources_table', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->nullable();
+            $table->foreignId('meal_item_id')->nullable();
             $table->foreignId('meal_id')->nullable();
             $table->foreignId('activity_id')->nullable();
             $table->foreignId('product_id')->nullable();

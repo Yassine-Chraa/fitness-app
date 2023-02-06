@@ -64,7 +64,7 @@ const Exercices = ({navigation}: any) => {
    
   ];
   return (
-    <Screen name="Exercices">
+    <Screen name="Exercices" allowScroll>
       <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
         {muscles.map((muscle: any, index: number) => {
           return (

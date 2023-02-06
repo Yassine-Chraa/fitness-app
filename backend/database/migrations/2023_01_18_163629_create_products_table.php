@@ -18,9 +18,9 @@ return new class extends Migration
             $table->string("name");
             $table->enum("category",["gym_cloths","mass_gainers"]);
             $table->string("description");
-            $table->string('image')->nullable(true);
             $table->integer("stock");
             $table->double("prix");
+            $table->double("quantity");
             $table->timestamps();
         });
     }

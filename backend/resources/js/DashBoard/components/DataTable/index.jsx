@@ -54,9 +54,7 @@ function DataTable({
     isSorted,
     noEndBorder,
 }) {
-    const defaultValue = entriesPerPage.defaultValue
-        ? entriesPerPage.defaultValue
-        : 10;
+    const defaultValue = entriesPerPage.defaultValue ? entriesPerPage.defaultValue : 10;
     const entries = entriesPerPage.entries
         ? entriesPerPage.entries.map((el) => el.toString())
         : ["5", "10", "15", "20", "25"];
@@ -108,16 +106,13 @@ function DataTable({
 
     // Handler for the input to set the pagination index
     const handleInputPagination = ({ target: { value } }) =>
-        value > pageOptions.length || value < 0
-            ? gotoPage(0)
-            : gotoPage(Number(value));
+        value > pageOptions.length || value < 0 ? gotoPage(0) : gotoPage(Number(value));
 
     // Customized page options starting from 1
     const customizedPageOptions = pageOptions.map((option) => option + 1);
 
     // Setting value for the pagination input
-    const handleInputPaginationValue = ({ target: value }) =>
-        gotoPage(Number(value.value - 1));
+    const handleInputPaginationValue = ({ target: value }) => gotoPage(Number(value.value - 1));
 
     // Search input value state
     const [search, setSearch] = useState(globalFilter);
@@ -130,14 +125,11 @@ function DataTable({
     // A function that sets the sorted value for the table
     const setSortedValue = (column) => {
         let sortedValue;
-        if (column.id != "actions") {
-            if (isSorted && column.isSorted) {
-                sortedValue = column.isSortedDesc ? "desc" : "asce";
-            } else if (isSorted) {
-                sortedValue = "none";
-            } else {
-                sortedValue = false;
-            }
+
+        if (isSorted && column.isSorted) {
+            sortedValue = column.isSortedDesc ? "desc" : "asce";
+        } else if (isSorted) {
+            sortedValue = "none";
         } else {
             sortedValue = false;
         }
@@ -146,8 +138,7 @@ function DataTable({
     };
 
     // Setting the entries starting point
-    const entriesStart =
-        pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
+    const entriesStart = pageIndex === 0 ? pageIndex + 1 : pageIndex * pageSize + 1;
 
     // Setting the entries ending point
     let entriesEnd;
@@ -163,12 +154,7 @@ function DataTable({
     return (
         <TableContainer sx={{ boxShadow: "none" }}>
             {entriesPerPage || canSearch ? (
-                <MDBox
-                    display="flex"
-                    justifyContent="space-between"
-                    alignItems="center"
-                    p={3}
-                >
+                <MDBox display="flex" justifyContent="space-between" alignItems="center" p={3}>
                     {entriesPerPage && (
                         <MDBox display="flex" alignItems="center">
                             <Autocomplete
@@ -180,9 +166,7 @@ function DataTable({
                                 }}
                                 size="small"
                                 sx={{ width: "5rem" }}
-                                renderInput={(params) => (
-                                    <MDInput {...params} />
-                                )}
+                                renderInput={(params) => <MDInput {...params} />}
                             />
                             <MDTypography variant="caption" color="secondary">
                                 &nbsp;&nbsp;entries per page
@@ -209,25 +193,16 @@ function DataTable({
                 <MDBox component="thead">
                     {headerGroups.map((headerGroup) => (
                         <TableRow {...headerGroup.getHeaderGroupProps()}>
-                            {headerGroup.headers.map((column) => {
-                                return (
-                                    <DataTableHeadCell
-                                        {...column.getHeaderProps(
-                                            isSorted &&
-                                                column.getSortByToggleProps()
-                                        )}
-                                        width={
-                                            column.width ? column.width : "auto"
-                                        }
-                                        align={
-                                            column.align ? column.align : "left"
-                                        }
-                                        sorted={setSortedValue(column)}
-                                    >
-                                        {column.render("Header")}
-                                    </DataTableHeadCell>
-                                );
-                            })}
+                            {headerGroup.headers.map((column) => (
+                                <DataTableHeadCell
+                                    {...column.getHeaderProps(isSorted && column.getSortByToggleProps())}
+                                    width={column.width ? column.width : "auto"}
+                                    align={column.align ? column.align : "left"}
+                                    sorted={setSortedValue(column)}
+                                >
+                                    {column.render("Header")}
+                                </DataTableHeadCell>
+                            ))}
                         </TableRow>
                     ))}
                 </MDBox>
@@ -238,15 +213,8 @@ function DataTable({
                             <TableRow {...row.getRowProps()}>
                                 {row.cells.map((cell) => (
                                     <DataTableBodyCell
-                                        noBorder={
-                                            noEndBorder &&
-                                            rows.length - 1 === key
-                                        }
-                                        align={
-                                            cell.column.align
-                                                ? cell.column.align
-                                                : "left"
-                                        }
+                                        noBorder={noEndBorder && rows.length - 1 === key}
+                                        align={cell.column.align ? cell.column.align : "left"}
                                         {...cell.getCellProps()}
                                     >
                                         {cell.render("Cell")}
@@ -267,43 +235,27 @@ function DataTable({
             >
                 {showTotalEntries && (
                     <MDBox mb={{ xs: 3, sm: 0 }}>
-                        <MDTypography
-                            variant="button"
-                            color="secondary"
-                            fontWeight="regular"
-                        >
-                            Showing {entriesStart} to {entriesEnd} of{" "}
-                            {rows.length} entries
+                        <MDTypography variant="button" color="secondary" fontWeight="regular">
+                            Showing {entriesStart} to {entriesEnd} of {rows.length} entries
                         </MDTypography>
                     </MDBox>
                 )}
                 {pageOptions.length > 1 && (
                     <MDPagination
-                        variant={
-                            pagination.variant ? pagination.variant : "gradient"
-                        }
+                        variant={pagination.variant ? pagination.variant : "gradient"}
                         color={pagination.color ? pagination.color : "info"}
                     >
                         {canPreviousPage && (
                             <MDPagination item onClick={() => previousPage()}>
-                                <Icon sx={{ fontWeight: "bold" }}>
-                                    chevron_left
-                                </Icon>
+                                <Icon sx={{ fontWeight: "bold" }}>chevron_left</Icon>
                             </MDPagination>
                         )}
                         {renderPagination.length > 6 ? (
                             <MDBox width="5rem" mx={1}>
                                 <MDInput
-                                    inputProps={{
-                                        type: "number",
-                                        min: 1,
-                                        max: customizedPageOptions.length,
-                                    }}
+                                    inputProps={{ type: "number", min: 1, max: customizedPageOptions.length }}
                                     value={customizedPageOptions[pageIndex]}
-                                    onChange={
-                                        (handleInputPagination,
-                                        handleInputPaginationValue)
-                                    }
+                                    onChange={(handleInputPagination, handleInputPaginationValue)}
                                 />
                             </MDBox>
                         ) : (
@@ -311,9 +263,7 @@ function DataTable({
                         )}
                         {canNextPage && (
                             <MDPagination item onClick={() => nextPage()}>
-                                <Icon sx={{ fontWeight: "bold" }}>
-                                    chevron_right
-                                </Icon>
+                                <Icon sx={{ fontWeight: "bold" }}>chevron_right</Icon>
                             </MDPagination>
                         )}
                     </MDPagination>

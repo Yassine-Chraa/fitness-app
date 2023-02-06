@@ -36,6 +36,18 @@ const reducer = (state, action) => {
         case "DARKMODE": {
             return { ...state, darkMode: action.value };
         }
+        case "OPEN_DELETE_MODAL": {
+            return { ...state, openDeleteModalHandler: action.value };
+        }
+        case "OPEN_EDIT_MODAL": {
+            return { ...state, openEditModalHandler: action.value };
+        }
+        case "OPEN_ADD_MODAL": {
+            return { ...state, openAddModalHandler: action.value };
+        }
+        case "OPEN_VIEW_MODAL": {
+            return { ...state, openViewModalHandler: action.value };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         };
@@ -54,6 +66,10 @@ const MaterialUIControllerProvider = ({ children }) => {
         direction: "ltr",
         layout: "dashboard",
         darkMode: false,
+        openDeleteModalHandler: false,
+        openEditModalHandler: false,
+        openAddModalHandler: false,
+        openViewModalHandler: false,
     };
 
     const [controller, dispatch] = useReducer(reducer, initialState);
@@ -91,6 +107,11 @@ const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGUR
 const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
+const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DELETE_MODAL", value });
+const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });
+const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
+const setOpenViewModalHandler = (dispatch, value) => dispatch({ type: "OPEN_VIEW_MODAL", value });
+
 
 export {
     MaterialUIControllerProvider,
@@ -105,4 +126,9 @@ export {
     setDirection,
     setLayout,
     setDarkMode,
+    setOpenDeleteModalHandler,
+    setOpenEditModalHandler,
+    setOpenAddModalHandler,
+    setOpenViewModalHandler,
+
 };

@@ -1,13 +1,13 @@
 import {Image} from '@rneui/themed';
 import React from 'react';
-import {StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import CheckBox from '@react-native-community/checkbox';
+import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const MuscleExercices = ({navigation, route}: any) => {
-  const {muscle} = route.params;
-  const MuscleExercices = [
+const AllExercices = ({navigation, route}: any) => {
+  const Exercices = [
     {
       id: 1,
       name: 'Barbell Incline Bench Press',
@@ -30,14 +30,14 @@ const MuscleExercices = ({navigation, route}: any) => {
     },
   ];
   return (
-    <Screen name={muscle.name} action="search" backButton allowScroll>
+    <Screen action="search" backButton allowScroll actionButton actionButtonType='Confirm'>
       <TouchableOpacity style={styles.filterButton}>
-        <Icon name="filter" color={'#fff'} size={16}/>
+        <Icon name="filter" color={'#fff'} size={16} />
         <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
           Tous
         </Text>
       </TouchableOpacity>
-      {MuscleExercices.map((exercice: any) => {
+      {Exercices.map((exercice: any) => {
         return (
           <TouchableOpacity
             key={exercice.id}
@@ -61,6 +61,9 @@ const MuscleExercices = ({navigation, route}: any) => {
                 </Text>
                 <Text>{exercice.target}</Text>
               </View>
+            </View>
+            <View style={{justifyContent: 'center'}}>
+              <CheckBox />
             </View>
           </TouchableOpacity>
         );
@@ -98,4 +101,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MuscleExercices;
+export default AllExercices;

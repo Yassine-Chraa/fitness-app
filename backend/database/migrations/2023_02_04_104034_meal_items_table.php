@@ -13,15 +13,18 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('meals', function (Blueprint $table) {
+        Schema::create('meal_items_table', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('meal_id')->nullable();
             $table->string('name');
-            $table->enum('category', ['Fruits', 'Vegetables', 'Grains', 'Protein Foods','Dairy']);
-            $table->string('description');
-            $table->float('weight');
-            $table->float('total_energy');
-            $table->boolean('isVegan');
-            $table->boolean('isVegetable');
+            $table->string('img_url');
+            $table->float('carbohydrates');
+            $table->float('fats');
+            $table->float('proteins');
+            $table->float('miniral_salts');
+            $table->float('vitamins');
+            $table->float('water');
+            $table->float('fiber');
             $table->timestamps();
         });
     }
@@ -33,6 +36,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('meals');
+        Schema::dropIfExists('meal_items_table');
     }
 };

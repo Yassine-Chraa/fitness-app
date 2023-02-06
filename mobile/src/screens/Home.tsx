@@ -4,14 +4,18 @@ import {
   StyleSheet,
   Text,
   View,
-  ActivityIndicator,
-  TouchableOpacity,
+  Dimensions,
 } from 'react-native';
+import Icon from 'react-native-vector-icons/FontAwesome5';
+import {BarChart, LineChart, PieChart} from 'react-native-chart-kit';
+import Swiper from 'react-native-swiper';
 import Screen from '../components/Screen';
-import {Image} from '@rneui/themed';
 import theme from '../constants/theme';
 
 function Home({navigation}: any): JSX.Element {
+  const cardWidth = Dimensions.get('window').width - 56;
+  const [indicateur, setIndicateur] = useState(0);
+  console.log(indicateur);
   const gymIntro = [
     {
       id: 1,
@@ -56,98 +60,124 @@ function Home({navigation}: any): JSX.Element {
       title: 'Item5',
     },
   ];
-
   return (
-    <Screen name="Fitness App">
+    <Screen name="Fitness App" allowScroll>
       <View>
-        <FlatList
-          data={gymIntro}
-          renderItem={({item}) => {
-            return (
-              <View style={{elevation: 10}}>
-                <Image
-                  source={item.image}
-                  style={{
-                    height: 180,
-                    width: 260,
-                    marginRight: 8,
-                    borderRadius: 6,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}
-                  resizeMode={'cover'}
-                />
-              </View>
-            );
-          }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item: any) => item.id.toString()}
-        />
-      </View>
-
-      <View style={{marginTop: 64}}>
-        <View style={styles.heading}>
-          <Text style={styles.title}>Products</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Store')}>
-            <Text style={styles.textMore}>More</Text>
-          </TouchableOpacity>
+        <View style={styles.card}>
+          <View>
+            <Text style={styles.subtitle}>Calories</Text>
+          </View>
+          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+            <PieChart
+              data={[
+                {
+                  name: 'TDEE',
+                  calories: 2000,
+                  color: theme.colors.secondary,
+                  legendFontColor: theme.colors.text,
+                  legendFontSize: 14,
+                },
+                {
+                  name: 'Food',
+                  calories: 2400,
+                  color: theme.colors.primary,
+                  legendFontColor: theme.colors.text,
+                  legendFontSize: 14,
+                },
+                {
+                  name: 'Rest',
+                  calories: 2400 - 2000,
+                  color: theme.colors.statusBar,
+                  legendFontColor: theme.colors.text,
+                  legendFontSize: 14,
+                },
+              ]}
+              width={cardWidth}
+              height={180}
+              chartConfig={{
+                decimalPlaces: 2,
+                color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+              }}
+              accessor="calories"
+              backgroundColor="transparent"
+            />
+          </View>
         </View>
-        <FlatList
-          data={products}
-          renderItem={({item}) => {
-            return (
-              <View key={item.id}>
-                <Image
-                  source={{uri: 'https://placehold.jp/180x260.png'}}
-                  style={{
-                    height: 180,
-                    width: 140,
-                    marginRight: 8,
-                    borderRadius: 8,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}
-                  resizeMode={'cover'}
-                />
-              </View>
-            );
-          }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item: any) => item.id.toString()}
-          style={{marginTop: 4}}
-        />
-      </View>
-      <View style={{marginTop: 64}}>
-        <View style={styles.heading}>
-          <Text style={styles.title}>Melas</Text>
-          <TouchableOpacity onPress={() => navigation.navigate('Restaurant')}>
-            <Text style={styles.textMore}>More</Text>
-          </TouchableOpacity>
-        </View>
-        <FlatList
-          data={products}
-          renderItem={({item}) => {
-            return (
-              <View key={item.id}>
-                <Image
-                  source={{uri: 'https://placehold.jp/180x260.png'}}
-                  style={{
-                    height: 180,
-                    width: 140,
-                    marginRight: 8,
-                    borderRadius: 8,
-                  }}
-                  PlaceholderContent={<ActivityIndicator />}
-                  resizeMode={'cover'}
-                />
-              </View>
-            );
-          }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item: any) => item.id.toString()}
-          style={{marginTop: 4, marginBottom: 32}}
-        />
+        <Swiper
+          style={{height: 325}}
+          loop={false}
+          activeDotColor={theme.colors.primary}>
+          <View style={styles.card}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+              }}>
+              <Text style={styles.subtitle}>Weight</Text>
+              <Icon name="plus" color={theme.colors.text} size={16} />
+            </View>
+            <View>
+              <LineChart
+                data={{
+                  labels: [
+                    '01/05',
+                    '01/10',
+                    '01/15',
+                    '01/20',
+                    '01/25',
+                    '01/30',
+                    '02/05',
+                  ],
+                  datasets: [
+                    {
+                      data: [72.2, 73, 72.4, 73.5, 73.1, 74, 73.9],
+                      strokeWidth: 1.5,
+                    },
+                  ],
+                }}
+                width={cardWidth}
+                height={200}
+                chartConfig={{
+                  decimalPlaces: 1,
+                  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                }}
+                withDots={false}
+                transparent
+                bezier
+                withVerticalLines={false}
+                segments={2}
+              />
+            </View>
+          </View>
+          <View style={styles.card}>
+            <Text style={styles.subtitle}>Energy expended</Text>
+            <View>
+              <BarChart
+                data={{
+                  labels: ['M', 'T', 'W', 'T', 'F', 'S', 'Sat'],
+                  datasets: [
+                    {
+                      data: [1800, 2400, 1500, 1600, 2300, 1800, 1500],
+                    },
+                  ],
+                }}
+                fromZero
+                width={cardWidth}
+                height={200}
+                chartConfig={{
+                  backgroundGradientFrom: theme.colors.background,
+                  backgroundGradientTo: theme.colors.background,
+                  decimalPlaces: 0,
+                  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+                  barPercentage: 0.5,
+                }}
+                showBarTops={false}
+                withInnerLines={false}
+              />
+            </View>
+          </View>
+        </Swiper>
       </View>
     </Screen>
   );
@@ -169,6 +199,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '500',
     color: theme.colors.text,
+  },
+  card: {
+    paddingVertical: 14,
+    paddingHorizontal: 12,
+    marginHorizontal: 4,
+    marginBottom: 20,
+    borderRadius: 8,
+    elevation: 6,
+    rowGap: 20,
+    backgroundColor: theme.colors.background,
+  },
+  subtitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: theme.colors.text,
+  },
+  circlBar: {
+    width: 10,
+    height: 10,
+    backgroundColor: theme.colors.primary,
+    borderRadius: 5,
   },
 });
 

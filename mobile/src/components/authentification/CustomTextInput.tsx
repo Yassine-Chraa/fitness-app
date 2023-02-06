@@ -5,7 +5,7 @@ import theme from '../../constants/theme'
 export default function CustomTextInput({ errorText, description, ...props }: any): JSX.Element {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} selectionColor={theme.colors.primary} underlineColorAndroid='transparent' {...props}/>
+            <TextInput style={styles.input} selectionColor={theme.colors.text} underlineColorAndroid='transparent' {...props}/>
             {description && !errorText ? (<Text style={styles.description}>{description}</Text>) : null}
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
         </View>
@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
         marginVertical: 12,
     },
     input: {
-        backgroundColor: '#DDDDDD',
+        backgroundColor: theme.colors.textInput,
         borderRadius: 8,
         paddingHorizontal: 12
     },
