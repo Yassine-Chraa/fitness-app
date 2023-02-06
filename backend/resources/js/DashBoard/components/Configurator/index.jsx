@@ -22,7 +22,7 @@ import {
     setSidenavColor,
     setDarkMode,
 } from "../../context/UIContext";
-import { Modal } from "@mui/material";
+import { Card, Modal } from "@mui/material";
 
 function Configurator() {
     const [controller, dispatch] = useMaterialUIController();
@@ -107,11 +107,17 @@ function Configurator() {
         <Modal
             open={openConfigurator}
             onClose={() => setOpenConfigurator(dispatch, false)}
-            style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+            style={{ height: '100vh', width: '100vw', display: 'flex', justifyContent: 'flex-end', alignItems: 'flex-end' }}
         >
+            <Card sx={{
+                padding: 2,
+                width: '20rem%', height: '25rem%',
+                borderRadius: '10px',
+                boxShadow: '#000e 1px 1px 10px',
+                marginBottom: '2rem', marginRight: '2rem',
+            }}>
 
 
-            <ConfiguratorRoot variant="permanent" ownerState={{ openConfigurator }}>
                 <MDBox
                     display="flex"
                     justifyContent="space-between"
@@ -121,9 +127,9 @@ function Configurator() {
                     px={3}
                 >
                     <MDBox>
-                        <MDTypography variant="h5">Material UI Configurator</MDTypography>
+                        <MDTypography variant="h5">Fitness App</MDTypography>
                         <MDTypography variant="body2" color="text">
-                            See our dashboard options.
+                            Customize it to meet your desire
                         </MDTypography>
                     </MDBox>
 
@@ -137,9 +143,7 @@ function Configurator() {
                             transform: "translateY(5px)",
                         })}
                         onClick={handleCloseConfigurator}
-                    >
-                        close
-                    </Icon>
+                    >close</Icon>
                 </MDBox>
 
                 <Divider />
@@ -147,7 +151,6 @@ function Configurator() {
                 <MDBox pt={0.5} pb={3} px={3}>
                     <MDBox>
                         <MDTypography variant="h6">Sidenav Colors</MDTypography>
-
                         <MDBox mb={0.5}>
                             {sidenavColors.map((color) => (
                                 <IconButton
@@ -258,18 +261,15 @@ function Configurator() {
                         lineHeight={1}
                     >
                         <MDTypography variant="h6">Navbar Fixed</MDTypography>
-
                         <Switch checked={fixedNavbar} onChange={handleFixedNavbar} />
                     </MDBox>
                     <Divider />
                     <MDBox display="flex" justifyContent="space-between" alignItems="center" lineHeight={1}>
                         <MDTypography variant="h6">Light / Dark</MDTypography>
-
                         <Switch checked={darkMode} onChange={handleDarkMode} />
                     </MDBox>
-
                 </MDBox>
-            </ConfiguratorRoot>
+            </Card>
         </Modal>
     );
 }
