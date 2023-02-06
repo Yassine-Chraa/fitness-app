@@ -79,7 +79,6 @@ const EditUserModal = ({ selectedID }) => {
         fetchUser();
     }, [selectedID])
 
-
     const upLoadImageHandler = (event) => {
         var file = event.target.files[0];
         console.log(file.type)

@@ -13,6 +13,7 @@ const UserUrl = getUrl('Users');
 
 export const UserContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
+    //-------------> perfect
     const getUsers = async () => {
         try {
             setLoading(true);
@@ -32,12 +33,13 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    //-------------> perfect
     const getUser = async (id) => {
         try {
             setLoading(true);
             const config = {
                 headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}}`,
+                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${UserUrl}/${id}`, config);
@@ -49,6 +51,7 @@ export const UserContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    //-------------> perfect
     const addUser = async (User) => {
         try {
             setLoading(true);
