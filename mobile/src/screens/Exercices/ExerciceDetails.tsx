@@ -10,13 +10,14 @@ import {
   FlatList,
   TouchableWithoutFeedback,
 } from 'react-native';
+import Swiper from 'react-native-swiper';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
 import theme from '../../constants/theme';
 
 const ExerciceDetails = ({navigation, route}: any) => {
   const width = Dimensions.get('screen').width - 24;
-  const {name} = route.params;
+  const {name, type} = route.params;
   const equipements = [
     {
       id: 1,
@@ -44,26 +45,35 @@ const ExerciceDetails = ({navigation, route}: any) => {
   return (
     <ScrollView style={{flex: 1}}>
       <View>
-        <FlatList
-          data={steps}
-          renderItem={({item}) => {
-            return (
-              <Image
-                source={{uri: 'https://placehold.jp/400x300.png'}}
-                style={{
-                  height: 300,
-                  width,
-                  zIndex: 1,
-                }}
-                PlaceholderContent={<ActivityIndicator />}
-                resizeMode={'cover'}
-              />
-            );
-          }}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          keyExtractor={(item: any) => item.id.toString()}
-        />
+        <Swiper height={300} loop={false}>
+          <Image
+            source={{uri: 'https://placehold.jp/400x300.png'}}
+            style={{
+              height: 300,
+              zIndex: 1,
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+            resizeMode={'cover'}
+          />
+          <Image
+            source={{uri: 'https://placehold.jp/400x400.png'}}
+            style={{
+              height: 300,
+              zIndex: 1,
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+            resizeMode={'cover'}
+          />
+          <Image
+            source={{uri: 'https://placehold.jp/400x400.png'}}
+            style={{
+              height: 300,
+              zIndex: 1,
+            }}
+            PlaceholderContent={<ActivityIndicator />}
+            resizeMode={'cover'}
+          />
+        </Swiper>
 
         <View style={styles.details}>
           <TouchableWithoutFeedback>
@@ -85,28 +95,31 @@ const ExerciceDetails = ({navigation, route}: any) => {
               <Text>Shoulders</Text>
             </View>
           </View>
-          <View style={{...styles.row, marginBottom: 24}}>
-            <View style={{width: width / 3 - 1}}>
-              <CustomTextInput
-                placeholder="Sets"
-                variant={theme.colors.danger}
-                keyboardType="numeric"
-              />
+          {type !== 'workout' ? (
+            <View style={{...styles.row, marginBottom: 24}}>
+              <View style={{width: width / 3 - 1}}>
+                <CustomTextInput
+                  placeholder="Sets"
+                  variant={theme.colors.danger}
+                  keyboardType="numeric"
+                />
+              </View>
+              <View style={{width: width / 3 - 10}}>
+                <CustomTextInput placeholder="Reps" keyboardType="numeric" />
+              </View>
+              <View style={{width: width / 3 - 10}}>
+                <CustomTextInput placeholder="Poid" keyboardType="numeric" />
+              </View>
+              <View style={{width: width, justifyContent: 'center'}}>
+                <TouchableOpacity style={styles.addButton}>
+                  <Text
+                    style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+                    ADD TO PROGRAM
+                  </Text>
+                </TouchableOpacity>
+              </View>
             </View>
-            <View style={{width: width / 3 - 10}}>
-              <CustomTextInput placeholder="Reps" keyboardType="numeric" />
-            </View>
-            <View style={{width: width / 3 - 10}}>
-              <CustomTextInput placeholder="Poid" keyboardType="numeric" />
-            </View>
-            <View style={{width: width, justifyContent: 'center'}}>
-              <TouchableOpacity style={styles.addButton}>
-                <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
-                  ADD TO PROGRAM
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+          ) : null}
           <View style={{marginBottom: 24}}>
             <Text style={styles.subtitle}>Equipement</Text>
             <FlatList
@@ -134,7 +147,6 @@ const ExerciceDetails = ({navigation, route}: any) => {
               style={{marginTop: 4}}
             />
           </View>
-
           <View>
             <Text style={styles.subtitle}>Execution</Text>
             <ScrollView>
@@ -184,7 +196,7 @@ const styles = StyleSheet.create({
   },
   details: {
     marginHorizontal: 12,
-    marginBottom: 48
+    marginBottom: 48,
   },
   heading: {
     marginTop: 8,

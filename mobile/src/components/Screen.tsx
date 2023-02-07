@@ -3,7 +3,6 @@ import {
   StyleSheet,
   ScrollView,
   Text,
-  TouchableNativeFeedback,
   TouchableOpacity,
 } from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
@@ -11,13 +10,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import theme from '../constants/theme';
 
-const Header = ({name, action, backButton, noAction}: any) => {
+const Header = ({name, action,actionFunction, backButton, noAction}: any) => {
   const navigation = useNavigation();
 
   let icon;
   switch (action) {
     case 'search':
       icon = 'search';
+      break;
+    case 'edit':
+      icon = 'edit';
       break;
     default:
       icon = 'bell';
@@ -44,10 +46,10 @@ const Header = ({name, action, backButton, noAction}: any) => {
         {name}
       </Text>
       {!noAction ? (
-        <TouchableNativeFeedback>
+        <TouchableOpacity onPress={actionFunction}>
           <Icon name={icon} size={22} solid color="#000" />
-        </TouchableNativeFeedback>
-      ) : null}
+        </TouchableOpacity>
+      ) : <View></View>}
     </View>
   );
 };
@@ -55,17 +57,19 @@ const Screen = ({
   children,
   name,
   action,
+  actionFunction,
   backButton,
   actionButton,
   actionButtonType,
   noAction,
-  allowScroll
+  allowScroll,
 }: any) => {
   return (
     <SafeAreaView style={styles.screen}>
       <Header
         name={name}
         action={action}
+        actionFunction={actionFunction}
         backButton={backButton}
         noAction={noAction}
       />
@@ -75,7 +79,7 @@ const Screen = ({
         <View style={{flex: 1}}>{children}</View>
       )}
       {actionButton ? (
-        <TouchableOpacity style={styles.addButton}>
+        <TouchableOpacity style={styles.addButton} activeOpacity={0.7}>
           <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
             {actionButtonType}
           </Text>
