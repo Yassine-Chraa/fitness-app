@@ -12,6 +12,7 @@ import {
     useMaterialUIController,
     setOpenConfigurator,
 } from "./context/UIContext";
+import { Message } from "./components/Message";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -77,6 +78,7 @@ export default function App() {
         <ThemeProvider theme={darkMode ? themeDark : theme}>
             <CssBaseline />
             <Configurator />
+            <Message />
             {configsButton}
             <Routes>
                 <Route path="*" element={<Navigate to="/dashboard" />} />

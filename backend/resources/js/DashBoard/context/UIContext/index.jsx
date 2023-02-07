@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 const MaterialUI = createContext();
 MaterialUI.displayName = "MaterialUIContext";
 
-
 const reducer = (state, action) => {
     switch (action.type) {
         case "MINI_SIDENAV": {
@@ -48,6 +47,9 @@ const reducer = (state, action) => {
         case "OPEN_VIEW_MODAL": {
             return { ...state, openViewModalHandler: action.value };
         }
+        case "OPEN_ALERT_MESSAGE": {
+            return { ...state, messageObject: action.value };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         };
@@ -70,6 +72,7 @@ const MaterialUIControllerProvider = ({ children }) => {
         openEditModalHandler: false,
         openAddModalHandler: false,
         openViewModalHandler: false,
+        messageObject: { type: 'error', message: 'there is an error !', state: false },
     };
 
     const [controller, dispatch] = useReducer(reducer, initialState);
@@ -92,11 +95,13 @@ const useMaterialUIController = () => {
 }
 
 // Typechecking props for the MaterialUIControllerProvider
+
 MaterialUIControllerProvider.propTypes = {
     children: PropTypes.node.isRequired,
 };
 
 // Context module functions
+
 const setMiniSidenav = (dispatch, value) => dispatch({ type: "MINI_SIDENAV", value });
 const setTransparentSidenav = (dispatch, value) => dispatch({ type: "TRANSPARENT_SIDENAV", value });
 const setWhiteSidenav = (dispatch, value) => dispatch({ type: "WHITE_SIDENAV", value });
@@ -111,6 +116,7 @@ const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DE
 const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });
 const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
 const setOpenViewModalHandler = (dispatch, value) => dispatch({ type: "OPEN_VIEW_MODAL", value });
+const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
 
 
 export {
@@ -130,5 +136,5 @@ export {
     setOpenEditModalHandler,
     setOpenAddModalHandler,
     setOpenViewModalHandler,
-
+    setMessageObject,
 };
