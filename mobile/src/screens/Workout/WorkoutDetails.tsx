@@ -37,10 +37,13 @@ const WorkoutDetails = ({navigation, route}: any) => {
     },
   ];
   const [data, setData] = useState(workoutExercices);
+
+  const editWorkout = () => navigation.navigate('EditWorkout', {id: 1});
   return (
     <Screen
       name={name}
       action="edit"
+      actionFunction={editWorkout}
       backButton
       actionButton
       actionButtonType="Start Workout">
@@ -58,7 +61,10 @@ const WorkoutDetails = ({navigation, route}: any) => {
                   style={styles.exercice}
                   disabled={isActive}
                   onPress={() =>
-                    navigation.navigate('ExerciceDetails', {name: item.name})
+                    navigation.navigate('ExerciceDetails', {
+                      name: item.name,
+                      type: 'workout',
+                    })
                   }>
                   <View style={{flexDirection: 'row', width: '100%'}}>
                     <TouchableWithoutFeedback onPressIn={drag}>
@@ -131,7 +137,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
           ListFooterComponent={() => {
             return (
               <TouchableOpacity
-              onPress={()=>navigation.navigate('AllExercices')}
+                onPress={() => navigation.navigate('AllExercices')}
                 style={{
                   ...styles.exercice,
                   backgroundColor: '#CFFDE1',
@@ -201,16 +207,6 @@ const styles = StyleSheet.create({
     width: 60,
     marginRight: 8,
     borderRadius: 30,
-  },
-  addButton: {
-    marginTop: 16,
-    paddingVertical: 10,
-    borderRadius: 6,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: 10,
-    backgroundColor: theme.colors.secondary,
   },
 });
 

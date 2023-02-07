@@ -92,7 +92,7 @@ const styles = StyleSheet.create({
     marginRight: 'auto',
     paddingVertical: 8,
     paddingHorizontal: 24,
-    borderRadius: 12,
+    borderRadius: 8,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
