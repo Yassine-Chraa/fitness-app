@@ -45,7 +45,7 @@ const Discover = ({navigation}: any) => {
               key={program.id}
               style={styles.program}
               onPress={() =>
-                navigation.navigate('ProgramDetail', {name: program.name})
+                navigation.navigate('ProgramDetails', {program: program})
               }>
               <View>
                 <Image
