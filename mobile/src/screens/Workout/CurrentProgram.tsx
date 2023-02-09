@@ -30,7 +30,7 @@ const CurrentProgram = ({navigation}: any) => {
     ],
   };
   return (
-    <SafeAreaView style={{paddingHorizontal: 12, flex: 1}}>
+    <View style={{paddingHorizontal: 12, flex: 1}}>
       <ScrollView>
         <View style={{marginBottom: 12}}>
           <Image
@@ -96,7 +96,7 @@ const CurrentProgram = ({navigation}: any) => {
           Add Day to Program
         </Text>
       </TouchableOpacity>
-    </SafeAreaView>
+    </View>
   );
 };
 

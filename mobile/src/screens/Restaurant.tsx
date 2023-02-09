@@ -14,7 +14,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import ListCategories from '../components/store/Categories';
 import Card from '../components/store/Card';
 import Screen from '../components/Screen';
-import foods from '../constants/foods';
+import cloths from '../constants/cloths';
 import theme from '../constants/theme';
 
 const Restaurant = ({navigation}: any): JSX.Element => {
@@ -41,8 +41,8 @@ const Restaurant = ({navigation}: any): JSX.Element => {
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={foods}
-        renderItem={({item}) => <Card food={item} navigation={navigation} />}
+        data={cloths}
+        renderItem={({item}) => <Card cloth={item} navigation={navigation} />}
       />
     </Screen>
   );
