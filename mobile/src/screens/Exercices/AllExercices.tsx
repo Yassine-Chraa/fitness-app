@@ -1,6 +1,6 @@
 import {Image} from '@rneui/themed';
-import React from 'react';
-import CheckBox from '@react-native-community/checkbox';
+import React,{useState} from 'react';
+import CheckBox  from '@react-native-community/checkbox';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
@@ -29,8 +29,14 @@ const AllExercices = ({navigation, route}: any) => {
       target: 'Chest',
     },
   ];
+  const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (
-    <Screen action="search" backButton allowScroll actionButton actionButtonType='Confirm'>
+    <Screen
+      action="search"
+      backButton
+      allowScroll
+      actionButton
+      actionButtonType="Confirm">
       <TouchableOpacity style={styles.filterButton}>
         <Icon name="filter" color={'#fff'} size={16} />
         <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
@@ -63,7 +69,10 @@ const AllExercices = ({navigation, route}: any) => {
               </View>
             </View>
             <View style={{justifyContent: 'center'}}>
-              <CheckBox />
+              <CheckBox 
+                value={toggleCheckBox}
+                onValueChange={newValue => setToggleCheckBox(newValue)}
+              />
             </View>
           </TouchableOpacity>
         );

@@ -1,3 +1,4 @@
+import {useState} from 'react';
 import {Image} from '@rneui/themed';
 import {
   StyleSheet,
@@ -18,23 +19,99 @@ const ProgramDetails = ({navigation, route}: any) => {
       name: 'Push Workout',
       exercicesNumber: 9,
       duration: 55,
+      exercices: [
+        {
+          id: 1,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 2,
+          name: 'Dumbbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 3,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 4,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+      ],
     },
     {
       id: 2,
       name: 'Pull Workout',
       exercicesNumber: 10,
       duration: 60,
+      exercices: [
+        {
+          id: 1,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 2,
+          name: 'Dumbbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 3,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 4,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+      ],
     },
     {
       id: 3,
       name: 'Legs Workout',
       exercicesNumber: 5,
       duration: 90,
+      exercices: [
+        {
+          id: 1,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 2,
+          name: 'Dumbbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 3,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+        {
+          id: 4,
+          name: 'Barbell Incline Bench Press',
+          target: 'Chest',
+        },
+      ],
     },
   ];
-  const showExercices = (id:any)=>{
 
-  }
+  const [show, setShow] = useState(false);
+  const [id, setId] = useState();
+  const showExercices = (new_id: any) => {
+    if (id != undefined) {
+      if (id == new_id) {
+        setShow(prev => !prev);
+      }else{
+        setShow(true);
+      }
+    }
+    setId(new_id);
+  };
   return (
     <View style={{flex: 1}}>
       <ScrollView>
@@ -71,36 +148,7 @@ const ProgramDetails = ({navigation, route}: any) => {
           </View>
         </View>
         <View style={styles.details}>
-          {programWorkouts.map((workout: any) => {
-            return (
-              <TouchableOpacity
-                key={workout.id}
-                style={styles.workout}
-                onPress={() => showExercices(workout.id)}>
-                <Text style={styles.workoutTitle}>Day {workout.id}</Text>
-                <View style={styles.workoutDetails}>
-                  <View style={{justifyContent: 'center'}}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        color: theme.colors.text,
-                        marginTop: -4,
-                      }}>
-                      {workout.name}
-                    </Text>
-                    <Text>
-                      {workout.exercicesNumber} exercices, {workout.duration}{' '}
-                      min
-                    </Text>
-                  </View>
-                  <View>
-                    <Icon name="chevron-down" />
-                  </View>
-                </View>
-              </TouchableOpacity>
-            );
-          })}
-          <View style={{marginTop: 16}}>
+          <View style={{marginBottom: 16}}>
             <Text style={styles.subtitle}>Program description</Text>
             <Text style={styles.desc}>
               This is a three dayn beginner, general fitness plan that can be
@@ -109,6 +157,73 @@ const ProgramDetails = ({navigation, route}: any) => {
             </Text>
             <Text style={styles.author}>Created by Yassine Chraa</Text>
           </View>
+          {programWorkouts.map((workout: any) => {
+            return (
+              <View style={styles.workout}>
+                <TouchableOpacity
+                  key={workout.id}
+                  style={styles.workoutHeader}
+                  onPress={() => showExercices(workout.id)}>
+                  <Text style={styles.workoutTitle}>Day {workout.id}</Text>
+                  <View style={styles.workoutDetails}>
+                    <View style={{justifyContent: 'center'}}>
+                      <Text
+                        style={{
+                          fontSize: 18,
+                          color: theme.colors.text,
+                          marginTop: -4,
+                        }}>
+                        {workout.name}
+                      </Text>
+                      <Text>
+                        {workout.exercicesNumber} exercices, {workout.duration}{' '}
+                        min
+                      </Text>
+                    </View>
+                    <View>
+                      <Icon name="chevron-down" />
+                    </View>
+                  </View>
+                </TouchableOpacity>
+                <View>
+                  {workout.exercices.map((exercice: any) => {
+                    return (
+                      <TouchableOpacity
+                        key={exercice.id}
+                        style={{
+                          ...styles.exercice,
+                          display: show && workout.id == id ? 'flex' : 'none',
+                        }}
+                        onPress={() =>
+                          navigation.navigate('ExerciceDetails', {
+                            name: exercice.name,
+                            type: 'workout'
+                          })
+                        }>
+                        <View style={{flexDirection: 'row'}}>
+                          <Image
+                            style={styles.image}
+                            source={{uri: 'https://placehold.jp/60x60.png'}}
+                          />
+                          <View style={{gap: 4, justifyContent: 'center'}}>
+                            <Text
+                              style={{
+                                fontSize: 18,
+                                color: theme.colors.text,
+                                fontWeight: 'bold',
+                              }}>
+                              {exercice.name}
+                            </Text>
+                            <Text>{exercice.target}</Text>
+                          </View>
+                        </View>
+                      </TouchableOpacity>
+                    );
+                  })}
+                </View>
+              </View>
+            );
+          })}
         </View>
         <View style={styles.backButton}>
           <TouchableOpacity onPress={() => navigation.goBack()}>
@@ -134,7 +249,7 @@ const styles = StyleSheet.create({
   },
   details: {
     marginHorizontal: 16,
-    marginBottom: 48,
+    marginBottom: 32,
     marginTop: 24,
   },
   heading: {
@@ -155,9 +270,10 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     paddingVertical: 16,
     paddingHorizontal: 20,
-    borderRadius: 4,
+    borderRadius: 6,
     backgroundColor: theme.colors.statusBar,
   },
+  workoutHeader: {},
   workoutDetails: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -176,17 +292,26 @@ const styles = StyleSheet.create({
     marginTop: 8,
     fontSize: 16,
   },
-  image: {
-    height: 80,
-    width: 80,
-    marginRight: 16,
-    borderRadius: 8,
-  },
   workoutTitle: {
     fontSize: 19,
     fontWeight: '600',
     color: theme.colors.text,
     marginBottom: 16,
+  },
+  exercice: {
+    marginTop: 2,
+    paddingVertical: 9,
+    paddingHorizontal: 8,
+    backgroundColor: theme.colors.statusBar,
+    borderRadius: 16,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  image: {
+    height: 60,
+    width: 60,
+    marginRight: 16,
+    borderRadius: 40,
   },
   addButton: {
     zIndex: 2,

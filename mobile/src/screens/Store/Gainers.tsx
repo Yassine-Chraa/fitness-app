@@ -1,50 +1,39 @@
 import React from 'react';
-import {
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  TextInput,
-  ScrollView,
-  FlatList,
-} from 'react-native';
+import {StyleSheet, View, TextInput, ScrollView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import ListCategories from '../components/store/Categories';
-import Card from '../components/store/Card';
-import Screen from '../components/Screen';
-import cloths from '../constants/cloths';
-import theme from '../constants/theme';
+import ListCategories from '../../components/store/Categories';
+import Card from '../../components/store/Card';
+import gainers from '../../constants/gainers';
+import theme from '../../constants/theme';
 
-const Restaurant = ({navigation}: any): JSX.Element => {
+const Gainers = ({navigation}: any): JSX.Element => {
   return (
-    <Screen name="Restaurant" allowScroll={false}>
+    <View style={{paddingHorizontal: 12, flex: 1}}>
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{flexDirection: 'row', marginTop: 12, marginBottom: 32}}>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={{flex: 1, fontSize: 18}}
-                  placeholder="Search for food"
+                  placeholder="Search for gainers"
                 />
               </View>
               <View style={styles.sortBtn}>
                 <Icon name="sliders-h" color={'#fff'} size={28} />
               </View>
             </View>
-            <View>
-              <ListCategories />
-            </View>
+            {/*<ListCategories />*/}
           </>
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={cloths}
-        renderItem={({item}) => <Card cloth={item} navigation={navigation} />}
+        data={gainers}
+        renderItem={({item}) => <Card type='gainer' item={item} navigation={navigation} />}
       />
-    </Screen>
+    </View>
   );
 };
 const styles = StyleSheet.create({
@@ -68,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Restaurant;
+export default Gainers;

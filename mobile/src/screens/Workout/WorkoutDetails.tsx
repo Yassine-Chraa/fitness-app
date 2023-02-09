@@ -113,22 +113,6 @@ const WorkoutDetails = ({navigation, route}: any) => {
                         <Text style={{marginRight: 8}}>{txt}</Text>
                       </View>
                     </View>
-                    <View
-                      style={{
-                        width: 32,
-                        height: 60,
-                        justifyContent: 'flex-start',
-                        alignItems: 'flex-end',
-                      }}>
-                      <TouchableOpacity>
-                        <Icon
-                          name="ellipsis-h"
-                          color={theme.colors.text}
-                          size={16}
-                          style={{marginTop: 6}}
-                        />
-                      </TouchableOpacity>
-                    </View>
                   </View>
                 </TouchableOpacity>
               </ScaleDecorator>
