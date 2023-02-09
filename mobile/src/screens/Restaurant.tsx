@@ -11,8 +11,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import ListCategories from '../components/Categories';
-import Card from '../components/Card';
+import ListCategories from '../components/store/Categories';
+import Card from '../components/store/Card';
 import Screen from '../components/Screen';
 import foods from '../constants/foods';
 import theme from '../constants/theme';

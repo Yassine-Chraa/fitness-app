@@ -1,6 +1,6 @@
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import React, {useEffect, useState} from 'react';
-import Exercices from '../screens/Exercices/Exercices';
+import Exercices from '../screens/Exercices';
 import Home from '../screens/Home';
 import Profile from '../screens/Profile';
 import Icon from 'react-native-vector-icons/FontAwesome5';

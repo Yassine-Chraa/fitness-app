@@ -8,8 +8,8 @@ import {
   Text,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import categories from '../constants/categories';
-import theme from '../constants/theme';
+import categories from '../../constants/categories';
+import theme from '../../constants/theme';
 
 const Categories = () => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
@@ -35,8 +35,8 @@ const Categories = () => {
             }}>
             <View style={styles.image}>
               <Image
-                source={category.image}
-                style={{height: 35, width: 35, resizeMode: 'cover'}}
+                source={{uri: 'https://placehold.jp/40x40.png'}}
+                style={{height: 40, width: 40,borderRadius: 20, resizeMode: 'cover'}}
               />
             </View>
             <Text
@@ -58,16 +58,13 @@ const Categories = () => {
 const styles = StyleSheet.create({
   categoryBtn: {
     flexDirection: 'row',
-    width: 120,
-    height: 45,
+    paddingVertical: 5,
     marginRight: 7,
     alignItems: 'center',
     borderRadius: 30,
-    paddingHorizontal: 5,
+    paddingHorizontal: 8,
   },
   image: {
-    height: 35,
-    width: 35,
     backgroundColor: Colors.white,
     borderRadius: 30,
     justifyContent: 'center',
