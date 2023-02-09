@@ -5,21 +5,20 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 //Components
 import ListCategories from '../../components/store/Categories';
 import Card from '../../components/store/Card';
-import cloths from '../../constants/cloths';
+import gainers from '../../constants/gainers';
 import theme from '../../constants/theme';
 
-const Cloths = ({navigation}: any): JSX.Element => {
+const Gainers = ({navigation}: any): JSX.Element => {
   return (
     <View style={{paddingHorizontal: 12, flex: 1}}>
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <View
-              style={{flexDirection: 'row', marginTop: 12, marginBottom: 32}}>
+            <View style={{flexDirection: 'row', marginTop: 12, marginBottom: 32}}>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={{flex: 1, fontSize: 18}}
-                  placeholder="Search for cloths"
+                  placeholder="Search for gainers"
                 />
               </View>
               <View style={styles.sortBtn}>
@@ -31,8 +30,8 @@ const Cloths = ({navigation}: any): JSX.Element => {
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={cloths}
-        renderItem={({item}) => <Card type='cloths' item={item} navigation={navigation} />}
+        data={gainers}
+        renderItem={({item}) => <Card type='gainer' item={item} navigation={navigation} />}
       />
     </View>
   );
@@ -58,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Cloths;
+export default Gainers;

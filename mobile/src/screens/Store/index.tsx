@@ -2,6 +2,7 @@ import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import theme from '../../constants/theme';
 import Cloths from './Cloths';
+import Gainers from './Gainers';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -48,6 +49,7 @@ const Store = () => {
         </View>
       )}>
       <Tab.Screen name="Cloths" component={Cloths} />
+      <Tab.Screen name="Gainers" component={Gainers} />
     </Tab.Navigator>
   );
 };

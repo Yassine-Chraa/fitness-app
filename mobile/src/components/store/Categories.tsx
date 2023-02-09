@@ -20,7 +20,6 @@ const Categories = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         marginTop: 16,
-        marginBottom: 32,
         alignItems: 'center',
       }}>
       {categories.map((category: any, ind: any) => (

@@ -10,7 +10,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 
-const Card = ({cloth, navigation}: any) => {
+const Card = ({type,item, navigation}: any) => {
   return (
     <TouchableOpacity style={styles.card}>
       <View>
@@ -28,7 +28,7 @@ const Card = ({cloth, navigation}: any) => {
               fontSize: 20,
               fontWeight: 'bold',
             }}>
-            {cloth.name}
+            {item.name}
           </Text>
           <Text
             style={{
@@ -37,7 +37,7 @@ const Card = ({cloth, navigation}: any) => {
               marginTop: 2,
               fontWeight: '500',
             }}>
-            {cloth.sizes}
+            {type == 'gainer' ?item.company: item.sizes}
           </Text>
         </View>
         <View
@@ -54,7 +54,7 @@ const Card = ({cloth, navigation}: any) => {
               fontSize: 18,
               fontWeight: 'bold',
             }}>
-            ${cloth.price}
+            ${item.price}
           </Text>
           <View style={styles.addToCartBtn}>
             <Icon name="plus" size={18} color={'#fff'} />
