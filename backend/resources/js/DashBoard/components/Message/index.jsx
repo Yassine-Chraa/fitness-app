@@ -1,11 +1,46 @@
 import { Fade, Modal } from '@mui/material';
 import React, { useEffect, useState } from 'react';
-import MDAlert from '../MDAlert';
 import { useMaterialUIController, setMessageObject } from '../../context/UIContext';
 import { Box } from '@mui/system';
 import MDAlertRoot from '../MDAlert/MDAlertRoot';
 import MDBox from '../MDBox';
 import MDAlertCloseIcon from '../MDAlert/MDAlertCloseIcon';
+import './index.css';
+
+
+export const LoadingProcess = () => {
+    const [controller, dispatch] = useMaterialUIController();
+    const { loadingAnimation } = controller;
+
+    return (
+        <>
+            {loadingAnimation ? <Box
+                style={{
+                    width: '100vw',
+                    height: '100vh',
+                    display: 'flex',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    flexDirection: 'column',
+                    position: 'fixed',
+                    zIndex: 2000,
+                    backgroundColor: '#0004',
+                }}>
+                <Box>
+                    <main>
+                        <svg class="pl" viewBox="0 0 128 128" width="128px" height="128px" xmlns="http://www.w3.org/2000/svg">
+                            <g fill="none" stroke-linecap="round" stroke-width="16" transform="rotate(-90,64,64)">
+                                <circle class="pl__ring" r="56" cx="64" cy="64" stroke="#ddd" />
+                                <circle class="pl__worm pl__worm--moving" r="56" cx="64" cy="64" stroke="currentColor" stroke-dasharray="22 307.86 22" data-worm />
+                            </g>
+                            <g data-particles></g>
+                        </svg>
+                    </main>
+                </Box>
+            </Box> : null}
+        </>
+    )
+};
 
 
 export const Message = () => {

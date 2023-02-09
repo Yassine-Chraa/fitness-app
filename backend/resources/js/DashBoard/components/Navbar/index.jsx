@@ -109,8 +109,8 @@ const DashBoardNavBar = ({ absolute, light, isMini }) => {
                                 size="small"
                                 disableRipple
                                 color="inherit"
-                                // onClick={handleMiniSidenav}
-                                onClick={() => setMessageObject(dispatch, { type: 'error', message: 'there is an error !', state: "mount" })}
+                                onClick={handleMiniSidenav}
+                               // onClick={() => setMessageObject(dispatch, { type: 'error', message: 'there is an error !', state: "mount" })}
                             >
                                 {miniSidenav ? <MenuOpenIcon sx={iconsStyle} fontSize="medium" />
                                     : <CloseRoundedIcon sx={iconsStyle} fontSize="medium" />

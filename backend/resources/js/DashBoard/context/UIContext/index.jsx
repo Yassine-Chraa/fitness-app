@@ -50,6 +50,9 @@ const reducer = (state, action) => {
         case "OPEN_ALERT_MESSAGE": {
             return { ...state, messageObject: action.value };
         }
+        case "SET_LOADING_ANIMATION": {
+            return { ...state, loadingAnimation: action.value };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         };
@@ -73,6 +76,7 @@ const MaterialUIControllerProvider = ({ children }) => {
         openAddModalHandler: false,
         openViewModalHandler: false,
         messageObject: { type: 'error', message: 'there is an error !', state: false },
+        loadingAnimation: false,
     };
 
     const [controller, dispatch] = useReducer(reducer, initialState);
@@ -117,6 +121,7 @@ const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT
 const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
 const setOpenViewModalHandler = (dispatch, value) => dispatch({ type: "OPEN_VIEW_MODAL", value });
 const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
+const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
 
 
 export {
@@ -137,4 +142,5 @@ export {
     setOpenAddModalHandler,
     setOpenViewModalHandler,
     setMessageObject,
+    setLoadingAnimation,
 };

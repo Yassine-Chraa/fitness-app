@@ -1,0 +1,50 @@
+:root {
+    --hue: 223;
+    --bg: hsl(var(--hue), 90%, 95%);
+    --fg: hsl(var(--hue), 90%, 1%);
+    --primary: hsl(var(--hue), 90%, 50%);
+    --trans-dur: 0.1s;
+    font-size: calc(16px + (24 - 16) * (100vw - 320px) / (1280 - 320));
+}
+
+main {
+    padding: 1.5em 0;
+}
+
+.pl {
+    display: block;
+    overflow: visible;
+    width: 5em;
+    height: 5em;
+}
+
+.pl__ring {
+    stroke: '#fff';
+    transition: stroke var(--trans-dur);
+}
+
+.pl__worm {
+    stroke: var(--primary);
+    transform-origin: 64px 64px;
+    visibility: visible;
+}
+
+.pl__worm--moving {
+    animation-name: worm;
+    animation-duration: 4s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-out;
+
+}
+
+@keyframes worm {
+    from {
+        stroke-dasharray: 22 307.86 22;
+        transform: rotate(0);
+    }
+
+    to {
+        stroke-dasharray: 2 347.86 2;
+        transform: rotate(1turn);
+    }
+}
