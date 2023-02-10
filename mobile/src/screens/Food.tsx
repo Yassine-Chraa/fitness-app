@@ -3,23 +3,33 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
   TextInput,
-  ScrollView,
   FlatList,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import ListCategories from '../components/store/Categories';
-import Card from '../components/store/Card';
+import FoodsCard from '../components/food/FoodCard';
 import Screen from '../components/Screen';
-import cloths from '../constants/cloths';
 import theme from '../constants/theme';
+import Categories from '../components/Categories';
+import { foodCategories } from '../constants/categories';
 
-const Restaurant = ({navigation}: any): JSX.Element => {
+const Food = ({navigation}: any): JSX.Element => {
+  const foods = [
+    {
+      id: 1,
+      name: 'Chicken breast',
+      cat: 'Protein Foods',
+    },
+    {
+      id: 2,
+      name: 'Eggs',
+      cat: 'Protein Foods',
+    }
+  ]
   return (
-    <Screen name="Restaurant" allowScroll={false}>
+    <Screen name="Food" allowScroll={false}>
       <FlatList
         ListHeaderComponent={() => (
           <>
@@ -34,15 +44,13 @@ const Restaurant = ({navigation}: any): JSX.Element => {
                 <Icon name="sliders-h" color={'#fff'} size={28} />
               </View>
             </View>
-            <View>
-              <ListCategories />
-            </View>
+            <Categories categories={foodCategories}/>
           </>
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={cloths}
-        renderItem={({item}) => <Card cloth={item} navigation={navigation} />}
+        data={foods}
+        renderItem={({item}) => <FoodsCard item={item} navigation={navigation} />}
       />
     </Screen>
   );
@@ -68,4 +76,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Restaurant;
+export default Food;

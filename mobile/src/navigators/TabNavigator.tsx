@@ -6,7 +6,7 @@ import Profile from '../screens/Profile';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Workout from '../screens/Workout';
 import Store from '../screens/Store';
-import Restaurant from '../screens/Restaurant';
+import Food from '../screens/Food';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../context/providers/AuthContextProvider';
 
@@ -44,7 +44,7 @@ const TabNavigator = () => {
               case 'Store':
                 iconName = 'store';
                 break;
-              case 'Restaurant':
+              case 'Food':
                 iconName = 'utensils';
                 break;
               case 'Profile':
@@ -64,7 +64,7 @@ const TabNavigator = () => {
         <Tab.Screen name="Workout" component={Workout} />
         <Tab.Screen name="Exercices" component={Exercices} />
         <Tab.Screen name="Store" component={Store} />
-        <Tab.Screen name="Restaurant" component={Restaurant} />
+        <Tab.Screen name="Food" component={Food} />
         <Tab.Screen name="Profile" component={Profile} />
       </Tab.Navigator>
     );

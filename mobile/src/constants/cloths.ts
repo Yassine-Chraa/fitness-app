@@ -2,7 +2,7 @@ const cloths = [
   {
     id: '1',
     name: 'HIIT T-Shirt Mens',
-    sizes: 'S,M, L, XL, 2XL',
+    sizes: 'S, M, L, XL',
     price: '8.30',
   },
 ];
