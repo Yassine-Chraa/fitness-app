@@ -12,12 +12,12 @@ if (document.getElementById("dashboard")) {
     const root = ReactDOM.createRoot(document.getElementById("dashboard"));
 
     root.render(
-        <BrowserRouter>
+        <MaterialUIControllerProvider>
             <APIHandlerProvider>
-                <MaterialUIControllerProvider>
+                <BrowserRouter>
                     <App />
-                </MaterialUIControllerProvider>
+                </BrowserRouter>
             </APIHandlerProvider>
-        </BrowserRouter>
+        </MaterialUIControllerProvider>
     );
 };
