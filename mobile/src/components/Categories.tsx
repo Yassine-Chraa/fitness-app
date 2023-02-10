@@ -8,10 +8,10 @@ import {
   Text,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import categories from '../../constants/categories';
-import theme from '../../constants/theme';
+import {clothsCategories} from '../constants/categories';
+import theme from '../constants/theme';
 
-const Categories = () => {
+const Categories = ({categories}:any) => {
   const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
 
   return (
@@ -20,17 +20,18 @@ const Categories = () => {
       showsHorizontalScrollIndicator={false}
       contentContainerStyle={{
         marginTop: 16,
+        marginBottom: 32,
         alignItems: 'center',
       }}>
-      {categories.map((category: any, ind: any) => (
+      {categories.map((category: any) => (
         <TouchableOpacity
-          key={ind}
+          key={category.id}
           activeOpacity={0.8}
-          onPress={() => setSelectedCategoryIndex(ind)}>
+          onPress={() => setSelectedCategoryIndex(category.id)}>
           <View
             style={{
               backgroundColor:
-                selectedCategoryIndex == ind ? theme.colors.secondary : theme.colors.primary,
+                selectedCategoryIndex == category.id ? theme.colors.secondary : theme.colors.primary,
               ...styles.categoryBtn,
             }}>
             <View style={styles.image}>
@@ -59,10 +60,10 @@ const styles = StyleSheet.create({
   categoryBtn: {
     flexDirection: 'row',
     paddingVertical: 5,
-    marginRight: 7,
+    marginRight: 8,
     alignItems: 'center',
-    borderRadius: 30,
-    paddingHorizontal: 8,
+    borderRadius: 24,
+    paddingHorizontal: 12,
   },
   image: {
     backgroundColor: Colors.white,

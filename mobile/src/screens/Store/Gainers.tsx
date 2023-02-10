@@ -3,10 +3,11 @@ import {StyleSheet, View, TextInput, ScrollView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import ListCategories from '../../components/store/Categories';
+import ListCategories from '../../components/Categories';
 import Card from '../../components/store/Card';
 import gainers from '../../constants/gainers';
 import theme from '../../constants/theme';
+import { gainersCategories } from '../../constants/categories';
 
 const Gainers = ({navigation}: any): JSX.Element => {
   return (
@@ -14,7 +15,7 @@ const Gainers = ({navigation}: any): JSX.Element => {
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <View style={{flexDirection: 'row', marginTop: 12, marginBottom: 32}}>
+            <View style={{flexDirection: 'row', marginTop: 12}}>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={{flex: 1, fontSize: 18}}
@@ -25,7 +26,7 @@ const Gainers = ({navigation}: any): JSX.Element => {
                 <Icon name="sliders-h" color={'#fff'} size={28} />
               </View>
             </View>
-            {/*<ListCategories />*/}
+            <ListCategories categories={gainersCategories}/>
           </>
         )}
         horizontal={false}

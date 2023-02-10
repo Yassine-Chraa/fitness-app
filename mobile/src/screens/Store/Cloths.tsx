@@ -3,10 +3,11 @@ import {StyleSheet, View, TextInput, ScrollView, FlatList} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import ListCategories from '../../components/store/Categories';
+import ListCategories from '../../components/Categories';
 import Card from '../../components/store/Card';
 import cloths from '../../constants/cloths';
 import theme from '../../constants/theme';
+import { clothsCategories } from '../../constants/categories';
 
 const Cloths = ({navigation}: any): JSX.Element => {
   return (
@@ -15,7 +16,7 @@ const Cloths = ({navigation}: any): JSX.Element => {
         ListHeaderComponent={() => (
           <>
             <View
-              style={{flexDirection: 'row', marginTop: 12, marginBottom: 32}}>
+              style={{flexDirection: 'row', marginTop: 12}}>
               <View style={styles.inputContainer}>
                 <TextInput
                   style={{flex: 1, fontSize: 18}}
@@ -26,13 +27,13 @@ const Cloths = ({navigation}: any): JSX.Element => {
                 <Icon name="sliders-h" color={'#fff'} size={28} />
               </View>
             </View>
-            {/*<ListCategories />*/}
+            <ListCategories categories={clothsCategories}/>
           </>
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={cloths}
-        renderItem={({item}) => <Card type='cloths' item={item} navigation={navigation} />}
+        renderItem={({item}) => <Card type='cloth' item={item} navigation={navigation} />}
       />
     </View>
   );

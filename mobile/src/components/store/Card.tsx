@@ -10,9 +10,17 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 
-const Card = ({type,item, navigation}: any) => {
+const Card = ({type, item, navigation}: any) => {
   return (
-    <TouchableOpacity style={styles.card}>
+    <TouchableOpacity
+      style={styles.card}
+      activeOpacity={0.4}
+      onPress={() =>
+        navigation.navigate('ProductDetails', {
+          name: item.name,
+          type: type,
+        })
+      }>
       <View>
         <Image
           source={{uri: 'https://placehold.jp/180x260.png'}}
@@ -37,7 +45,7 @@ const Card = ({type,item, navigation}: any) => {
               marginTop: 2,
               fontWeight: '500',
             }}>
-            {type == 'gainer' ?item.company: item.sizes}
+            {type == 'gainer' ? item.company : item.sizes}
           </Text>
         </View>
         <View

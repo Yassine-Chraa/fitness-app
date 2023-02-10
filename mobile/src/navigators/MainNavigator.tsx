@@ -13,6 +13,7 @@ import ExerciceDetails from '../screens/Exercices/ExerciceDetails';
 import AllExercices from '../screens/Exercices/AllExercices';
 import EditWorkout from '../screens/Workout/EditWorkout';
 import ProgramDetails from '../screens/Workout/ProgramDetails';
+import ProductDetails from '../screens/Store/ProductDetails';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -38,6 +39,7 @@ const MainNavigator = () => {
           <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
           <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
           <Stack.Screen name="EditWorkout" component={EditWorkout} />
+          <Stack.Screen name="ProductDetails" component={ProductDetails} />
         </>
       ) : (
         <>
