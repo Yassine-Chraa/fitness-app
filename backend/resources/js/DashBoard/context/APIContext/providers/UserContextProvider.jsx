@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
+// import { useMaterialUIController, //setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
 
 const userContext = createContext();
@@ -14,12 +14,12 @@ const UserUrl = getUrl('Users');
 
 export const UserContextProvider = ({ children }) => {
 
-    const [controller, dispatch] = useMaterialUIController();
+    // const [controller, dispatch] = useMaterialUIController();
 
     //-------------> perfect
     const getUsers = async () => {
         try {
-            setLoadingAnimation(dispatch, true);
+            //setLoadingAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
@@ -27,37 +27,37 @@ export const UserContextProvider = ({ children }) => {
             };
 
             const { data } = await axios.get(`${UserUrl}`, config);
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
             alert(UserUrl)
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const getUser = async (id) => {
         try {
-            setLoadingAnimation(dispatch, true);
+            //setLoadingAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.get(`${UserUrl}/${id}`, config);
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const addUser = async (User) => {
         try {
-            setLoadingAnimation(dispatch, true);
+            //setLoadingAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
@@ -66,48 +66,48 @@ export const UserContextProvider = ({ children }) => {
             alert("before")
             const { data } = await axios.post(`${UserUrl}`, User, config);
             console.log(JSON.stringify(data))
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const updateUser = async (User) => {
         try {
-            setLoadingAnimation(dispatch, true);
+            //setLoadingAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
         }
     };
 
     const deleteUser = async (id) => {
         try {
-            setLoadingAnimation(dispatch, true);
+            //setLoadingAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
             const { data } = await axios.delete(`${UserUrl}/${id}`, config);
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoadingAnimation(dispatch, false);
+            //setLoadingAnimation(dispatch, false);
         }
     };
 

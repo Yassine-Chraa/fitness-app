@@ -12,7 +12,7 @@ import {
     useMaterialUIController,
     setOpenConfigurator,
 } from "./context/UIContext";
-import { LoadingProcess, Message } from "./components/Message";
+import { Message } from "./components/Message";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -79,7 +79,6 @@ export default function App() {
             <CssBaseline />
             <Configurator />
             <Message />
-            <LoadingProcess/>
             {configsButton}
             <Routes>
                 <Route path="*" element={<Navigate to="/dashboard" />} />
