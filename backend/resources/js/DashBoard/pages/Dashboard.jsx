@@ -1,7 +1,7 @@
 import MDBox from "../components/MDBox";
 import { Card, Grid } from "@mui/material";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import StatisticsCard from "../components/Cards/StatisticsCar";
+import StatisticsCard from "../components/Cards/Statistics";
 import DashboardLayout from "../layouts/DashboardLayout";
 import Footer from "../components/Footer";
 const Dashboard = () => {

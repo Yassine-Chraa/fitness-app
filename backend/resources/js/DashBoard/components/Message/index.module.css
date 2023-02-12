@@ -20,7 +20,7 @@ main {
     visibility: visible;
 }
 
-.pl__worm--moving {
+.pl__worm__moving {
     animation-name: worm;
     animation-duration: 4s;
     animation-iteration-count: infinite;

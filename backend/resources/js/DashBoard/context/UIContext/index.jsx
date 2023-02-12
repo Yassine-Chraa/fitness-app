@@ -44,8 +44,8 @@ const reducer = (state, action) => {
         case "OPEN_ADD_MODAL": {
             return { ...state, openAddModalHandler: action.value };
         }
-        case "OPEN_VIEW_MODAL": {
-            return { ...state, openViewModalHandler: action.value };
+        case "OPEN_USER_VIEW": {
+            return { ...state, openUserViewHandler: action.value };
         }
         case "OPEN_ALERT_MESSAGE": {
             return { ...state, messageObject: action.value };
@@ -74,7 +74,7 @@ const MaterialUIControllerProvider = ({ children }) => {
         openDeleteModalHandler: false,
         openEditModalHandler: false,
         openAddModalHandler: false,
-        openViewModalHandler: false,
+        openUserViewHandler: false,
         messageObject: { type: 'error', message: 'there is an error !', state: false },
         loadingAnimation: false,
     };
@@ -119,7 +119,7 @@ const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DELETE_MODAL", value });
 const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });
 const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
-const setOpenViewModalHandler = (dispatch, value) => dispatch({ type: "OPEN_VIEW_MODAL", value });
+const setOpenUserViewHandler = (dispatch, value) => dispatch({ type: "OPEN_USER_VIEW", value });
 const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
 const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
 
@@ -140,7 +140,7 @@ export {
     setOpenDeleteModalHandler,
     setOpenEditModalHandler,
     setOpenAddModalHandler,
-    setOpenViewModalHandler,
+    setOpenUserViewHandler,
     setMessageObject,
     setLoadingAnimation,
 };
