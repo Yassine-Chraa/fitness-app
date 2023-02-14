@@ -69,12 +69,12 @@ const FoodDetails = ({navigation, route}: any) => {
             </Table>
           </View>
         </View>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={22} color={theme.colors.text} />
-          </TouchableOpacity>
-        </View>
       </ScrollView>
+      <View style={styles.backButton}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={22} color={theme.colors.text} />
+        </TouchableOpacity>
+      </View>
     </View>
   );
 };
@@ -102,54 +102,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  row: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    columnGap: 10,
-  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: theme.colors.text,
-  },
-  subtitle: {
-    fontSize: 18,
-    marginBottom: 4,
-    fontWeight: 'bold',
-    color: theme.colors.text,
-  },
-  size: {
-    borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 30,
-    height: 30,
-    backgroundColor: theme.colors.border,
-  },
-  price: {
-    color: theme.colors.text,
-    fontSize: 24,
-    fontWeight: 'bold',
-  },
-  oldPrice: {
-    textDecorationLine: 'line-through',
-    fontSize: 17,
-  },
-  addToCartButton: {
-    backgroundColor: theme.colors.button,
-    paddingHorizontal: 48,
-    paddingVertical: 12,
-    borderRadius: 20,
-  },
-  footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    position: 'absolute',
-    bottom: 0,
-    width: '100%',
-    paddingHorizontal: 24,
-    paddingVertical: 8,
   },
   tag: {
     borderRadius: 4,
