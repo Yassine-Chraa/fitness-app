@@ -8,7 +8,6 @@ import {
   Text,
 } from 'react-native';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
-import {clothsCategories} from '../constants/categories';
 import theme from '../constants/theme';
 
 const Categories = ({categories}:any) => {

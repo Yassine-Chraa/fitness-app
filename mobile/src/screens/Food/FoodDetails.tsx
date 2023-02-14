@@ -8,11 +8,12 @@ import {
   TouchableOpacity,
   TouchableWithoutFeedback,
 } from 'react-native';
+import {Table, Row, Rows} from 'react-native-table-component';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 
-const ProductDetails = ({navigation, route}: any) => {
-  const {name, type} = route.params;
+const FoodDetails = ({navigation, route}: any) => {
+  const {name} = route.params;
   return (
     <View style={{flex: 1}}>
       <ScrollView>
@@ -33,42 +34,39 @@ const ProductDetails = ({navigation, route}: any) => {
                 <Icon name="heart" size={20} />
               </TouchableWithoutFeedback>
             </View>
-            <Text style={{fontSize: 17}}>
-              4.8{' '}
-              <Icon
-                name="star"
-                size={17}
-                solid
-                color={theme.colors.notification}
-              />{' '}
-              ({1.5}k+ review)
-            </Text>
+            <View style={{flexDirection: 'row', columnGap: 10}}>
+              <View style={styles.tag}>
+                <Text style={{fontSize: 13}}>Protein</Text>
+              </View>
+              <View style={styles.tag}>
+                <Text style={{fontSize: 13}}>Vitamin C</Text>
+              </View>
+            </View>
             <Text style={{marginTop: 8, marginBottom: 12, fontSize: 15}}>
               Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit
               amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem
               ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet,
               consectetur Lorem ipsum dolor sit amet, consectetur
             </Text>
-            <View
-              style={{
-                ...styles.row,
-                display: type == 'cloths' ? 'flex' : 'none',
+            <Table
+              borderStyle={{
+                borderWidth: 1,
+                borderColor: theme.colors.statusBar,
               }}>
-              <TouchableOpacity
-                activeOpacity={0.4}
-                style={{...styles.size, backgroundColor: theme.colors.text}}>
-                <Text style={{color: '#fff'}}>S</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>M</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>L</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>XL</Text>
-              </TouchableOpacity>
-            </View>
+              <Row
+                data={['Nutrients', 'PER 100 G']}
+                style={styles.head}
+                textStyle={styles.text}
+              />
+              <Rows
+                data={[
+                  ['Energy (cal)', '131'],
+                  ['Protein (g)', '12.6'],
+                  ['Fat (g)', '9.0'],
+                ]}
+                textStyle={styles.text}
+              />
+            </Table>
           </View>
         </View>
         <View style={styles.backButton}>
@@ -77,17 +75,6 @@ const ProductDetails = ({navigation, route}: any) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <View style={styles.footer}>
-        <View>
-          <Text style={{fontWeight: 'bold', fontSize: 15}}>Price</Text>
-          <Text style={styles.price}>290.99DH </Text>
-        </View>
-        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4}>
-          <Text style={{color: '#fff', fontSize: 18, fontWeight: '600'}}>
-            Add to Cart
-          </Text>
-        </TouchableOpacity>
-      </View>
     </View>
   );
 };
@@ -163,7 +150,21 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingHorizontal: 24,
     paddingVertical: 8,
-    backgroundColor: theme.colors.background,
+  },
+  tag: {
+    borderRadius: 4,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    backgroundColor: theme.colors.statusBar,
+  },
+  head: {
+    height: 40,
+    backgroundColor: theme.colors.statusBar,
+  },
+  text: {
+    margin: 6,
   },
 });
-export default ProductDetails;
+export default FoodDetails;

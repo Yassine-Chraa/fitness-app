@@ -9,26 +9,31 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import {useNavigation} from '@react-navigation/native';
 
-const FoodCard = ({type, item, navigation}: any) => {
+const FoodCard = ({type, item}: any) => {
+  const navigation: any = useNavigation();
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
-        navigation.navigate('ProductDetails', {
+        navigation.navigate('FoodDetails', {
           name: item.name,
           type: type,
         })
       }>
-      <View style={{flexDirection: 'row', gap: 20, width: '90%',alignItems: 'center'}}>
-        <View>
-          <Image
-            source={{uri: 'https://placehold.jp/180x260.png'}}
-            style={{height: 60, width: 60, borderRadius: 30}}
-            PlaceholderContent={<ActivityIndicator />}
-          />
-        </View>
+      <View
+        style={{
+          flexDirection: 'row',
+          columnGap: 12,
+          width: '90%',
+        }}>
+        <Image
+          source={{uri: 'https://placehold.jp/180x260.png'}}
+          style={{height: 80, width: 80, borderRadius: 5}}
+          PlaceholderContent={<ActivityIndicator />}
+        />
         <View style={styles.itemDesc}>
           <View>
             <Text
@@ -43,19 +48,17 @@ const FoodCard = ({type, item, navigation}: any) => {
               style={{
                 color: theme.colors.secondary,
                 fontSize: 14,
-                marginTop: 2,
                 fontWeight: '500',
-                marginBottom: 4
               }}>
               {item.cat}
             </Text>
-            <View style={{flexDirection: 'row',columnGap: 10}}>
-              <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>Protein</Text>
-              </View>
-              <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>Vitamin C</Text>
-              </View>
+          </View>
+          <View style={{flexDirection: 'row', columnGap: 6}}>
+            <View style={styles.tag}>
+              <Text style={{fontSize: 13}}>Protein</Text>
+            </View>
+            <View style={styles.tag}>
+              <Text style={{fontSize: 13}}>Vitamin C</Text>
             </View>
           </View>
         </View>
@@ -81,14 +84,12 @@ const styles = StyleSheet.create({
   },
   itemDesc: {
     width: '50%',
-    height: '100%',
+    justifyContent: 'space-between',
   },
   tag: {
     borderRadius: 4,
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
     backgroundColor: theme.colors.statusBar,
   },
 });

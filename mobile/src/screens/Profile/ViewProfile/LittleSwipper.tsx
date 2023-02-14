@@ -14,7 +14,7 @@ const LittleSwipper = ({ images, imageStyle, title }: any): JSX.Element => {
             <ScrollView horizontal={true} contentContainerStyle={styles.swipper}>
                 {images.map((image: any) => {
                     return (
-                        <Image source={image} style={{ ...styles.ScrollImage, ...imageStyle }} />
+                        <Image source={{uri: 'https://placehold.jp/70x70.png'}} style={{ ...styles.ScrollImage, ...imageStyle }} />
                     )
                 })}
             </ScrollView>

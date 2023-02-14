@@ -159,7 +159,7 @@ const ProgramDetails = ({navigation, route}: any) => {
           </View>
           {programWorkouts.map((workout: any) => {
             return (
-              <View style={styles.workout}>
+              <View style={styles.workout} key={workout.id}>
                 <TouchableOpacity
                   key={workout.id}
                   style={styles.workoutHeader}

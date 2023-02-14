@@ -7,7 +7,7 @@ const Item = (): JSX.Element => {
     return (
         <TouchableOpacity activeOpacity={0.6} style={styles.itemContainer}>
             <View style={styles.imgAndName}>
-                <Image style={styles.image} source={require('../../../assets/images/gym.jpg')} />
+                <Image style={styles.image}  source={{uri: 'https://placehold.jp/48x48.png'}} />
                 <View style={styles.textContainer}>
                     <Text style={styles.nameText}>Ben alla Ismail</Text>
                     <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
