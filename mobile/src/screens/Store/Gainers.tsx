@@ -1,13 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, TextInput, ScrollView, FlatList} from 'react-native';
+import {StyleSheet, View, TextInput, FlatList,TouchableOpacity,Text} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
-import Card from '../../components/store/Card';
 import gainers from '../../constants/gainers';
 import theme from '../../constants/theme';
 import { gainersCategories } from '../../constants/categories';
+import StoreCard from '../../components/Cards/StoreCard';
 
 const Gainers = ({navigation}: any): JSX.Element => {
   return (
@@ -32,8 +32,14 @@ const Gainers = ({navigation}: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={gainers}
-        renderItem={({item}) => <Card type='gainer' item={item} navigation={navigation} />}
+        renderItem={({item}) => <StoreCard type='gainers' item={item} />}
       />
+      <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={()=>navigation.navigate('MyCart')}>
+        <Icon name='shopping-cart' color='#fff' size={18} light/>
+        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+          My Cart
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
@@ -55,6 +61,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  cartBtn: {
+    zIndex: 2,
+    marginLeft: 'auto',
+    bottom: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.primary,
   },
 });
 

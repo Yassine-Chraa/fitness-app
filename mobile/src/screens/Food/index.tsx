@@ -9,11 +9,11 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
-import FoodsCard from '../components/food/FoodCard';
-import Screen from '../components/Screen';
-import theme from '../constants/theme';
-import Categories from '../components/Categories';
-import { foodCategories } from '../constants/categories';
+import FoodsCard from '../../components/Cards/FoodCard';
+import Screen from '../../components/Screen';
+import theme from '../../constants/theme';
+import Categories from '../../components/Categories';
+import { foodCategories } from '../../constants/categories';
 
 const Food = ({navigation}: any): JSX.Element => {
   const foods = [
@@ -50,8 +50,9 @@ const Food = ({navigation}: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={foods}
-        renderItem={({item}) => <FoodsCard item={item} navigation={navigation} />}
+        renderItem={({item}) => <FoodsCard item={item} />}
       />
+      
     </Screen>
   );
 };

@@ -9,8 +9,10 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useNavigation } from '@react-navigation/native';
 
-const Card = ({type, item, navigation}: any) => {
+const StoreCard = ({type, item}: any) => {
+  const navigation:any = useNavigation();
   return (
     <TouchableOpacity
       style={styles.card}
@@ -45,7 +47,7 @@ const Card = ({type, item, navigation}: any) => {
               marginTop: 2,
               fontWeight: '500',
             }}>
-            {type == 'gainer' ? item.company : item.sizes}
+            {type == 'gainers' ? item.company : item.sizes}
           </Text>
         </View>
         <View
@@ -106,4 +108,4 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-export default Card;
+export default StoreCard;

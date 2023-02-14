@@ -13,7 +13,6 @@ const theme = {
     textInput: '#DDDDDD',
     button: '#46C2CB',
     danger: '#F94A29',
-    specialColor1: '#CD5888',
   },
 };
 export default theme;
