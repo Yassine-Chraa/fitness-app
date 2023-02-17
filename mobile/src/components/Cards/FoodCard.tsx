@@ -83,7 +83,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   itemDesc: {
-    width: '50%',
+    width: '80%',
     justifyContent: 'space-between',
   },
   tag: {

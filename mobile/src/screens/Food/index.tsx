@@ -19,7 +19,7 @@ const Food = ({navigation}: any): JSX.Element => {
   const foods = [
     {
       id: 1,
-      name: 'Chicken breast',
+      name: 'Chicken breast Chicken breast',
       cat: 'Protein Foods',
     },
     {

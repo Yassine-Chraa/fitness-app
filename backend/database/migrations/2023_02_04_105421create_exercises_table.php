@@ -13,10 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('reset_code_passwords', function (Blueprint $table) {
+        Schema::create('exercises', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->index();
-            $table->string('code');
+            $table->foreignId('activity_id')->nullable();
+            $table->string('name');
+            $table->string('img_url');
             $table->timestamps();
         });
     }
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('reset_code_passwords');
+        Schema::dropIfExists('exercises');
     }
 };

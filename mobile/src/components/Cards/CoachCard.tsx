@@ -29,7 +29,7 @@ const CoachCard = ({item}: any) => {
           width: '90%',
         }}>
         <Image
-          source={{uri: 'https://placehold.jp/60x60.png'}}
+          source={{uri: 'https://randomuser.me/api/portraits/men/22.jpg'}}
           style={{height: 60, width: 60, borderRadius: 30}}
           PlaceholderContent={<ActivityIndicator />}
         />

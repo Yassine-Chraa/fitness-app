@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import theme from '../../../constants/theme';
+import theme from '../../constants/theme';
 
 export const Component1 = ({title, value}: any) => (
   <TouchableOpacity

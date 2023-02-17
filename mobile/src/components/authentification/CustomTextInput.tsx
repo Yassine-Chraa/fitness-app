@@ -2,10 +2,10 @@ import React from 'react'
 import { View, StyleSheet, Text,TextInput } from 'react-native'
 import theme from '../../constants/theme'
 
-export default function CustomTextInput({ errorText, description, ...props }: any): JSX.Element {
+export default function CustomTextInput({ errorText, description,customStyle, ...props }: any): JSX.Element {
     return (
         <View style={styles.container}>
-            <TextInput style={styles.input} selectionColor={theme.colors.text} underlineColorAndroid='transparent' {...props}/>
+            <TextInput style={{...styles.input,...customStyle}} selectionColor={theme.colors.text} underlineColorAndroid='transparent' {...props}/>
             {description && !errorText ? (<Text style={styles.description}>{description}</Text>) : null}
             {errorText ? <Text style={styles.error}>{errorText}</Text> : null}
         </View>

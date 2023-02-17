@@ -1,7 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
-import Option from '../../../components/profile/Option';
-import theme from '../../../constants/theme';
+import Option from './Option';
+import theme from '../../constants/theme';
 
 const Options = () => {
   return (
@@ -16,6 +16,7 @@ const Options = () => {
         title="Gym Location"
         iconName="dumbbell"
         BadgeColor={theme.colors.secondary}
+        link={'GymLocation'}
       />
       <Option
         title="Settings"
@@ -31,11 +32,13 @@ const Options = () => {
         title="Share"
         iconName="share"
         BadgeColor={theme.colors.primary}
+        share
       />
       <Option
         title="Logout"
         iconName="sign-out-alt"
         BadgeColor={theme.colors.danger}
+        logout
       />
     </View>
   );
