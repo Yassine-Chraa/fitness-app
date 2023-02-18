@@ -10,7 +10,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import {useNavigation} from '@react-navigation/native';
 import theme from '../constants/theme';
 
-const Header = ({name, action,actionFunction, backButton, noAction}: any) => {
+const Header = ({name, action, actionFunction, backButton, noAction}: any) => {
   const navigation = useNavigation();
 
   let icon;
@@ -42,14 +42,28 @@ const Header = ({name, action,actionFunction, backButton, noAction}: any) => {
           fontSize: 24,
           fontWeight: 'bold',
           color: theme.colors.text,
+          marginRight: noAction ? 20 : 0,
         }}>
         {name}
       </Text>
       {!noAction ? (
-        <TouchableOpacity onPress={actionFunction}>
-          <Icon name={icon} size={22} solid color="#000" />
+        <TouchableOpacity activeOpacity={0.4} onPress={actionFunction}>
+          {action == 'save' ? (
+              <Text
+                style={{
+                  fontWeight: 'bold',
+                  color: theme.colors.primary,
+                  fontSize: 18,
+                }}>
+                Save
+              </Text>
+          ) : (
+            <Icon name={icon} size={22} solid color="#000" />
+          )}
         </TouchableOpacity>
-      ) : <View></View>}
+      ) : (
+        <View></View>
+      )}
     </View>
   );
 };

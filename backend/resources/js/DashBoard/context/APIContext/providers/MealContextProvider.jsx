@@ -16,13 +16,8 @@ export const MealContextProvider = ({ children }) => {
     const getMeals = async () => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
 
-            const { data } = await axios.get(`${MealUrl}`, config);
+            const { data } = await axios.get(`${MealUrl}`);
             setLoading(false);
             return data;
         } catch (error) {
@@ -33,12 +28,7 @@ export const MealContextProvider = ({ children }) => {
     const getMeal = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${MealUrl}`,id, config);
+            const { data } = await axios.get(`${MealUrl}`,id);
             setLoading(false);
             return data;
         } catch (error) {
@@ -49,12 +39,7 @@ export const MealContextProvider = ({ children }) => {
     const addMeal = async (Meal) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.post(`${MealUrl}`, Meal, config);
+            const { data } = await axios.post(`${MealUrl}`, Meal);
             setLoading(false);
             return data;
         } catch (error) {
@@ -65,12 +50,7 @@ export const MealContextProvider = ({ children }) => {
     const updateMeal = async (id, Meal) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.put(`${MealUrl}`, id, Meal, config);
+            const { data } = await axios.put(`${MealUrl}`, id, Meal);
             setLoading(false);
             return data;
         } catch (error) {
@@ -81,12 +61,7 @@ export const MealContextProvider = ({ children }) => {
     const deleteMeal = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${MealUrl}`,id, config);
+            const { data } = await axios.get(`${MealUrl}`,id);
             setLoading(false);
             return data;
         } catch (error) {

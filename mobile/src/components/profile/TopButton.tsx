@@ -2,9 +2,9 @@ import {Image} from '@rneui/themed';
 import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import theme from '../../../constants/theme';
+import theme from '../../constants/theme';
 
-function TopButtons(): JSX.Element {
+function TopButton(): JSX.Element {
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.CustomBtnContainer}>
       <Icon name={'gem'} color={'white'} size={18} solid />
@@ -28,4 +28,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TopButtons;
+export default TopButton;
