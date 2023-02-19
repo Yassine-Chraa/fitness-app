@@ -16,15 +16,8 @@ export const ActivityContextProvider = ({ children }) => {
     const getActivities = async () => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
 
-            const { data } = await axios.get(`${ActivityUrl}`, config);
+            const { data } = await axios.get(`${ActivityUrl}`);
             setLoading(false);
             return data;
         } catch (error) {
@@ -35,14 +28,7 @@ export const ActivityContextProvider = ({ children }) => {
     const getActivity = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
-            const { data } = await axios.get(`${ActivityUrl}`, id, config);
+            const { data } = await axios.get(`${ActivityUrl}`, id);
             setLoading(false);
             return data;
         } catch (error) {
@@ -53,18 +39,7 @@ export const ActivityContextProvider = ({ children }) => {
     const addActivity = async (Activity) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
-            const { data } = await axios.post(
-                `${ActivityUrl}`,
-                Activity,
-                config
-            );
+            const { data } = await axios.post(`${ActivityUrl}`, Activity);
             setLoading(false);
             return data;
         } catch (error) {
@@ -75,19 +50,7 @@ export const ActivityContextProvider = ({ children }) => {
     const updateActivity = async (id, Activity) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
-            const { data } = await axios.put(
-                `${ActivityUrl}`,
-                id,
-                Activity,
-                config
-            );
+            const { data } = await axios.put(`${ActivityUrl}`, id, Activity);
             setLoading(false);
             return data;
         } catch (error) {
@@ -98,14 +61,7 @@ export const ActivityContextProvider = ({ children }) => {
     const deleteActivity = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
-            const { data } = await axios.get(`${ActivityUrl}`, id, config);
+            const { data } = await axios.get(`${ActivityUrl}`, id);
             setLoading(false);
             return data;
         } catch (error) {

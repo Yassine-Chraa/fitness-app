@@ -16,13 +16,8 @@ export const EquipmentContextProvider = ({ children }) => {
     const getEquipments = async () => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
 
-            const { data } = await axios.get(`${EquipmentUrl}`, config);
+            const { data } = await axios.get(`${EquipmentUrl}`);
             setLoading(false);
             return data;
         } catch (error) {
@@ -33,12 +28,7 @@ export const EquipmentContextProvider = ({ children }) => {
     const getEquipment = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${EquipmentUrl}`,id, config);
+            const { data } = await axios.get(`${EquipmentUrl}`,id);
             setLoading(false);
             return data;
         } catch (error) {
@@ -49,12 +39,7 @@ export const EquipmentContextProvider = ({ children }) => {
     const addEquipment = async (Equipment) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.post(`${EquipmentUrl}`, Equipment, config);
+            const { data } = await axios.post(`${EquipmentUrl}`, Equipment);
             setLoading(false);
             return data;
         } catch (error) {
@@ -65,12 +50,7 @@ export const EquipmentContextProvider = ({ children }) => {
     const updateEquipment = async (id, Equipment) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.put(`${EquipmentUrl}`, id, Equipment, config);
+            const { data } = await axios.put(`${EquipmentUrl}`, id, Equipment);
             setLoading(false);
             return data;
         } catch (error) {
@@ -81,12 +61,7 @@ export const EquipmentContextProvider = ({ children }) => {
     const deleteEquipment = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${EquipmentUrl}`,id, config);
+            const { data } = await axios.get(`${EquipmentUrl}`,id);
             setLoading(false);
             return data;
         } catch (error) {

@@ -16,13 +16,8 @@ export const ProductContextProvider = ({ children }) => {
     const getProducts = async () => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
 
-            const { data } = await axios.get(`${ProductUrl}`, config);
+            const { data } = await axios.get(`${ProductUrl}`);
             setLoading(false);
             return data;
         } catch (error) {
@@ -33,12 +28,7 @@ export const ProductContextProvider = ({ children }) => {
     const getProduct = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${ProductUrl}`, id);
             setLoading(false);
             return data;
         } catch (error) {
@@ -49,12 +39,7 @@ export const ProductContextProvider = ({ children }) => {
     const addProduct = async (Product) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.post(`${ProductUrl}`, Product, config);
+            const { data } = await axios.post(`${ProductUrl}`, Product);
             setLoading(false);
             return data;
         } catch (error) {
@@ -65,12 +50,7 @@ export const ProductContextProvider = ({ children }) => {
     const updateProduct = async (id, Product) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.put(`${ProductUrl}`, id, Product, config);
+            const { data } = await axios.put(`${ProductUrl}`, id, Product);
             setLoading(false);
             return data;
         } catch (error) {
@@ -81,12 +61,7 @@ export const ProductContextProvider = ({ children }) => {
     const deleteProduct = async (id) => {
         try {
             setLoading(true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${ProductUrl}`, id, config);
+            const { data } = await axios.get(`${ProductUrl}`, id);
             setLoading(false);
             return data;
         } catch (error) {

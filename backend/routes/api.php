@@ -2,13 +2,10 @@
 
 use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\EquipementController;
 use App\Http\Controllers\API\EquipmentController;
 use App\Http\Controllers\API\FeedbackController;
-use App\Http\Controllers\API\ForgotPasswordController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
-use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,10 +20,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-// Route::post('/tokens/create', function (Request $request) {
-//     $token = $request->user()->createToken($request->token_name);
-//     return ['token' => $token->plainTextToken];
-// });
 
 
 // group of all protected routes
@@ -44,9 +37,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
 // this route is public
 
-Route::post('/signup', [AuthController::class, 'signUp']);
-Route::post('/signin', [AuthController::class, 'signIn']);
-
-Route::post('sendEmail',  [ForgotPasswordController::class, 'sendEmail']);
-Route::post('checkCode', [CodeCheckController::class, 'checkCode']);
-Route::post('newPassword', [ResetPasswordController::class, 'resetPassword']);
+Route::post('/signUp', [AuthController::class, 'signUp']);
+Route::post('/signIn', [AuthController::class, 'signIn']);
