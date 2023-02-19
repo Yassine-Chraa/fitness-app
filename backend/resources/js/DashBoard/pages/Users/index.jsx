@@ -66,27 +66,51 @@ export const ActionMenu = ({ id, setSelectedID }) => {
                 <IconButton
                     size="small"
                     disableRipple
-                    color="inherit"
+                    color="success"
                     variant="outlined"
                     onClick={() => console.log('view')}
+                    sx={{
+                        padding: '7px',
+                        transition: 'all 0.4s ease',
+                        ":hover": {
+                            color: '#fff',
+                            backgroundColor: '#333',
+                        }
+                    }}
                 >
                     <RemoveRedEyeIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
                 </IconButton>
                 <IconButton
                     size="small"
                     disableRipple
-                    color="inherit"
+                    color="warning"
                     variant="outlined"
                     onClick={openEditHandler}
+                    sx={{
+                        padding: '7px',
+                        transition: 'all 0.4s ease',
+                        ":hover": {
+                            color: '#fff',
+                            backgroundColor: '#333',
+                        }
+                    }}
                 >
                     <EditIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
                 </IconButton>
                 <IconButton
                     size="small"
                     disableRipple
-                    color="inherit"
+                    color="error"
                     variant="outlined"
                     onClick={openDeleteHandler}
+                    sx={{
+                        padding: '7px',
+                        transition: 'all 0.4s ease',
+                        ":hover": {
+                            color: '#fff',
+                            backgroundColor: '#333',
+                        }
+                    }}
                 >
                     <DeleteIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
                 </IconButton>
@@ -101,7 +125,14 @@ export const ActionMenu = ({ id, setSelectedID }) => {
                 size="small"
                 disableRipple
                 color="inherit"
-                sx={{ backgroundColor: '#eee' }}
+                sx={{
+                    backgroundColor: '#ddd',
+                    transition: 'all 0.4s ease-in-out',
+                    ":hover": {
+                        color: '#fff',
+                        backgroundColor: '#333',
+                    }
+                }}
                 aria-controls="notification-menu"
                 aria-haspopup="true"
                 variant="contained"

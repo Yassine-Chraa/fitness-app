@@ -15,6 +15,8 @@ import Sidenav from "../components/Sidenav";
 import { DarkMode } from "@mui/icons-material";
 import routes from "../routes";
 import Navbar from "../components/Navbar";
+import { Message } from "../components/Message";
+
 
 function DashboardLayout({ children }) {
     const [onMouseEnter, setOnMouseEnter] = useState(false);
