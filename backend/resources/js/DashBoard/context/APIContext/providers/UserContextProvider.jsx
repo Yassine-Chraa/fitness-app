@@ -1,4 +1,5 @@
 import { createContext, useContext, useState } from "react";
+import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
 
 const userContext = createContext();
@@ -12,74 +13,75 @@ export const useUser = () => {
 const UserUrl = getUrl('Users');
 
 export const UserContextProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+
+    const [controller, dispatch] = useMaterialUIController();
+
     //-------------> perfect
     const getUsers = async () => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
 
             const { data } = await axios.get(`${UserUrl}`);
-            setLoading(false);
+            
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
             alert(UserUrl)
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const getUser = async (id) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${UserUrl}/${id}`);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const addUser = async (User) => {
         try {
-            setLoading(true);
-            alert("before")
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.post(`${UserUrl}`, User);
-            console.log(JSON.stringify(data))
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
     const updateUser = async (User) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
 
     const deleteUser = async (id) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.delete(`${UserUrl}/${id}`);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
 
