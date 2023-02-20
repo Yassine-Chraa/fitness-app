@@ -1,92 +1,48 @@
 import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-  Dimensions,
-} from 'react-native';
+import {FlatList, StyleSheet, Text, View, Dimensions} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import {BarChart, LineChart, PieChart} from 'react-native-chart-kit';
 import Swiper from 'react-native-swiper';
 import Screen from '../components/Screen';
 import theme from '../constants/theme';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import getData from '../Helpers/Storage/getData';
 
-function Home({navigation}: any): JSX.Element {
+function Home(): JSX.Element {
   const cardWidth = Dimensions.get('window').width - 56;
-  const [indicateur, setIndicateur] = useState(0);
-  console.log(indicateur);
-  const gymIntro = [
-    {
-      id: 1,
-      image: require('../assets/images/items/item1.jpg'),
-      title: 'Item1',
-    },
-    {
-      id: 2,
-      image: require('../assets/images/items/item2.jpg'),
-      title: 'Item2',
-    },
-    {
-      id: 3,
-      image: require('../assets/images/items/item3.jpg'),
-      title: 'Item3',
-    },
-  ];
-  const products = [
-    {
-      id: 1,
-      image: require('../assets/images/products/product1.jpg'),
-      title: 'Item1',
-    },
-    {
-      id: 2,
-      image: require('../assets/images/products/product4.jpg'),
-      title: 'Item2',
-    },
-    {
-      id: 3,
-      image: require('../assets/images/products/product2.jpg'),
-      title: 'Item3',
-    },
-    {
-      id: 4,
-      image: require('../assets/images/products/product3.jpg'),
-      title: 'Item4',
-    },
-    {
-      id: 5,
-      image: require('../assets/images/products/product5.jpg'),
-      title: 'Item5',
-    },
-  ];
+
+  const [userCalories, setUserCalories] = useState({
+    Food: 1800,
+    TDEE: 2000,
+    Rest: 200,
+  });
   return (
     <Screen name="Fitness App" allowScroll>
       <View>
         <View style={styles.card}>
           <View>
-            <Text style={styles.subtitle}>Calories</Text>
+            <Text style={styles.subtitle}>Calories (cal)</Text>
           </View>
           <View style={{flexDirection: 'row', alignItems: 'center'}}>
             <PieChart
               data={[
                 {
                   name: 'TDEE',
-                  calories: 2000,
+                  calories: userCalories['TDEE'],
                   color: theme.colors.secondary,
                   legendFontColor: theme.colors.text,
                   legendFontSize: 14,
                 },
                 {
                   name: 'Food',
-                  calories: 2400,
+                  calories: userCalories['Food'],
                   color: theme.colors.primary,
                   legendFontColor: theme.colors.text,
                   legendFontSize: 14,
                 },
                 {
                   name: 'Rest',
-                  calories: 2400 - 2000,
+                  calories: userCalories['Rest'],
                   color: theme.colors.statusBar,
                   legendFontColor: theme.colors.text,
                   legendFontSize: 14,
@@ -100,6 +56,7 @@ function Home({navigation}: any): JSX.Element {
               }}
               accessor="calories"
               backgroundColor="transparent"
+              absolute
             />
           </View>
         </View>

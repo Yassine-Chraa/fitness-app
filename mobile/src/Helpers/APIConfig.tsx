@@ -1,6 +1,6 @@
-import User from "../types/User";
+import UserInfo from '../types/UserInfo';
 
-const baseURL = "http://192.168.1.3:8000";
+const baseURL = 'http://192.168.1.5:8000';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -12,18 +12,20 @@ const endpoints: any = {
   Meals: '/api/meals',
   Equipments: '/api/equipments',
   Activitys: '/api/activitys',
-  CsrfToken: '/csrf-token'
+  CsrfToken: '/csrf-token',
 };
 
-export const currentUser: User = {
-  id: 1,
-  role: 'admin',
-  name: 'Yassine Chraa',
-  email: 'yassinechraa@gmail.com',
-  email_verified_at: null,
-  profile: null,
-  created_at: '',
-  updated_at: '',
+export const currentUser: UserInfo = {
+  user: {
+    id: 1,
+    role: 'admin',
+    name: 'Yassine Chraa',
+    email: 'yassinechraa@gmail.com',
+    email_verified_at: null,
+    profile: null,
+    created_at: '',
+    updated_at: '',
+  },
   token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
 };
 

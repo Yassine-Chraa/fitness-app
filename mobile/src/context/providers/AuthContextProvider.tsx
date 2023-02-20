@@ -71,7 +71,6 @@ export const AuthContextProvider = ({children}: any) => {
       const {data} = await axios.post(`${signUpUrl}`, form);
       if (data) {
         const storeResult = await storeData('current_user', data);
-        console.log(storeResult);
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
@@ -86,7 +85,7 @@ export const AuthContextProvider = ({children}: any) => {
     }
   };
   const logout = async () => {
-    //Todo: clear user tokens from db 
+    //Todo: clear user tokens from db
     await AsyncStorage.removeItem('current_user');
     await AsyncStorage.setItem('isLogged', 'false');
     setIsLogged(false);
