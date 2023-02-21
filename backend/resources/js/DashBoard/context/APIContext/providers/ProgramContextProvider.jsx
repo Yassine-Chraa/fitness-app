@@ -1,23 +1,23 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
 
-const userContext = createContext();
+const programContext = createContext();
 
-export const useUser = () => {
-    const context = useContext(userContext);
-    if (!context) throw new Error("User Provider is missing");
+export const useProgram = () => {
+    const context = useContext(programContext);
+    if (!context) throw new Error("Program Provider is missing");
     return context;
 };
 
-const UserUrl = getUrl('Users');
+const ProgramUrl = getUrl('Programs');
 
-export const UserContextProvider = ({ children }) => {
+export const ProgramContextProvider = ({ children }) => {
 
     const [controller, dispatch] = useMaterialUIController();
 
     //-------------> perfect
-    const getUsers = async () => {
+    const getPrograms = async () => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -26,20 +26,18 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
 
-            console.log(config);
-
-            const { data } = await axios.get(`${UserUrl}`, config);
+            const { data } = await axios.get(`${ProgramUrl}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            alert(UserUrl)
+            alert(ProgramUrl)
             setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
-    const getUser = async (id) => {
+    const getProgram = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -47,7 +45,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.get(`${UserUrl}/${id}`, config);
+            const { data } = await axios.get(`${ProgramUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -57,7 +55,7 @@ export const UserContextProvider = ({ children }) => {
         }
     };
     //-------------> perfect
-    const addUser = async (User) => {
+    const addProgram = async (Program) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -66,18 +64,18 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
             alert("before")
-            const { data } = await axios.post(`${UserUrl}`, User, config);
+            const { data } = await axios.post(`${ProgramUrl}`, Program, config);
             console.log(JSON.stringify(data))
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
+            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
-    const updateUser = async (User) => {
+    const updateProgram = async (Program) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -85,7 +83,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
+            const { data } = await axios.put(`${ProgramUrl}/${Program.id}`, Program, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -95,7 +93,7 @@ export const UserContextProvider = ({ children }) => {
         }
     };
 
-    const deleteUser = async (id) => {
+    const deleteProgram = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -103,7 +101,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.delete(`${UserUrl}/${id}`, config);
+            const { data } = await axios.delete(`${ProgramUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -114,16 +112,16 @@ export const UserContextProvider = ({ children }) => {
     };
 
     return (
-        <userContext.Provider
+        <programContext.Provider
             value={{
-                getUsers,
-                getUser,
-                addUser,
-                updateUser,
-                deleteUser,
+                getPrograms,
+                getProgram,
+                addProgram,
+                updateProgram,
+                deleteProgram,
             }}
         >
             {children}
-        </userContext.Provider>
+        </programContext.Provider>
     );
 };

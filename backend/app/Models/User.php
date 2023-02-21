@@ -63,4 +63,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Resource::class, "user_id");
     }
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class,"owner_id");
+    }
 }

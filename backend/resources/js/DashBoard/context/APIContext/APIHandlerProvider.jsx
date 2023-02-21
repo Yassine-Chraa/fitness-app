@@ -5,6 +5,9 @@ import { MealContextProvider } from "./providers/MealContextProvider";
 import { ProductContextProvider } from "./providers/ProductContextProvider";
 import { Composer } from "./Composer";
 import { authContextProvider } from "./providers/AuthContextProvider";
+import { ProgramContextProvider } from "./providers/ProgramContextProvider";
+import { ExerciseContextProvider } from "./providers/ExerciseContextProvider";
+import { WorkOutContextProvider } from "./providers/WorkOutContextProvider";
 
 const providers = [
     ActivityContextProvider,
@@ -13,6 +16,9 @@ const providers = [
     MealContextProvider,
     ProductContextProvider,
     authContextProvider,
+    ProgramContextProvider,
+    ExerciseContextProvider,
+    WorkOutContextProvider,
 ];
 
 export const APIHandlerProvider = Composer(...providers);

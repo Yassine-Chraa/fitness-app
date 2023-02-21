@@ -8,8 +8,10 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\ForgotPasswordController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
+use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\ResetPasswordController;
 use App\Http\Controllers\API\UserController;
+use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -38,6 +40,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('meals', MealController::class);
     Route::apiResource('activities', ActivityController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
+    Route::apiResource('programs', ProgramController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/deleteAccount', [AuthController::class, 'deleteAccount']);
 });

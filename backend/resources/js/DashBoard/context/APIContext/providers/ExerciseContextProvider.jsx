@@ -1,23 +1,23 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
 
-const userContext = createContext();
+const exerciseContext = createContext();
 
-export const useUser = () => {
-    const context = useContext(userContext);
-    if (!context) throw new Error("User Provider is missing");
+export const useExercise = () => {
+    const context = useContext(exerciseContext);
+    if (!context) throw new Error("Exercise Provider is missing");
     return context;
 };
 
-const UserUrl = getUrl('Users');
+const ExerciseUrl = getUrl('Exercises');
 
-export const UserContextProvider = ({ children }) => {
+export const ExerciseContextProvider = ({ children }) => {
 
     const [controller, dispatch] = useMaterialUIController();
 
     //-------------> perfect
-    const getUsers = async () => {
+    const getExercises = async () => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -26,20 +26,18 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
 
-            console.log(config);
-
-            const { data } = await axios.get(`${UserUrl}`, config);
+            const { data } = await axios.get(`${ExerciseUrl}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            alert(UserUrl)
+            alert(ExerciseUrl)
             setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
-    const getUser = async (id) => {
+    const getExercise = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -47,7 +45,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.get(`${UserUrl}/${id}`, config);
+            const { data } = await axios.get(`${ExerciseUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -57,7 +55,7 @@ export const UserContextProvider = ({ children }) => {
         }
     };
     //-------------> perfect
-    const addUser = async (User) => {
+    const addExercise = async (Exercise) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -66,18 +64,18 @@ export const UserContextProvider = ({ children }) => {
                 },
             };
             alert("before")
-            const { data } = await axios.post(`${UserUrl}`, User, config);
+            const { data } = await axios.post(`${ExerciseUrl}`, Exercise, config);
             console.log(JSON.stringify(data))
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
+            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
-    const updateUser = async (User) => {
+    const updateExercise = async (Exercise) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -85,7 +83,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.put(`${UserUrl}/${User.id}`, User, config);
+            const { data } = await axios.put(`${ExerciseUrl}/${Exercise.id}`, Exercise, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -95,7 +93,7 @@ export const UserContextProvider = ({ children }) => {
         }
     };
 
-    const deleteUser = async (id) => {
+    const deleteExercise = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -103,7 +101,7 @@ export const UserContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.delete(`${UserUrl}/${id}`, config);
+            const { data } = await axios.delete(`${ExerciseUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -114,16 +112,16 @@ export const UserContextProvider = ({ children }) => {
     };
 
     return (
-        <userContext.Provider
+        <exerciseContext.Provider
             value={{
-                getUsers,
-                getUser,
-                addUser,
-                updateUser,
-                deleteUser,
+                getExercises,
+                getExercise,
+                addExercise,
+                updateExercise,
+                deleteExercise,
             }}
         >
             {children}
-        </userContext.Provider>
+        </exerciseContext.Provider>
     );
 };
