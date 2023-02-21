@@ -288,33 +288,20 @@ const UserDetails = ({ selectedID }) => {
                 {/* =======================( big cards here )======================= */}
                 <Grid item xs={8} sm={8} md={8} lg={8} >
                     <Grid container spacing={1}  >
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <Card style={{ padding: '1rem' }}>
-                                <MDTypography style={{
-                                    fontSize: '1rem',
-                                    fontWeight: '600',
-                                    lineHeight: '1.25',
-                                }}>
-                                    Statistics
-                                </MDTypography>
+                        <Grid item xs={12} sm={12} md={12} lg={12} style={{ marginTop:"2rem" }}>
 
-                                {/* <ReportsLineChart
-                                    color="success"
-                                    title="daily sales"
-                                    description={
-                                        <>
-                                            (<strong>+15%</strong>) increase in today sales.
-                                        </>
-                                    }
-                                    date="updated 4 min ago"
-                                    //chart={sales}
-                                    chart={{
-                                        labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                                        datasets: { label: "Mobile apps", data: [50, 40, 300, 320, 500, 350, 200, 230, 500] },
-                                    }}
-                                /> */}
+                            <ReportsLineChart
+                                color="success"
+                                title="daily sales"
+                                description={
+                                    <>
+                                        (<strong>+15%</strong>) increase in today sales.
+                                    </>
+                                }
+                                date="updated 4 min ago"
+                                chart={sales}
+                            />
 
-                            </Card>
                         </Grid>
 
                         <Grid item xs={4} sm={4} md={4} lg={4}>
