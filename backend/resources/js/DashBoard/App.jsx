@@ -13,16 +13,12 @@ import {
     setOpenConfigurator,
 } from "./context/UIContext";
 import { LoadingProcess, Message } from "./components/Message";
+import Profile from "./pages/Users/Profile";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
-    const {
-        openConfigurator,
-        darkMode,
-    } = controller;
+    const { openConfigurator, darkMode } = controller;
     const { pathname } = useLocation();
-
-
 
     const handleConfiguratorOpen = () =>
         setOpenConfigurator(dispatch, !openConfigurator);
@@ -82,6 +78,11 @@ export default function App() {
             <LoadingProcess />
             {configsButton}
             <Routes>
+                <Route
+                    path="/dashboard/users/:id"
+                    element={<Profile />}
+                    key="profile"
+                />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
                 {getRoutes(routes)}
             </Routes>

@@ -16,11 +16,15 @@ return new class extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string("name");
-            $table->enum("category",["gym_cloths","mass_gainers"]);
+            $table->enum("category",["gym_cloths","gym_nutrition"]);
             $table->string("description");
+            $table->enum("size",['S','M','L','XL'])->nullable();
+            $table->string("color")->nullable();
+            $table->string("company")->nullable();
+            $table->string("rating");
+            $table->integer("reviews");
             $table->integer("stock");
-            $table->double("prix");
-            $table->double("quantity");
+            $table->double("price");
             $table->timestamps();
         });
     }

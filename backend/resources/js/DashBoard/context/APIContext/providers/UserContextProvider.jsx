@@ -10,25 +10,20 @@ export const useUser = () => {
     return context;
 };
 
-const UserUrl = getUrl('Users');
+const UserUrl = getUrl("Users");
 
 export const UserContextProvider = ({ children }) => {
-
     const [controller, dispatch] = useMaterialUIController();
 
     //-------------> perfect
     const getUsers = async () => {
         try {
             setLoadingAnimation(dispatch, true);
-
             const { data } = await axios.get(`${UserUrl}`);
-            
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
-            alert(UserUrl)
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -41,7 +36,6 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -54,7 +48,7 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
+            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -67,7 +61,7 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
+            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -80,7 +74,7 @@ export const UserContextProvider = ({ children }) => {
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
+            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
