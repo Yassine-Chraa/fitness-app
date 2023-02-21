@@ -29,9 +29,9 @@ const DeleteUserModal = ({ selectedID }) => {
     const fetchUser = async () => {
         const user = await getUser(selectedID);
         if (user) {
-            const { name, email, img_url, weight, height, role, score, work_out_level, top_goal } = user;
+            const { name, email, img_url, weight, height, role, score, workout_level, top_goal } = user;
             setLocalRole(() => role);
-            setLocalLevel(() => work_out_level);
+            setLocalLevel(() => workout_level);
             setLocalTopGoal(() => top_goal);
             setLocalHeight(() => height);
             setLocalWeight(() => weight);

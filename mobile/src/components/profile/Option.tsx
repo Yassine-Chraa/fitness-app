@@ -1,29 +1,31 @@
-import {TouchableOpacity, Text, StyleSheet, View,Share} from 'react-native';
+import {TouchableOpacity, Text, StyleSheet, View, Share} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import {useNavigation} from '@react-navigation/native';
 import appInfo from '../../../app.json';
+import {useAuth} from '../../context/providers/AuthContextProvider';
 const Option = ({
   title,
   iconName,
   BadgeColor,
   link,
   share,
-  logout
+  Logout,
 }: any): JSX.Element => {
   const navigation: any = useNavigation();
-
+  const {logout}: any = useAuth();
   return (
     <TouchableOpacity
       activeOpacity={0.4}
       style={{...styles.row, ...styles.container}}
       onPress={() => {
         if (!share && !logout) navigation.navigate(link);
-        if(share) Share.share({
-          message: `Check out \"${appInfo.displayName}\"\n\n${appInfo.appLink}`,
-        })
-        if(logout){
-          
+        if (share)
+          Share.share({
+            message: `Check out \"${appInfo.displayName}\"\n\n${appInfo.appLink}`,
+          });
+        if (Logout) {
+          logout();
         }
       }}>
       <View style={{...styles.row, gap: 12}}>

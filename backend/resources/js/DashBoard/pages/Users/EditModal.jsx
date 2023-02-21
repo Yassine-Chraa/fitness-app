@@ -19,7 +19,7 @@ import { get, result } from 'lodash';
 const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif)$/i;
 const roles = ['admin', 'vip', 'client', 'coach', 'doctor'];
 const genders = ['male', 'female', 'unknown'];
-const work_out_levels = ['beginner', 'intermediate', 'advanced'];
+const workout_levels = ['beginner', 'intermediate', 'advanced'];
 const top_goals = ['maintaining', 'bulking', 'cutting'];
 
 
@@ -34,7 +34,7 @@ const EditUserModal = ({ selectedID }) => {
 
     const [localRole, setLocalRole] = useState(roles[0]);
     const [localGender, setLocalGender] = useState(genders[0]);
-    const [localLevel, setLocalLevel] = useState(work_out_levels[0]);
+    const [localLevel, setLocalLevel] = useState(workout_levels[0]);
     const [localTopGoal, setLocalTopGoal] = useState(top_goals[0]);
 
     const [localName, setLocalName] = useState('');
@@ -49,7 +49,7 @@ const EditUserModal = ({ selectedID }) => {
 
     const roles_options = () => roles.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const genders_options = () => genders.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
-    const work_out_levels_options = () => work_out_levels.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
+    const workout_levels_options = () => workout_levels.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const top_goals_options = () => top_goals.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
 
 
@@ -57,10 +57,10 @@ const EditUserModal = ({ selectedID }) => {
         const user = await getUser(selectedID);
         if (user) {
             setUser(() => user);
-            const { name, email, weight, height, role, country, birth_date,img_url, city, gender, score, work_out_level, top_goal } = user;
+            const { name, email, weight, height, role, country, birth_date,img_url, city, gender, score, workout_level, top_goal } = user;
             setLocalGender(gender ? gender : genders[0]);
             setLocalRole(role ? role : roles[0]);
-            setLocalLevel(work_out_level ? work_out_level : work_out_levels[0]);
+            setLocalLevel(workout_level ? workout_level : workout_levels[0]);
             setLocalTopGoal(top_goal ? top_goal : top_goals[0]);
 
             setLocalName(name ? name : '');
@@ -110,7 +110,7 @@ const EditUserModal = ({ selectedID }) => {
         user.city = localCity;
         user.gender = localGender;
         user.score = localScore;
-        user.work_out_level = localLevel;
+        user.workout_level = localLevel;
         user.top_goal = localTopGoal;
 
         const result = await updateUser(user);
@@ -240,7 +240,7 @@ const EditUserModal = ({ selectedID }) => {
                                         onChange={(event) => setLocalLevel(event.target.value)}
                                         sx={{ padding: '0.75rem !important' }}
                                     >
-                                        {work_out_levels_options()}
+                                        {workout_levels_options()}
                                     </Select>
                                 </FormControl>
                             </MDBox>

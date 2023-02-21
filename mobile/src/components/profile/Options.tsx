@@ -38,7 +38,7 @@ const Options = () => {
         title="Logout"
         iconName="sign-out-alt"
         BadgeColor={theme.colors.danger}
-        logout
+        Logout
       />
     </View>
   );
