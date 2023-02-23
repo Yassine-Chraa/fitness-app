@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
             $table->foreign('owner_id')->nullable();
-            $table->string("name_img");
+            $table->string("main_img");
             $table->string("main_vid");
             $table->string("title");
             $table->string("description");

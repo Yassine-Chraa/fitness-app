@@ -11,6 +11,10 @@ import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 
 import {
+    setOpenAddProgramModalHandler,
+    setOpenDeleteProgramModalHandler,
+    setOpenEditProgramModalHandler,
+    setOpenProgramViewHandler,
     useMaterialUIController,
 } from "../../context/UIContext";
 
@@ -19,6 +23,7 @@ import { async } from "regenerator-runtime";
 
 import { useProgram } from "../../context/APIContext/providers/ProgramContextProvider";
 import { Box } from "@mui/system";
+import AddProgramModal from "./AddProgramModal";
 
 
 export const Profile = ({ image, name, email }) => (
@@ -37,22 +42,21 @@ export const ActionMenu = ({ id, setSelectedID }) => {
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const { openUserViewHandler } = controller
+    const { openProgramViewHandler } = controller
 
     const openEditHandler = () => {
         setSelectedID(() => id);
-        setOpenEditModalHandler(dispatch, true);
+        setOpenEditProgramModalHandler(dispatch, true);
     }
 
     const openDeleteHandler = () => {
         setSelectedID(() => id);
-        setOpenDeleteModalHandler(dispatch, true);
+        setOpenDeleteProgramModalHandler(dispatch, true);
     }
 
     const openViewHandler = () => {
         setSelectedID(() => id);
-        setOpenUserViewHandler(dispatch, true);
-        console.log(openUserViewHandler)
+        setOpenProgramViewHandler(dispatch, true);
     }
 
     const settingMenu = () => (
@@ -197,7 +201,7 @@ const Programs = () => {
             return {
                 id: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
-                        {id}
+                        #{id}
                     </MDTypography>
                 ),
                 title: (
@@ -233,9 +237,17 @@ const Programs = () => {
         fetchData();
     }, []);
 
+
+    const openAddmodalInvoker = () => {
+        setOpenAddProgramModalHandler(dispatch, true);
+    }
+
+
     return (
         <DashboardLayout>
             <>
+                <AddProgramModal />
+
                 <MDBox>
                     <Grid container spacing={6} justifyContent={"center"}>
                         <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
@@ -253,7 +265,7 @@ const Programs = () => {
                                     coloredShadow="info"
                                 >
                                     <MDTypography variant="h6" color="white">
-                                        Users Table
+                                        Programs Table
                                     </MDTypography>
                                     <MDBox ml={"auto"}>
                                         <Tooltip title="Filter list">

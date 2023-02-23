@@ -53,6 +53,18 @@ const reducer = (state, action) => {
         case "SET_LOADING_ANIMATION": {
             return { ...state, loadingAnimation: action.value };
         }
+        case "OPEN_PROGRAM_DELETE_MODAL": {
+            return { ...state, openDeleteProgramModalHandler: action.value };
+        }
+        case "OPEN_PROGRAM_EDIT_MODAL": {
+            return { ...state, openEditProgramModalHandler: action.value };
+        }
+        case "OPEN_PROGRAM_ADD_MODAL": {
+            return { ...state, openAddProgramModalHandler: action.value };
+        }
+        case "OPEN_PROGRAM_VIEW_MODAL": {
+            return { ...state, openProgramViewHandler: action.value };
+        }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         };
@@ -75,6 +87,13 @@ const MaterialUIControllerProvider = ({ children }) => {
         openEditModalHandler: false,
         openAddModalHandler: false,
         openUserViewHandler: false,
+
+        openDeleteProgramModalHandler: false,
+        openEditProgramModalHandler:false,
+        openAddProgramModalHandler:false,
+        openProgramViewHandler:false,
+
+
         messageObject: { type: 'error', message: 'there is an error !', state: false },
         loadingAnimation: false,
     };
@@ -122,6 +141,10 @@ const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_M
 const setOpenUserViewHandler = (dispatch, value) => dispatch({ type: "OPEN_USER_VIEW", value });
 const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
 const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
+const setOpenDeleteProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_DELETE_MODAL", value });
+const setOpenEditProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_EDIT_MODAL", value });
+const setOpenAddProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_ADD_MODAL", value });
+const setOpenProgramViewHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_VIEW_MODAL", value });
 
 
 export {
@@ -141,6 +164,12 @@ export {
     setOpenEditModalHandler,
     setOpenAddModalHandler,
     setOpenUserViewHandler,
+
+    setOpenDeleteProgramModalHandler,
+    setOpenEditProgramModalHandler,
+    setOpenAddProgramModalHandler,
+    setOpenProgramViewHandler,
+
     setMessageObject,
     setLoadingAnimation,
 };
