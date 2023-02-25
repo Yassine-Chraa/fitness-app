@@ -25,6 +25,7 @@ import { useProgram } from "../../context/APIContext/providers/ProgramContextPro
 import { Box } from "@mui/system";
 import AddProgramModal from "./AddProgramModal";
 import EditProgram from "./EditProgram";
+import DeleteProgramModal from "./DeleteProgramModal";
 
 
 export const Profile = ({ image, name, email }) => (
@@ -43,7 +44,7 @@ export const ActionMenu = ({ id, setSelectedID }) => {
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const { openProgramViewHandler } = controller
+    const { openProgramViewHandler, openDeleteProgramModalHandler } = controller
 
     const openEditHandler = () => {
         setSelectedID(() => id);
@@ -53,6 +54,7 @@ export const ActionMenu = ({ id, setSelectedID }) => {
     const openDeleteHandler = () => {
         setSelectedID(() => id);
         setOpenDeleteProgramModalHandler(dispatch, true);
+        console.log(openDeleteProgramModalHandler)
     }
 
     const openViewHandler = () => {
@@ -169,7 +171,7 @@ const Programs = () => {
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState();
     const [controller, dispatch] = useMaterialUIController();
-    const { openEditProgramModalHandler } = controller;
+    const { openEditProgramModalHandler, reLoadData } = controller;
 
 
     const dataLabels = [
@@ -237,7 +239,7 @@ const Programs = () => {
 
     useEffect(() => {
         fetchData();
-    }, []);
+    }, [reLoadData]);
 
 
     const openAddmodalInvoker = () => {
@@ -249,8 +251,9 @@ const Programs = () => {
         <DashboardLayout>
             {openEditProgramModalHandler ? <EditProgram selectedID={selectedID} /> :
                 (<>
-                    <AddProgramModal />
 
+                    {selectedID ? <DeleteProgramModal selectedID={selectedID} /> : ''}
+                    <AddProgramModal />
                     <MDBox>
                         <Grid container spacing={6} justifyContent={"center"}>
                             <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
@@ -291,7 +294,7 @@ const Programs = () => {
                                                     onClick={openAddmodalInvoker}
                                                     color="secondary"
                                                     sx={{
-                                                        backgroundColor: 'inherit', marginTop: '0.2rem',marginRight: "1.6rem",marginBottom: "1rem",
+                                                        backgroundColor: 'inherit', marginTop: '0.2rem', marginRight: "1.6rem", marginBottom: "1rem",
                                                         borderRadius: "50%", borderWidth: "1px", borderStyle: "solid", borderColor: "secondary",
                                                     }}>
                                                     <Icon>add</Icon>

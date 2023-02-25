@@ -12,6 +12,7 @@ class Program extends Model
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
         "main_img",
+        "state",
         "title",
         "description",
         "start_time",

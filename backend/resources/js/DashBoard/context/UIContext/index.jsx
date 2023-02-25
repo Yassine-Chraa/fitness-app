@@ -53,6 +53,9 @@ const reducer = (state, action) => {
         case "SET_LOADING_ANIMATION": {
             return { ...state, loadingAnimation: action.value };
         }
+        case "SET_RELAOD_DATA": {
+            return { ...state, reLoadData: action.value };
+        }
         case "OPEN_PROGRAM_DELETE_MODAL": {
             return { ...state, openDeleteProgramModalHandler: action.value };
         }
@@ -134,6 +137,7 @@ const MaterialUIControllerProvider = ({ children }) => {
 
         messageObject: { type: 'error', message: 'there is an error !', state: false },
         loadingAnimation: false,
+        reLoadData: false,
     };
 
     const [controller, dispatch] = useReducer(reducer, initialState);
@@ -181,6 +185,7 @@ const setOpenUserViewHandler = (dispatch, value) => dispatch({ type: "OPEN_USER_
 
 const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
 const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
+const setReloadData = (dispatch, value) => dispatch({ type: "SET_RELAOD_DATA", value });
 
 const setOpenDeleteProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_DELETE_MODAL", value });
 const setOpenEditProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_EDIT_MODAL", value });
@@ -234,4 +239,5 @@ export {
 
     setMessageObject,
     setLoadingAnimation,
+    setReloadData,
 };

@@ -5,7 +5,7 @@ import MDBox from '../../components/MDBox';
 import MDButton from '../../components/MDButton';
 import MDInput from '../../components/MDInput';
 import MDTypography from '../../components/MDTypography';
-import { useMaterialUIController, setOpenAddModalHandler, setOpenAddProgramModalHandler } from '../../context/UIContext';
+import { useMaterialUIController, setOpenAddModalHandler, setOpenAddProgramModalHandler, setReloadData } from '../../context/UIContext';
 
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -27,7 +27,7 @@ const states = ['progress', 'unfinished', 'finished'];
 const AddProgramModal = () => {
 
     const [controller, dispatch] = useMaterialUIController();
-    const { openAddProgramModalHandler } = controller;
+    const { openAddProgramModalHandler, reLoadData } = controller;
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
@@ -70,7 +70,7 @@ const AddProgramModal = () => {
 
 
 
-    const confirmAddProgramHandler = async () => {
+    const confirmAddHandler = async () => {
         const program = {
             main_img: localImgUrl != null ? localImgUrl : 'https://bit.ly/34BY10g',
             title: localTitle,
@@ -86,10 +86,11 @@ const AddProgramModal = () => {
         const result = await addProgram(program);
         if (result) {
             setOpenAddProgramModalHandler(dispatch, false);
+            setReloadData(dispatch, !reLoadData)
         }
     };
 
-    const cancelAddProgramHandler = () => {
+    const cancelAddHandler = () => {
         setOpenAddProgramModalHandler(dispatch, false);
     }
 
@@ -199,10 +200,7 @@ const AddProgramModal = () => {
                                         id="select-role"
                                         value={localState}
                                         label="Select State"
-                                        onChange={(event) => {
-                                            setLocalState(event.target.value);
-                                            console.log(event.target.value);
-                                        }}
+                                        onChange={(event) => setLocalState(event.target.value)}
                                         sx={{ padding: '0.75rem !important' }}
                                     >
                                         {states_options()}
@@ -232,10 +230,10 @@ const AddProgramModal = () => {
                 </Grid>
 
                 <MDBox display="flex" justifyContent="space-around" mx={2} mt={1}>
-                    <MDButton onClick={cancelAddProgramHandler} variant="gradient" color="warning" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
+                    <MDButton onClick={cancelAddHandler} variant="gradient" color="warning" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
                         Cancel
                     </MDButton>
-                    <MDButton onClick={confirmAddProgramHandler} variant="gradient" color="success" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
+                    <MDButton onClick={confirmAddHandler} variant="gradient" color="success" style={{ padding: "1rem", minWidth: "6rem", maxWidth: "14rem", flex: 1 }}>
                         Done
                     </MDButton>
                 </MDBox>
