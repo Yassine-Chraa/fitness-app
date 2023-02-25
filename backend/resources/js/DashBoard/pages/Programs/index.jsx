@@ -169,7 +169,7 @@ const Programs = () => {
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState();
     const [controller, dispatch] = useMaterialUIController();
-    const {openEditProgramModalHandler} = controller;
+    const { openEditProgramModalHandler } = controller;
 
 
     const dataLabels = [
@@ -283,9 +283,17 @@ const Programs = () => {
                                             canSearch={true}
                                             table={{ columns: dataLabels, rows: data, }}
                                         />
-                                        <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem', marginBottom: '1rem' }}>
-                                            <Tooltip title="Add new User">
-                                                <IconButton onClick={openAddmodalInvoker} color="black" sx={{ backgroundColor: '#ddd' }}>
+                                        <MDBox sx={{
+                                            width: '100%', display: 'flex', justifyContent: 'flex-end',
+                                        }}>
+                                            <Tooltip title="New Program !">
+                                                <IconButton
+                                                    onClick={openAddmodalInvoker}
+                                                    color="secondary"
+                                                    sx={{
+                                                        backgroundColor: 'inherit', marginTop: '0.2rem',marginRight: "1.6rem",marginBottom: "1rem",
+                                                        borderRadius: "50%", borderWidth: "1px", borderStyle: "solid", borderColor: "secondary",
+                                                    }}>
                                                     <Icon>add</Icon>
                                                 </IconButton>
                                             </Tooltip>

@@ -65,6 +65,33 @@ const reducer = (state, action) => {
         case "OPEN_PROGRAM_VIEW_MODAL": {
             return { ...state, openProgramViewHandler: action.value };
         }
+        //----------------------------------------------------------
+        case "OPEN_ACTIVITY_DELETE_MODAL": {
+            return { ...state, openDeleteActivityModalHandler: action.value };
+        }
+        case "OPEN_ACTIVITY_EDIT_MODAL": {
+            return { ...state, openEditActivityModalHandler: action.value };
+        }
+        case "OPEN_ACTIVITY_ADD_MODAL": {
+            return { ...state, openAddActivityModalHandler: action.value };
+        }
+        case "OPEN_ACTIVITY_VIEW_MODAL": {
+            return { ...state, openActivityViewHandler: action.value };
+        }
+        //----------------------------------------------------------
+        case "OPEN_EXERCISE_DELETE_MODAL": {
+            return { ...state, openDeleteExerciseModalHandler: action.value };
+        }
+        case "OPEN_EXERCISE_EDIT_MODAL": {
+            return { ...state, openEditExerciseModalHandler: action.value };
+        }
+        case "OPEN_EXERCISE_ADD_MODAL": {
+            return { ...state, openAddExerciseModalHandler: action.value };
+        }
+        case "OPEN_EXERCISE_VIEW_MODAL": {
+            return { ...state, openExerciseViewHandler: action.value };
+        }
+
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
         };
@@ -83,15 +110,26 @@ const MaterialUIControllerProvider = ({ children }) => {
         direction: "ltr",
         layout: "dashboard",
         darkMode: false,
+
         openDeleteModalHandler: false,
         openEditModalHandler: false,
         openAddModalHandler: false,
         openUserViewHandler: false,
 
         openDeleteProgramModalHandler: false,
-        openEditProgramModalHandler:false,
-        openAddProgramModalHandler:false,
-        openProgramViewHandler:false,
+        openEditProgramModalHandler: false,
+        openAddProgramModalHandler: false,
+        openProgramViewHandler: false,
+
+        openDeleteActivityModalHandler: false,
+        openEditActivityModalHandler: false,
+        openAddActivityModalHandler: false,
+        openActivityViewHandler: false,
+
+        openDeleteExerciseModalHandler: false,
+        openEditExerciseModalHandler: false,
+        openAddExerciseModalHandler: false,
+        openExerciseViewHandler: false,
 
 
         messageObject: { type: 'error', message: 'there is an error !', state: false },
@@ -135,16 +173,29 @@ const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGUR
 const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
+
 const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DELETE_MODAL", value });
 const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });
 const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
 const setOpenUserViewHandler = (dispatch, value) => dispatch({ type: "OPEN_USER_VIEW", value });
+
 const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
 const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
+
 const setOpenDeleteProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_DELETE_MODAL", value });
 const setOpenEditProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_EDIT_MODAL", value });
 const setOpenAddProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_ADD_MODAL", value });
 const setOpenProgramViewHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_VIEW_MODAL", value });
+
+const setOpenDeleteActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_DELETE_MODAL", value });
+const setOpenEditActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_EDIT_MODAL", value });
+const setOpenAddActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_ADD_MODAL", value });
+const setOpenActivityViewHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_VIEW_MODAL", value });
+
+const setOpenDeleteExerciseModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_DELETE_MODAL", value });
+const setOpenEditExerciseModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_EDIT_MODAL", value });
+const setOpenAddExerciseModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_ADD_MODAL", value });
+const setOpenExerciseViewHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_VIEW_MODAL", value });
 
 
 export {
@@ -160,6 +211,7 @@ export {
     setDirection,
     setLayout,
     setDarkMode,
+
     setOpenDeleteModalHandler,
     setOpenEditModalHandler,
     setOpenAddModalHandler,
@@ -169,6 +221,16 @@ export {
     setOpenEditProgramModalHandler,
     setOpenAddProgramModalHandler,
     setOpenProgramViewHandler,
+
+    setOpenDeleteActivityModalHandler,
+    setOpenEditActivityModalHandler,
+    setOpenAddActivityModalHandler,
+    setOpenActivityViewHandler,
+
+    setOpenDeleteExerciseModalHandler,
+    setOpenEditExerciseModalHandler,
+    setOpenAddExerciseModalHandler,
+    setOpenExerciseViewHandler,
 
     setMessageObject,
     setLoadingAnimation,

@@ -199,7 +199,10 @@ const AddProgramModal = () => {
                                         id="select-role"
                                         value={localState}
                                         label="Select State"
-                                        onChange={(event) => setLocalState(event.target.value)}
+                                        onChange={(event) => {
+                                            setLocalState(event.target.value);
+                                            console.log(event.target.value);
+                                        }}
                                         sx={{ padding: '0.75rem !important' }}
                                     >
                                         {states_options()}

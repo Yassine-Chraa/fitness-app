@@ -1,19 +1,24 @@
-import { Card, Divider, FormControl, FormControlLabel, FormGroup, Grid, IconButton, InputLabel, MenuItem, Select, Switch, Tooltip } from "@mui/material";
+import { Card, Divider, FormControl, FormControlLabel, FormGroup, Grid, Icon, IconButton, InputLabel, Menu, MenuItem, Select, Switch, Tooltip } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
-import MDBox from "../../components/MDBox";
-import MDTypography from "../../components/MDTypography";
-import MDButton from "../../components/MDButton";
+import MDBox from "../../../components/MDBox";
+import MDTypography from "../../../components/MDTypography";
+import MDButton from "../../../components/MDButton";
 
-import { setOpenEditProgramModalHandler, useMaterialUIController } from "../../context/UIContext";
-import { useProgram } from "../../context/APIContext/providers/ProgramContextProvider";
-import MDInput from "../../components/MDInput";
-import SimpleLineChart from "../../components/Cards/SimpleLineChart";
+import { setOpenActivityViewHandler, setOpenAddActivityModalHandler, setOpenDeleteActivityModalHandler, setOpenEditActivityModalHandler, setOpenEditProgramModalHandler, useMaterialUIController } from "../../../context/UIContext";
+import { useProgram } from "../../../context/APIContext/providers/ProgramContextProvider";
+import MDInput from "../../../components/MDInput";
+import SimpleLineChart from "../../../components/Cards/SimpleLineChart";
 
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ProgramStatistics from "./ProgramStatistics";
+import ListOfActivities from "./ListOfActivities";
 
 
 //============================================================================================
@@ -49,6 +54,7 @@ const EditProgram = ({ selectedID }) => {
     const states_options = () => states.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const categories_options = () => categories.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
 
+
     const upLoadImageHandler = (event) => {
         var file = event.target.files[0];
         setImageFile(file);
@@ -65,6 +71,8 @@ const EditProgram = ({ selectedID }) => {
         }
         fileReader.readAsDataURL(file);
     }
+
+
 
     const fetchProgram = async () => {
         const program = await getProgram(selectedID);
@@ -84,6 +92,8 @@ const EditProgram = ({ selectedID }) => {
         }
     }
 
+
+
     useEffect(() => {
         fetchProgram();
     }, []);
@@ -94,18 +104,24 @@ const EditProgram = ({ selectedID }) => {
         datasets: { label: "Program Category Statistics", data: [10, 80, 100] },
     };
 
+
     const secondChart = {
         labels: ["Unfinished", "Progress", "Finished"],
         datasets: { label: "Program Progress Statistics", data: [70, 30, 300] },
     };
 
+
+
+
+
     return (
         <MDBox>
             <MDBox display="flex" justifyContent="flex-end" mx={1} mb={1}>
-                <MDButton onClick={() => setOpenEditProgramModalHandler(dispatch, false)} variant="standard">
+                <MDButton onClick={() => setOpenEditProgramModalHandler(dispatch, false)} color="secondary" variant="standard">
                     Back
                 </MDButton>
             </MDBox>
+
             <Grid container spacing={3} justifyContent={"center"}>
 
                 <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
@@ -127,7 +143,7 @@ const EditProgram = ({ selectedID }) => {
                                     src={'https://bit.ly/34BY10g'}
                                     alt={"main image that describes the program"}
                                     loading="lazy"
-                                    style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "4px" }}
+                                    style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
                                 />
                                 <MDTypography onClick={() => ImageRef.current.click()} style={{ width: "100%", textAlign: "center", cursor: "pointer" }} variant="subtitle2" fontWeight="small" fontSize={14} mx={1}>
                                     Change Image
@@ -159,7 +175,7 @@ const EditProgram = ({ selectedID }) => {
                             </MDBox>
 
 
-                            <Divider height={2} color={"#0005"} />
+                            <Divider height={2} color={"#0009"} />
 
 
                             <Grid container spacing={1} justifyContent={"center"}>
@@ -176,7 +192,7 @@ const EditProgram = ({ selectedID }) => {
                             </Grid>
 
 
-                            <Divider height={2} color={"#0005"} />
+                            <Divider height={2} color={"#0009"} />
 
 
                             <Grid container spacing={1} justifyContent={"center"}>
@@ -193,7 +209,7 @@ const EditProgram = ({ selectedID }) => {
                             </Grid>
 
 
-                            <Divider height={2} color={"#0005"} />
+                            <Divider height={2} color={"#0009"} />
 
 
                             <Grid container spacing={1} justifyContent={"center"}>
@@ -246,81 +262,15 @@ const EditProgram = ({ selectedID }) => {
                     </Card>
 
                 </Grid>
-                {/* =======================( big cards here )======================= */}
+
+                {/* =======================( statistics and list of activities )======================= */}
+
                 <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
                     <Grid container spacing={1}  >
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
 
-                            <SimpleLineChart
-                                sx={{ position: "relative" }}
-                                color="success"
-                                title="Title Here"
-                                description={
-                                    <>
-                                        (<strong>+15%</strong>) increase in today sales.
-                                    </>
-                                }
-                                date="updated 4 min ago"
-                                chart={firstChart}
-                            />
-                        </Grid>
+                        <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
 
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <SimpleLineChart
-                                sx={{ position: "relative" }}
-                                color="success"
-                                title="Title Here"
-                                description={
-                                    <>
-                                        (<strong>+15%</strong>) increase in today sales.
-                                    </>
-                                }
-                                date="updated 4 min ago"
-                                chart={secondChart}
-                            />
-                        </Grid>
-
-                        <Grid item xs={12} sm={12} md={12} lg={12}>
-                            <Card style={{ padding: '1rem' }}>
-                                <MDBox style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                                    <MDBox>
-                                        <MDTypography style={{
-                                            fontSize: '1rem',
-                                            fontWeight: '600',
-                                            lineHeight: '1.25',
-                                            margin: "0.1rem auto",
-                                            marginBottom: "0.3rem",
-                                            textTransform: "uppercase",
-                                        }}>
-                                            Activities
-                                        </MDTypography>
-                                        <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                                            all activities of the current program
-                                        </MDTypography>
-                                    </MDBox>
-                                    <MDBox>
-                                        <Search>
-                                            <SearchIconWrapper>
-                                                <SearchIcon />
-                                            </SearchIconWrapper>
-                                            <StyledInputBase
-                                                placeholder="Search…"
-                                                inputProps={{ 'aria-label': 'search' }}
-                                            />
-                                        </Search>
-                                    </MDBox>
-                                </MDBox>
-                                <MDBox>
-                                    <ActivityItem />
-                                    <ActivityItem />
-                                    <ActivityItem />
-                                    <ActivityItem />
-                                    <ActivityItem />
-                                    <ActivityItem />
-                                </MDBox>
-
-                            </Card>
-                        </Grid>
+                        <ListOfActivities ProID={selectedID} />
 
                     </Grid>
                 </Grid>
@@ -330,123 +280,3 @@ const EditProgram = ({ selectedID }) => {
 };
 
 export default EditProgram;
-
-
-//==================================================================================================
-
-
-export const Search = styled('div')(({ theme }) => ({
-    position: 'relative',
-    borderRadius: theme.shape.borderRadius,
-    border: "1px solid #0004",
-    backgroundColor: alpha(theme.palette.common.white, 0.15),
-    '&:hover': {
-        backgroundColor: alpha(theme.palette.common.white, 0.25),
-    },
-    boxShadow: `0rem 0.25rem 0.375rem -0.0625rem rgba(0, 0, 0, 0.1), 0rem 0.125rem 0.25rem -0.0625rem rgba(0, 0, 0, 0.06)`,
-    marginLeft: 0,
-    width: '100%',
-    [theme.breakpoints.up('sm')]: {
-        marginLeft: theme.spacing(1),
-        width: 'auto',
-    },
-}));
-
-
-//==================================================================================================
-
-
-export const SearchIconWrapper = styled('div')(({ theme }) => ({
-    padding: theme.spacing(0, 2),
-    height: '100%',
-    position: 'absolute',
-    pointerEvents: 'none',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-}));
-
-
-//==================================================================================================
-
-
-export const StyledInputBase = styled(InputBase)(({ theme }) => ({
-    color: 'inherit',
-    '& .MuiInputBase-input': {
-        padding: theme.spacing(1, 1, 1, 0),
-        paddingLeft: `calc(0.6em + ${theme.spacing(4)})`,
-        transition: theme.transitions.create('width'),
-        width: '100%',
-        [theme.breakpoints.up('sm')]: {
-            width: '12ch',
-            '&:focus': {
-                width: '20ch',
-            },
-        },
-    },
-}));
-
-
-//==================================================================================================
-
-
-export const ActivityItem = () => {
-    return (
-        <MDBox style={{
-            display: 'flex', justifyContent: "space-between", alignItems: "center",
-            flexDirection: "row", borderRadius: "6px", border: "1px solid #0006",
-            padding: "0.4rem", marginTop: "1rem",
-        }}>
-            <MDBox style={{
-                border: "1px solid #0006", width: "74px", height: "74px",
-                display: 'flex', justifyContent: "center", alignItems: "center",
-                flexDirection: "column", borderRadius: "6px",
-            }}>
-                <MDTypography style={{
-                    fontSize: '1.6rem', fontWeight: '700', lineHeight: '1.25', margin: "0.2rem auto",
-                    marginBottom: "0.2rem", textTransform: "uppercase",
-                }}>
-                    02
-                </MDTypography>
-                <MDTypography style={{
-                    fontSize: '0.6rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem auto",
-                    marginBottom: "0.3rem", textTransform: "uppercase",
-                }}>
-                    Sun
-                </MDTypography>
-            </MDBox>
-            <MDBox>
-                <MDBox style={{
-                    flex: 1, display: 'flex', justifyContent: "space-between", alignItems: "flex-start",
-                    flexDirection: "column",
-                }}>
-                    <MDTypography style={{
-                        fontSize: '1rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem",
-                        marginBottom: "0.1rem",
-                    }}>
-                        title of the activity
-                    </MDTypography>
-                    <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                        feature or category
-                    </MDTypography>
-                </MDBox>
-            </MDBox>
-            <MDBox>
-                <MDBox style={{
-                    flex: 1, display: 'flex', justifyContent: "center", alignItems: "center",
-                    flexDirection: "row",
-                }}>
-                    <DirectionsRunIcon sx={{ marginRight: "0.4rem", }} />
-                    <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                        State Here
-                    </MDTypography>
-                </MDBox>
-            </MDBox>
-            <MDBox>
-                <IconButton>
-                    <MoreVertIcon fontWeight={"large"} style={{ fontSize: "1.4rem" }} />
-                </IconButton>
-            </MDBox>
-        </MDBox>
-    );
-};
