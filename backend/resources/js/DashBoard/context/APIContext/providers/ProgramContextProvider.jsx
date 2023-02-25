@@ -83,11 +83,13 @@ export const ProgramContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
+            console.log(Program)
             const { data } = await axios.put(`${ProgramUrl}/${Program.id}`, Program, config);
+            console.log(data)
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
-            console.log(error);
+            console.log("Error : "+error);
             alert(error)
             setLoadingAnimation(dispatch, false);
         }

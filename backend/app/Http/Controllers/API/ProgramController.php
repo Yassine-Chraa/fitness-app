@@ -66,7 +66,7 @@ class ProgramController extends Controller
     {
         $program = Program::findOrFail($id);
         if ($request->get('main_img')) {
-            $program->name_img = $request->get('main_img');
+            $program->main_img = $request->get('main_img');
         }
         if ($request->get('title')) {
             $program->title = $request->get('title');
@@ -90,7 +90,7 @@ class ProgramController extends Controller
             $program->category = $request->get('category');
         }
         if ($request->get('state')) {
-            $program->category = $request->get('state');
+            $program->state = $request->get('state');
         }
         $program->isFree = $request->get('isFree');
 

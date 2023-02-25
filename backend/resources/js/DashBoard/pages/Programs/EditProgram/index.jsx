@@ -1,24 +1,14 @@
-import { Card, Divider, FormControl, FormControlLabel, FormGroup, Grid, Icon, IconButton, InputLabel, Menu, MenuItem, Select, Switch, Tooltip } from "@mui/material";
+import { Card, Divider, FormControl, FormControlLabel, FormGroup, Grid, InputLabel, Menu, MenuItem, Select, Switch, Tooltip } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import MDBox from "../../../components/MDBox";
 import MDTypography from "../../../components/MDTypography";
 import MDButton from "../../../components/MDButton";
 
-import { setOpenActivityViewHandler, setOpenAddActivityModalHandler, setOpenDeleteActivityModalHandler, setOpenEditActivityModalHandler, setOpenEditProgramModalHandler, useMaterialUIController } from "../../../context/UIContext";
 import { useProgram } from "../../../context/APIContext/providers/ProgramContextProvider";
 import MDInput from "../../../components/MDInput";
-import SimpleLineChart from "../../../components/Cards/SimpleLineChart";
-
-import { styled, alpha } from '@mui/material/styles';
-import InputBase from '@mui/material/InputBase';
-import SearchIcon from '@mui/icons-material/Search';
-import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
-import EditIcon from '@mui/icons-material/Edit';
-import DeleteIcon from '@mui/icons-material/Delete';
 import ProgramStatistics from "./ProgramStatistics";
 import ListOfActivities from "./ListOfActivities";
+import { setOpenEditProgramModalHandler, setReloadData, useMaterialUIController } from "../../../context/UIContext";
 
 
 //============================================================================================
@@ -31,13 +21,13 @@ const states = ['progress', 'unfinished', 'finished'];
 const EditProgram = ({ selectedID }) => {
 
     const [controller, dispatch] = useMaterialUIController();
-    const { openEditProgramModalHandler } = controller;
+    const { openEditProgramModalHandler,reLoadData } = controller;
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
     const ImageRef = useRef();
 
-    const { getProgram, updateProgram } = useProgram;
+    const { getProgram, updateProgram } = useProgram();
 
     const [localCategory, setLocalCategory] = useState(categories[0]);
     const [localState, setLocalState] = useState(states[0]);
@@ -47,9 +37,12 @@ const EditProgram = ({ selectedID }) => {
 
     const [localBreakDuration, setLocalBreakDuration] = useState(0);
     const [localDuration, setLocalDuration] = useState(0);
+    const [localProID, setLocalProID] = useState(0);
 
     const [localStartTime, setLocalStartTime] = useState('2000-02-02');
     const [localEndTime, setLocalEndTime] = useState('2000-02-02');
+
+    const [localIsFree, setLocalIsFree] = useState(false);
 
     const states_options = () => states.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const categories_options = () => categories.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
@@ -78,25 +71,44 @@ const EditProgram = ({ selectedID }) => {
         const program = await getProgram(selectedID);
         if (program) {
             const { id, main_img, title, state, description, start_time, end_time, duration, break_duration, category, isFree } = program;
-
             setLocalCategory(category ? category : categories[0]);
+            setLocalProID(id ? id : 0);
             setLocalState(state ? state : states[0]);
             setLocalTitle(title ? title : "title here");
             setLocalDesc(description ? description : "short description about the program here.");
             setLocalBreakDuration(break_duration ? break_duration : 0);
             setLocalDuration(duration ? duration : 0);
-            setLocalStartTime(start_time ? start_time : "2000-02-02");
-            setLocalEndTime(end_time ? end_time : "2000-02-02");
-
-            setImgUrl(() => main_img ? main_img : 'https://bit.ly/34BY10g');
+            setLocalStartTime(start_time ? start_time.split(" ")[0] : "2000-02-02");
+            setLocalEndTime(end_time ? end_time.split(" ")[0] : "2000-02-02");
+            setLocalIsFree(() => isFree ? true : false);
+            setLocalImgUrl(() => main_img ? main_img : 'https://bit.ly/34BY10g');
         }
     }
-
-
 
     useEffect(() => {
         fetchProgram();
     }, []);
+
+    const confirmEditHandler = async () => {
+        const program = {
+            id: localProID,
+            main_img: localImgUrl != null ? localImgUrl : 'https://bit.ly/34BY10g',
+            title: localTitle,
+            description: localDesc,
+            start_time: localStartTime,
+            end_time: localEndTime,
+            duration: localDuration,
+            break_duration: localBreakDuration,
+            category: localCategory,
+            state: localState,
+            isFree: localIsFree,
+        }
+        const result = await updateProgram(program);
+        if (result) {
+            setOpenEditProgramModalHandler(dispatch, false);
+            setReloadData(dispatch, !reLoadData)
+        }
+    };
 
 
     const firstChart = {
@@ -111,13 +123,13 @@ const EditProgram = ({ selectedID }) => {
     };
 
 
-
-
-
     return (
         <MDBox>
             <MDBox display="flex" justifyContent="flex-end" mx={1} mb={1}>
-                <MDButton onClick={() => setOpenEditProgramModalHandler(dispatch, false)} color="secondary" variant="standard">
+                <MDButton onClick={confirmEditHandler} color="secondary" variant="outlined">
+                    Save
+                </MDButton>
+                <MDButton onClick={() => setOpenEditProgramModalHandler(dispatch, false)} color="secondary" variant="outlined">
                     Back
                 </MDButton>
             </MDBox>
@@ -140,7 +152,7 @@ const EditProgram = ({ selectedID }) => {
                             <MDBox style={{ margin: "0.2rem", flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                                 <img
                                     onClick={() => ImageRef.current.click()}
-                                    src={'https://bit.ly/34BY10g'}
+                                    src={localImgUrl ? localImgUrl : 'https://bit.ly/34BY10g'}
                                     alt={"main image that describes the program"}
                                     loading="lazy"
                                     style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
@@ -254,7 +266,9 @@ const EditProgram = ({ selectedID }) => {
                             <Grid container spacing={2} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
                                     <FormGroup>
-                                        <FormControlLabel control={<Switch defaultChecked />} label="isFree" />
+                                        <FormControlLabel control={<Switch checked={localIsFree}
+                                            onChange={(event) => setLocalIsFree(prev => event.target.checked)}
+                                            defaultChecked />} label="isFree" />
                                     </FormGroup>
                                 </Grid>
                             </Grid>
