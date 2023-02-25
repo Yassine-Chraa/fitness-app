@@ -181,7 +181,8 @@ function DataTable({
                                 size="small"
                                 fullWidth
                                 onChange={({ currentTarget }) => {
-                                    setSearch(search);
+                                    setSearch(() => currentTarget.value);
+                                    setGlobalFilter(()=> currentTarget.value)
                                     onSearchChange(currentTarget.value);
                                 }}
                             />

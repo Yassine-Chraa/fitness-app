@@ -30,11 +30,8 @@ const AddProgramModal = () => {
     const { openAddProgramModalHandler } = controller;
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
-    const [localVidUrl, setLocalVidUrl] = useState(null);
-    const [videoFile, setVideoFile] = useState();
     const [imageFile, setImageFile] = useState();
     const ImageRef = useRef();
-    const VideoRef = useRef();
 
     const { addProgram } = useProgram();
 
@@ -69,29 +66,13 @@ const AddProgramModal = () => {
         }
         fileReader.readAsDataURL(file);
     }
-    const upLoadVideoHandler = (event) => {
-        var file = event.target.files[0];
-        setVideoFile(file);
-        if (!file.type.match(vidRegex)) {
-            alert("Video format is not valid !!");
-            return;
-        }
-        const fileReader = new FileReader();
-        fileReader.onload = (e) => {
-            const { result } = e.target;
-            if (result) {
-                setLocalVidUrl(result)
-            }
-        }
-        fileReader.readAsDataURL(file);
-    }
+
 
 
 
     const confirmAddProgramHandler = async () => {
         const program = {
-            name_img: localImgUrl,
-            main_vid: localVidUrl,
+            main_img: localImgUrl != null ? localImgUrl : 'https://bit.ly/34BY10g',
             title: localTitle,
             description: localDesc,
             start_time: localStartTime,
@@ -141,21 +122,32 @@ const AddProgramModal = () => {
                 </MDBox>
                 <Grid container spacing={2} >
 
-                    <Grid item xs={6} sm={6} md={6} lg={6} xl={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
-                        <MDBox style={{ margin: "0.5rem", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12} style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexDirection: 'row' }}>
+                        <MDBox style={{ margin: "0.5rem", flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                             <img
                                 onClick={() => ImageRef.current.click()}
                                 src={localImgUrl == null ? 'https://bit.ly/34BY10g' : localImgUrl}
                                 alt={"main image that describes the program"}
                                 loading="lazy"
-                                style={{ cursor: 'pointer', width: "100px", height: "100px", borderRadius: "5px" }}
+                                style={{ cursor: 'pointer', width: "200px", height: "140px", borderRadius: "5px" }}
                             />
                             <MDTypography style={{ width: "100%", textAlign: "center" }} variant="subtitle2" fontWeight="medium" mx={1}>
                                 Desc Image
                             </MDTypography>
                             <input ref={ImageRef} onChange={upLoadImageHandler} hidden accept="image/*" multiple type="file" onClick={() => console.log('upload is invoked !')} />
                         </MDBox>
-                        <MDBox style={{ margin: "0.5rem", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+
+
+                        <MDBox style={{ margin: "0rem", flex: 1, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                            <MDBox mb={1} >
+                                <MDInput value={localTitle} onChange={(val) => setLocalTitle(val.target.value)} type="text" label="Title" />
+                            </MDBox>
+                            <MDBox mb={1} >
+                                <MDInput multiline rows={4} value={localDesc} onChange={(val) => setLocalDesc(val.target.value)} type="text" label="Description" fullWidth />
+                            </MDBox>
+                        </MDBox>
+
+                        {/* <MDBox style={{ margin: "0.5rem", display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
                             <video
                                 autoPlay
                                 loop
@@ -170,7 +162,7 @@ const AddProgramModal = () => {
                                 Desc Video
                             </MDTypography>
                             <input ref={VideoRef} onChange={upLoadVideoHandler} hidden accept="video/*" multiple type="file" />
-                        </MDBox>
+                        </MDBox> */}
                     </Grid>
 
                     <Grid item xs={6} sm={3} md={3} lg={3} xl={3}>
@@ -198,7 +190,7 @@ const AddProgramModal = () => {
                     {/* ---------( dropdown lists )----------- */}
                     <Grid item xs={6} sm={3} md={3} lg={3} xl={3}>
                         <MDBox component="form" role="form">
-                            <MDBox mb={1} >
+                            <MDBox mb={2} >
                                 <FormControl fullWidth>
                                     <InputLabel id="select-role-label">Select State</InputLabel>
                                     <Select
@@ -214,7 +206,7 @@ const AddProgramModal = () => {
                                     </Select>
                                 </FormControl>
                             </MDBox>
-                            <MDBox mb={1} >
+                            <MDBox mb={2} >
                                 <FormControl fullWidth>
                                     <InputLabel id="select-gender-label">Select Category</InputLabel>
                                     <Select
@@ -233,18 +225,7 @@ const AddProgramModal = () => {
                         </MDBox>
                     </Grid>
 
-                    <Grid item xs={9} sm={9} md={9} lg={9} xl={9}>
-                        <MDBox component="form" role="form" style={{ display: "flex", justifyContent: "center" }}>
-                            <MDBox mb={1}>
-                                <MDInput value={localTitle} onChange={(val) => setLocalTitle(val.target.value)} type="text" label="Title" />
-                            </MDBox>
-                        </MDBox>
-                        <MDBox component="form" role="form" mt={1}>
-                            <MDBox mb={1}>
-                                <MDInput multiline rows={4} value={localDesc} onChange={(val) => setLocalDesc(val.target.value)} type="text" label="Description" fullWidth />
-                            </MDBox>
-                        </MDBox>
-                    </Grid>
+
                 </Grid>
 
                 <MDBox display="flex" justifyContent="space-around" mx={2} mt={1}>

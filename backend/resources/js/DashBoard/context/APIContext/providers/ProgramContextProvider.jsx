@@ -63,7 +63,7 @@ export const ProgramContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert("before")
+            alert(ProgramUrl)
             const { data } = await axios.post(`${ProgramUrl}`, Program, config);
             console.log(JSON.stringify(data))
             setLoadingAnimation(dispatch, false);

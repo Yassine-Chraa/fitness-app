@@ -16,9 +16,11 @@ import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import WcIcon from '@mui/icons-material/Wc';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 
-import { useMaterialUIController } from "../../context/UIContext";
+import { setOpenEditProgramModalHandler, setOpenUserViewHandler, useMaterialUIController } from "../../context/UIContext";
 import ReportsLineChart from "../../components/Cards/LineCharts";
 import { useUser } from "../../context/APIContext/providers/UserContextProvider";
+import MDButton from "../../components/MDButton";
+import { NavLink } from "react-router-dom";
 
 const sales = {
     labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
@@ -82,10 +84,13 @@ const UserDetails = ({ selectedID }) => {
     }, [])
 
 
-
-
     return (
         <MDBox>
+            <MDBox display="flex" justifyContent="flex-end" mx={2} mt={2}>
+                <MDButton onClick={() => setOpenUserViewHandler(dispatch, false)} variant="standard">
+                    Back
+                </MDButton>
+            </MDBox>
             <Grid container spacing={3} justifyContent={"center"}>
                 {/* =======================( small cards here )======================= */}
                 <Grid item xs={4} sm={4} md={4} lg={4}>
@@ -288,7 +293,7 @@ const UserDetails = ({ selectedID }) => {
                 {/* =======================( big cards here )======================= */}
                 <Grid item xs={8} sm={8} md={8} lg={8} >
                     <Grid container spacing={1}  >
-                        <Grid item xs={12} sm={12} md={12} lg={12} style={{ marginTop:"2rem" }}>
+                        <Grid item xs={12} sm={12} md={12} lg={12} style={{ marginTop: "2rem" }}>
 
                             <ReportsLineChart
                                 color="success"

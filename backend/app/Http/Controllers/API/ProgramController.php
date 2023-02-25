@@ -28,8 +28,7 @@ class ProgramController extends Controller
     public function store(Request $request)
     {
         $newProgram = new Program([
-            "name_img" => $request->get('name_img'),
-            "main_vid" => $request->get('main_vid'),
+            "main_img" => $request->get('main_img'),
             "title" => $request->get('title'),
             "description" => $request->get('description'),
             "start_time" => $request->get('start_time'),
@@ -66,11 +65,8 @@ class ProgramController extends Controller
     public function update(Request $request, $id)
     {
         $program = Program::findOrFail($id);
-        if ($request->get('name_img')) {
-            $program->name_img = $request->get('name_img');
-        }
-        if ($request->get('main_vid')) {
-            $program->main_vid = $request->get('main_vid');
+        if ($request->get('main_img')) {
+            $program->name_img = $request->get('main_img');
         }
         if ($request->get('title')) {
             $program->title = $request->get('title');

@@ -24,6 +24,7 @@ import { async } from "regenerator-runtime";
 import { useProgram } from "../../context/APIContext/providers/ProgramContextProvider";
 import { Box } from "@mui/system";
 import AddProgramModal from "./AddProgramModal";
+import EditProgram from "./EditProgram";
 
 
 export const Profile = ({ image, name, email }) => (
@@ -168,6 +169,7 @@ const Programs = () => {
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState();
     const [controller, dispatch] = useMaterialUIController();
+    const {openEditProgramModalHandler} = controller;
 
 
     const dataLabels = [
@@ -184,7 +186,7 @@ const Programs = () => {
             Header: "State", isSorted: true, accessor: "state", width: "12%", align: "center",
         },
         {
-            Header: "isFree", isSorted: true, accessor: "is_free", width: "10%", align: "center",
+            Header: "isFree", isSorted: true, accessor: "isfree", width: "10%", align: "center",
         },
         {
             Header: "Duration", isSorted: true, accessor: "duration", width: "10%", align: "center",
@@ -197,7 +199,7 @@ const Programs = () => {
     const fetchData = async () => {
         let res = await getPrograms();
         res = res.map((program) => {
-            const { id, name_img, main_vid, title, description, start_time, end_time, duration, break_duration, category, isFree } = program;
+            const { id, main_img, title, description, start_time, end_time, duration, break_duration, category, isFree } = program;
             return {
                 id: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
@@ -217,7 +219,7 @@ const Programs = () => {
                         {program.state}
                     </MDTypography>
                 ),
-                is_free: (
+                isfree: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
                         {isFree ? <Ball color={"green"} /> : <Ball color={"red"} />}
                     </MDTypography>
@@ -245,54 +247,56 @@ const Programs = () => {
 
     return (
         <DashboardLayout>
-            <>
-                <AddProgramModal />
+            {openEditProgramModalHandler ? <EditProgram selectedID={selectedID} /> :
+                (<>
+                    <AddProgramModal />
 
-                <MDBox>
-                    <Grid container spacing={6} justifyContent={"center"}>
-                        <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
-                            <Card>
-                                <MDBox
-                                    display={"flex"}
-                                    alignItems={"center"}
-                                    mx={2}
-                                    mt={-3}
-                                    py={3}
-                                    px={2}
-                                    variant="gradient"
-                                    bgColor="info"
-                                    borderRadius="lg"
-                                    coloredShadow="info"
-                                >
-                                    <MDTypography variant="h6" color="white">
-                                        Programs Table
-                                    </MDTypography>
-                                    <MDBox ml={"auto"}>
-                                        <Tooltip title="Filter list">
-                                            <IconButton color="white">
-                                                <Icon>filter_list</Icon>
-                                            </IconButton>
-                                        </Tooltip>
+                    <MDBox>
+                        <Grid container spacing={6} justifyContent={"center"}>
+                            <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
+                                <Card>
+                                    <MDBox
+                                        display={"flex"}
+                                        alignItems={"center"}
+                                        mx={2}
+                                        mt={-3}
+                                        py={3}
+                                        px={2}
+                                        variant="gradient"
+                                        bgColor="info"
+                                        borderRadius="lg"
+                                        coloredShadow="info"
+                                    >
+                                        <MDTypography variant="h6" color="white">
+                                            Programs Table
+                                        </MDTypography>
+                                        <MDBox ml={"auto"}>
+                                            <Tooltip title="Filter list">
+                                                <IconButton color="white">
+                                                    <Icon>filter_list</Icon>
+                                                </IconButton>
+                                            </Tooltip>
+                                        </MDBox>
                                     </MDBox>
-                                </MDBox>
-                                <MDBox pt={3} >
-                                    <DataTable
-                                        canSearch={true}
-                                        table={{ columns: dataLabels, rows: data, }}
-                                    />
-                                    <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem', marginBottom: '1rem' }}>
-                                        <Tooltip title="Add new User">
-                                            <IconButton onClick={openAddmodalInvoker} color="black" sx={{ backgroundColor: '#ddd' }}>
-                                                <Icon>add</Icon>
-                                            </IconButton>
-                                        </Tooltip>
+                                    <MDBox pt={3} >
+                                        <DataTable
+                                            canSearch={true}
+                                            table={{ columns: dataLabels, rows: data, }}
+                                        />
+                                        <MDBox sx={{ width: '100%', display: 'flex', justifyContent: 'flex-start', marginLeft: '1rem', marginBottom: '1rem' }}>
+                                            <Tooltip title="Add new User">
+                                                <IconButton onClick={openAddmodalInvoker} color="black" sx={{ backgroundColor: '#ddd' }}>
+                                                    <Icon>add</Icon>
+                                                </IconButton>
+                                            </Tooltip>
+                                        </MDBox>
                                     </MDBox>
-                                </MDBox>
-                            </Card>
+                                </Card>
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </MDBox>
-            </>
+                    </MDBox>
+                </>)
+            }
 
         </DashboardLayout>
     );
