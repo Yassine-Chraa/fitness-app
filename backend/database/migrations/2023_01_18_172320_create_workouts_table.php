@@ -17,23 +17,6 @@ return new class extends Migration
             $table->id();
             $table->foreign("program_id")->nullable();
             $table->string('title');
-            $table->string('description');
-            $table->enum(
-                'category',
-                [
-                    'Core',
-                    'Chest',
-                    'Shoulder',
-                    'Biceps',
-                    'Triceps', 'Back',
-                    'Forearms',
-                    'Upper legs',
-                    'Glutes',
-                    'Cardio',
-                    'Calves'
-                ]
-            )->default('Cardio');
-            $table->enum('difficulty_level',['low','moderate','high','extreme']);
             $table->integer('duration');
             $table->timestamps();
         });

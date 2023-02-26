@@ -19,12 +19,9 @@ return new class extends Migration
             $table->string("main_img")->default("'https://bit.ly/34BY10g'");
             $table->string("title");
             $table->string("description");
-            $table->dateTime("start_time");
-            $table->dateTime("end_time");
-            $table->integer("duration");
-            $table->integer("break_duration");
-            $table->enum('state', ['progress','unfinished','finished'])->default("unfinished");
+            $table->enum('state', ['progress','unstarted','finished'])->default("unstarted");
             $table->enum('category', ['maintaining','bulking','cutting'])->default("maintaining");
+            $table->enum('difficulty_level',['low','moderate','high','extreme']);
             $table->boolean("isFree")->default(true);
             $table->timestamps();
         });

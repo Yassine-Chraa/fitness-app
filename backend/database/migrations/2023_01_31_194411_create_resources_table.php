@@ -18,8 +18,9 @@ return new class extends Migration
             $table->foreignId('user_id')->nullable();
             $table->foreignId('meal_item_id')->nullable();
             $table->foreignId('meal_id')->nullable();
-            $table->foreignId('activity_id')->nullable();
+            $table->foreignId('exercise_id')->nullable();
             $table->foreignId('product_id')->nullable();
+            $table->foreignId('workout_id')->nullable();
             $table->foreignId('equipment_id')->nullable();
             $table->string('url');
             $table->enum('type', ['image', 'video'])->default('image');
