@@ -8,9 +8,11 @@ const endpoints = {
     Products: "api/products",
     Users: "api/users",
     Meals: "api/meals",
-    Equipments: "api/equipments",
-    Activities: "api/activities",
     Feedbacks: "api/feedbacks",
+    Programs: "api/programs",
+    WorkOuts: "api/workouts",
+    Exercises: "api/Exercises",
+    Equipments: "api/equipments",
 };
 
 export const getUrl = (endpoint) => {

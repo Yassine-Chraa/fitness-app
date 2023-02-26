@@ -13,6 +13,9 @@ const providers = [
     MealContextProvider,
     ProductContextProvider,
     FeedbackContextProvider
+    ProgramContextProvider,
+    ExerciseContextProvider,
+    WorkOutContextProvider,
 ];
 
 export const APIHandlerProvider = Composer(...providers);

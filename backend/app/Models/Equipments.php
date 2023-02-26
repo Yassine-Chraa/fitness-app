@@ -28,4 +28,8 @@ class Equipments extends Model
     {
         return $this->hasMany(Resource::class,"equipment_id");
     }
+    public function exercises()
+    {
+        return $this->hasMany(Exercise::class,"exercise_id");
+    }
 }

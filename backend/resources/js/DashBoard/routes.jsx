@@ -4,6 +4,8 @@ import { Icon } from "@mui/material";
 import Products from "./pages/Products";
 import Activities from "./pages/Activities";
 import Feedbacks from "./pages/Feedbacks";
+import TodayIcon from '@mui/icons-material/Today';
+import Programs from "./pages/Programs";
 
 const routes = [
     {
@@ -45,6 +47,14 @@ const routes = [
         icon: <Icon>reviews</Icon>,
         route: "/dashboard/feedbacks",
         component: <Feedbacks />,
+    },
+    {
+        type: "collapse",
+        name: "Programs",
+        key: "programs",
+        icon: <TodayIcon/>,
+        route: "/dashboard/programs",
+        component: <Programs />,
     },
 ];
 
