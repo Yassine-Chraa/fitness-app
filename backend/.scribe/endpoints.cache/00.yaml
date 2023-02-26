@@ -29,13 +29,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[{"id":1,"role":"client","name":"yassine","email":"yassine@gmail.com","email_verified_at":null,"profile":null,"created_at":"2023-01-20T03:35:58.000000Z","updated_at":"2023-01-20T03:35:58.000000Z"},{"id":2,"role":"client","name":"Ahmed alam","email":"ahmed1234@gmail.com","email_verified_at":null,"profile":null,"created_at":"2023-01-21T19:19:04.000000Z","updated_at":"2023-01-21T19:19:04.000000Z"}]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '59'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -43,7 +41,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer cZbeD8dhf65kg1Pva4aEV63'
     controller: null
     method: null
     route: null
@@ -72,36 +70,36 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: 'Must be at least 4 characters.'
+        description: 'Must not be greater than 255 characters.'
         required: true
-        example: ygsvhfaounfgjdxvwdibeiqdp
+        example: orved
         type: string
         custom: []
       email:
         name: email
-        description: 'Must be a valid email address.'
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: imarquardt@example.com
+        example: terence.fahey@example.com
         type: string
         custom: []
       password:
         name: password
-        description: 'Must be at least 6 characters.'
+        description: 'Must be at least 8 characters.'
         required: true
-        example: '8YlXv*0w`~-k#)q@>Yf-'
+        example: 'P<4V$w|64i7p*A<h[8'
         type: string
         custom: []
     cleanBodyParameters:
-      name: ygsvhfaounfgjdxvwdibeiqdp
-      email: imarquardt@example.com
-      password: '8YlXv*0w`~-k#)q@>Yf-'
+      name: orved
+      email: terence.fahey@example.com
+      password: 'P<4V$w|64i7p*A<h[8'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer Vv6PeEdakb4cZ563fg8Dh1a'
     controller: null
     method: null
     route: null
@@ -140,13 +138,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"id":1,"role":"client","name":"yassine","email":"yassine@gmail.com","email_verified_at":null,"profile":null,"created_at":"2023-01-20T03:35:58.000000Z","updated_at":"2023-01-20T03:35:58.000000Z"}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '58'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -154,7 +150,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer P6acheDa1k38V4dZ56fgbvE'
     controller: null
     method: null
     route: null
@@ -197,7 +193,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer bkg6V86PeZ3vh1c5dEaf4aD'
     controller: null
     method: null
     route: null
@@ -239,7 +235,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 1bE66vcVaZ4k5Df83ehgPda'
     controller: null
     method: null
     route: null
@@ -247,13 +243,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/equipements
+    uri: api/equipments
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'GET: api/equipements'
+      title: 'GET: api/equipments'
       description: ''
       authenticated: true
       custom: []
@@ -270,13 +266,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '57'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -284,7 +278,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer g61e6avdfa5VkhPbE8c3DZ4'
     controller: null
     method: null
     route: null
@@ -292,13 +286,13 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/equipements
+    uri: api/equipments
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'POST: api/equipements'
+      title: 'POST: api/equipments'
       description: ''
       authenticated: true
       custom: []
@@ -315,34 +309,34 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: qiwdsv
+        example: cnipbuhqvgnsupwcwfzpeaejvxjejqvox
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: excepturi
+        example: eaque
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: quidem
+        example: alias
         type: string
         custom: []
     cleanBodyParameters:
-      name: qiwdsv
-      category: excepturi
-      description: quidem
+      name: cnipbuhqvgnsupwcwfzpeaejvxjejqvox
+      category: eaque
+      description: alias
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer bP3e4fEDck661ad8agv5ZhV'
     controller: null
     method: null
     route: null
@@ -350,13 +344,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/equipements/{id}'
+    uri: 'api/equipments/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'GET: api/equipements/{id}'
+      title: 'GET: api/equipments/{id}'
       description: ''
       authenticated: true
       custom: []
@@ -367,13 +361,13 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the equipement.'
+        description: 'The ID of the equipment.'
         required: true
-        example: 16
-        type: integer
+        example: velit
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 16
+      id: velit
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -381,455 +375,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: |-
-          {
-              "message": "No query results for model [App\\Models\\Equipement] 16",
-              "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
-              "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-              "line": 391,
-              "trace": [
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-                      "line": 367,
-                      "function": "prepareException",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-                      "line": 54,
-                      "function": "render",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-                      "line": 51,
-                      "function": "render",
-                      "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 143,
-                      "function": "handleException",
-                      "class": "Illuminate\\Routing\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-                      "line": 50,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 126,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 92,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 54,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
-                      "line": 44,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Auth\\Middleware\\Authenticate",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 797,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 776,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 740,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 729,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 190,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-                      "line": 86,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 165,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 134,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 299,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 287,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 92,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 45,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 209,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 122,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 69,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 47,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-                      "line": 51,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                      "line": 663,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 182,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Command\\Command.php",
-                      "line": 312,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 151,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 1022,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 314,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 168,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-                      "line": 102,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-                      "line": 155,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '56'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -837,7 +387,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 6eb4gkfh6D3a1dVcPvZEa85'
     controller: null
     method: null
     route: null
@@ -846,13 +396,13 @@ endpoints:
     httpMethods:
       - PUT
       - PATCH
-    uri: 'api/equipements/{id}'
+    uri: 'api/equipments/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'PUT/PATCH: api/equipements/{id}'
+      title: 'PUT/PATCH: api/equipments/{id}'
       description: ''
       authenticated: true
       custom: []
@@ -863,13 +413,13 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the equipement.'
+        description: 'The ID of the equipment.'
         required: true
-        example: 3
-        type: integer
+        example: nulla
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 3
+      id: nulla
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -877,34 +427,34 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk
+        example: nijxvjjuapxcbgxqfpdbowrmrrccjvpsdotzjsgegmlxarnkwoxeztbgdwwkirraapluiaudooaybfiev
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: et
+        example: soluta
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: vero
+        example: qui
         type: string
         custom: []
     cleanBodyParameters:
-      name: fvdaypmmgsmeyriezkmmntouwmadwonbnasozrmtngxwaqk
-      category: et
-      description: vero
+      name: nijxvjjuapxcbgxqfpdbowrmrrccjvpsdotzjsgegmlxarnkwoxeztbgdwwkirraapluiaudooaybfiev
+      category: soluta
+      description: qui
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 5hDgVcP1Zvb46keaf36d8Ea'
     controller: null
     method: null
     route: null
@@ -912,13 +462,13 @@ endpoints:
   -
     httpMethods:
       - DELETE
-    uri: 'api/equipements/{id}'
+    uri: 'api/equipments/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'DELETE: api/equipements/{id}'
+      title: 'DELETE: api/equipments/{id}'
       description: ''
       authenticated: true
       custom: []
@@ -929,13 +479,13 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the equipement.'
+        description: 'The ID of the equipment.'
         required: true
-        example: 11
-        type: integer
+        example: cupiditate
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 11
+      id: cupiditate
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -946,7 +496,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer Degab4fad1E5P3Z68cvVhk6'
     controller: null
     method: null
     route: null
@@ -977,13 +527,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '55'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -991,7 +539,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 4bVcZahDP6aE38edv651gkf'
     controller: null
     method: null
     route: null
@@ -1022,50 +570,50 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: ejnspzfisnlwrhyiwgtrncecy
+        example: fpgwerjopfvlbvzqulgfflttxgpfzbyajlc
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: necessitatibus
+        example: sit
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: voluptatem
+        example: et
         type: string
         custom: []
       prix:
         name: prix
         description: 'Must be at least 0.'
         required: true
-        example: 37
+        example: 68
         type: number
         custom: []
       stock:
         name: stock
         description: 'Must be at least 0.'
         required: true
-        example: 65
+        example: 24
         type: integer
         custom: []
     cleanBodyParameters:
-      name: ejnspzfisnlwrhyiwgtrncecy
-      category: necessitatibus
-      description: voluptatem
-      prix: 37
-      stock: 65
+      name: fpgwerjopfvlbvzqulgfflttxgpfzbyajlc
+      category: sit
+      description: et
+      prix: 68
+      stock: 24
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 4hVbPeak81D65E6Zvgfdc3a'
     controller: null
     method: null
     route: null
@@ -1092,11 +640,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 7
+        example: 3
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 7
+      id: 3
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1104,455 +652,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: |-
-          {
-              "message": "No query results for model [App\\Models\\Product] 7",
-              "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
-              "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-              "line": 391,
-              "trace": [
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-                      "line": 367,
-                      "function": "prepareException",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-                      "line": 54,
-                      "function": "render",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-                      "line": 51,
-                      "function": "render",
-                      "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 143,
-                      "function": "handleException",
-                      "class": "Illuminate\\Routing\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-                      "line": 50,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 126,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 92,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 54,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
-                      "line": 44,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Auth\\Middleware\\Authenticate",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 797,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 776,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 740,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 729,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 190,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-                      "line": 86,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 165,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 134,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 299,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 287,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 92,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 45,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 209,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 122,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 69,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 47,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-                      "line": 51,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                      "line": 663,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 182,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Command\\Command.php",
-                      "line": 312,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 151,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 1022,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 314,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 168,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-                      "line": 102,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-                      "line": 155,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '54'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -1560,7 +664,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer v4aa536dEbgk6D1PcfheZV8'
     controller: null
     method: null
     route: null
@@ -1588,11 +692,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 15
+        example: 18
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 15
+      id: 18
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1600,50 +704,50 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr
+        example: luhhgvshqhnxxcmjzx
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: dolor
+        example: quasi
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: et
+        example: blanditiis
         type: string
         custom: []
       prix:
         name: prix
         description: 'Must be at least 0.'
         required: true
-        example: 2
+        example: 47
         type: number
         custom: []
       stock:
         name: stock
         description: 'Must be at least 0.'
         required: true
-        example: 59
+        example: 56
         type: integer
         custom: []
     cleanBodyParameters:
-      name: uywhgxsoivewfnyqncfzkneemacuunzqhseacnjpfdjfezhkr
-      category: dolor
-      description: et
-      prix: 2
-      stock: 59
+      name: luhhgvshqhnxxcmjzx
+      category: quasi
+      description: blanditiis
+      prix: 47
+      stock: 56
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer ZP5Df8aEec6av16kg3Vbd4h'
     controller: null
     method: null
     route: null
@@ -1670,11 +774,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 20
+        example: 10
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 20
+      id: 10
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1685,7 +789,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer d15h3ke6g8V6PvEbafc4aDZ'
     controller: null
     method: null
     route: null
@@ -1716,13 +820,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '53'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -1730,7 +832,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer bV8dD34Paavkf615Z6eghcE'
     controller: null
     method: null
     route: null
@@ -1761,50 +863,50 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: cgyaxufccnezzalafticujxqviqwypognymuhv
+        example: pulsfjttksxrmtthxbdpvkztznylywfrwood
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: dicta
+        example: porro
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: eos
+        example: est
         type: string
         custom: []
       weight:
         name: weight
         description: ''
         required: true
-        example: repellat
+        example: aspernatur
         type: string
         custom: []
       isVegan:
         name: isVegan
         description: ''
         required: true
-        example: voluptatem
+        example: sit
         type: string
         custom: []
     cleanBodyParameters:
-      name: cgyaxufccnezzalafticujxqviqwypognymuhv
-      category: dicta
-      description: eos
-      weight: repellat
-      isVegan: voluptatem
+      name: pulsfjttksxrmtthxbdpvkztznylywfrwood
+      category: porro
+      description: est
+      weight: aspernatur
+      isVegan: sit
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer D6f4V8Ped1Ev6a3ab5kZchg'
     controller: null
     method: null
     route: null
@@ -1831,11 +933,11 @@ endpoints:
         name: id
         description: 'The ID of the meal.'
         required: true
-        example: 20
+        example: 13
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 20
+      id: 13
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1843,455 +945,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: |-
-          {
-              "message": "No query results for model [App\\Models\\Meal] 20",
-              "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
-              "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-              "line": 391,
-              "trace": [
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-                      "line": 367,
-                      "function": "prepareException",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-                      "line": 54,
-                      "function": "render",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-                      "line": 51,
-                      "function": "render",
-                      "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 143,
-                      "function": "handleException",
-                      "class": "Illuminate\\Routing\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-                      "line": 50,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 126,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 92,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 54,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
-                      "line": 44,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Auth\\Middleware\\Authenticate",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 797,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 776,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 740,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 729,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 190,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-                      "line": 86,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 165,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 134,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 299,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 287,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 92,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 45,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 209,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 122,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 69,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 47,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-                      "line": 51,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                      "line": 663,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 182,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Command\\Command.php",
-                      "line": 312,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 151,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 1022,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 314,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 168,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-                      "line": 102,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-                      "line": 155,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '52'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -2299,7 +957,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer dca68Ehk1fa5P64bD3ZegVv'
     controller: null
     method: null
     route: null
@@ -2327,11 +985,11 @@ endpoints:
         name: id
         description: 'The ID of the meal.'
         required: true
-        example: 3
+        example: 9
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 3
+      id: 9
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2339,50 +997,50 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: jawwtexpctnc
+        example: aiitczvuhklpwdmcdllzloowmhyqvhxfmmezqz
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: nesciunt
+        example: et
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: ut
+        example: aperiam
         type: string
         custom: []
       weight:
         name: weight
         description: ''
         required: true
-        example: deserunt
+        example: temporibus
         type: string
         custom: []
       isVegan:
         name: isVegan
         description: ''
         required: true
-        example: quis
+        example: quam
         type: string
         custom: []
     cleanBodyParameters:
-      name: jawwtexpctnc
-      category: nesciunt
-      description: ut
-      weight: deserunt
-      isVegan: quis
+      name: aiitczvuhklpwdmcdllzloowmhyqvhxfmmezqz
+      category: et
+      description: aperiam
+      weight: temporibus
+      isVegan: quam
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 6khgaP1Z53d4DEvcef6Vb8a'
     controller: null
     method: null
     route: null
@@ -2409,11 +1067,11 @@ endpoints:
         name: id
         description: 'The ID of the meal.'
         required: true
-        example: 6
+        example: 13
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 6
+      id: 13
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2424,7 +1082,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer Vk1ZfchaPa86E5b43Dgd6ve'
     controller: null
     method: null
     route: null
@@ -2455,13 +1113,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[{"id":2,"name":"test","category":"Core","description":"some text","created_at":"2023-01-21T19:23:39.000000Z","updated_at":"2023-01-21T19:23:39.000000Z"}]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '51'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -2469,7 +1125,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer beDhva46aPcZdE1g8536kVf'
     controller: null
     method: null
     route: null
@@ -2500,34 +1156,34 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: zvbd
+        example: adskgkngizzciwqirheroiouifxcvghphstrybsyoazjqyfwyynjmheirnvj
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: fugit
+        example: necessitatibus
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: velit
+        example: sed
         type: string
         custom: []
     cleanBodyParameters:
-      name: zvbd
-      category: fugit
-      description: velit
+      name: adskgkngizzciwqirheroiouifxcvghphstrybsyoazjqyfwyynjmheirnvj
+      category: necessitatibus
+      description: sed
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 5ehdgZ6Dfava8ckb4EP613V'
     controller: null
     method: null
     route: null
@@ -2554,11 +1210,11 @@ endpoints:
         name: id
         description: 'The ID of the activity.'
         required: true
-        example: 2
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2566,13 +1222,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '{"id":2,"name":"test","category":"Core","description":"some text","created_at":"2023-01-21T19:23:39.000000Z","updated_at":"2023-01-21T19:23:39.000000Z"}'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '50'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -2580,7 +1234,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer eP8d654fZaE63vba1VkgDch'
     controller: null
     method: null
     route: null
@@ -2608,11 +1262,11 @@ endpoints:
         name: id
         description: 'The ID of the activity.'
         required: true
-        example: 2
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -2620,34 +1274,34 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb
+        example: lmpnahumacwwvywhhhfhi
         type: string
         custom: []
       category:
         name: category
         description: ''
         required: true
-        example: et
+        example: magnam
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: reprehenderit
+        example: blanditiis
         type: string
         custom: []
     cleanBodyParameters:
-      name: yjfsbftkojkzczetpnkrlyccqhdyfxbwynbvftqdfwotlwyzdhnendjfngtubydgarwbgb
-      category: et
-      description: reprehenderit
+      name: lmpnahumacwwvywhhhfhi
+      category: magnam
+      description: blanditiis
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 5Z41kdfE3vbPeD8h6cg6aaV'
     controller: null
     method: null
     route: null
@@ -2674,11 +1328,11 @@ endpoints:
         name: id
         description: 'The ID of the activity.'
         required: true
-        example: 2
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 2
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2689,7 +1343,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 8ba3kD1ha6dfEZe5cV6vg4P'
     controller: null
     method: null
     route: null
@@ -2720,13 +1374,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 200
-        content: '[]'
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '49'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -2734,7 +1386,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer f86d5a1Zvgb46aPh3DeVcEk'
     controller: null
     method: null
     route: null
@@ -2765,26 +1417,26 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: vel
+        example: eveniet
         type: string
         custom: []
       message:
         name: message
         description: ''
         required: true
-        example: sit
+        example: a
         type: string
         custom: []
     cleanBodyParameters:
-      user_id: vel
-      message: sit
+      user_id: eveniet
+      message: a
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer ekabZc36vhdaVED48P561gf'
     controller: null
     method: null
     route: null
@@ -2811,11 +1463,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 9
+        example: 15
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 9
+      id: 15
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -2823,455 +1475,11 @@ endpoints:
     fileParameters: []
     responses:
       -
-        status: 404
-        content: |-
-          {
-              "message": "No query results for model [App\\Models\\Feedback] 9",
-              "exception": "Symfony\\Component\\HttpKernel\\Exception\\NotFoundHttpException",
-              "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-              "line": 391,
-              "trace": [
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Exceptions\\Handler.php",
-                      "line": 367,
-                      "function": "prepareException",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\nunomaduro\\collision\\src\\Adapters\\Laravel\\ExceptionHandler.php",
-                      "line": 54,
-                      "function": "render",
-                      "class": "Illuminate\\Foundation\\Exceptions\\Handler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Pipeline.php",
-                      "line": 51,
-                      "function": "render",
-                      "class": "NunoMaduro\\Collision\\Adapters\\Laravel\\ExceptionHandler",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 143,
-                      "function": "handleException",
-                      "class": "Illuminate\\Routing\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\SubstituteBindings.php",
-                      "line": 50,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\SubstituteBindings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 126,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 92,
-                      "function": "handleRequest",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Middleware\\ThrottleRequests.php",
-                      "line": 54,
-                      "function": "handleRequestUsingNamedLimiter",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Routing\\Middleware\\ThrottleRequests",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Auth\\Middleware\\Authenticate.php",
-                      "line": 44,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Auth\\Middleware\\Authenticate",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 797,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 776,
-                      "function": "runRouteWithinStack",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 740,
-                      "function": "runRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Routing\\Router.php",
-                      "line": 729,
-                      "function": "dispatchToRoute",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 190,
-                      "function": "dispatch",
-                      "class": "Illuminate\\Routing\\Router",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 141,
-                      "function": "Illuminate\\Foundation\\Http\\{closure}",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull.php",
-                      "line": 31,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ConvertEmptyStringsToNull",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest.php",
-                      "line": 21,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\TrimStrings.php",
-                      "line": 40,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TransformsRequest",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\TrimStrings",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize.php",
-                      "line": 27,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\ValidatePostSize",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance.php",
-                      "line": 86,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Middleware\\PreventRequestsDuringMaintenance",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\HandleCors.php",
-                      "line": 62,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\HandleCors",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Http\\Middleware\\TrustProxies.php",
-                      "line": 39,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 180,
-                      "function": "handle",
-                      "class": "Illuminate\\Http\\Middleware\\TrustProxies",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Pipeline\\Pipeline.php",
-                      "line": 116,
-                      "function": "Illuminate\\Pipeline\\{closure}",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 165,
-                      "function": "then",
-                      "class": "Illuminate\\Pipeline\\Pipeline",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Http\\Kernel.php",
-                      "line": 134,
-                      "function": "sendRequestThroughRouter",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 299,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Http\\Kernel",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 287,
-                      "function": "callLaravelOrLumenRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 92,
-                      "function": "makeApiCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 45,
-                      "function": "makeResponseCall",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Strategies\\Responses\\ResponseCalls.php",
-                      "line": 35,
-                      "function": "makeResponseCallIfConditionsPass",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 209,
-                      "function": "__invoke",
-                      "class": "Knuckles\\Scribe\\Extracting\\Strategies\\Responses\\ResponseCalls",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 163,
-                      "function": "iterateThroughStrategies",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Extracting\\Extractor.php",
-                      "line": 95,
-                      "function": "fetchResponses",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 122,
-                      "function": "processRoute",
-                      "class": "Knuckles\\Scribe\\Extracting\\Extractor",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 69,
-                      "function": "extractEndpointsInfoFromLaravelApp",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\GroupedEndpoints\\GroupedEndpointsFromApp.php",
-                      "line": 47,
-                      "function": "extractEndpointsInfoAndWriteToDisk",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\knuckleswtf\\scribe\\src\\Commands\\GenerateDocumentation.php",
-                      "line": 51,
-                      "function": "get",
-                      "class": "Knuckles\\Scribe\\GroupedEndpoints\\GroupedEndpointsFromApp",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 36,
-                      "function": "handle",
-                      "class": "Knuckles\\Scribe\\Commands\\GenerateDocumentation",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Util.php",
-                      "line": 41,
-                      "function": "Illuminate\\Container\\{closure}",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 93,
-                      "function": "unwrapIfClosure",
-                      "class": "Illuminate\\Container\\Util",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\BoundMethod.php",
-                      "line": 35,
-                      "function": "callBoundMethod",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Container\\Container.php",
-                      "line": 663,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\BoundMethod",
-                      "type": "::"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 182,
-                      "function": "call",
-                      "class": "Illuminate\\Container\\Container",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Command\\Command.php",
-                      "line": 312,
-                      "function": "execute",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Command.php",
-                      "line": 151,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Command\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 1022,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Command",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 314,
-                      "function": "doRunCommand",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\symfony\\console\\Application.php",
-                      "line": 168,
-                      "function": "doRun",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Console\\Application.php",
-                      "line": 102,
-                      "function": "run",
-                      "class": "Symfony\\Component\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\vendor\\laravel\\framework\\src\\Illuminate\\Foundation\\Console\\Kernel.php",
-                      "line": 155,
-                      "function": "run",
-                      "class": "Illuminate\\Console\\Application",
-                      "type": "->"
-                  },
-                  {
-                      "file": "C:\\xampp\\htdocs\\fitness-app\\backend\\artisan",
-                      "line": 35,
-                      "function": "handle",
-                      "class": "Illuminate\\Foundation\\Console\\Kernel",
-                      "type": "->"
-                  }
-              ]
-          }
+        status: 401
+        content: '{"message":"Unauthenticated."}'
         headers:
           cache-control: 'no-cache, private'
           content-type: application/json
-          x-ratelimit-limit: '60'
-          x-ratelimit-remaining: '48'
           access-control-allow-origin: '*'
         description: null
         custom: []
@@ -3279,7 +1487,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 3aP5E6da8vDV16fcZ4gbekh'
     controller: null
     method: null
     route: null
@@ -3307,11 +1515,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 13
+        example: 3
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 13
+      id: 3
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -3319,26 +1527,26 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: corrupti
+        example: voluptatem
         type: string
         custom: []
       message:
         name: message
         description: ''
         required: true
-        example: blanditiis
+        example: qui
         type: string
         custom: []
     cleanBodyParameters:
-      user_id: corrupti
-      message: blanditiis
+      user_id: voluptatem
+      message: qui
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer 64gf1VZeacd36kvahb85PED'
     controller: null
     method: null
     route: null
@@ -3365,11 +1573,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 12
+        example: 8
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 12
+      id: 8
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -3380,7 +1588,201 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1|3pkkXlSGZA8Kh7qbuVruzoFbPKbeiJvKepE8Ey3U'
+      - 'Bearer D1Vvk3cZfEPa6e65gbd8a4h'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/logout
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: logout.
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer PcE6bd16a3gha84kf5eZvDV'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/deleteAccount
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'delete account.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 1a53vEc6VghPak8f4bD6Zed'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/signUp
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'sign-up a new user.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: 'Must not be greater than 255 characters.'
+        required: true
+        example: sz
+        type: string
+        custom: []
+      email:
+        name: email
+        description: 'Must be a valid email address. Must not be greater than 255 characters.'
+        required: true
+        example: effie.witting@example.net
+        type: string
+        custom: []
+      password:
+        name: password
+        description: 'Must be at least 8 characters.'
+        required: true
+        example: 'wYRDp^6^;URA}'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: sz
+      email: effie.witting@example.net
+      password: 'wYRDp^6^;URA}'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Pea3g6hfZk4Ec6b1aDvV8d5'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/signIn
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'login with password and username(email).'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      email:
+        name: email
+        description: ''
+        required: true
+        example: london55@example.org
+        type: string
+        custom: []
+      password:
+        name: password
+        description: ''
+        required: true
+        example: ')hv?uy{\6'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      email: london55@example.org
+      password: ')hv?uy{\6'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zad48ga36Pb1ce5EkD6hVfv'
     controller: null
     method: null
     route: null

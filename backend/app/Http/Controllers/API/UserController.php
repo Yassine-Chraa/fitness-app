@@ -41,18 +41,14 @@ class UserController extends Controller
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'birth_date' => $request->get('birth_date'),
+            'BMI' => $request->get('BMI'),
+            'body_fat' => $request->get('body_fat'),
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
-            'country' => $request->get('country'),
             'top_goal' => $request->get('top_goal'),
-            'role' => $request->get('role'),
-            'score' => $request->get('score'),
             'weight' => $request->get('weight'),
-            'city' => $request->get('city'),
-            'img_url' => $request->get('img_url'),
-            'work_out_level' => $request->get('work_out_level'),
+            'workout_level' => $request->get('workout_level'),
             'bio' => $request->get('bio'),
-            'age' => 0,
         ]);
 
 
@@ -124,11 +120,11 @@ class UserController extends Controller
             if ($request->get('role')) {
                 $user->role = $request->get('role');
             }
-            if ($request->get('country')) {
-                $user->country = $request->get('country');
+            if ($request->get('BMI')) {
+                $user->role = $request->get('BMI');
             }
-            if ($request->get('city')) {
-                $user->city = $request->get('city');
+            if ($request->get('body_fat')) {
+                $user->role = $request->get('body_fat');
             }
             if ($request->get('weight')) {
                 $user->weight = $request->get('weight');
@@ -143,20 +139,14 @@ class UserController extends Controller
             if ($request->get('gender')) {
                 $user->gender = $request->get('gender');
             }
-            if ($request->get('age')) {
-                $user->age = $request->get('age');
-            }
-            if ($request->get('img_url')) {
-                $user->img_url = $request->get('img_url');
-            }
-            if ($request->get('score')) {
-                $user->score = $request->get('score');
-            }
-            if ($request->get('work_out_level')) {
-                $user->work_out_level = $request->get('work_out_level');
+            if ($request->get('workout_level')) {
+                $user->workout_level = $request->get('workout_level');
             }
             if ($request->get('top_goal')) {
                 $user->top_goal = $request->get('top_goal');
+            }
+            if ($request->get('bio')) {
+                $user->top_goal = $request->get('bio');
             }
 
             $user->save();

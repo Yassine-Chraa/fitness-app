@@ -18,26 +18,19 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'profile',
         'name',
         'email',
+        'role',
         'password',
-        'country',
-        'city',
         'weight',
         'height',
-        'bmi',
-        'orm',
-        'nutreint',
-        'carb',
-        'fat',
-        'fiber',
+        'BMI',
+        'body_fat',
         'gender',
         'birth_date',
-        'img_url',
-        'score',
-        'work_out_level',
+        'workout_level',
         'top_goal',
+        'bio'
     ];
 
     /**
