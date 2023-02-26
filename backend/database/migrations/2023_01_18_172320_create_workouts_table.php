@@ -13,9 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('activities_table', function (Blueprint $table) {
+        Schema::create('workouts_table', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->foreign("program_id")->nullable();
+            $table->string('title');
+            $table->string('description');
             $table->enum(
                 'category',
                 [
@@ -31,7 +33,7 @@ return new class extends Migration
                     'Calves'
                 ]
             )->default('Cardio');
-            $table->string('description');
+            $table->enum('difficulty_level',['low','moderate','high','extreme']);
             $table->integer('duration');
             $table->timestamps();
         });
@@ -44,6 +46,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('activities_table');
+        Schema::dropIfExists('workouts_table');
     }
 };

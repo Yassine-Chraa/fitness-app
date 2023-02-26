@@ -16,8 +16,18 @@ return new class extends Migration
         Schema::create('exercises_table', function (Blueprint $table) {
             $table->id();
             $table->foreignId('activity_id')->nullable();
-            $table->string('name');
-            $table->string('img_url');
+            $table->string('title');
+            $table->text('description');
+            $table->string('main_img');
+            $table->string('main_vid');
+            $table->string("proper_form_img");
+            $table->enum('body_part_target', ['','',''])->default("");
+            $table->integer('duration');
+            $table->integer('break_duration');
+            $table->string('warm_up');
+            $table->integer('iterations');
+            $table->integer('sets');
+            $table->enum('state', ['unstarted','started','progress','finished'])->default("unstarted");
             $table->timestamps();
         });
     }
