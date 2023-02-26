@@ -8,8 +8,11 @@ const endpoints = {
     Products: "api/products",
     Users: "api/users",
     Meals: "api/meals",
-    Equipments: "api/equipments",
     Activities: "api/activities",
+    Programs: "api/programs",
+    WorkOuts: "api/workouts",
+    Exercises: "api/Exercises",
+    Equipments: "api/equipments",
 };
 
 
