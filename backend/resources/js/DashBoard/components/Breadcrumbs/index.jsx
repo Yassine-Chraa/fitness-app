@@ -12,7 +12,8 @@ const Breadcrumbs = ({ icon, title, route, light }) => {
             <MuiBreadcrumbs
                 sx={{
                     "& .MuiBreadcrumbs-separator": {
-                        color: ({ palette: { white, grey } }) => (light ? white.main : grey[600]),
+                        color: ({ palette: { white, grey } }) =>
+                            light ? white.main : grey[600],
                     },
                 }}
             >
@@ -28,7 +29,10 @@ const Breadcrumbs = ({ icon, title, route, light }) => {
                     </MDTypography>
                 </Link>
                 {routes.map((el) => (
-                    <Link to={`/${el}`} key={el}>
+                    <Link
+                        to={`${el != "dashboard" ? "/dashboard" : ""}/${el}`}
+                        key={el}
+                    >
                         <MDTypography
                             component="span"
                             variant="button"
@@ -54,7 +58,7 @@ const Breadcrumbs = ({ icon, title, route, light }) => {
             </MuiBreadcrumbs>
         </MDBox>
     );
-}
+};
 
 Breadcrumbs.defaultProps = {
     light: false,
@@ -64,7 +68,7 @@ Breadcrumbs.propTypes = {
     icon: PropTypes.node.isRequired,
     title: PropTypes.string.isRequired,
     route: PropTypes.oneOfType([PropTypes.string, PropTypes.array]).isRequired,
-    light: PropTypes.bool
+    light: PropTypes.bool,
 };
 
 export default Breadcrumbs;

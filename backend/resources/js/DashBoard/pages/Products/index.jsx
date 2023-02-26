@@ -2,23 +2,23 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import DataTable from "../../components/DataTable";
 import MDTypography from "../../components/MDTypography";
-import { useUser } from "../../context/APIContext/providers/UserContextProvider";
+import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
 import MDBox from "../../components/MDBox";
 import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 import {
-    useMaterialUIController,
     setOpenFormHandler,
+    useMaterialUIController,
 } from "../../context/UIContext";
-import { Link } from "react-router-dom";
-import UserForm from "./UserForm.jsx";
 import Profile from "../../components/DataTable/TableProfile";
+import ProductForm from "./ProductForm";
+import { Link } from "react-router-dom";
 
-export const ActionMenu = ({ id, setType, setSelectedID }) => {
-    const { deleteUser } = useUser();
+const ActionMenu = ({ id, setType, setSelectedID }) => {
+    const { deleteProduct } = useProduct();
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => {
         setOpenMenu(event.currentTarget);
@@ -54,7 +54,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                 >
                     <Link
                         onClick={(e) => (!id ? e.preventDefault() : null)}
-                        to={`/dashboard/users/${id}`}
+                        to={`/dashboard/products/${id}`}
                     >
                         <IconButton
                             size="small"
@@ -102,7 +102,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                         variant="outlined"
                         onClick={() => {
                             setOpenMenu(false);
-                            deleteUser(id);
+                            deleteProduct(id);
                         }}
                         sx={{
                             padding: "7px",
@@ -147,70 +147,55 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
     );
 };
 
-// -----------------------------------------------------------
-const Users = () => {
-    const { users, getUsers } = useUser();
+const Products = () => {
+    const { products, getProducts } = useProduct();
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState(0);
     const [type, setType] = useState("Add");
     const [controller, dispatch] = useMaterialUIController();
-
-    const dataLabels = [
-        {
-            Header: "Id",
-            accessor: "id",
-            width: "8%",
-        },
-        {
-            Header: "Profile",
-            accessor: "profile",
-            width: "12%",
-        },
-        {
-            Header: "Role",
-            accessor: "role",
-            width: "10%",
-        },
-        {
-            Header: "Gender",
-            isSorted: true,
-            accessor: "gender",
-            width: "12%",
-            align: "center",
-        },
-        {
-            Header: "Level",
-            isSorted: true,
-            accessor: "workout_level",
-            width: "10%",
-            align: "center",
-        },
-        {
-            Header: "Top Goal",
-            isSorted: true,
-            accessor: "top_goal",
-            width: "10%",
-            align: "center",
-        },
-        {
-            Header: "Actions",
-            isSorted: true,
-            accessor: "actions",
-            width: "6%",
-            align: "center",
-        },
-    ];
 
     const openFormInvoker = () => {
         setType("Add");
         setOpenFormHandler(dispatch, true);
     };
 
-
+    const dataLabels = [
+        {
+            Header: "Id",
+            accessor: "id",
+            width: "5%",
+            align: "center",
+        },
+        {
+            Header: "Profile",
+            accessor: "profile",
+        },
+        {
+            Header: "Category",
+            accessor: "category",
+            align: "center",
+        },
+        {
+            Header: "Stock",
+            accessor: "stock",
+            align: "center",
+        },
+        {
+            Header: "Price (DH)",
+            accessor: "price",
+            align: "center",
+        },
+        {
+            Header: "Actions",
+            isSorted: false,
+            accessor: "actions",
+            width: "12%",
+            align: "center",
+        },
+    ];
     const configData = () => {
-        const res = users?.map((user) => {
-            const { id, name, email, role, gender, workout_level, top_goal } =
-                user;
+        const res = products?.map((ele) => {
+            const { id, name, category, stock, price, company } = ele;
             return {
                 id: (
                     <MDTypography
@@ -225,49 +210,39 @@ const Users = () => {
                 profile: (
                     <Profile
                         name={name}
-                        subtitle={email}
+                        subtitle={company}
                         image={"https://bit.ly/34BY10g"}
                     />
                 ),
 
-                role: (
+                category: (
                     <MDTypography
                         component="p"
                         variant="caption"
                         color="text"
                         fontWeight="medium"
                     >
-                        {role}
+                        {category}
                     </MDTypography>
                 ),
-                gender: (
+                price: (
                     <MDTypography
                         component="p"
                         variant="caption"
                         color="text"
                         fontWeight="medium"
                     >
-                        {gender}
+                        {price}
                     </MDTypography>
                 ),
-                workout_level: (
+                stock: (
                     <MDTypography
                         component="p"
                         variant="caption"
                         color="text"
                         fontWeight="medium"
                     >
-                        {workout_level}
-                    </MDTypography>
-                ),
-                top_goal: (
-                    <MDTypography
-                        component="p"
-                        variant="caption"
-                        color="text"
-                        fontWeight="medium"
-                    >
-                        {top_goal}
+                        {stock}
                     </MDTypography>
                 ),
                 actions: (
@@ -282,15 +257,15 @@ const Users = () => {
         setData(res);
     };
     useEffect(() => {
-        getUsers();
+        getProducts();
     }, []);
     useEffect(() => {
         configData();
-    }, [users]);
+    }, [products]);
 
     return (
         <DashboardLayout>
-            <UserForm type={type} selectedID={selectedID} />
+            <ProductForm type={type} selectedID={selectedID} />
             <MDBox>
                 <Grid container spacing={6} justifyContent={"center"}>
                     <Grid item lg={12}>
@@ -308,7 +283,7 @@ const Users = () => {
                                 coloredShadow="info"
                             >
                                 <MDTypography variant="h6" color="white">
-                                    Users Table
+                                    Products Table
                                 </MDTypography>
                                 <MDBox ml={"auto"}>
                                     <Tooltip title="Filter list">
@@ -321,7 +296,10 @@ const Users = () => {
                             <MDBox pt={3}>
                                 <DataTable
                                     canSearch={true}
-                                    table={{ columns: dataLabels, rows: data }}
+                                    table={{
+                                        columns: dataLabels,
+                                        rows: data,
+                                    }}
                                 />
                                 <MDBox
                                     sx={{
@@ -332,11 +310,11 @@ const Users = () => {
                                         marginBottom: "1rem",
                                     }}
                                 >
-                                    <Tooltip title="Add new User">
+                                    <Tooltip title="Add new Product">
                                         <IconButton
                                             onClick={() => {
-                                                setSelectedID(0);
                                                 openFormInvoker();
+                                                setSelectedID(0);
                                             }}
                                             color="black"
                                             sx={{ backgroundColor: "#ddd" }}
@@ -354,4 +332,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Products;

@@ -10,8 +10,8 @@ const endpoints = {
     Meals: "api/meals",
     Equipments: "api/equipments",
     Activities: "api/activities",
+    Feedbacks: "api/feedbacks",
 };
-
 
 export const getUrl = (endpoint) => {
     return `${API_URL}/${endpoints[endpoint]}`;

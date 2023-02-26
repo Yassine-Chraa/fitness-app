@@ -1,5 +1,5 @@
-import { Fade, Modal } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { Fade } from '@mui/material';
+import React, { useEffect } from 'react';
 import { useMaterialUIController, setMessageObject } from '../../context/UIContext';
 import { Box } from '@mui/system';
 import MDAlertRoot from '../MDAlert/MDAlertRoot';

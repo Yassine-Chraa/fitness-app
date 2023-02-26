@@ -35,14 +35,8 @@ const reducer = (state, action) => {
         case "DARKMODE": {
             return { ...state, darkMode: action.value };
         }
-        case "OPEN_DELETE_MODAL": {
-            return { ...state, openDeleteModalHandler: action.value };
-        }
-        case "OPEN_EDIT_MODAL": {
-            return { ...state, openEditModalHandler: action.value };
-        }
-        case "OPEN_ADD_MODAL": {
-            return { ...state, openAddModalHandler: action.value };
+        case "OPEN_FORM": {
+            return { ...state, openFormHandler: action.value };
         }
         case "OPEN_USER_VIEW": {
             return { ...state, openUserViewHandler: action.value };
@@ -55,8 +49,8 @@ const reducer = (state, action) => {
         }
         default: {
             throw new Error(`Unhandled action type: ${action.type}`);
-        };
-    };
+        }
+    }
 };
 
 const MaterialUIControllerProvider = ({ children }) => {
@@ -71,11 +65,13 @@ const MaterialUIControllerProvider = ({ children }) => {
         direction: "ltr",
         layout: "dashboard",
         darkMode: false,
-        openDeleteModalHandler: false,
-        openEditModalHandler: false,
-        openAddModalHandler: false,
+        openFormHandler: false,
         openUserViewHandler: false,
-        messageObject: { type: 'error', message: 'there is an error !', state: false },
+        messageObject: {
+            type: "error",
+            message: "there is an error !",
+            state: false,
+        },
         loadingAnimation: false,
     };
 
@@ -84,7 +80,7 @@ const MaterialUIControllerProvider = ({ children }) => {
     const value = useMemo(() => [controller, dispatch], [controller, dispatch]);
 
     return <MaterialUI.Provider value={value}>{children}</MaterialUI.Provider>;
-}
+};
 
 const useMaterialUIController = () => {
     const context = useContext(MaterialUI);
@@ -96,7 +92,7 @@ const useMaterialUIController = () => {
     }
 
     return context;
-}
+};
 
 // Typechecking props for the MaterialUIControllerProvider
 
@@ -106,23 +102,32 @@ MaterialUIControllerProvider.propTypes = {
 
 // Context module functions
 
-const setMiniSidenav = (dispatch, value) => dispatch({ type: "MINI_SIDENAV", value });
-const setTransparentSidenav = (dispatch, value) => dispatch({ type: "TRANSPARENT_SIDENAV", value });
-const setWhiteSidenav = (dispatch, value) => dispatch({ type: "WHITE_SIDENAV", value });
-const setSidenavColor = (dispatch, value) => dispatch({ type: "SIDENAV_COLOR", value });
-const setTransparentNavbar = (dispatch, value) => dispatch({ type: "TRANSPARENT_NAVBAR", value });
-const setFixedNavbar = (dispatch, value) => dispatch({ type: "FIXED_NAVBAR", value });
-const setOpenConfigurator = (dispatch, value) => dispatch({ type: "OPEN_CONFIGURATOR", value });
-const setDirection = (dispatch, value) => dispatch({ type: "DIRECTION", value });
+const setMiniSidenav = (dispatch, value) =>
+    dispatch({ type: "MINI_SIDENAV", value });
+const setTransparentSidenav = (dispatch, value) =>
+    dispatch({ type: "TRANSPARENT_SIDENAV", value });
+const setWhiteSidenav = (dispatch, value) =>
+    dispatch({ type: "WHITE_SIDENAV", value });
+const setSidenavColor = (dispatch, value) =>
+    dispatch({ type: "SIDENAV_COLOR", value });
+const setTransparentNavbar = (dispatch, value) =>
+    dispatch({ type: "TRANSPARENT_NAVBAR", value });
+const setFixedNavbar = (dispatch, value) =>
+    dispatch({ type: "FIXED_NAVBAR", value });
+const setOpenConfigurator = (dispatch, value) =>
+    dispatch({ type: "OPEN_CONFIGURATOR", value });
+const setDirection = (dispatch, value) =>
+    dispatch({ type: "DIRECTION", value });
 const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
-const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DELETE_MODAL", value });
-const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });
-const setOpenAddModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ADD_MODAL", value });
-const setOpenUserViewHandler = (dispatch, value) => dispatch({ type: "OPEN_USER_VIEW", value });
-const setMessageObject = (dispatch, value) => dispatch({ type: "OPEN_ALERT_MESSAGE", value });
-const setLoadingAnimation = (dispatch, value) => dispatch({ type: "SET_LOADING_ANIMATION", value });
-
+const setOpenFormHandler = (dispatch, value) =>
+    dispatch({ type: "OPEN_FORM", value });
+const setOpenUserViewHandler = (dispatch, value) =>
+    dispatch({ type: "OPEN_USER_VIEW", value });
+const setMessageObject = (dispatch, value) =>
+    dispatch({ type: "OPEN_ALERT_MESSAGE", value });
+const setLoadingAnimation = (dispatch, value) =>
+    dispatch({ type: "SET_LOADING_ANIMATION", value });
 
 export {
     MaterialUIControllerProvider,
@@ -137,9 +142,7 @@ export {
     setDirection,
     setLayout,
     setDarkMode,
-    setOpenDeleteModalHandler,
-    setOpenEditModalHandler,
-    setOpenAddModalHandler,
+    setOpenFormHandler,
     setOpenUserViewHandler,
     setMessageObject,
     setLoadingAnimation,

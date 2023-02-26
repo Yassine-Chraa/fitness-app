@@ -14,15 +14,16 @@ function Profile(): JSX.Element {
   const [currentUser, setCurrentUser] = useState(Object());
   useEffect(() => {
     getData('current_user').then(data => {
+      console.log(data)
       setCurrentUser(data);
     });
   }, [AsyncStorage]);
-  console.log(currentUser.user);
-  const {name, level, work_out_level, top_goal} = currentUser.user;
+  console.log(currentUser);
+  const {name, level, workout_level, top_goal} = currentUser.user;
   return (
     <Screen name="Profile" allowScroll>
       <View style={styles.container}>
-        <UserDesc userInfo={{name, level, work_out_level, top_goal}} />
+        <UserDesc userInfo={{name, workout_level, top_goal}} />
         <TopButton />
         <InfoGroup titles={titles} values={values} />
         <Options />

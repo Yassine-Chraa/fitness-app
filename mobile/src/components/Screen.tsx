@@ -14,15 +14,8 @@ const Header = ({name, action, actionFunction, backButton, noAction}: any) => {
   const navigation = useNavigation();
 
   let icon;
-  switch (action) {
-    case 'search':
-      icon = 'search';
-      break;
-    case 'edit':
-      icon = 'edit';
-      break;
-    default:
-      icon = 'bell';
+  if (action != 'save') {
+    icon = action;
   }
   return (
     <View
@@ -49,14 +42,14 @@ const Header = ({name, action, actionFunction, backButton, noAction}: any) => {
       {!noAction ? (
         <TouchableOpacity activeOpacity={0.4} onPress={actionFunction}>
           {action == 'save' ? (
-              <Text
-                style={{
-                  fontWeight: 'bold',
-                  color: theme.colors.primary,
-                  fontSize: 18,
-                }}>
-                Save
-              </Text>
+            <Text
+              style={{
+                fontWeight: 'bold',
+                color: theme.colors.primary,
+                fontSize: 18,
+              }}>
+              Save
+            </Text>
           ) : (
             <Icon name={icon} size={22} solid color="#000" />
           )}

@@ -2,8 +2,6 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import { Icon } from "@mui/material";
 import Products from "./pages/Products";
-import Meals from "./pages/Meals";
-import Equipements from "./pages/Equipements";
 import Activities from "./pages/Activities";
 import Feedbacks from "./pages/Feedbacks";
 
@@ -31,22 +29,6 @@ const routes = [
         icon: <Icon>store</Icon>,
         route: "/dashboard/products",
         component: <Products />,
-    },
-    {
-        type: "collapse",
-        name: "Meals",
-        key: "meals",
-        icon: <Icon>restaurant</Icon>,
-        route: "/dashboard/meals",
-        component: <Meals />,
-    },
-    {
-        type: "collapse",
-        name: "Equipements",
-        key: "equipements",
-        icon: <Icon>fitness_center</Icon>,
-        route: "/dashboard/equipements",
-        component: <Equipements />,
     },
     {
         type: "collapse",

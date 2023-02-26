@@ -42,7 +42,7 @@ class UserController extends Controller
             'password' => Hash::make($request->get('password')),
             'birth_date' => $request->get('birth_date'),
             'BMI' => $request->get('BMI'),
-            'body_fat' => $request->get('body_fat'),
+            'body_fat' => $request->get('body_fat') || 20.0,
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
             'top_goal' => $request->get('top_goal'),
@@ -51,12 +51,7 @@ class UserController extends Controller
             'bio' => $request->get('bio'),
         ]);
 
-
-        $newUser->age  = Carbon::parse($request->get('birth_date'))->age;
-
         $newUser->save();
-
-        // $token = $newUser->createToken("api_token")->plainTextToken;
 
         return response()->json(['message' => 'User Was Added successfully !']);
     }
@@ -121,17 +116,16 @@ class UserController extends Controller
                 $user->role = $request->get('role');
             }
             if ($request->get('BMI')) {
-                $user->role = $request->get('BMI');
+                $user->BMI = $request->get('BMI');
             }
             if ($request->get('body_fat')) {
-                $user->role = $request->get('body_fat');
+                $user->body_fat = $request->get('body_fat');
             }
             if ($request->get('weight')) {
                 $user->weight = $request->get('weight');
             }
             if ($request->get('height')) {
                 $user->height = $request->get('height');
-                $user->age  = Carbon::parse($request->get('birth_date'))->age;
             }
             if ($request->get('birth_date')) {
                 $user->birth_date = $request->get('birth_date');

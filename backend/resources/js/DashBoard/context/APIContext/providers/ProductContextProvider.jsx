@@ -13,13 +13,14 @@ const ProductUrl = getUrl("Products");
 
 export const ProductContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
+    const [products, setProducts] = useState([]);
     const getProducts = async () => {
         try {
             setLoading(true);
 
             const { data } = await axios.get(`${ProductUrl}`);
+            setProducts(data);
             setLoading(false);
-            return data;
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -28,7 +29,7 @@ export const ProductContextProvider = ({ children }) => {
     const getProduct = async (id) => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`${ProductUrl}`, id);
+            const { data } = await axios.get(`${ProductUrl}/${id}`);
             setLoading(false);
             return data;
         } catch (error) {
@@ -40,6 +41,7 @@ export const ProductContextProvider = ({ children }) => {
         try {
             setLoading(true);
             const { data } = await axios.post(`${ProductUrl}`, Product);
+            getProducts()
             setLoading(false);
             return data;
         } catch (error) {
@@ -50,7 +52,8 @@ export const ProductContextProvider = ({ children }) => {
     const updateProduct = async (id, Product) => {
         try {
             setLoading(true);
-            const { data } = await axios.put(`${ProductUrl}`, id, Product);
+            const { data } = await axios.put(`${ProductUrl}/${id}`, Product);
+            getProducts()
             setLoading(false);
             return data;
         } catch (error) {
@@ -61,7 +64,8 @@ export const ProductContextProvider = ({ children }) => {
     const deleteProduct = async (id) => {
         try {
             setLoading(true);
-            const { data } = await axios.get(`${ProductUrl}`, id);
+            const { data } = await axios.delete(`${ProductUrl}/${id}`);
+            getProducts()
             setLoading(false);
             return data;
         } catch (error) {
@@ -73,6 +77,7 @@ export const ProductContextProvider = ({ children }) => {
     return (
         <productContext.Provider
             value={{
+                products,
                 getProducts,
                 getProduct,
                 addProduct,
