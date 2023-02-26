@@ -3,7 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Feedback;
+use App\Models\Feedbacks;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class FeedbackController extends Controller
@@ -15,7 +16,11 @@ class FeedbackController extends Controller
      */
     public function index()
     {
-        $feedbacks = Feedback::all();
+        $feedbacks = Feedbacks::all();
+
+        foreach ($feedbacks as $i => $feedback) {
+            $feedbacks[$i] = ['id' => $feedback->id, 'message' => $feedback->message, 'user' => $feedback->user];
+        }
         return response()->json($feedbacks);
     }
 
@@ -32,12 +37,12 @@ class FeedbackController extends Controller
             'message' => 'required',
         ]);
 
-        $newFeedback = new Feedback([
+        $newFeedback = new Feedbacks([
             'user_id' => $request->get('user_id'),
             'message' => $request->get('message'),
         ]);
         $newFeedback->save();
-        return response()->json(['message' => 'Feedback stored']);
+        return response()->json(['message' => 'Feedbacks stored']);
     }
 
     /**
@@ -48,8 +53,9 @@ class FeedbackController extends Controller
      */
     public function show($id)
     {
-        $feedbacks = Feedback::findOrFail($id);
-        return response()->json($feedbacks);
+        $feedback = Feedbacks::findOrFail($id);
+        $feedback = ['id' => $feedback->id, 'message' => $feedback->message, 'user' => $feedback->user];
+        return response()->json($feedback);
     }
 
     /**
@@ -61,7 +67,7 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $feedback = Feedback::findOrFail($id);
+        $feedback = Feedbacks::findOrFail($id);
         $request->validate([
             'user_id' => 'required',
             'message' => 'required',
@@ -70,7 +76,7 @@ class FeedbackController extends Controller
         $feedback->message = $request->get('message');
 
         $feedback->save();
-        return response()->json(['message' => 'Feedback updated']);
+        return response()->json(['message' => 'Feedbacks updated']);
     }
 
     /**
@@ -81,9 +87,9 @@ class FeedbackController extends Controller
      */
     public function destroy($id)
     {
-        $feedback = Feedback::findOrFail($id);
+        $feedback = Feedbacks::findOrFail($id);
         $feedback->delete();
 
-        return response()->json(['message' => 'Feedback deleted']);
+        return response()->json(['message' => 'Feedbacks deleted']);
     }
 }

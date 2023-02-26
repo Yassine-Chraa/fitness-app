@@ -19,8 +19,8 @@ const Option = ({
       activeOpacity={0.4}
       style={{...styles.row, ...styles.container}}
       onPress={() => {
-        if (!share && !logout) navigation.navigate(link);
-        if (share)
+        if (!Share && !Logout) navigation.navigate(link);
+        if (Share)
           Share.share({
             message: `Check out \"${appInfo.displayName}\"\n\n${appInfo.appLink}`,
           });

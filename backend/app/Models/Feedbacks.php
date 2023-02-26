@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Feedback extends Model
+class Feedbacks extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -15,4 +15,9 @@ class Feedback extends Model
         'user_id',
         'message',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

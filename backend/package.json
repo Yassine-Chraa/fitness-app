@@ -33,11 +33,13 @@
         "dotenv": "^16.0.3",
         "prop-types": "^15.8.1",
         "react-chartjs-2": "^5.2.0",
+        "react-confirm-alert": "^3.0.6",
         "react-fontawesome": "^1.7.1",
         "react-github-btn": "^1.4.0",
         "react-router-dom": "^6.6.2",
         "react-table": "^7.8.0",
         "regenerator-runtime": "^0.13.11",
-        "stylis-plugin-rtl": "^2.1.1"
+        "stylis-plugin-rtl": "^2.1.1",
+        "sweetalert2": "^11.7.2"
     }
 }

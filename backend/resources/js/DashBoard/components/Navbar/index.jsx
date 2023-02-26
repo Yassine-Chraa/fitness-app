@@ -139,7 +139,7 @@ const DashBoardNavBar = ({ absolute, light, isMini }) => {
                                 <SettingsRoundedIcon sx={iconsStyle} />
                             </IconButton>
 
-                            <Link to="/authentication/sign-in/basic">
+                            <Link to="">
                                 <IconButton size="small" sx={navbarIconButton} disableRipple>
                                     <Avatar sx={{ width: 24, height: 24, iconsStyle }}
                                         src="https://bit.ly/34BY10g" />

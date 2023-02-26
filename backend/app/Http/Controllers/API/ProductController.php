@@ -31,17 +31,20 @@ class ProductController extends Controller
             'name' => 'required|min:4',
             'category' => 'required',
             'description' => 'required',
-            'prix' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'company'=> 'required'
         ]);
 
         $newProduct = new Product([
             'name' => $request->get('name'),
             'category' => $request->get('category'),
             'description' => $request->get('description'),
-            'image' => $request->get('image'),
             'stock' => $request->get('stock'),
-            'prix' => $request->get('prix'),
+            'price' => $request->get('price'),
+            'company' => $request->get('company'),
+            'color' => $request->get('color'),
+            'size' => $request->get('size'),
         ]);
         $newProduct->save();
         return response()->json(['message' => 'Product stored']);
@@ -73,15 +76,18 @@ class ProductController extends Controller
             'name' => 'required|min:4',
             'category' => 'required',
             'description' => 'required',
-            'prix' => 'required|numeric|min:0',
+            'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
+            'company'=> 'required'
         ]);
         $product->name = $request->get('name');
         $product->category = $request->get('category');
         $product->description = $request->get('description');
-        $product->image = $request->get('image');
-        $product->prix = $request->get('prix');
+        $product->price = $request->get('price');
         $product->stock = $request->get('stock');
+        $product->company = $request->get('company');
+        $product->color = $request->get('color');
+        $product->size = $request->get('size');
 
         $product->save();
         return response()->json(['message' => 'Product updated']);

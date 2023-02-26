@@ -1,4 +1,5 @@
-import { useState, useEffect, useMemo } from "react";
+import "./app.css";
+import { useEffect } from "react";
 import { Routes, Route, Navigate, useLocation } from "react-router-dom";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -14,6 +15,7 @@ import {
 } from "./context/UIContext";
 import { LoadingProcess, Message } from "./components/Message";
 import Profile from "./pages/Users/Profile";
+import ProductDetails from "./pages/Products/ProductDetails";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -83,6 +85,7 @@ export default function App() {
                     element={<Profile />}
                     key="profile"
                 />
+                <Route path="/dashboard/products/:id" element={<ProductDetails/>} key="productsDetails"/>
                 <Route path="*" element={<Navigate to="/dashboard" />} />
                 {getRoutes(routes)}
             </Routes>

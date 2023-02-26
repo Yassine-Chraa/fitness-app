@@ -2,23 +2,19 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import DataTable from "../../components/DataTable";
 import MDTypography from "../../components/MDTypography";
-import { useUser } from "../../context/APIContext/providers/UserContextProvider";
+import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
 import MDBox from "../../components/MDBox";
 import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import {
-    useMaterialUIController,
-    setOpenFormHandler,
-} from "../../context/UIContext";
-import { Link } from "react-router-dom";
-import UserForm from "./UserForm.jsx";
+import { useFeedback } from "../../context/APIContext/providers/FeedbackContextControler";
 import Profile from "../../components/DataTable/TableProfile";
+import FeedbackContentModal from "./FeedbackContentModal";
+import { setOpenFormHandler, useMaterialUIController } from "../../context/UIContext";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
 
-export const ActionMenu = ({ id, setType, setSelectedID }) => {
-    const { deleteUser } = useUser();
+const ActionMenu = ({ id, setSelectedID }) => {
+    const { deleteFeedback } = useFeedback();
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => {
         setOpenMenu(event.currentTarget);
@@ -26,9 +22,8 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const openEditHandler = () => {
+    const viewMessage = () => {
         setSelectedID(id);
-        setType("Edit");
         setOpenMenu(false);
         setOpenFormHandler(dispatch, true);
     };
@@ -52,36 +47,12 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                         flexDirection: "column",
                     }}
                 >
-                    <Link
-                        onClick={(e) => (!id ? e.preventDefault() : null)}
-                        to={`/dashboard/users/${id}`}
-                    >
-                        <IconButton
-                            size="small"
-                            disableRipple
-                            color="success"
-                            variant="outlined"
-                            sx={{
-                                padding: "7px",
-                                transition: "all 0.4s ease",
-                                ":hover": {
-                                    color: "#fff",
-                                    backgroundColor: "#333",
-                                },
-                            }}
-                        >
-                            <RemoveRedEyeIcon
-                                sx={{ fontWeight: "bolder", fontSize: "24" }}
-                            />
-                        </IconButton>
-                    </Link>
-
                     <IconButton
+                        onClick={viewMessage}
                         size="small"
                         disableRipple
-                        color="warning"
+                        color="success"
                         variant="outlined"
-                        onClick={openEditHandler}
                         sx={{
                             padding: "7px",
                             transition: "all 0.4s ease",
@@ -91,7 +62,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                             },
                         }}
                     >
-                        <EditIcon
+                        <RemoveRedEyeIcon
                             sx={{ fontWeight: "bolder", fontSize: "24" }}
                         />
                     </IconButton>
@@ -102,7 +73,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                         variant="outlined"
                         onClick={() => {
                             setOpenMenu(false);
-                            deleteUser(id);
+                            deleteFeedback(id);
                         }}
                         sx={{
                             padding: "7px",
@@ -147,70 +118,13 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
     );
 };
 
-// -----------------------------------------------------------
-const Users = () => {
-    const { users, getUsers } = useUser();
+const Feedbacks = () => {
+    const { feedbacks, getFeedbacks } = useFeedback();
     const [data, setData] = useState([]);
     const [selectedID, setSelectedID] = useState(0);
-    const [type, setType] = useState("Add");
-    const [controller, dispatch] = useMaterialUIController();
-
-    const dataLabels = [
-        {
-            Header: "Id",
-            accessor: "id",
-            width: "8%",
-        },
-        {
-            Header: "Profile",
-            accessor: "profile",
-            width: "12%",
-        },
-        {
-            Header: "Role",
-            accessor: "role",
-            width: "10%",
-        },
-        {
-            Header: "Gender",
-            isSorted: true,
-            accessor: "gender",
-            width: "12%",
-            align: "center",
-        },
-        {
-            Header: "Level",
-            isSorted: true,
-            accessor: "workout_level",
-            width: "10%",
-            align: "center",
-        },
-        {
-            Header: "Top Goal",
-            isSorted: true,
-            accessor: "top_goal",
-            width: "10%",
-            align: "center",
-        },
-        {
-            Header: "Actions",
-            isSorted: true,
-            accessor: "actions",
-            width: "6%",
-            align: "center",
-        },
-    ];
-
-    const openFormInvoker = () => {
-        setType("Add");
-        setOpenFormHandler(dispatch, true);
-    };
-
-
     const configData = () => {
-        const res = users?.map((user) => {
-            const { id, name, email, role, gender, workout_level, top_goal } =
-                user;
+        const res = feedbacks?.map((ele) => {
+            const { id, message, user } = ele;
             return {
                 id: (
                     <MDTypography
@@ -224,73 +138,47 @@ const Users = () => {
                 ),
                 profile: (
                     <Profile
-                        name={name}
-                        subtitle={email}
+                        name={user.name}
+                        subtitle={user.email}
                         image={"https://bit.ly/34BY10g"}
                     />
                 ),
-
-                role: (
+                email: (
                     <MDTypography
                         component="p"
                         variant="caption"
                         color="text"
                         fontWeight="medium"
                     >
-                        {role}
+                        {user.email}
                     </MDTypography>
                 ),
-                gender: (
+                message: (
                     <MDTypography
                         component="p"
                         variant="caption"
                         color="text"
                         fontWeight="medium"
                     >
-                        {gender}
+                        {message.substr(0, 100)}
                     </MDTypography>
                 ),
-                workout_level: (
-                    <MDTypography
-                        component="p"
-                        variant="caption"
-                        color="text"
-                        fontWeight="medium"
-                    >
-                        {workout_level}
-                    </MDTypography>
-                ),
-                top_goal: (
-                    <MDTypography
-                        component="p"
-                        variant="caption"
-                        color="text"
-                        fontWeight="medium"
-                    >
-                        {top_goal}
-                    </MDTypography>
-                ),
-                actions: (
-                    <ActionMenu
-                        id={id}
-                        setType={setType}
-                        setSelectedID={setSelectedID}
-                    />
-                ),
+                actions: <ActionMenu id={id} setSelectedID={setSelectedID} />,
             };
         });
         setData(res);
     };
+
     useEffect(() => {
-        getUsers();
+        getFeedbacks();
     }, []);
     useEffect(() => {
         configData();
-    }, [users]);
+    }, [feedbacks]);
 
     return (
         <DashboardLayout>
-            <UserForm type={type} selectedID={selectedID} />
+            <FeedbackContentModal selectedID={selectedID} />
             <MDBox>
                 <Grid container spacing={6} justifyContent={"center"}>
                     <Grid item lg={12}>
@@ -308,7 +196,7 @@ const Users = () => {
                                 coloredShadow="info"
                             >
                                 <MDTypography variant="h6" color="white">
-                                    Users Table
+                                    Feedbacks Table
                                 </MDTypography>
                                 <MDBox ml={"auto"}>
                                     <Tooltip title="Filter list">
@@ -321,30 +209,37 @@ const Users = () => {
                             <MDBox pt={3}>
                                 <DataTable
                                     canSearch={true}
-                                    table={{ columns: dataLabels, rows: data }}
-                                />
-                                <MDBox
-                                    sx={{
-                                        width: "100%",
-                                        display: "flex",
-                                        justifyContent: "flex-start",
-                                        marginLeft: "1rem",
-                                        marginBottom: "1rem",
+                                    table={{
+                                        columns: [
+                                            {
+                                                Header: "Id",
+                                                accessor: "id",
+                                                width: "12%",
+                                            },
+                                            {
+                                                Header: "Profile",
+                                                accessor: "profile",
+                                            },
+                                            {
+                                                Header: "Email",
+                                                accessor: "email",
+                                            },
+                                            {
+                                                Header: "Message",
+                                                accessor: "message",
+                                                width: "40%",
+                                            },
+                                            {
+                                                Header: "Actions",
+                                                isSorted: false,
+                                                accessor: "actions",
+                                                width: "12%",
+                                                align: "center",
+                                            },
+                                        ],
+                                        rows: data,
                                     }}
-                                >
-                                    <Tooltip title="Add new User">
-                                        <IconButton
-                                            onClick={() => {
-                                                setSelectedID(0);
-                                                openFormInvoker();
-                                            }}
-                                            color="black"
-                                            sx={{ backgroundColor: "#ddd" }}
-                                        >
-                                            <Icon>add</Icon>
-                                        </IconButton>
-                                    </Tooltip>
-                                </MDBox>
+                                />
                             </MDBox>
                         </Card>
                     </Grid>
@@ -354,4 +249,4 @@ const Users = () => {
     );
 };
 
-export default Users;
+export default Feedbacks;

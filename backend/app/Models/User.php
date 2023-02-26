@@ -20,6 +20,7 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
+        'profile',
         'role',
         'password',
         'weight',
@@ -51,11 +52,6 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
-
-    public function images()
-    {
-        return $this->hasMany(Resource::class, "user_id");
-    }
 
     public function programs()
     {

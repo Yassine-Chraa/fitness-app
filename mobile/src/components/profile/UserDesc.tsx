@@ -22,7 +22,7 @@ function UserDesc({userInfo}: any): JSX.Element {
         <View style={{justifyContent: 'center'}}>
           <Text style={styles.name}>{userInfo.name}</Text>
           <Text style={styles.subtitle}>
-            {userInfo.work_out_level + ' / ' + userInfo.top_goal}
+            {userInfo.workout_level + ' / ' + userInfo.top_goal}
           </Text>
         </View>
       </View>
