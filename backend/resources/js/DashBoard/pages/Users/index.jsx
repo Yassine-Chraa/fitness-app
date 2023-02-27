@@ -206,11 +206,18 @@ const Users = () => {
         setOpenFormHandler(dispatch, true);
     };
 
-
     const configData = () => {
         const res = users?.map((user) => {
-            const { id, name, email, role, gender, workout_level, top_goal } =
-                user;
+            const {
+                id,
+                name,
+                email,
+                role,
+                profile,
+                gender,
+                workout_level,
+                top_goal,
+            } = user;
             return {
                 id: (
                     <MDTypography
@@ -223,11 +230,7 @@ const Users = () => {
                     </MDTypography>
                 ),
                 profile: (
-                    <Profile
-                        name={name}
-                        subtitle={email}
-                        image={"https://bit.ly/34BY10g"}
-                    />
+                    <Profile name={name} subtitle={email} image={profile} />
                 ),
 
                 role: (

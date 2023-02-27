@@ -183,10 +183,6 @@ const setLayout = (dispatch, value) => dispatch({ type: "LAYOUT", value });
 const setDarkMode = (dispatch, value) => dispatch({ type: "DARKMODE", value });
 const setOpenFormHandler = (dispatch, value) =>
     dispatch({ type: "OPEN_FORM", value });
-const setMessageObject = (dispatch, value) =>
-    dispatch({ type: "OPEN_ALERT_MESSAGE", value });
-const setLoadingAnimation = (dispatch, value) =>
-    dispatch({ type: "SET_LOADING_ANIMATION", value });
 
 const setOpenDeleteModalHandler = (dispatch, value) => dispatch({ type: "OPEN_DELETE_MODAL", value });
 const setOpenEditModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EDIT_MODAL", value });

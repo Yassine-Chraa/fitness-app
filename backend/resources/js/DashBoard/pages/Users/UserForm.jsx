@@ -32,12 +32,13 @@ const UserForm = ({ type, selectedID }) => {
 
     const [user, setUser] = useState({});
 
-    const fetchData = () => {
-        if (selectedID != 0) getUser(selectedID).then((res) => setUser(res));
-        else
+    const fetchData = async () => {
+        if (selectedID != 0)
+            await getUser(selectedID).then((res) => setUser(res));
+        else {
             setUser({
                 id: 0,
-                img_url: "https://bit.ly/34BY10g",
+                profile: "",
                 name: "",
                 email: "",
                 password: "fitnessapp",
@@ -48,13 +49,18 @@ const UserForm = ({ type, selectedID }) => {
                 top_goal: "bulking",
                 height: 1.75,
                 weight: 70,
-                BMI:  700 / Math.pow(1.75, 2),
+                BMI: 700 / Math.pow(1.75, 2),
                 birth_date: "",
             });
+        }
+        console.log(imageFile);
     };
     useEffect(() => {
         fetchData();
     }, [selectedID]);
+    useEffect(() => {
+        setImageFile(user.profile);
+    }, [user.profile]);
 
     const roles_options = () =>
         roles.map((item, index) => (
@@ -81,37 +87,58 @@ const UserForm = ({ type, selectedID }) => {
             </MenuItem>
         ));
 
-    const upLoadImageHandler = (event) => {
+    const uploadImage = (event) => {
         var file = event.target.files[0];
-        setImageFile(file);
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
             return;
         }
+        /**** Show image ****/
         const fileReader = new FileReader();
+        fileReader.readAsDataURL(file);
         fileReader.onload = (e) => {
             const { result } = e.target;
             if (result) {
-                setUser((prev) => {
-                    return { ...prev, img_url: result };
-                });
+                setImageFile(result);
             }
         };
-        fileReader.readAsDataURL(file);
+        setImageFile(file);
+        console.log(file);
     };
 
-    const confirm = async () => {
+    const confirm = () => {
         setUser((prev) => {
             return {
                 ...prev,
                 BMI: user.weight / Math.pow(user.height, 2),
             };
         });
-        const result =
-            type == "Add" ? await addUser(user) : await updateUser(user);
-        if (result) {
-            setOpenFormHandler(dispatch, false);
-        }
+
+        /**** upload image to cloudinary ****/
+        const body = new FormData();
+        body.append("file", imageFile);
+        body.append("upload_preset", "wiwcant6");
+        body.append("cloud_name", "dtveiunmn");
+        fetch("https://api.cloudinary.com/v1_1/dtveiunmn/image/upload", {
+            method: "post",
+            body,
+        })
+            .then((resp) => resp.json())
+            .then(async (res) => {
+                const { url } = res;
+                console.log(res);
+                setUser((prev) => {
+                    return { ...prev, profile: url };
+                });
+                const result =
+                    type == "Add"
+                        ? await addUser({ ...user, profile: url })
+                        : await updateUser({ ...user, profile: url });
+                if (result) {
+                    setOpenFormHandler(dispatch, false);
+                    localStorage.setItem("user_profile", url);
+                }
+            });
     };
     const cancel = () => {
         setOpenFormHandler(dispatch, false);
@@ -165,11 +192,9 @@ const UserForm = ({ type, selectedID }) => {
                         }}
                     >
                         <MDAvatar
-                            onClick={() => ImageRef.current.click()}
                             variant="gradient"
-                            src={user.img_url}
+                            src={imageFile}
                             size="xl"
-                            style={{ cursor: "pointer" }}
                         />
                         <MDButton
                             onClick={() => ImageRef.current.click()}
@@ -185,7 +210,7 @@ const UserForm = ({ type, selectedID }) => {
                             Upload Image
                             <input
                                 ref={ImageRef}
-                                onChange={upLoadImageHandler}
+                                onChange={uploadImage}
                                 hidden
                                 accept="image/*"
                                 multiple

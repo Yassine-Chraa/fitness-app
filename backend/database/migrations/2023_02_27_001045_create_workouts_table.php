@@ -13,16 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('exercises', function (Blueprint $table) {
+        Schema::create('workouts', function (Blueprint $table) {
             $table->id();
-            $table->foreign('activity_id')->nullable();
+            $table->bigInteger('program_id', unsigned: true)->nullable();
+            $table->foreign('program_id')->references('id')->on('programs')->onUpdate('cascade')->onDelete('cascade');
             $table->string('title');
-            $table->text('description');
-            $table->string('api_id');
-            $table->integer('rest');
-            $table->integer('reps');
-            $table->integer('sets');
-            $table->enum('state', ['unstarted','progress','finished'])->default("unstarted");
+            $table->integer('duration');
             $table->timestamps();
         });
     }
@@ -34,6 +30,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('exercises');
+        Schema::dropIfExists('workouts');
     }
 };

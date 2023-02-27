@@ -28,15 +28,15 @@ const Profile = () => {
     const {
         name,
         email,
+        profile,
+        role,
         bio,
         gender,
         weight,
         height,
         BMI,
         body_fat,
-        role,
         birth_date,
-        img_url,
         workout_level,
         top_goal,
     } = user;
@@ -72,8 +72,7 @@ const Profile = () => {
                             >
                                 <MDAvatar
                                     variant="gradient"
-                                    src={"https://bit.ly/34BY10g"}
-                                    name={"ismail ben alla"}
+                                    src={profile}
                                     size="xxl"
                                 />
                             </MDBox>
@@ -106,7 +105,7 @@ const Profile = () => {
                                             fontSize: "0.8rem",
                                             lineHeight: "1.25",
                                             fontWeight: "300",
-                                            textAlign: 'center'
+                                            textAlign: "center",
                                         }}
                                     >
                                         {email}
