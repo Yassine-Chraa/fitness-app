@@ -54,7 +54,7 @@ export const UserContextProvider = ({ children }) => {
             const { data } = await axios.post(`${UserUrl}`, User);
             setLoadingAnimation(dispatch, false);
             getUsers();
-            setMessageObject(dispatch, { type: 'success', message: 'User Stored successfully', state: 'mount' })
+            setMessageObject(dispatch, { type: 'success', message: 'User Created successfully', state: 'mount' })
             return data;
         } catch (error) {
             console.log(error);
@@ -69,7 +69,7 @@ export const UserContextProvider = ({ children }) => {
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User);
             setLoadingAnimation(dispatch, false);
             getUsers();
-            setMessageObject(dispatch, { type: 'success', message: 'User Updated successfully', state: 'mount' })
+            setMessageObject(dispatch, { type: 'success', message: 'User was Updated successfully', state: 'mount' })
             return data;
         } catch (error) {
             console.log(error);
@@ -92,7 +92,7 @@ export const UserContextProvider = ({ children }) => {
                     setLoadingAnimation(dispatch, true);
                     const { data } = await axios.delete(`${UserUrl}/${id}`);
                     setLoadingAnimation(dispatch, false);
-                    setMessageObject(dispatch, { type: 'success', message: 'User Deleted successfully', state: 'mount' })
+                    setMessageObject(dispatch, { type: 'success', message: 'User was Deleted successfully', state: 'mount' })
                     getUsers();
                     return data;
                 } catch (error) {
