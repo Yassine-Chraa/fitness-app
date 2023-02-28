@@ -1,7 +1,5 @@
-import { ActivityContextProvider } from "./providers/ActivityContextProvider";
 import { UserContextProvider } from "./providers/UserContextProvider";
 import { EquipmentContextProvider } from "./providers/EquipmentContextProvider";
-import { MealContextProvider } from "./providers/MealContextProvider";
 import { ProductContextProvider } from "./providers/ProductContextProvider";
 import { Composer } from "./Composer";
 import { FeedbackContextProvider } from "./providers/FeedbackContextControler";
@@ -10,10 +8,8 @@ import {WorkOutContextProvider} from './providers/WorkOutContextProvider';
 import {ExerciseContextProvider} from './providers/ExerciseContextProvider';
 
 const providers = [
-    ActivityContextProvider,
     UserContextProvider,
     EquipmentContextProvider,
-    MealContextProvider,
     ProductContextProvider,
     FeedbackContextProvider,
     ProgramContextProvider,

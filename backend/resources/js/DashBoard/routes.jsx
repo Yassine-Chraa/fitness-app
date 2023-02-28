@@ -2,7 +2,6 @@ import Dashboard from "./pages/Dashboard";
 import Users from "./pages/Users";
 import { Icon } from "@mui/material";
 import Products from "./pages/Products";
-import Activities from "./pages/Activities";
 import Feedbacks from "./pages/Feedbacks";
 import TodayIcon from '@mui/icons-material/Today';
 import Programs from "./pages/Programs";
@@ -34,11 +33,11 @@ const routes = [
     },
     {
         type: "collapse",
-        name: "Activities",
-        key: "activities",
-        icon: <Icon>timeline</Icon>,
-        route: "/dashboard/activities",
-        component: <Activities />,
+        name: "Programs",
+        key: "programs",
+        icon: <TodayIcon/>,
+        route: "/dashboard/programs",
+        component: <Programs />,
     },
     {
         type: "collapse",
@@ -47,14 +46,6 @@ const routes = [
         icon: <Icon>reviews</Icon>,
         route: "/dashboard/feedbacks",
         component: <Feedbacks />,
-    },
-    {
-        type: "collapse",
-        name: "Programs",
-        key: "programs",
-        icon: <TodayIcon/>,
-        route: "/dashboard/programs",
-        component: <Programs />,
     },
 ];
 

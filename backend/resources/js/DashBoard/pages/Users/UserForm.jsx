@@ -26,12 +26,11 @@ const UserForm = ({ type, selectedID }) => {
     const { getUser, updateUser } = useUser();
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState("");
     const { addUser } = useUser();
     const ImageRef = useRef();
 
     const [user, setUser] = useState({});
-
     const fetchData = async () => {
         if (selectedID != 0)
             await getUser(selectedID).then((res) => setUser(res));
@@ -53,14 +52,10 @@ const UserForm = ({ type, selectedID }) => {
                 birth_date: "",
             });
         }
-        console.log(imageFile);
     };
     useEffect(() => {
         fetchData();
     }, [selectedID]);
-    useEffect(() => {
-        setImageFile(user.profile);
-    }, [user.profile]);
 
     const roles_options = () =>
         roles.map((item, index) => (
@@ -93,52 +88,35 @@ const UserForm = ({ type, selectedID }) => {
             alert("image format is not valid !!");
             return;
         }
-        /**** Show image ****/
-        const fileReader = new FileReader();
-        fileReader.readAsDataURL(file);
-        fileReader.onload = (e) => {
-            const { result } = e.target;
-            if (result) {
-                setImageFile(result);
-            }
-        };
         setImageFile(file);
-        console.log(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = (e) => {
+            const { result } = e.target;
+            setUser((prev) => {
+                return {
+                    ...prev,
+                    profile: result,
+                };
+            });
+        };
     };
 
-    const confirm = () => {
+    const confirm = async () => {
         setUser((prev) => {
             return {
                 ...prev,
                 BMI: user.weight / Math.pow(user.height, 2),
             };
         });
+        const result =
+            type == "Add"
+                ? await addUser(user, imageFile)
+                : await updateUser(selectedID, user, imageFile);
 
-        /**** upload image to cloudinary ****/
-        const body = new FormData();
-        body.append("file", imageFile);
-        body.append("upload_preset", "wiwcant6");
-        body.append("cloud_name", "dtveiunmn");
-        fetch("https://api.cloudinary.com/v1_1/dtveiunmn/image/upload", {
-            method: "post",
-            body,
-        })
-            .then((resp) => resp.json())
-            .then(async (res) => {
-                const { url } = res;
-                console.log(res);
-                setUser((prev) => {
-                    return { ...prev, profile: url };
-                });
-                const result =
-                    type == "Add"
-                        ? await addUser({ ...user, profile: url })
-                        : await updateUser({ ...user, profile: url });
-                if (result) {
-                    setOpenFormHandler(dispatch, false);
-                    localStorage.setItem("user_profile", url);
-                }
-            });
+        if (result) {
+            setOpenFormHandler(dispatch, false);
+        }
     };
     const cancel = () => {
         setOpenFormHandler(dispatch, false);
@@ -193,7 +171,7 @@ const UserForm = ({ type, selectedID }) => {
                     >
                         <MDAvatar
                             variant="gradient"
-                            src={imageFile}
+                            src={user.profile}
                             size="xl"
                         />
                         <MDButton
@@ -213,11 +191,7 @@ const UserForm = ({ type, selectedID }) => {
                                 onChange={uploadImage}
                                 hidden
                                 accept="image/*"
-                                multiple
                                 type="file"
-                                onClick={() =>
-                                    console.log("upload is invoked !")
-                                }
                             />
                         </MDButton>
                     </MDBox>

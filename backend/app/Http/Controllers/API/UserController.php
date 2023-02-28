@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -132,5 +131,16 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'User deleted']);
+    }
+
+    /**
+     * Get total users: api/users/total
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTotal()
+    {
+        $count = User::all()->count();
+        return response()->json(['total' => $count]);
     }
 }

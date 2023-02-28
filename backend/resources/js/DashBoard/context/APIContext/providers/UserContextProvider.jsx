@@ -33,7 +33,6 @@ export const UserContextProvider = ({ children }) => {
     const [controller, dispatch] = useMaterialUIController();
     const [users, setUsers] = useState([]);
 
-    //-------------> perfect
     const getUsers = async () => {
         try {
             setLoadingAnimation(dispatch, true);
@@ -45,7 +44,7 @@ export const UserContextProvider = ({ children }) => {
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
+
     const getUser = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
@@ -58,35 +57,74 @@ export const UserContextProvider = ({ children }) => {
             return false;
         }
     };
-    //-------------> perfect
-    const addUser = async (User) => {
+
+    const addUser = async (User, imageFile) => {
         try {
+            let res;
             setLoadingAnimation(dispatch, true);
-            const { data } = await axios.post(`${UserUrl}`, User);
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(
+                    "http://127.0.0.1:8000/api/upload",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                res = await axios.post(`${UserUrl}`, {
+                    ...User,
+                    profile: data.img_url,
+                });
+            } else {
+                res = await axios.post(`${UserUrl}`, User);
+            }
+
             setLoadingAnimation(dispatch, false);
             getUsers();
             Toast.fire({
                 icon: "success",
                 title: "User Stored",
             });
-            return data;
+            return res.data.message;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
-    const updateUser = async (User) => {
+
+    const updateUser = async (id, User, imageFile) => {
         try {
+            let res;
             setLoadingAnimation(dispatch, true);
-            const { data } = await axios.put(`${UserUrl}/${User.id}`, User);
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(
+                    "http://127.0.0.1:8000/api/upload",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                res = await axios.put(`${UserUrl}/${id}`, {
+                    ...User,
+                    profile: data.img_url,
+                });
+            } else {
+                res = await axios.put(`${UserUrl}/${id}`, User);
+            }
             setLoadingAnimation(dispatch, false);
             getUsers();
             Toast.fire({
                 icon: "success",
                 title: "User Updated",
             });
-            return data;
+            return res.data.message;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
@@ -122,6 +160,18 @@ export const UserContextProvider = ({ children }) => {
             }
         });
     };
+    const getTotal = async () => {
+        try {
+            setLoadingAnimation(dispatch, true);
+            const { data } = await axios.get(`${UserUrl}/total`);
+            setLoadingAnimation(dispatch, false);
+            return data.total;
+        } catch (error) {
+            console.log(error);
+            setLoadingAnimation(dispatch, false);
+            return false;
+        }
+    };
 
     return (
         <userContext.Provider
@@ -132,6 +182,7 @@ export const UserContextProvider = ({ children }) => {
                 addUser,
                 updateUser,
                 deleteUser,
+                getTotal
             }}
         >
             {children}

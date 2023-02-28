@@ -37,25 +37,63 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addProduct = async (Product) => {
+    const addProduct = async (Product,imageFile) => {
         try {
+            let res;
             setLoading(true);
-            const { data } = await axios.post(`${ProductUrl}`, Product);
-            getProducts()
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(
+                    "http://127.0.0.1:8000/api/upload",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                res = await axios.post(`${ProductUrl}`, {
+                    ...Product,
+                    product_img: data.img_url,
+                });
+            } else {
+                res = await axios.post(`${ProductUrl}`, Product);
+            }
+            getProducts();
             setLoading(false);
-            return data;
+            return res.data.message;
         } catch (error) {
             console.log(error);
             setLoading(false);
         }
     };
-    const updateProduct = async (id, Product) => {
+    const updateProduct = async (id, Product, imageFile) => {
         try {
+            let res;
             setLoading(true);
-            const { data } = await axios.put(`${ProductUrl}/${id}`, Product);
-            getProducts()
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(
+                    "http://127.0.0.1:8000/api/upload",
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                res = await axios.put(`${ProductUrl}/${id}`, {
+                    ...Product,
+                    product_img: data.img_url,
+                });
+            } else {
+                res = await axios.put(`${ProductUrl}/${id}`, Product);
+            }
+            getProducts();
             setLoading(false);
-            return data;
+            return res.data.message;
         } catch (error) {
             console.log(error);
             setLoading(false);
@@ -65,7 +103,7 @@ export const ProductContextProvider = ({ children }) => {
         try {
             setLoading(true);
             const { data } = await axios.delete(`${ProductUrl}/${id}`);
-            getProducts()
+            getProducts();
             setLoading(false);
             return data;
         } catch (error) {
