@@ -13,14 +13,14 @@ import {useNavigation} from '@react-navigation/native';
 
 const FoodCard = ({type, item}: any) => {
   const navigation: any = useNavigation();
+  const {label, image, nutrients, category} = item;
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('FoodDetails', {
-          name: item.name,
-          type: type,
+          item
         })
       }>
       <View
@@ -30,9 +30,10 @@ const FoodCard = ({type, item}: any) => {
           width: '90%',
         }}>
         <Image
-          source={{uri: 'https://placehold.jp/180x260.png'}}
+          source={{uri: image || 'https://placehold.jp/180x260.png'}}
           style={{height: 80, width: 80, borderRadius: 5}}
           PlaceholderContent={<ActivityIndicator />}
+          resizeMode="cover"
         />
         <View style={styles.itemDesc}>
           <View>
@@ -42,7 +43,7 @@ const FoodCard = ({type, item}: any) => {
                 fontSize: 20,
                 fontWeight: 'bold',
               }}>
-              {item.name}
+              {label}
             </Text>
             <Text
               style={{
@@ -50,15 +51,19 @@ const FoodCard = ({type, item}: any) => {
                 fontSize: 14,
                 fontWeight: '500',
               }}>
-              {item.cat}
+              {category}
             </Text>
           </View>
           <View style={{flexDirection: 'row', columnGap: 6}}>
             <View style={styles.tag}>
-              <Text style={{fontSize: 13}}>Protein</Text>
+              <Text style={{fontSize: 13}}>
+                Cal: {nutrients.ENERC_KCAL + ' kcal'}
+              </Text>
             </View>
             <View style={styles.tag}>
-              <Text style={{fontSize: 13}}>Vitamin C</Text>
+              <Text style={{fontSize: 13}}>
+                Protein: {nutrients.PROCNT.toFixed(2) + ' g'}
+              </Text>
             </View>
           </View>
         </View>
@@ -83,7 +88,7 @@ const styles = StyleSheet.create({
     backgroundColor: theme.colors.background,
   },
   itemDesc: {
-    width: '80%',
+    width: '70%',
     justifyContent: 'space-between',
   },
   tag: {

@@ -1,3 +1,4 @@
+import {useState, useEffect} from 'react';
 import {Image} from '@rneui/themed';
 import {
   ActivityIndicator,
@@ -7,19 +8,22 @@ import {
   ScrollView,
   TouchableOpacity,
   TouchableWithoutFeedback,
+  Dimensions,
 } from 'react-native';
 import {Table, Row, Rows} from 'react-native-table-component';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import CustomTextInput from '../../components/authentification/CustomTextInput';
 
 const FoodDetails = ({navigation, route}: any) => {
-  const {name} = route.params;
+  const {label, image, nutrients, category} = route.params.item;
+  const width = Dimensions.get('screen').width - 24;
   return (
     <View style={{flex: 1}}>
       <ScrollView>
         <View>
           <Image
-            source={{uri: 'https://placehold.jp/400x500.png'}}
+            source={{uri: image || 'https://placehold.jp/400x500.png'}}
             style={{
               height: 400,
             }}
@@ -29,25 +33,16 @@ const FoodDetails = ({navigation, route}: any) => {
 
           <View style={styles.details}>
             <View style={styles.heading}>
-              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.title}>{label}</Text>
               <TouchableWithoutFeedback>
                 <Icon name="heart" size={20} />
               </TouchableWithoutFeedback>
             </View>
-            <View style={{flexDirection: 'row', columnGap: 10}}>
+            <View style={{flexDirection: 'row', marginBottom: 24}}>
               <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>Protein</Text>
-              </View>
-              <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>Vitamin C</Text>
+                <Text style={{fontSize: 13}}>{category}</Text>
               </View>
             </View>
-            <Text style={{marginTop: 8, marginBottom: 12, fontSize: 15}}>
-              Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit
-              amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem
-              ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet,
-              consectetur Lorem ipsum dolor sit amet, consectetur
-            </Text>
             <Table
               borderStyle={{
                 borderWidth: 1,
@@ -60,13 +55,32 @@ const FoodDetails = ({navigation, route}: any) => {
               />
               <Rows
                 data={[
-                  ['Energy (cal)', '131'],
-                  ['Protein (g)', '12.6'],
-                  ['Fat (g)', '9.0'],
+                  ['Energy (cal)', nutrients.ENERC_KCAL],
+                  ['Protein (g)', nutrients.PROCNT],
+                  ['Fat (g)', nutrients.FAT],
+                  ['Fiber, total dietary (g)', nutrients.FIBTG],
+                  ['Carbohydrate (g)', nutrients.CHOCDF],
                 ]}
                 textStyle={styles.text}
               />
             </Table>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                columnGap: 10,
+                marginBottom: 24,
+              }}>
+              <CustomTextInput
+                placeholder="Weight (g)"
+                keyboardType="numeric"
+              />
+              <TouchableOpacity style={styles.addButton}>
+                <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+                  ADD TO YOUR DAILY DIET
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </ScrollView>
@@ -121,6 +135,16 @@ const styles = StyleSheet.create({
   },
   text: {
     margin: 6,
+  },
+  addButton: {
+    width: '100%',
+    paddingVertical: 10,
+    borderRadius: 6,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.button,
   },
 });
 export default FoodDetails;

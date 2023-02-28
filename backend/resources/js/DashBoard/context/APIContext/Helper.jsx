@@ -8,13 +8,12 @@ const endpoints = {
     Products: "api/products",
     Users: "api/users",
     Meals: "api/meals",
-    Activities: "api/activities",
+    Feedbacks: "api/feedbacks",
     Programs: "api/programs",
     WorkOuts: "api/workouts",
     Exercises: "api/Exercises",
     Equipments: "api/equipments",
 };
-
 
 export const getUrl = (endpoint) => {
     return `${API_URL}/${endpoints[endpoint]}`;

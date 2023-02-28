@@ -100,7 +100,6 @@ const ExerciceDetails = ({navigation, route}: any) => {
               <View style={{width: width / 3 - 1}}>
                 <CustomTextInput
                   placeholder="Sets"
-                  variant={theme.colors.danger}
                   keyboardType="numeric"
                 />
               </View>

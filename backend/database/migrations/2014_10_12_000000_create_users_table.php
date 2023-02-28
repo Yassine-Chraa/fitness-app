@@ -15,14 +15,15 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
+            $table->string('url');
             $table->enum('role', ['admin', 'user', 'client', 'vip', 'coach'])->default('user');
             $table->string('name');
-            $table->float('weight')->default(70);
-            $table->float('height')->default(1,75);
-            $table->float('body_fat')->default(0);
+            $table->float('weight',places:1)->default(70);
+            $table->float('height',places:2)->default(1,75);
+            $table->float('body_fat',places:1)->default(20);
             $table->float('BMI')->default(22);
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->integer('birth_date')->nullable();
+            $table->date('birth_date')->nullable();
             $table->enum('workout_level', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->enum('top_goal', ['maintaining', 'bulking', 'cutting'])->default('maintaining');
             $table->string('email')->unique();

@@ -1,5 +1,5 @@
 import { Card, Grid, Modal } from "@mui/material";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import MDAvatar from "../../components/MDAvatar";
 import MDBox from "../../components/MDBox";
 import MDButton from "../../components/MDButton";
@@ -7,7 +7,7 @@ import MDInput from "../../components/MDInput";
 import MDTypography from "../../components/MDTypography";
 import {
     useMaterialUIController,
-    setOpenAddModalHandler,
+    setOpenFormHandler,
 } from "../../context/UIContext";
 
 import InputLabel from "@mui/material/InputLabel";
@@ -15,8 +15,6 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useUser } from "../../context/APIContext/providers/UserContextProvider";
-import { async } from "regenerator-runtime";
-import { result } from "lodash";
 
 const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif)$/i;
 const roles = ["admin", "user", "client", "vip", "coach"];
@@ -24,28 +22,39 @@ const genders = ["male", "female"];
 const workout_levels = ["beginner", "intermediate", "advanced"];
 const top_goals = ["maintaining", "bulking", "cutting"];
 
-const AddUserModal = () => {
+const UserForm = ({ type, selectedID }) => {
+    const { getUser, updateUser } = useUser();
     const [controller, dispatch] = useMaterialUIController();
-    const { openAddModalHandler } = controller;
-    const [localImgUrl, setLocalImgUrl] = useState(null);
+    const { openFormHandler } = controller;
     const [imageFile, setImageFile] = useState();
     const { addUser } = useUser();
     const ImageRef = useRef();
 
-    const [localRole, setLocalRole] = useState(roles[0]);
-    const [localGender, setLocalGender] = useState(genders[0]);
-    const [localLevel, setLocalLevel] = useState(workout_levels[0]);
-    const [localTopGoal, setLocalTopGoal] = useState(top_goals[0]);
+    const [user, setUser] = useState({});
 
-    const [localName, setLocalName] = useState("");
-    const [localEmail, setLocalEmail] = useState("");
-    const [localCountry, setLocalCountry] = useState("");
-    const [localCity, setLocalCity] = useState("");
-
-    const [localHeight, setLocalHeight] = useState(0);
-    const [localWeight, setLocalWeight] = useState(0);
-    const [localScore, setLocalScore] = useState(0);
-    const [localBirthDay, setLocalBirthDay] = useState("2000-02-02");
+    const fetchData = () => {
+        if (selectedID != 0) getUser(selectedID).then((res) => setUser(res));
+        else
+            setUser({
+                id: 0,
+                img_url: "https://bit.ly/34BY10g",
+                name: "",
+                email: "",
+                password: "fitnessapp",
+                password_confirmation: "fitnessapp",
+                role: "user",
+                gender: "male",
+                workout_level: "beginner",
+                top_goal: "bulking",
+                height: 1.75,
+                weight: 70,
+                BMI:  700 / Math.pow(1.75, 2),
+                birth_date: "",
+            });
+    };
+    useEffect(() => {
+        fetchData();
+    }, [selectedID]);
 
     const roles_options = () =>
         roles.map((item, index) => (
@@ -83,45 +92,35 @@ const AddUserModal = () => {
         fileReader.onload = (e) => {
             const { result } = e.target;
             if (result) {
-                setLocalImgUrl(result);
+                setUser((prev) => {
+                    return { ...prev, img_url: result };
+                });
             }
         };
         fileReader.readAsDataURL(file);
     };
 
-    const confirmAddUserHandler = async () => {
-        const user = {
-            name: localName,
-            email: localEmail,
-            weight: localWeight,
-            height: localHeight,
-            role: localRole,
-            country: localCountry,
-            birth_date: localBirthDay,
-            city: localCity,
-            gender: localGender,
-            score: localScore,
-            workout_level: localLevel,
-            top_goal: localTopGoal,
-            img_url: localImgUrl ? localImgUrl : "https://bit.ly/34BY10g",
-            password: "fitnessapp",
-            password_confirmation: "fitnessapp",
-            bio: "short description about the user here !",
-        };
-        const result = await addUser(user);
+    const confirm = async () => {
+        setUser((prev) => {
+            return {
+                ...prev,
+                BMI: user.weight / Math.pow(user.height, 2),
+            };
+        });
+        const result =
+            type == "Add" ? await addUser(user) : await updateUser(user);
         if (result) {
-            setOpenAddModalHandler(dispatch, false);
+            setOpenFormHandler(dispatch, false);
         }
     };
-
-    const cancelAddUserHandler = () => {
-        setOpenAddModalHandler(dispatch, false);
+    const cancel = () => {
+        setOpenFormHandler(dispatch, false);
     };
 
     return (
         <Modal
-            open={openAddModalHandler}
-            onClose={() => setOpenAddModalHandler(dispatch, false)}
+            open={openFormHandler}
+            onClose={cancel}
             style={{
                 height: "100vh",
                 width: "100vw",
@@ -151,7 +150,7 @@ const AddUserModal = () => {
                     textAlign="center"
                 >
                     <MDTypography variant="h4" fontWeight="medium" mx={1}>
-                        Add User
+                        {type} User
                     </MDTypography>
                 </MDBox>
                 <MDBox mb={3}>
@@ -168,12 +167,7 @@ const AddUserModal = () => {
                         <MDAvatar
                             onClick={() => ImageRef.current.click()}
                             variant="gradient"
-                            src={
-                                localImgUrl == null
-                                    ? "https://bit.ly/34BY10g"
-                                    : imgUrl
-                            }
-                            name={"ismail ben alla"}
+                            src={user.img_url}
                             size="xl"
                             style={{ cursor: "pointer" }}
                         />
@@ -207,9 +201,14 @@ const AddUserModal = () => {
                     <Grid container item xs={6} spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <MDInput
-                                value={localHeight}
-                                onChange={(val) =>
-                                    setLocalHeight(val.target.value)
+                                value={user.height}
+                                onChange={(e) =>
+                                    setUser((prev) => {
+                                        return {
+                                            ...prev,
+                                            height: e.target.value,
+                                        };
+                                    })
                                 }
                                 type="number"
                                 label="Height"
@@ -220,9 +219,14 @@ const AddUserModal = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <MDInput
-                                value={localWeight}
-                                onChange={(val) =>
-                                    setLocalWeight(val.target.value)
+                                value={user.weight}
+                                onChange={(e) =>
+                                    setUser((prev) => {
+                                        return {
+                                            ...prev,
+                                            weight: e.target.value,
+                                        };
+                                    })
                                 }
                                 type="number"
                                 label="Weight"
@@ -232,27 +236,34 @@ const AddUserModal = () => {
                             />
                         </Grid>
                         <Grid item xs={12}>
-                            <MDBox mb={2}>
-                                <MDInput
-                                    value={localBirthDay}
-                                    onChange={(val) =>
-                                        setLocalBirthDay(val.target.value)
-                                    }
-                                    type="date"
-                                    label="BirthDay"
-                                    variant="filled"
-                                    fullWidth
-                                    size="small"
-                                />
-                            </MDBox>
+                            <MDInput
+                                value={user.birth_date}
+                                onChange={(e) =>
+                                    setUser((prev) => {
+                                        return {
+                                            ...prev,
+                                            birth_date: e.target.value,
+                                        };
+                                    })
+                                }
+                                type="date"
+                                label="BirthDay"
+                                variant="filled"
+                                fullWidth
+                            />
                         </Grid>
                     </Grid>
                     <Grid container item xs={6} spacing={2}>
                         <Grid item xs={12} sm={6}>
                             <MDInput
-                                value={localName}
-                                onChange={(val) =>
-                                    setLocalName(val.target.value)
+                                value={user.name}
+                                onChange={(e) =>
+                                    setUser((prev) => {
+                                        return {
+                                            ...prev,
+                                            name: e.target.value,
+                                        };
+                                    })
                                 }
                                 type="text"
                                 label="Name"
@@ -262,9 +273,14 @@ const AddUserModal = () => {
                         </Grid>
                         <Grid item xs={12} sm={6}>
                             <MDInput
-                                value={localEmail}
-                                onChange={(val) =>
-                                    setLocalEmail(val.target.value)
+                                value={user.email}
+                                onChange={(e) =>
+                                    setUser((prev) => {
+                                        return {
+                                            ...prev,
+                                            email: e.target.value,
+                                        };
+                                    })
                                 }
                                 type="email"
                                 label="Email"
@@ -279,12 +295,15 @@ const AddUserModal = () => {
                                 </InputLabel>
                                 <Select
                                     variant="outlined"
-                                    labelId="select-role-label"
-                                    id="select-role"
-                                    value={localRole}
                                     label="Select Role"
-                                    onChange={(event) =>
-                                        setLocalRole(event.target.value)
+                                    value={user.role}
+                                    onChange={(e) =>
+                                        setUser((prev) => {
+                                            return {
+                                                ...prev,
+                                                role: e.target.value,
+                                            };
+                                        })
                                     }
                                     sx={{
                                         padding: "0.75rem !important",
@@ -297,16 +316,19 @@ const AddUserModal = () => {
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth>
                                 <InputLabel id="select-gender-label">
-                                    Select Role
+                                    Select Gender
                                 </InputLabel>
                                 <Select
                                     variant="outlined"
-                                    labelId="select-gender-label"
-                                    id="select-gender"
-                                    value={localGender}
                                     label="Select Gender"
-                                    onChange={(event) =>
-                                        setLocalGender(event.target.value)
+                                    value={user.gender}
+                                    onChange={(e) =>
+                                        setUser((prev) => {
+                                            return {
+                                                ...prev,
+                                                gender: e.target.value,
+                                            };
+                                        })
                                     }
                                     sx={{
                                         padding: "0.75rem !important",
@@ -319,16 +341,19 @@ const AddUserModal = () => {
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth>
                                 <InputLabel id="select-role-label">
-                                    Select Role
+                                    Select Workout Level
                                 </InputLabel>
                                 <Select
                                     variant="outlined"
-                                    labelId="select-role-label"
-                                    id="select-role"
-                                    value={localLevel}
-                                    label="Select Role"
-                                    onChange={(event) =>
-                                        setLocalLevel(event.target.value)
+                                    label="Select Workout Level"
+                                    value={user.workout_level}
+                                    onChange={(e) =>
+                                        setUser((prev) => {
+                                            return {
+                                                ...prev,
+                                                workout_level: e.target.value,
+                                            };
+                                        })
                                     }
                                     sx={{
                                         padding: "0.75rem !important",
@@ -341,16 +366,19 @@ const AddUserModal = () => {
                         <Grid item xs={12} sm={6}>
                             <FormControl fullWidth>
                                 <InputLabel id="select-gender-label">
-                                    Select Role
+                                    Select Top Goal
                                 </InputLabel>
                                 <Select
                                     variant="outlined"
-                                    labelId="select-gender-label"
-                                    id="select-gender"
-                                    value={localTopGoal}
-                                    label="Select Gender"
-                                    onChange={(event) =>
-                                        setLocalTopGoal(event.target.value)
+                                    label="Select Top Goal"
+                                    value={user.top_goal}
+                                    onChange={(e) =>
+                                        setUser((prev) => {
+                                            return {
+                                                ...prev,
+                                                top_goal: e.target.value,
+                                            };
+                                        })
                                     }
                                     sx={{
                                         padding: "0.75rem !important",
@@ -369,26 +397,26 @@ const AddUserModal = () => {
                     mt={2}
                 >
                     <MDButton
-                        onClick={cancelAddUserHandler}
+                        onClick={cancel}
                         variant="gradient"
                         color="warning"
                         style={{
                             padding: "1rem",
                             minWidth: "6rem",
-                            maxWidth: "14rem",
+                            maxWidth: "8rem",
                             flex: 1,
                         }}
                     >
                         Cancel
                     </MDButton>
                     <MDButton
-                        onClick={confirmAddUserHandler}
+                        onClick={confirm}
                         variant="gradient"
                         color="success"
                         style={{
                             padding: "1rem",
                             minWidth: "6rem",
-                            maxWidth: "14rem",
+                            maxWidth: "8rem",
                             flex: 1,
                         }}
                     >
@@ -400,4 +428,4 @@ const AddUserModal = () => {
     );
 };
 
-export default AddUserModal;
+export default UserForm;

@@ -51,7 +51,7 @@ export const AuthContextProvider = ({children}: any) => {
       const {data} = await axios.post(`${signInUrl}`, form);
       if (data) {
         const storeResult = await storeData('current_user', data);
-
+        console.log(data)
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
