@@ -23,7 +23,7 @@ return new class extends Migration
             $table->float('body_fat',places:1)->default(20);
             $table->float('BMI')->default(22);
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->date('birth_date')->default(new DateTime().now());
+            $table->date('birth_date')->default("2000-02-02");
             $table->enum('workout_level', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->enum('top_goal', ['maintaining', 'bulking', 'cutting'])->default('maintaining');
             $table->string('email')->unique();
