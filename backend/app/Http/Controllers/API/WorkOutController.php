@@ -4,9 +4,10 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Exercise;
+use App\Models\WorkOut;
 use Illuminate\Http\Request;
 
-class ExerciseController extends Controller
+class WorkOutController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -27,15 +28,11 @@ class ExerciseController extends Controller
      */
     public function store(Request $request)
     {
-        //still need validation here
         $newExercise = new Exercise([
-            "workout_id" => $request->get('workout_id'),
+            "program_id" => $request->get('program_id'),
             "title" => $request->get('title'),
-            "description" => $request->get('description'),
-            "api_id" => $request->get('api_id'),
-            'rest' => $request->get('rest'),
-            'reps' => $request->get('reps'),
-            'sets' => $request->get('sets'),
+            "duration" => $request->get('duration'),
+            "day" => $request->get('day'),
             'state' => $request->get('state'),
         ]);
         $newExercise->save();
@@ -64,29 +61,20 @@ class ExerciseController extends Controller
     public function update(Request $request, $id)
     {
         $exercise = Exercise::findOrFail($id);
-        if ($request->get('workout_id')) {
-            $exercise->workout_id = $request->get('workout_id');
+        if ($request->get('program_id')) {
+            $exercise->program_id = $request->get('program_id');
         }
         if ($request->get('title')) {
             $exercise->title = $request->get('title');
         }
-        if ($request->get('description')) {
-            $exercise->description = $request->get('description');
+        if ($request->get('duration')) {
+            $exercise->duration = $request->get('duration');
         }
-        if ($request->get('api_id')) {
-            $exercise->api_id = $request->get('api_id');
+        if ($request->get('day')) {
+            $exercise->day = $request->get('day');
         }
         if ($request->get('state')) {
             $exercise->state = $request->get('state');
-        }
-        if ($request->get('rest')) {
-            $exercise->rest = $request->get('rest');
-        }
-        if ($request->get('reps')) {
-            $exercise->reps = $request->get('reps');
-        }
-        if ($request->get('sets')) {
-            $exercise->sets = $request->get('sets');
         }
 
         $exercise->save();

@@ -18,6 +18,8 @@ return new class extends Migration
             $table->foreign("program_id")->nullable();
             $table->string('title');
             $table->integer('duration');
+            $table->enum('day', ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']);
+            $table->enum('state', ['progress', 'unstarted', 'finished'])->default("unstarted");
             $table->timestamps();
         });
     }

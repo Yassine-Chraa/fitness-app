@@ -12,8 +12,14 @@ class Exercise extends Model
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
-        'name',
-        'img_url',
+        "workout_id",
+        "title",
+        "description",
+        "api_id",
+        "rest",
+        "reps",
+        "sets",
+        "state",
     ];
 
 

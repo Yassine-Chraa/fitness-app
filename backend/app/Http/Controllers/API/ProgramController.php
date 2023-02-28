@@ -31,12 +31,9 @@ class ProgramController extends Controller
             "main_img" => $request->get('main_img'),
             "title" => $request->get('title'),
             "description" => $request->get('description'),
-            "start_time" => $request->get('start_time'),
-            "end_time" => $request->get('end_time'),
-            "duration" => $request->get('duration'),
-            "break_duration" => $request->get('break_duration'),
+            "difficulty_level" => $request->get('difficulty_level'),
             'category' => $request->get('category'),
-            'state' => $request->get('state'),
+            'owner_id' => $request->get('owner_id'),
             "isFree" => $request->get('isFree'),
         ]);
         $newProgram->save();
@@ -74,23 +71,14 @@ class ProgramController extends Controller
         if ($request->get('description')) {
             $program->description = $request->get('description');
         }
-        if ($request->get('start_time')) {
-            $program->start_time = $request->get('start_time');
-        }
-        if ($request->get('end_time')) {
-            $program->end_time = $request->get('end_time');
-        }
-        if ($request->get('duration')) {
-            $program->duration = $request->get('duration');
-        }
-        if ($request->get('break_duration')) {
-            $program->break_duration = $request->get('break_duration');
+        if ($request->get('owner_id')) {
+            $program->owner_id = $request->get('owner_id');
         }
         if ($request->get('category')) {
             $program->category = $request->get('category');
         }
-        if ($request->get('state')) {
-            $program->state = $request->get('state');
+        if ($request->get('difficulty_level')) {
+            $program->difficulty_level = $request->get('difficulty_level');
         }
         $program->isFree = $request->get('isFree');
 
@@ -106,8 +94,8 @@ class ProgramController extends Controller
      */
     public function destroy($id)
     {
-        $user = Program::findOrFail($id);
-        $user->delete();
+        $program = Program::findOrFail($id);
+        $program->delete();
 
         return response()->json(['message' => 'Program deleted successfully !']);
     }

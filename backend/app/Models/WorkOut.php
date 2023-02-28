@@ -14,11 +14,9 @@ class WorkOut extends Model
     protected $fillable = [
         'program_id',
         'title',
-        'category',
-        'description',
         'duration',
-        'category',
-        'difficulty_level',
+        'day',
+        'state',
     ];
 
 
