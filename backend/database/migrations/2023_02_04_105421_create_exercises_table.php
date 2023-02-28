@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('exercises', function (Blueprint $table) {
-            $table->id();
-            $table->foreign('activity_id')->nullable();
+            $table->id("id");
+            $table->foreignId('workout_id');
             $table->string('title');
             $table->text('description');
             $table->string('api_id');

@@ -1,23 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
+import { setMessageObject } from "../../UIContext";
 import Swal from "sweetalert2";
-
-const Toast = Swal.mixin({
-    toast: true,
-    position: "top-start",
-    showConfirmButton: false,
-    width: "max-content",
-    padding: "8px 16px",
-    background: "#5F8D4E",
-    color: "#fff",
-    timer: 3000,
-    timerProgressBar: false,
-    didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-});
 
 const userContext = createContext();
 
@@ -43,6 +28,7 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
     //-------------> perfect
@@ -55,6 +41,7 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
             return false;
         }
     };
@@ -62,17 +49,17 @@ export const UserContextProvider = ({ children }) => {
     const addUser = async (User) => {
         try {
             setLoadingAnimation(dispatch, true);
+            console.log(User)
+            console.log(localStorage.getItem('api_token'))
             const { data } = await axios.post(`${UserUrl}`, User);
             setLoadingAnimation(dispatch, false);
             getUsers();
-            Toast.fire({
-                icon: "success",
-                title: "User Stored",
-            });
+            setMessageObject(dispatch, { type: 'success', message: 'User Stored successfully', state: 'mount' })
             return data;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
     //-------------> perfect
@@ -82,14 +69,12 @@ export const UserContextProvider = ({ children }) => {
             const { data } = await axios.put(`${UserUrl}/${User.id}`, User);
             setLoadingAnimation(dispatch, false);
             getUsers();
-            Toast.fire({
-                icon: "success",
-                title: "User Updated",
-            });
+            setMessageObject(dispatch, { type: 'success', message: 'User Updated successfully', state: 'mount' })
             return data;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
 
@@ -107,17 +92,14 @@ export const UserContextProvider = ({ children }) => {
                     setLoadingAnimation(dispatch, true);
                     const { data } = await axios.delete(`${UserUrl}/${id}`);
                     setLoadingAnimation(dispatch, false);
-
-                    Toast.fire({
-                        icon: "success",
-                        title: "User Deleted",
-                    });
+                    setMessageObject(dispatch, { type: 'success', message: 'User Deleted successfully', state: 'mount' })
                     getUsers();
                     return data;
                 } catch (error) {
                     console.log(error);
                     alert(error);
                     setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
                 }
             }
         });
