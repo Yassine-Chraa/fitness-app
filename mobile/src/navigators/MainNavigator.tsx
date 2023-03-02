@@ -20,6 +20,7 @@ import Coaches from '../screens/Profile/Coaches';
 import CoachProfile from '../screens/Profile/CoachProfile';
 import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
+import SplashScreen from 'react-native-splash-screen';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -27,7 +28,9 @@ const Stack = createNativeStackNavigator();
 const MainNavigator = () => {
   const {isLogged, updateState} = useAuth();
   useEffect(() => {
-    updateState();
+    updateState().then(()=>{
+      SplashScreen.hide();
+    })
   }, [AsyncStorage.getItem('isLogged')]);
   return (
     <Stack.Navigator
