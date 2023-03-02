@@ -57,4 +57,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(Program::class,"owner_id");
     }
+    public function nutritionHistory()
+    {
+        return $this->hasOne(UserNutritionHistory::class);
+    }
 }

@@ -26,18 +26,18 @@ const UserForm = ({ type, selectedID }) => {
     const { getUser, updateUser } = useUser();
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState("");
     const { addUser } = useUser();
     const ImageRef = useRef();
 
     const [user, setUser] = useState({});
-
-    const fetchData = () => {
-        if (selectedID != 0) getUser(selectedID).then((res) => setUser(res));
-        else
+    const fetchData = async () => {
+        if (selectedID != 0)
+            await getUser(selectedID).then((res) => setUser(res));
+        else {
             setUser({
                 id: 0,
-                img_url: "https://bit.ly/34BY10g",
+                profile: "",
                 name: "",
                 email: "",
                 password: "fitnessapp",
@@ -48,9 +48,10 @@ const UserForm = ({ type, selectedID }) => {
                 top_goal: "bulking",
                 height: 1.75,
                 weight: 70,
-                BMI:  700 / Math.pow(1.75, 2),
+                BMI: 700 / Math.pow(1.75, 2),
                 birth_date: "",
             });
+        }
     };
     useEffect(() => {
         fetchData();
@@ -81,23 +82,24 @@ const UserForm = ({ type, selectedID }) => {
             </MenuItem>
         ));
 
-    const upLoadImageHandler = (event) => {
+    const uploadImage = (event) => {
         var file = event.target.files[0];
-        setImageFile(file);
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
             return;
         }
-        const fileReader = new FileReader();
-        fileReader.onload = (e) => {
+        setImageFile(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = (e) => {
             const { result } = e.target;
-            if (result) {
-                setUser((prev) => {
-                    return { ...prev, img_url: result };
-                });
-            }
+            setUser((prev) => {
+                return {
+                    ...prev,
+                    profile: result,
+                };
+            });
         };
-        fileReader.readAsDataURL(file);
     };
 
     const confirm = async () => {
@@ -108,7 +110,10 @@ const UserForm = ({ type, selectedID }) => {
             };
         });
         const result =
-            type == "Add" ? await addUser(user) : await updateUser(user);
+            type == "Add"
+                ? await addUser(user, imageFile)
+                : await updateUser(selectedID, user, imageFile);
+
         if (result) {
             setOpenFormHandler(dispatch, false);
         }
@@ -165,11 +170,9 @@ const UserForm = ({ type, selectedID }) => {
                         }}
                     >
                         <MDAvatar
-                            onClick={() => ImageRef.current.click()}
                             variant="gradient"
-                            src={user.img_url}
+                            src={user.profile}
                             size="xl"
-                            style={{ cursor: "pointer" }}
                         />
                         <MDButton
                             onClick={() => ImageRef.current.click()}
@@ -185,14 +188,10 @@ const UserForm = ({ type, selectedID }) => {
                             Upload Image
                             <input
                                 ref={ImageRef}
-                                onChange={upLoadImageHandler}
+                                onChange={uploadImage}
                                 hidden
                                 accept="image/*"
-                                multiple
                                 type="file"
-                                onClick={() =>
-                                    console.log("upload is invoked !")
-                                }
                             />
                         </MDButton>
                     </MDBox>

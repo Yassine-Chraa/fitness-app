@@ -4,7 +4,6 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -40,6 +39,7 @@ class UserController extends Controller
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
+            'profile' => $request->get('profile'),
             'birth_date' => $request->get('birth_date'),
             'BMI' => $request->get('BMI'),
             'body_fat' => $request->get('body_fat') || 20.0,
@@ -79,21 +79,10 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
-        if ($request->get('type') == "emailForm") {
+        if ($request->get('type') == "passwordForm") {
             $request->validate([
-                'name' => 'required|min:4',
-                'email' => 'required|email',
-            ]);
-
-            $user->name = $request->get('name');
-            $user->email = $request->get('email');
-
-            $user->save();
-            return response()->json(['message' => 'User updated']);
-        } elseif ($request->get('type') == "passwordForm") {
-            $request->validate([
-                'password' => 'required|min:6',
-                'nvPassword' => 'required|min:6',
+                'password' => 'required|min:8',
+                'nvPassword' => 'required|min:8',
             ]);
 
             if (Hash::check($request->get('password'), $user->password)) {
@@ -106,42 +95,23 @@ class UserController extends Controller
                 return response(["error" => "Password is incorrect"], 422);
             }
         } else {
-            if ($request->get('name')) {
-                $user->name = $request->get('name');
-            }
-            if ($request->get('email')) {
-                $user->email = $request->get('email');
-            }
-            if ($request->get('role')) {
-                $user->role = $request->get('role');
-            }
-            if ($request->get('BMI')) {
-                $user->BMI = $request->get('BMI');
-            }
-            if ($request->get('body_fat')) {
-                $user->body_fat = $request->get('body_fat');
-            }
-            if ($request->get('weight')) {
-                $user->weight = $request->get('weight');
-            }
-            if ($request->get('height')) {
-                $user->height = $request->get('height');
-            }
-            if ($request->get('birth_date')) {
-                $user->birth_date = $request->get('birth_date');
-            }
-            if ($request->get('gender')) {
-                $user->gender = $request->get('gender');
-            }
-            if ($request->get('workout_level')) {
-                $user->workout_level = $request->get('workout_level');
-            }
-            if ($request->get('top_goal')) {
-                $user->top_goal = $request->get('top_goal');
-            }
-            if ($request->get('bio')) {
-                $user->top_goal = $request->get('bio');
-            }
+            $request->validate([
+                'name' => 'required|min:4',
+                'email' => 'required|email',
+            ]);
+            $user->name = $request->get('name');
+            $user->email = $request->get('email');
+            $user->profile = $request->get('profile');
+            $user->role = $request->get('role');
+            $user->BMI = $request->get('BMI');
+            $user->body_fat = $request->get('body_fat');
+            $user->weight = $request->get('weight');
+            $user->height = $request->get('height');
+            $user->birth_date = $request->get('birth_date');
+            $user->gender = $request->get('gender');
+            $user->workout_level = $request->get('workout_level');
+            $user->top_goal = $request->get('top_goal');
+            $user->bio = $request->get('bio');
 
             $user->save();
 
@@ -161,5 +131,16 @@ class UserController extends Controller
         $user->delete();
 
         return response()->json(['message' => 'User deleted']);
+    }
+
+    /**
+     * Get total users: api/users/total
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTotal()
+    {
+        $count = User::all()->count();
+        return response()->json(['total' => $count]);
     }
 }

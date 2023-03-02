@@ -13,13 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('workouts_table', function (Blueprint $table) {
+        Schema::create('user_nutrition_histories', function (Blueprint $table) {
             $table->id();
-            $table->foreign("program_id")->nullable();
-            $table->string('title');
-            $table->integer('duration');
-            $table->enum('day', ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']);
-            $table->enum('state', ['progress', 'unstarted', 'finished'])->default("unstarted");
+            $table->bigInteger('user_id', unsigned: true)->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->timestamps();
         });
     }
@@ -31,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('workouts_table');
+        Schema::dropIfExists('user_nutrition_histories');
     }
 };

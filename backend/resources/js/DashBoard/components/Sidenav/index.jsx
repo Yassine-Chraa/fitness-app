@@ -205,7 +205,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                     <>
                         <NavLink to="">
                             <MDAvatar
-                                src="https://bit.ly/34BY10g"
+                                src={localStorage.getItem("user_profile")}
                                 alt="Avatar"
                                 variant="rounded"
                                 size="sm"

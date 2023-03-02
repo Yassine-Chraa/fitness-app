@@ -142,7 +142,7 @@ const DashBoardNavBar = ({ absolute, light, isMini }) => {
                             <Link to="">
                                 <IconButton size="small" sx={navbarIconButton} disableRipple>
                                     <Avatar sx={{ width: 24, height: 24, iconsStyle }}
-                                        src="https://bit.ly/34BY10g" />
+                                        src={localStorage.getItem("user_profile")}/>
                                 </IconButton>
                             </Link>
                         </MDBox>

@@ -195,7 +195,7 @@ const Products = () => {
     ];
     const configData = () => {
         const res = products?.map((ele) => {
-            const { id, name, category, stock, price, company } = ele;
+            const { id, name,product_img, category, stock, price, company } = ele;
             return {
                 id: (
                     <MDTypography
@@ -211,7 +211,7 @@ const Products = () => {
                     <Profile
                         name={name}
                         subtitle={company}
-                        image={"https://bit.ly/34BY10g"}
+                        image={product_img}
                     />
                 ),
 

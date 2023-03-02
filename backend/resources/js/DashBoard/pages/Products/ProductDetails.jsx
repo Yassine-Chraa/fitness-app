@@ -6,12 +6,13 @@ import MDTypography from "../../components/MDTypography";
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
-import { size } from "lodash";
 
 const ProductDetails = () => {
     const { id } = useParams();
     const { getProduct } = useProduct();
     const [product, setProduct] = useState({});
+    const [colorInd, setColorInd] = useState(0);
+    const [sizeInd, setSizeInd] = useState(0);
     const sizes = ["XS", "S", "M", "L", "XL"];
     const colors = ["black", "blue", "white", "green"];
     const fetchData = async () => {
@@ -19,7 +20,8 @@ const ProductDetails = () => {
         console.log(data);
         setProduct(data);
     };
-    const { name, category, price, stock, description } = product;
+    const { name, product_img, category, price, stock, description, items } =
+        product;
     useEffect(() => {
         fetchData();
     }, []);
@@ -36,13 +38,10 @@ const ProductDetails = () => {
                                 justifyContent: "center",
                             }}
                         >
-                            <img
-                                style={{ width: "100%"}}
-                                src="https://static.thcdn.com/images/large/webp//productimg/1600/1600/13764083-9285015158202439.jpg"
-                            />
+                            <img style={{ width: "100%" }} src={product_img} />
                         </MDBox>
                     </Grid>
-                    <Grid item xs={12}  sm={6}>
+                    <Grid item xs={12} sm={6}>
                         <MDBox
                             style={{
                                 display: "flex",
@@ -117,21 +116,27 @@ const ProductDetails = () => {
                                     Size:
                                 </MDTypography>
                                 <Grid container columnGap={1} mt={1}>
-                                    {sizes.map((ele, index) => {
+                                    {items?.map((ele, index) => {
                                         return (
                                             <Grid
                                                 item
                                                 className="size-item"
                                                 style={{
                                                     borderWidth:
-                                                        index == 0 ? 2 : 1,
+                                                        index == sizeInd
+                                                            ? 2
+                                                            : 1,
                                                     borderColor:
-                                                        index == 0
+                                                        index == sizeInd
                                                             ? "rgb(145, 69, 69"
                                                             : "rgb(236, 227, 227)",
+                                                    cursor:'pointer'
                                                 }}
+                                                onClick={() =>
+                                                    setSizeInd(index)
+                                                }
                                             >
-                                                {ele}
+                                                {ele.size}
                                             </Grid>
                                         );
                                     })}
@@ -148,7 +153,7 @@ const ProductDetails = () => {
                                     Color:
                                 </MDTypography>
                                 <Grid container columnGap={2} mt={1}>
-                                    {colors.map((ele,index) => {
+                                    {items?.map((ele, index) => {
                                         return (
                                             <Grid
                                                 item
@@ -156,14 +161,20 @@ const ProductDetails = () => {
                                                     width: 35,
                                                     height: 35,
                                                     borderRadius: "50%",
-                                                    backgroundColor: ele,
+                                                    backgroundColor: ele.color,
                                                     outline:
-                                                        index == 0
+                                                        index == colorInd
                                                             ? "solid 2px"
                                                             : "",
                                                     outlineOffset:
-                                                        index == 0 ? 3 : "",
+                                                        index == colorInd
+                                                            ? 3
+                                                            : "",
+                                                    cursor: 'pointer'
                                                 }}
+                                                onClick={() =>
+                                                    setColorInd(index)
+                                                }
                                             ></Grid>
                                         );
                                     })}

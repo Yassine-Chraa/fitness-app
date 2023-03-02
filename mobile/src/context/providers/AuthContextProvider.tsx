@@ -8,11 +8,11 @@ import SignUpObj from '../../types/SignUpObj';
 
 export type AuthContextType = {
   isLogged: boolean;
-  updateState: () => void;
-  signIn: (form: any) => Promise<any>;
-  signUp: (form: any) => Promise<any>;
+  updateState: () => Promise<void>;
+  signIn: (form: any) => Promise<string>;
+  signUp: (form: any) => Promise<string>;
   logout: () => void;
-  resetPassword: (email: string) => Promise<any>;
+  resetPassword: (email: string) => Promise<string>;
   deleteAccount: () => Promise<any>;
 };
 const AuthContext = createContext<AuthContextType | null>(null);
@@ -39,11 +39,10 @@ export const AuthContextProvider = ({children}: any) => {
   const [loading, setLoading] = useState(false);
   const [isLogged, setIsLogged] = useState(false);
 
-  const updateState = () => {
-    AsyncStorage.getItem('isLogged').then((res: string | null) => {
-      if (res == 'true') setIsLogged(true);
-      else setIsLogged(false);
-    });
+  const updateState = async () => {
+    const res = await AsyncStorage.getItem('isLogged');
+    if (res == 'true') setIsLogged(true);
+    else setIsLogged(false);
   };
   const signIn = async (form: SignInObj) => {
     setLoading(true);
@@ -51,7 +50,7 @@ export const AuthContextProvider = ({children}: any) => {
       const {data} = await axios.post(`${signInUrl}`, form);
       if (data) {
         const storeResult = await storeData('current_user', data);
-        console.log(data)
+        console.log(data);
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }

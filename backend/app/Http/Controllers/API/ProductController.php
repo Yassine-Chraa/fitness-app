@@ -16,6 +16,10 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
+        foreach ($products as $i => $product) {
+            $products[$i] = $product;
+            $products[$i]->items = $product->items;
+        }
         return response()->json($products);
     }
 
@@ -33,18 +37,17 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'company'=> 'required'
+            'company' => 'required'
         ]);
 
         $newProduct = new Product([
             'name' => $request->get('name'),
+            'product_img' => $request->get('product_img'),
             'category' => $request->get('category'),
             'description' => $request->get('description'),
             'stock' => $request->get('stock'),
             'price' => $request->get('price'),
             'company' => $request->get('company'),
-            'color' => $request->get('color'),
-            'size' => $request->get('size'),
         ]);
         $newProduct->save();
         return response()->json(['message' => 'Product stored']);
@@ -59,6 +62,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
+        $product->items = $product->items;
         return response()->json($product);
     }
 
@@ -78,16 +82,15 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
-            'company'=> 'required'
+            'company' => 'required'
         ]);
         $product->name = $request->get('name');
+        $product->product_img = $request->get('product_img');
         $product->category = $request->get('category');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
         $product->stock = $request->get('stock');
         $product->company = $request->get('company');
-        $product->color = $request->get('color');
-        $product->size = $request->get('size');
 
         $product->save();
         return response()->json(['message' => 'Product updated']);
@@ -106,4 +109,15 @@ class ProductController extends Controller
 
         return response()->json(['message' => 'Product deleted']);
     }
+
+    /*public function addReview(Request $request, $id)
+    {
+        $product = Product::findOrFail($id);
+        if ($product->reviews == 0) {
+            $product->rating = 5;
+        }
+        $x =  $product->rating * $product->reviews;
+        $product->rating = ($x + $request->get('rating')) / ($product->reviews + 1);
+        $product->reviews += 1;
+    }*/
 }

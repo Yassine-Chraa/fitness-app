@@ -8,9 +8,9 @@ use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\UserController;
-use App\Models\Program;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-
+use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -27,7 +27,9 @@ use Illuminate\Support\Facades\Route;
 // group of all protected routes
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
+    Route::get('/users/total', [UserController::class, 'getTotal']);
     Route::apiResource('users', UserController::class);
+
     Route::apiResource('equipments', EquipmentController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('meals', MealController::class);
@@ -36,9 +38,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('programs', ProgramController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/deleteAccount', [AuthController::class, 'deleteAccount']);
+    Route::post('upload', function (Request $request) {
+        $url = Cloudinary::upload($request->file('imageFile')->getRealPath())->getSecurePath();
+        return response()->json(['img_url' => $url]);
+    });
 });
-
-// this route is public
 
 Route::post('/signUp', [AuthController::class, 'signUp']);
 Route::post('/signIn', [AuthController::class, 'signIn']);

@@ -16,15 +16,16 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
 
-const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif)$/i;
+const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif|webp)$/i;
 const colors = ["black", "blue", "white", "green"];
+const sizes = ["S", "M", "L", "XL"];
 const categories = ["gym_cloths", "gym_nutrition"];
 
 const ProductForm = ({ type, selectedID }) => {
     const { getProduct, updateProduct, addProduct } = useProduct();
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState("");
     const ImageRef = useRef();
 
     const [product, setProduct] = useState({});
@@ -34,13 +35,12 @@ const ProductForm = ({ type, selectedID }) => {
             getProduct(selectedID).then((res) => setProduct(res));
         else
             setProduct({
-                id: 0,
-                img_url: "",
+                product_img: "",
                 name: "",
                 category: "",
                 description: "",
                 size: "L",
-                color: "Black",
+                color: "black",
                 company: "",
                 price: "",
                 stock: 0,
@@ -50,32 +50,39 @@ const ProductForm = ({ type, selectedID }) => {
         fetchData();
     }, [selectedID]);
 
-    const upLoadImageHandler = (event) => {
+    const uploadImage = (event) => {
         var file = event.target.files[0];
-        setImageFile(file);
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
             return;
         }
-        const fileReader = new FileReader();
-        fileReader.onload = (e) => {
+        setImageFile(file);
+        var reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = (e) => {
             const { result } = e.target;
-            if (result) {
-                setProduct((prev) => {
-                    return { ...prev, img_url: result };
-                });
-            }
+            setProduct((prev) => {
+                return {
+                    ...prev,
+                    product_img: result,
+                };
+            });
         };
-        fileReader.readAsDataURL(file);
     };
 
     const confirm = async () => {
-        const result =
-            type == "Add"
-                ? await addProduct(product)
-                : await updateProduct(selectedID, product);
-        if (result) {
-            setOpenFormHandler(dispatch, false);
+        const formData = new FormData();
+        formData.append("imageFile", imageFile);
+        try {
+            const result =
+                type == "Add"
+                    ? await addProduct(product, imageFile)
+                    : await updateProduct(selectedID, product, imageFile);
+            if (result) {
+                setOpenFormHandler(dispatch, false);
+            }
+        } catch (e) {
+            console.log(e);
         }
     };
     const cancel = () => {
@@ -130,9 +137,8 @@ const ProductForm = ({ type, selectedID }) => {
                         }}
                     >
                         <MDAvatar
-                            onClick={() => ImageRef.current.click()}
                             variant="gradient"
-                            src={"https://bit.ly/34BY10g"}
+                            src={product.product_img}
                             size="xl"
                             style={{ cursor: "pointer" }}
                         />
@@ -150,164 +156,199 @@ const ProductForm = ({ type, selectedID }) => {
                             Upload Image
                             <input
                                 ref={ImageRef}
-                                onChange={upLoadImageHandler}
+                                onChange={uploadImage}
                                 hidden
                                 accept="image/*"
                                 multiple
                                 type="file"
-                                onClick={() =>
-                                    console.log("upload is invoked !")
-                                }
                             />
                         </MDButton>
                     </MDBox>
                 </MDBox>
-                <Grid container spacing={2}>
-                    <Grid container item xs={12} spacing={2}>
-                        <Grid item xs={12} sm={6}>
-                            <MDInput
-                                value={product.name}
+                <Grid container xs={12} spacing={2}>
+                    <Grid item xs={12} sm={6}>
+                        <MDInput
+                            value={product.name}
+                            onChange={(e) =>
+                                setProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        name: e.target.value,
+                                    };
+                                })
+                            }
+                            type="text"
+                            label="Name"
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                        <MDInput
+                            value={product.stock}
+                            onChange={(e) =>
+                                setProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        stock: e.target.value,
+                                    };
+                                })
+                            }
+                            type="number"
+                            label="Stock"
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={6} sm={3}>
+                        <MDInput
+                            value={product.price}
+                            onChange={(e) =>
+                                setProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        price: e.target.value,
+                                    };
+                                })
+                            }
+                            type="number"
+                            label="Price (DH)"
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={12} sm={6}>
+                        <MDInput
+                            value={product.company}
+                            onChange={(e) =>
+                                setProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        company: e.target.value,
+                                    };
+                                })
+                            }
+                            type="text"
+                            label="Company"
+                            variant="outlined"
+                            fullWidth
+                        />
+                    </Grid>
+                    <Grid item xs={6}>
+                        <FormControl fullWidth>
+                            <InputLabel id="select-role-label">
+                                Select Category
+                            </InputLabel>
+                            <Select
+                                variant="outlined"
+                                label="Select Category"
+                                value={product.category}
                                 onChange={(e) =>
                                     setProduct((prev) => {
                                         return {
                                             ...prev,
-                                            name: e.target.value,
+                                            category: e.target.value,
                                         };
                                     })
                                 }
-                                type="text"
-                                label="Name"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                            <MDInput
-                                value={product.stock}
-                                onChange={(e) =>
-                                    setProduct((prev) => {
-                                        return {
-                                            ...prev,
-                                            stock: e.target.value,
-                                        };
-                                    })
-                                }
-                                type="number"
-                                label="Stock"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={3}>
-                            <MDInput
-                                value={product.price}
-                                onChange={(e) =>
-                                    setProduct((prev) => {
-                                        return {
-                                            ...prev,
-                                            price: e.target.value,
-                                        };
-                                    })
-                                }
-                                type="number"
-                                label="Price (DH)"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={12} sm={4}>
-                            <MDInput
-                                value={product.company}
-                                onChange={(e) =>
-                                    setProduct((prev) => {
-                                        return {
-                                            ...prev,
-                                            company: e.target.value,
-                                        };
-                                    })
-                                }
-                                type="text"
-                                label="Company"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Grid>
-                        <Grid item xs={6} sm={4}>
-                            <FormControl fullWidth>
-                                <InputLabel id="select-role-label">
-                                    Select Color
-                                </InputLabel>
-                                <Select
-                                    variant="outlined"
-                                    label="Select Color"
-                                    value={product.color}
-                                    onChange={(e) =>
-                                        setProduct((prev) => {
-                                            return {
-                                                ...prev,
-                                                color: e.target.value,
-                                            };
-                                        })
-                                    }
-                                    sx={{
-                                        padding: "0.75rem !important",
-                                    }}
-                                >
-                                    {colors.map((item, index) => (
-                                        <MenuItem key={index} value={`${item}`}>
-                                            {item}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={6} sm={4}>
-                            <FormControl fullWidth>
-                                <InputLabel id="select-role-label">
-                                    Select Category
-                                </InputLabel>
-                                <Select
-                                    variant="outlined"
-                                    label="Select Category"
-                                    value={product.category}
-                                    onChange={(e) =>
-                                        setProduct((prev) => {
-                                            return {
-                                                ...prev,
-                                                category: e.target.value,
-                                            };
-                                        })
-                                    }
-                                    sx={{
-                                        padding: "0.75rem !important",
-                                    }}
-                                >
-                                    {categories.map((item, index) => (
-                                        <MenuItem key={index} value={`${item}`}>
-                                            {item}
-                                        </MenuItem>
-                                    ))}
-                                </Select>
-                            </FormControl>
-                        </Grid>
-                        <Grid item xs={12}>
-                            <MDInput
-                                value={product.description}
-                                onChange={(e) =>
-                                    setProduct((prev) => {
-                                        return {
-                                            ...prev,
-                                            description: e.target.value,
-                                        };
-                                    })
-                                }
-                                multiline
-                                rows={4}
-                                label="Description"
-                                variant="outlined"
-                                fullWidth
-                            />
-                        </Grid>
+                                sx={{
+                                    padding: "0.75rem !important",
+                                }}
+                            >
+                                {categories.map((item, index) => (
+                                    <MenuItem key={index} value={`${item}`}>
+                                        {item}
+                                    </MenuItem>
+                                ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    {product.color && product.size ? (
+                        <>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="select-role-label">
+                                        Select Color
+                                    </InputLabel>
+                                    <Select
+                                        variant="outlined"
+                                        label="Select Color"
+                                        value={product.color}
+                                        onChange={(e) =>
+                                            setProduct((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    color: e.target.value,
+                                                };
+                                            })
+                                        }
+                                        sx={{
+                                            padding: "0.75rem !important",
+                                        }}
+                                    >
+                                        {colors.map((item, index) => (
+                                            <MenuItem
+                                                key={index}
+                                                value={`${item}`}
+                                            >
+                                                {item}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <FormControl fullWidth>
+                                    <InputLabel id="select-role-label">
+                                        Select Size
+                                    </InputLabel>
+                                    <Select
+                                        variant="outlined"
+                                        label="Select Size"
+                                        value={product.size}
+                                        onChange={(e) =>
+                                            setProduct((prev) => {
+                                                return {
+                                                    ...prev,
+                                                    color: e.target.value,
+                                                };
+                                            })
+                                        }
+                                        sx={{
+                                            padding: "0.75rem !important",
+                                        }}
+                                    >
+                                        {sizes.map((item, index) => (
+                                            <MenuItem
+                                                key={index}
+                                                value={`${item}`}
+                                            >
+                                                {item}
+                                            </MenuItem>
+                                        ))}
+                                    </Select>
+                                </FormControl>
+                            </Grid>
+                        </>
+                    ) : null}
+
+                    <Grid item xs={12}>
+                        <MDInput
+                            value={product.description}
+                            onChange={(e) =>
+                                setProduct((prev) => {
+                                    return {
+                                        ...prev,
+                                        description: e.target.value,
+                                    };
+                                })
+                            }
+                            multiline
+                            rows={4}
+                            label="Description"
+                            variant="outlined"
+                            fullWidth
+                        />
                     </Grid>
                 </Grid>
                 <MDBox

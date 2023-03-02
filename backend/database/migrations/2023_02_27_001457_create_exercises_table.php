@@ -15,7 +15,8 @@ return new class extends Migration
     {
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
-            $table->foreign('activity_id')->nullable();
+            $table->unsignedBigInteger('workout_id')->nullable();
+            $table->foreign('workout_id')->references('id')->on('workouts')->onUpdate('NO ACTION')->onDelete('NO ACTION');
             $table->string('title');
             $table->text('description');
             $table->string('api_id');
