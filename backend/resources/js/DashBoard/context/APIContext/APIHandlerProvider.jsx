@@ -7,11 +7,11 @@ import {WorkOutContextProvider} from './providers/WorkOutContextProvider';
 import {ExerciseContextProvider} from './providers/ExerciseContextProvider';
 import { Composer } from "./Composer";
 
-
 const providers = [
     UserContextProvider,
     EquipmentContextProvider,
     ProductContextProvider,
+    FeedbackContextProvider,
     FeedbackContextProvider,
     ProgramContextProvider,
     ExerciseContextProvider,

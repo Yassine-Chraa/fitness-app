@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Exercise;
 use App\Models\WorkOut;
 use GuzzleHttp\Psr7\Request;
 
@@ -16,8 +15,8 @@ class WorkOutController extends Controller
      */
     public function index()
     {
-        $exercises = Exercise::all();
-        return response()->json($exercises);
+        $workouts = WorkOut::all();
+        return response()->json($workouts);
     }
 
     /**
@@ -28,15 +27,15 @@ class WorkOutController extends Controller
      */
     public function store(Request $request)
     {
-        $newExercise = new Exercise([
+        $newWorkOut = new WorkOut([
             "program_id" => $request->get('program_id'),
             "title" => $request->get('title'),
             "duration" => $request->get('duration'),
             "day" => $request->get('day'),
             'state' => $request->get('state'),
         ]);
-        $newExercise->save();
-        return response()->json(['message' => 'Exercise created successfully !']);
+        $newWorkOut->save();
+        return response()->json(['message' => 'WorkOut created successfully !']);
     }
 
     /**
@@ -47,8 +46,8 @@ class WorkOutController extends Controller
      */
     public function show($id)
     {
-        $exercise = Exercise::findOrFail($id);
-        return response()->json($exercise);
+        $workout = WorkOut::findOrFail($id);
+        return response()->json($workout);
     }
 
     /**
@@ -60,25 +59,25 @@ class WorkOutController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $exercise = Exercise::findOrFail($id);
+        $workout = WorkOut::findOrFail($id);
         if ($request->get('program_id')) {
-            $exercise->program_id = $request->get('program_id');
+            $workout->program_id = $request->get('program_id');
         }
         if ($request->get('title')) {
-            $exercise->title = $request->get('title');
+            $workout->title = $request->get('title');
         }
         if ($request->get('duration')) {
-            $exercise->duration = $request->get('duration');
+            $workout->duration = $request->get('duration');
         }
         if ($request->get('day')) {
-            $exercise->day = $request->get('day');
+            $workout->day = $request->get('day');
         }
         if ($request->get('state')) {
-            $exercise->state = $request->get('state');
+            $workout->state = $request->get('state');
         }
 
-        $exercise->save();
-        return Response()->json(['message' => "Exercise updated successfully !"]);
+        $workout->save();
+        return response()->json(['message' => "WorkOut updated successfully !"]);
     }
 
     /**
@@ -89,10 +88,10 @@ class WorkOutController extends Controller
      */
     public function destroy($id)
     {
-        $exercise = Exercise::findOrFail($id);
-        $exercise->delete();
+        $workout = WorkOut::findOrFail($id);
+        $workout->delete();
 
-        return response()->json(['message' => 'Exercise deleted successfully !']);
+        return response()->json(['message' => 'WorkOut deleted successfully !']);
     }
 }
 
