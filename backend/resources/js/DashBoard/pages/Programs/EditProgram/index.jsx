@@ -10,7 +10,7 @@ import ProgramStatistics from "./ProgramStatistics";
 import ListOfActivities from "./ListOfActivities";
 import { setOpenEditProgramModalHandler, setReloadData, useMaterialUIController } from "../../../context/UIContext";
 import DashboardLayout from "../../../layouts/DashboardLayout";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 
 //============================================================================================
@@ -20,10 +20,11 @@ const diff_levels = ['beginner', 'intermediate', 'advanced'];
 //============================================================================================
 
 
-const EditProgram = ({ selectedID }) => {
+const EditProgram = () => {
 
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler, reLoadData } = controller;
+    const { id } = useParams();
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
@@ -65,7 +66,7 @@ const EditProgram = ({ selectedID }) => {
 
 
     const fetchProgram = async () => {
-        const program = await getProgram(selectedID);
+        const program = await getProgram(id);
         if (program) {
             const { id, main_img, title, description, owner_id, difficulty_level, category, isFree } = program;
             setLocalCategory(category ? category : categories[0]);
@@ -114,8 +115,6 @@ const EditProgram = ({ selectedID }) => {
 
     return (
         <DashboardLayout>
-
-
             <MDBox>
                 <MDBox display="flex" justifyContent="space-between" mx={1} mb={1}>
                     <MDButton onClick={confirmEditHandler} color="secondary" variant="outlined">
@@ -280,7 +279,7 @@ const EditProgram = ({ selectedID }) => {
 
                             <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
 
-                            <ListOfActivities ProID={selectedID} />
+                            <ListOfActivities ProID={id} />
 
                         </Grid>
                     </Grid>

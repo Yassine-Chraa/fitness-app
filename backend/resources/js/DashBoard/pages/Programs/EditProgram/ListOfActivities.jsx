@@ -9,15 +9,17 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MDBox from "../../../components/MDBox";
-import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
+import { Card, Grid, Icon, IconButton, Menu, Pagination, Tooltip } from "@mui/material";
 import MDTypography from "../../../components/MDTypography";
 import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContextProvider";
+import { Stack } from "@mui/system";
 
 const ListOfActivities = (ProID) => {
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
     const { getWorkOuts } = useWorkOut();
+    const [opion, setOpion] = useState(0);
 
     const openAddmodalInvoker = () => {
         setOpenAddActivityModalHandler(dispatch, true);
@@ -29,6 +31,13 @@ const ListOfActivities = (ProID) => {
             setWorkouts(workouts);
         }
     };
+
+
+    //==========================================================================================
+
+
+
+    //==========================================================================================
 
 
     useEffect(() => {
@@ -75,12 +84,15 @@ const ListOfActivities = (ProID) => {
                             ))
                         }
 
-
-
                         <MDBox sx={{
-                            width: '100%', display: 'flex', justifyContent: 'flex-end',
+                            width: '100%', display: 'flex', justifyContent: 'space-between',
                             marginBottom: '0.3rem', marginTop: "1rem",
                         }}>
+                            <MDBox >
+                                <Stack spacing={2}>
+                                    <Pagination count={10} variant="outlined" color="primary" />
+                                </Stack>
+                            </MDBox>
                             <Tooltip title="New Activity !">
                                 <IconButton
                                     onClick={openAddmodalInvoker}
@@ -160,7 +172,7 @@ export const WorkOutItem = ({ workout, ProID }) => {
 
     if (workout.title.split(" ").length > 1) {
         const title = workout.title.split(" ")[0]
-            +" "+ workout.title.split(" ")[1]
+            + " " + workout.title.split(" ")[1]
     }
 
     return (

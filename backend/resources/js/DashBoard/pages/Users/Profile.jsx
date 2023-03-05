@@ -24,7 +24,6 @@ const Profile = () => {
     const fetchUser = async () => {
         const data = await getUser(id);
         setUser(data);
-        console.log(data)
     };
     const {
         name,
