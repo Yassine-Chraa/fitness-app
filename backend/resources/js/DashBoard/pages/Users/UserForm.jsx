@@ -48,7 +48,6 @@ const UserForm = ({ type, selectedID }) => {
                 top_goal: "bulking",
                 height: 1.75,
                 weight: 70,
-                BMI: 700 / Math.pow(1.75, 2),
                 birth_date: "",
             });
         }
@@ -103,12 +102,6 @@ const UserForm = ({ type, selectedID }) => {
     };
 
     const confirm = async () => {
-        setUser((prev) => {
-            return {
-                ...prev,
-                BMI: user.weight / Math.pow(user.height, 2),
-            };
-        });
         const result =
             type == "Add"
                 ? await addUser(user, imageFile)

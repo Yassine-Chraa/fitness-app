@@ -17,11 +17,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
-        foreach ($users as $i => $user) {
-            $users[$i] = $user;
-            $users[$i]->programs = $user->programs;
-            $users[$i]->nutritionHistory = $user->nutritionHistory;
-        }
         return response()->json($users);
     }
 
@@ -39,14 +34,14 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
+        $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
         $newUser = new User([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'profile' => $request->get('profile'),
             'birth_date' => $request->get('birth_date'),
-            'BMI' => $request->get('BMI'),
+            'BMI' => $BMI,
             'body_fat' => $request->get('body_fat') || 20.0,
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
@@ -70,6 +65,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $user->programs = $user->programs;
+        $user->history_items = $user->nutritionHistory->historyItems;
         return response()->json($user);
     }
 
@@ -104,11 +101,12 @@ class UserController extends Controller
                 'name' => 'required|min:4',
                 'email' => 'required|email',
             ]);
+            $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->profile = $request->get('profile');
             $user->role = $request->get('role');
-            $user->BMI = $request->get('BMI');
+            $user->BMI = $BMI;
             $user->body_fat = $request->get('body_fat');
             $user->weight = $request->get('weight');
             $user->height = $request->get('height');

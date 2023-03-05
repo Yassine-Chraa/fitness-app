@@ -16,6 +16,6 @@ class UserNutritionHistory extends Model
 
     public function historyItems()
     {
-        return $this->hasMany(UserNutritionHistoryItem::class);
+        return $this->hasMany(UserNutritionHistoryItem::class,'history_id');
     }
 }
