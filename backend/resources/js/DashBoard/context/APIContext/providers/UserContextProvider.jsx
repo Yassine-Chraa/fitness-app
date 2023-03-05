@@ -1,23 +1,8 @@
 import { createContext, useContext, useState } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
+import { setMessageObject } from "../../UIContext";
 import Swal from "sweetalert2";
-
-const Toast = Swal.mixin({
-    toast: true,
-    position: "top-end",
-    showConfirmButton: false,
-    width: "max-content",
-    padding: "8px 16px",
-    background: "#5F8D4E",
-    color: "#fff",
-    timer: 3000,
-    timerProgressBar: false,
-    didOpen: (toast) => {
-        toast.addEventListener("mouseenter", Swal.stopTimer);
-        toast.addEventListener("mouseleave", Swal.resumeTimer);
-    },
-});
 
 const userContext = createContext();
 
@@ -42,6 +27,7 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
 
@@ -54,6 +40,7 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
             return false;
         }
     };
@@ -62,36 +49,17 @@ export const UserContextProvider = ({ children }) => {
         try {
             let res;
             setLoadingAnimation(dispatch, true);
-            if (imageFile) {
-                const formData = new FormData();
-                formData.append("imageFile", imageFile);
-                const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
-                res = await axios.post(`${UserUrl}`, {
-                    ...User,
-                    profile: data.img_url,
-                });
-            } else {
-                res = await axios.post(`${UserUrl}`, User);
-            }
-
+            console.log(User)
+            console.log(localStorage.getItem('api_token'))
+            const { data } = await axios.post(`${UserUrl}`, User);
             setLoadingAnimation(dispatch, false);
             getUsers();
-            Toast.fire({
-                icon: "success",
-                title: "User Stored",
-            });
-            return res.data.message;
+            setMessageObject(dispatch, { type: 'success', message: 'User Created successfully', state: 'mount' })
+            return data;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
 
@@ -120,14 +88,12 @@ export const UserContextProvider = ({ children }) => {
             }
             setLoadingAnimation(dispatch, false);
             getUsers();
-            Toast.fire({
-                icon: "success",
-                title: "User Updated",
-            });
-            return res.data.message;
+            setMessageObject(dispatch, { type: 'success', message: 'User was Updated successfully', state: 'mount' })
+            return data;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
         }
     };
 
@@ -145,17 +111,14 @@ export const UserContextProvider = ({ children }) => {
                     setLoadingAnimation(dispatch, true);
                     const { data } = await axios.delete(`${UserUrl}/${id}`);
                     setLoadingAnimation(dispatch, false);
-
-                    Toast.fire({
-                        icon: "success",
-                        title: "User Deleted",
-                    });
+                    setMessageObject(dispatch, { type: 'success', message: 'User was Deleted successfully', state: 'mount' })
                     getUsers();
                     return data;
                 } catch (error) {
                     console.log(error);
                     alert(error);
                     setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
                 }
             }
         });

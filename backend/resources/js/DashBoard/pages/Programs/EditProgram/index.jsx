@@ -14,7 +14,7 @@ import { setOpenEditProgramModalHandler, setReloadData, useMaterialUIController 
 //============================================================================================
 const imgRegex = /image\/(png|PNG|jpg|JPG|jpeg|JPEG|jfif|JFIF)$/i;
 const categories = ['maintaining', 'bulking', 'cutting'];
-const states = ['progress', 'unfinished', 'finished'];
+const diff_levels = ['beginner', 'intermediate', 'advanced'];
 //============================================================================================
 
 
@@ -30,21 +30,16 @@ const EditProgram = ({ selectedID }) => {
     const { getProgram, updateProgram } = useProgram();
 
     const [localCategory, setLocalCategory] = useState(categories[0]);
-    const [localState, setLocalState] = useState(states[0]);
+    const [localDiffLevel, setLocalDiffLevel] = useState(diff_levels[0]);
 
     const [localTitle, setLocalTitle] = useState('');
     const [localDesc, setLocalDesc] = useState('');
 
-    const [localBreakDuration, setLocalBreakDuration] = useState(0);
-    const [localDuration, setLocalDuration] = useState(0);
     const [localProID, setLocalProID] = useState(0);
-
-    const [localStartTime, setLocalStartTime] = useState('2000-02-02');
-    const [localEndTime, setLocalEndTime] = useState('2000-02-02');
 
     const [localIsFree, setLocalIsFree] = useState(false);
 
-    const states_options = () => states.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
+    const diff_levels_options = () => diff_levels.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const categories_options = () => categories.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
 
 
@@ -70,16 +65,12 @@ const EditProgram = ({ selectedID }) => {
     const fetchProgram = async () => {
         const program = await getProgram(selectedID);
         if (program) {
-            const { id, main_img, title, state, description, start_time, end_time, duration, break_duration, category, isFree } = program;
+            const { id, main_img, title, description, owner_id, difficulty_level, category, isFree } = program;
             setLocalCategory(category ? category : categories[0]);
             setLocalProID(id ? id : 0);
-            setLocalState(state ? state : states[0]);
+            setLocalDiffLevel(difficulty_level ? difficulty_level : diff_levels[0]);
             setLocalTitle(title ? title : "title here");
             setLocalDesc(description ? description : "short description about the program here.");
-            setLocalBreakDuration(break_duration ? break_duration : 0);
-            setLocalDuration(duration ? duration : 0);
-            setLocalStartTime(start_time ? start_time.split(" ")[0] : "2000-02-02");
-            setLocalEndTime(end_time ? end_time.split(" ")[0] : "2000-02-02");
             setLocalIsFree(() => isFree ? true : false);
             setLocalImgUrl(() => main_img ? main_img : 'https://bit.ly/34BY10g');
         }
@@ -95,12 +86,8 @@ const EditProgram = ({ selectedID }) => {
             main_img: localImgUrl != null ? localImgUrl : 'https://bit.ly/34BY10g',
             title: localTitle,
             description: localDesc,
-            start_time: localStartTime,
-            end_time: localEndTime,
-            duration: localDuration,
-            break_duration: localBreakDuration,
             category: localCategory,
-            state: localState,
+            state: localDiffLevel,
             isFree: localIsFree,
         }
         const result = await updateProgram(program);
@@ -125,7 +112,7 @@ const EditProgram = ({ selectedID }) => {
 
     return (
         <MDBox>
-            <MDBox display="flex" justifyContent="flex-end" mx={1} mb={1}>
+            <MDBox display="flex" justifyContent="space-between" mx={1} mb={1}>
                 <MDButton onClick={confirmEditHandler} color="secondary" variant="outlined">
                     Save
                 </MDButton>
@@ -190,7 +177,7 @@ const EditProgram = ({ selectedID }) => {
                             <Divider height={2} color={"#0009"} />
 
 
-                            <Grid container spacing={1} justifyContent={"center"}>
+                            {/* <Grid container spacing={1} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                                     <MDBox mb={1}>
                                         <MDInput value={localDuration} onChange={(val) => setLocalDuration(val.target.value)} type="number" label="Duration" variant="filled" fullWidth />
@@ -204,10 +191,10 @@ const EditProgram = ({ selectedID }) => {
                             </Grid>
 
 
-                            <Divider height={2} color={"#0009"} />
+                            <Divider height={2} color={"#0009"} /> */}
 
 
-                            <Grid container spacing={1} justifyContent={"center"}>
+                            {/* <Grid container spacing={1} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
                                     <MDBox mb={1}>
                                         <MDInput value={localStartTime} onChange={(val) => setLocalStartTime(val.target.value)} type="date" label="Start-time" variant="filled" fullWidth />
@@ -221,24 +208,24 @@ const EditProgram = ({ selectedID }) => {
                             </Grid>
 
 
-                            <Divider height={2} color={"#0009"} />
+                            <Divider height={2} color={"#0009"} /> */}
 
 
                             <Grid container spacing={1} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
                                     <MDBox mb={1.2} >
                                         <FormControl fullWidth>
-                                            <InputLabel id="select-role-label">Select State</InputLabel>
+                                            <InputLabel id="select-role-label">Select Deff Level</InputLabel>
                                             <Select
                                                 variant="outlined"
                                                 labelId="select-role-label"
                                                 id="select-role"
-                                                value={localState}
+                                                value={localDiffLevel}
                                                 label="Select State"
-                                                onChange={(event) => setLocalState(event.target.value)}
+                                                onChange={(event) => setLocalDiffLevel(event.target.value)}
                                                 sx={{ padding: '0.75rem !important' }}
                                             >
-                                                {states_options()}
+                                                {diff_levels_options()}
                                             </Select>
                                         </FormControl>
                                     </MDBox>

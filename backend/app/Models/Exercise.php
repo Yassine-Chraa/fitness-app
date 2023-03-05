@@ -27,4 +27,8 @@ class Exercise extends Model
     {
         return $this->belongsTo(WorkOut::class);
     }
+    public function equipments()
+    {
+        return $this->hasMany(Equipments::class,"exercise_id");
+    }
 }
