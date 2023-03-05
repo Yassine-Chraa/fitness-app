@@ -17,6 +17,11 @@ class UserController extends Controller
     public function index()
     {
         $users = User::all();
+        foreach ($users as $i => $user) {
+            $users[$i] = $user;
+            $users[$i]->programs = $user->programs;
+            $users[$i]->nutritionHistory = $user->nutritionHistory;
+        }
         return response()->json($users);
     }
 

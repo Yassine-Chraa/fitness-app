@@ -20,7 +20,7 @@ const Option = ({
       style={{...styles.row, ...styles.container}}
       onPress={() => {
         if (!Share && !Logout) navigation.navigate(link);
-        if (Share)
+        if (share)
           Share.share({
             message: `Check out \"${appInfo.displayName}\"\n\n${appInfo.appLink}`,
           });
