@@ -9,6 +9,8 @@ import MDInput from "../../../components/MDInput";
 import ProgramStatistics from "./ProgramStatistics";
 import ListOfActivities from "./ListOfActivities";
 import { setOpenEditProgramModalHandler, setReloadData, useMaterialUIController } from "../../../context/UIContext";
+import DashboardLayout from "../../../layouts/DashboardLayout";
+import { Link } from "react-router-dom";
 
 
 //============================================================================================
@@ -21,7 +23,7 @@ const diff_levels = ['beginner', 'intermediate', 'advanced'];
 const EditProgram = ({ selectedID }) => {
 
     const [controller, dispatch] = useMaterialUIController();
-    const { openEditProgramModalHandler,reLoadData } = controller;
+    const { openEditProgramModalHandler, reLoadData } = controller;
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
@@ -111,73 +113,80 @@ const EditProgram = ({ selectedID }) => {
 
 
     return (
-        <MDBox>
-            <MDBox display="flex" justifyContent="space-between" mx={1} mb={1}>
-                <MDButton onClick={confirmEditHandler} color="secondary" variant="outlined">
-                    Save
-                </MDButton>
-                <MDButton onClick={() => setOpenEditProgramModalHandler(dispatch, false)} color="secondary" variant="outlined">
-                    Back
-                </MDButton>
-            </MDBox>
+        <DashboardLayout>
 
-            <Grid container spacing={3} justifyContent={"center"}>
 
-                <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
-                    {/* =======================( header )======================= */}
-                    <Card style={{ padding: '1rem', marginBottom: '0.5rem' }}>
-                        <MDTypography style={{
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            lineHeight: '1.25',
-                            margin: "0.1rem auto",
-                            textTransform: "uppercase",
-                        }}>
-                            Program
-                        </MDTypography>
-                        <MDBox style={{ padding: '0.3rem', display: 'flex', justifyContent: 'center' }}>
-                            <MDBox style={{ margin: "0.2rem", flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                                <img
-                                    onClick={() => ImageRef.current.click()}
-                                    src={localImgUrl ? localImgUrl : 'https://bit.ly/34BY10g'}
-                                    alt={"main image that describes the program"}
-                                    loading="lazy"
-                                    style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
-                                />
-                                <MDTypography onClick={() => ImageRef.current.click()} style={{ width: "100%", textAlign: "center", cursor: "pointer" }} variant="subtitle2" fontWeight="small" fontSize={14} mx={1}>
-                                    Change Image
-                                </MDTypography>
-                                <input ref={ImageRef} onChange={upLoadImageHandler} hidden accept="image/*" multiple type="file" onClick={() => console.log('upload is invoked !')} />
+            <MDBox>
+                <MDBox display="flex" justifyContent="space-between" mx={1} mb={1}>
+                    <MDButton onClick={confirmEditHandler} color="secondary" variant="outlined">
+                        Save
+                    </MDButton>
+                    <Link
+                        to={`/dashboard/programs`}
+                    >
+                        <MDButton color="secondary" variant="outlined">
+                            Back
+                        </MDButton>
+                    </Link>
+                </MDBox>
+
+                <Grid container spacing={3} justifyContent={"center"}>
+
+                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                        {/* =======================( header )======================= */}
+                        <Card style={{ padding: '1rem', marginBottom: '0.5rem' }}>
+                            <MDTypography style={{
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                lineHeight: '1.25',
+                                margin: "0.1rem auto",
+                                textTransform: "uppercase",
+                            }}>
+                                Program
+                            </MDTypography>
+                            <MDBox style={{ padding: '0.3rem', display: 'flex', justifyContent: 'center' }}>
+                                <MDBox style={{ margin: "0.2rem", flex: 1, display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                                    <img
+                                        onClick={() => ImageRef.current.click()}
+                                        src={localImgUrl ? localImgUrl : 'https://bit.ly/34BY10g'}
+                                        alt={"main image that describes the program"}
+                                        loading="lazy"
+                                        style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
+                                    />
+                                    <MDTypography onClick={() => ImageRef.current.click()} style={{ width: "100%", textAlign: "center", cursor: "pointer" }} variant="subtitle2" fontWeight="small" fontSize={14} mx={1}>
+                                        Change Image
+                                    </MDTypography>
+                                    <input ref={ImageRef} onChange={upLoadImageHandler} hidden accept="image/*" multiple type="file" onClick={() => console.log('upload is invoked !')} />
+                                </MDBox>
                             </MDBox>
-                        </MDBox>
-                    </Card>
+                        </Card>
 
 
-                    {/* =======================( program infos )======================= */}
-                    <Card style={{ padding: '1rem' }}>
-                        <MDTypography style={{
-                            fontSize: '1rem',
-                            fontWeight: '600',
-                            lineHeight: '1.25',
-                            margin: "0.1rem auto",
-                            marginBottom: "0.5rem",
-                            textTransform: "uppercase",
-                        }}>
-                            Program info
-                        </MDTypography>
-                        <MDBox style={{ margin: "0rem", flex: 1, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
-                            <MDBox mb={1} >
-                                <MDInput value={localTitle} onChange={(val) => setLocalTitle(val.target.value)} type="text" label="Title" />
-                            </MDBox>
-                            <MDBox mb={1} >
-                                <MDInput multiline rows={4} value={localDesc} onChange={(val) => setLocalDesc(val.target.value)} type="text" label="Description" fullWidth />
-                            </MDBox>
+                        {/* =======================( program infos )======================= */}
+                        <Card style={{ padding: '1rem' }}>
+                            <MDTypography style={{
+                                fontSize: '1rem',
+                                fontWeight: '600',
+                                lineHeight: '1.25',
+                                margin: "0.1rem auto",
+                                marginBottom: "0.5rem",
+                                textTransform: "uppercase",
+                            }}>
+                                Program info
+                            </MDTypography>
+                            <MDBox style={{ margin: "0rem", flex: 1, display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
+                                <MDBox mb={1} >
+                                    <MDInput value={localTitle} onChange={(val) => setLocalTitle(val.target.value)} type="text" label="Title" />
+                                </MDBox>
+                                <MDBox mb={1} >
+                                    <MDInput multiline rows={4} value={localDesc} onChange={(val) => setLocalDesc(val.target.value)} type="text" label="Description" fullWidth />
+                                </MDBox>
 
 
-                            <Divider height={2} color={"#0009"} />
+                                <Divider height={2} color={"#0009"} />
 
 
-                            {/* <Grid container spacing={1} justifyContent={"center"}>
+                                {/* <Grid container spacing={1} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
                                     <MDBox mb={1}>
                                         <MDInput value={localDuration} onChange={(val) => setLocalDuration(val.target.value)} type="number" label="Duration" variant="filled" fullWidth />
@@ -194,7 +203,7 @@ const EditProgram = ({ selectedID }) => {
                             <Divider height={2} color={"#0009"} /> */}
 
 
-                            {/* <Grid container spacing={1} justifyContent={"center"}>
+                                {/* <Grid container spacing={1} justifyContent={"center"}>
                                 <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
                                     <MDBox mb={1}>
                                         <MDInput value={localStartTime} onChange={(val) => setLocalStartTime(val.target.value)} type="date" label="Start-time" variant="filled" fullWidth />
@@ -211,72 +220,73 @@ const EditProgram = ({ selectedID }) => {
                             <Divider height={2} color={"#0009"} /> */}
 
 
-                            <Grid container spacing={1} justifyContent={"center"}>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
-                                    <MDBox mb={1.2} >
-                                        <FormControl fullWidth>
-                                            <InputLabel id="select-role-label">Select Deff Level</InputLabel>
-                                            <Select
-                                                variant="outlined"
-                                                labelId="select-role-label"
-                                                id="select-role"
-                                                value={localDiffLevel}
-                                                label="Select State"
-                                                onChange={(event) => setLocalDiffLevel(event.target.value)}
-                                                sx={{ padding: '0.75rem !important' }}
-                                            >
-                                                {diff_levels_options()}
-                                            </Select>
-                                        </FormControl>
-                                    </MDBox>
+                                <Grid container spacing={1} justifyContent={"center"}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
+                                        <MDBox mb={1.2} >
+                                            <FormControl fullWidth>
+                                                <InputLabel id="select-role-label">Select Deff Level</InputLabel>
+                                                <Select
+                                                    variant="outlined"
+                                                    labelId="select-role-label"
+                                                    id="select-role"
+                                                    value={localDiffLevel}
+                                                    label="Select State"
+                                                    onChange={(event) => setLocalDiffLevel(event.target.value)}
+                                                    sx={{ padding: '0.75rem !important' }}
+                                                >
+                                                    {diff_levels_options()}
+                                                </Select>
+                                            </FormControl>
+                                        </MDBox>
+                                    </Grid>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
+                                        <MDBox mb={1.2} >
+                                            <FormControl fullWidth>
+                                                <InputLabel id="select-gender-label">Select Category</InputLabel>
+                                                <Select
+                                                    variant="outlined"
+                                                    labelId="select-gender-label"
+                                                    id="select-gender"
+                                                    value={localCategory}
+                                                    label="Select Category"
+                                                    onChange={(event) => setLocalCategory(event.target.value)}
+                                                    sx={{ padding: '0.75rem !important' }}
+                                                >
+                                                    {categories_options()}
+                                                </Select>
+                                            </FormControl>
+                                        </MDBox>
+                                    </Grid>
                                 </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
-                                    <MDBox mb={1.2} >
-                                        <FormControl fullWidth>
-                                            <InputLabel id="select-gender-label">Select Category</InputLabel>
-                                            <Select
-                                                variant="outlined"
-                                                labelId="select-gender-label"
-                                                id="select-gender"
-                                                value={localCategory}
-                                                label="Select Category"
-                                                onChange={(event) => setLocalCategory(event.target.value)}
-                                                sx={{ padding: '0.75rem !important' }}
-                                            >
-                                                {categories_options()}
-                                            </Select>
-                                        </FormControl>
-                                    </MDBox>
+
+                                <Grid container spacing={2} justifyContent={"center"}>
+                                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
+                                        <FormGroup>
+                                            <FormControlLabel control={<Switch checked={localIsFree}
+                                                onChange={(event) => setLocalIsFree(prev => event.target.checked)}
+                                                defaultChecked />} label="isFree" />
+                                        </FormGroup>
+                                    </Grid>
                                 </Grid>
-                            </Grid>
-
-                            <Grid container spacing={2} justifyContent={"center"}>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                                    <FormGroup>
-                                        <FormControlLabel control={<Switch checked={localIsFree}
-                                            onChange={(event) => setLocalIsFree(prev => event.target.checked)}
-                                            defaultChecked />} label="isFree" />
-                                    </FormGroup>
-                                </Grid>
-                            </Grid>
-                        </MDBox>
-                    </Card>
-
-                </Grid>
-
-                {/* =======================( statistics and list of activities )======================= */}
-
-                <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-                    <Grid container spacing={1}  >
-
-                        <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
-
-                        <ListOfActivities ProID={selectedID} />
+                            </MDBox>
+                        </Card>
 
                     </Grid>
+
+                    {/* =======================( statistics and list of activities )======================= */}
+
+                    <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+                        <Grid container spacing={1}  >
+
+                            <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
+
+                            <ListOfActivities ProID={selectedID} />
+
+                        </Grid>
+                    </Grid>
                 </Grid>
-            </Grid>
-        </MDBox >
+            </MDBox >
+        </DashboardLayout>
     );
 };
 

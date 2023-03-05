@@ -25,14 +25,12 @@ export const ProgramContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-
             const { data } = await axios.get(`${ProgramUrl}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
             alert(error)
-            alert(ProgramUrl)
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -45,7 +43,9 @@ export const ProgramContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
+            alert(ProgramUrl)
             const { data } = await axios.get(`${ProgramUrl}/${id}`, config);
+            console.log(data);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -89,7 +89,7 @@ export const ProgramContextProvider = ({ children }) => {
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
-            console.log("Error : "+error);
+            console.log("Error : " + error);
             alert(error)
             setLoadingAnimation(dispatch, false);
         }
