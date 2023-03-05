@@ -15,6 +15,8 @@ import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContext
 import { Stack } from "@mui/system";
 
 const ListOfActivities = (ProID) => {
+    const [totalPages, setTotalPages] = useState(0);
+    const [sampleOfData, setSampleOfData] = useState([]);
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
@@ -29,15 +31,18 @@ const ListOfActivities = (ProID) => {
         let workouts = await getWorkOuts();
         if (workouts) {
             setWorkouts(workouts);
+            if (workouts.length < 6) {
+                setSampleOfData(workouts);
+                setTotalPages(() => Math.floor(workouts.length));
+            } else {
+                setPageIndex(0);
+                setTotalPages(() => Math.floor(workouts.length / 10));
+                setSampleOfData(workouts.slice(0, 10));
+            }
         }
     };
 
 
-    //==========================================================================================
-
-
-
-    //==========================================================================================
 
 
     useEffect(() => {
@@ -61,7 +66,7 @@ const ListOfActivities = (ProID) => {
                                 Activities
                             </MDTypography>
                             <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                                all activities of the current program
+                                all Workouts of the current program
                             </MDTypography>
                         </MDBox>
                         <MDBox>
@@ -79,7 +84,7 @@ const ListOfActivities = (ProID) => {
                     <MDBox>
 
                         {
-                            workouts.map((workout) => (
+                            sampleOfData.map((workout) => (
                                 <WorkOutItem key={workout.id} workout={workout} selectedID={ProID} />
                             ))
                         }
@@ -90,7 +95,7 @@ const ListOfActivities = (ProID) => {
                         }}>
                             <MDBox >
                                 <Stack spacing={2}>
-                                    <Pagination count={10} variant="outlined" color="primary" />
+                                    <Pagination onChange={(event, page) => setSampleOfData(() => workouts.slice((page - 1)*10, page * 10))} count={totalPages} variant="outlined" color="primary" />
                                 </Stack>
                             </MDBox>
                             <Tooltip title="New Activity !">
@@ -191,7 +196,7 @@ export const WorkOutItem = ({ workout, ProID }) => {
                     fontSize: '1.6rem', fontWeight: '700', lineHeight: '1.25', margin: "0.2rem auto",
                     marginBottom: "0.2rem", textTransform: "uppercase",
                 }}>
-                    02
+                    {workout.id}
                 </MDTypography>
                 <MDTypography style={{
                     fontSize: '0.6rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem auto",
