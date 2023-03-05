@@ -5,7 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Exercise;
 use App\Models\WorkOut;
-use Illuminate\Http\Request;
+use GuzzleHttp\Psr7\Request;
 
 class WorkOutController extends Controller
 {
@@ -78,7 +78,7 @@ class WorkOutController extends Controller
         }
 
         $exercise->save();
-        return response()->json(['message' => "Exercise updated successfully !"]);
+        return Response()->json(['message' => "Exercise updated successfully !"]);
     }
 
     /**
@@ -95,3 +95,4 @@ class WorkOutController extends Controller
         return response()->json(['message' => 'Exercise deleted successfully !']);
     }
 }
+
