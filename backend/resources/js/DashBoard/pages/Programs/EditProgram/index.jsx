@@ -90,7 +90,7 @@ const EditProgram = () => {
             title: localTitle,
             description: localDesc,
             category: localCategory,
-            state: localDiffLevel,
+            difficulty_level: localDiffLevel,
             isFree: localIsFree,
         }
         const result = await updateProgram(program);
