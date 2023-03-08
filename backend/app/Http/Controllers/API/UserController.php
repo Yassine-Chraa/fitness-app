@@ -7,6 +7,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use PhpParser\Node\Expr\Cast\Array_;
 
 class UserController extends Controller
 {
@@ -144,7 +145,7 @@ class UserController extends Controller
      */
     public function getTotal()
     {
-        $count = User::all()->count();
+        $count = count((array)User::all());
         return response()->json(['total' => $count]);
     }
     /**
