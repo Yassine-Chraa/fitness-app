@@ -10,6 +10,7 @@ export const useProduct = () => {
 };
 
 const ProductUrl = getUrl("Products");
+const uploadUrl = getUrl("Upload");
 
 export const ProductContextProvider = ({ children }) => {
     const [loading, setLoading] = useState(false);
@@ -37,22 +38,18 @@ export const ProductContextProvider = ({ children }) => {
             setLoading(false);
         }
     };
-    const addProduct = async (Product,imageFile) => {
+    const addProduct = async (Product, imageFile) => {
         try {
             let res;
             setLoading(true);
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
-                const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
                 res = await axios.post(`${ProductUrl}`, {
                     ...Product,
                     product_img: data.img_url,
@@ -75,15 +72,11 @@ export const ProductContextProvider = ({ children }) => {
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
-                const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
                 res = await axios.put(`${ProductUrl}/${id}`, {
                     ...Product,
                     product_img: data.img_url,

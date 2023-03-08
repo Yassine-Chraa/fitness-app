@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('product_items', function (Blueprint $table) {
+        Schema::create('cart_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('product_id', unsigned: true)->nullable();
+            $table->bigInteger('user_id', unsigned: true);
+            $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('product_id', unsigned: true);
             $table->foreign('product_id')->references('id')->on('products')->onUpdate('cascade')->onDelete('cascade');
-            $table->enum("color", ['black', 'blue', 'green', 'white'])->default('black');
-            $table->enum("size", ['S', 'M', 'L', 'XL'])->default('M');
-            $table->string('item_img')->default('https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png');
+            $table->integer('amount',unsigned:true)->default(0);
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('product_items');
+        Schema::dropIfExists('cart_items');
     }
 };

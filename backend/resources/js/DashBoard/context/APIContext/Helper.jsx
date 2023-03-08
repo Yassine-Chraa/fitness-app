@@ -13,6 +13,7 @@ const endpoints = {
     WorkOuts: "api/workouts",
     Exercises: "api/Exercises",
     Equipments: "api/equipments",
+    Upload: "api/upload"
 };
 
 export const getUrl = (endpoint) => {

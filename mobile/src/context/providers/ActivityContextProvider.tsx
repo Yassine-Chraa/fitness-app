@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import { getUrl, currentUser } from '../../Helpers/APIConfig';

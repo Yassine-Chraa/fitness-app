@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -67,7 +68,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->programs = $user->programs;
-        if($user->nutritionHistory)$user->history_items = $user->nutritionHistory->historyItems;
+        if ($user->nutritionHistory) $user->history_items = $user->nutritionHistory->historyItems;
         return response()->json($user);
     }
 
@@ -146,5 +147,19 @@ class UserController extends Controller
     {
         $count = count((array)User::all());
         return response()->json(['total' => $count]);
+    }
+    /**
+     * Get User Cart Product: api/users/cart{id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCart($id)
+    {
+        $cart = User::find($id)->cart;
+        foreach ($cart as $i => $item){
+            $cart[$i]->product = Product::find($item->product_id);
+        }
+
+        return response()->json($cart);
     }
 }

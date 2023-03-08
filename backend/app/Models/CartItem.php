@@ -7,13 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class ProductItem extends Model
+class CartItem extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
-        'color',
-        'size',
-        'item_img',
+        'user_id',
+        'product_id',
+        'amount'
     ];
 
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 }

@@ -11,17 +11,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import {useNavigation} from '@react-navigation/native';
 
-const MyCartCard = ({item}: any) => {
+const MyCartCard = ({item,amount}: any) => {
   const navigation: any = useNavigation();
-  const [amount, setAmount] = useState(item.amount);
+  const [count, setCount] = useState(amount);
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          name: item.name,
-          type: item.type,
+          id: item.id,
         })
       }>
       <View
@@ -30,7 +29,7 @@ const MyCartCard = ({item}: any) => {
           columnGap: 12,
         }}>
         <Image
-          source={{uri: 'https://placehold.jp/180x260.png'}}
+          source={{uri: item.product_img}}
           style={{height: 75, width: 75, borderRadius: 5}}
           PlaceholderContent={<ActivityIndicator />}
         />
@@ -61,7 +60,7 @@ const MyCartCard = ({item}: any) => {
         <TouchableOpacity
           style={styles.iconContainer}
           activeOpacity={0.4}
-          onPress={() => setAmount((prev: any) => (prev > 0 ? --prev : prev))}>
+          onPress={() => setCount((prev: any) => (prev > 0 ? --prev : prev))}>
           <Icon name="minus" size={10} />
         </TouchableOpacity>
         <Text
@@ -75,7 +74,7 @@ const MyCartCard = ({item}: any) => {
         <TouchableOpacity
           style={styles.iconContainer}
           activeOpacity={0.4}
-          onPress={() => setAmount((prev: any) => ++prev)}>
+          onPress={() => setCount((prev: any) => ++prev)}>
           <Icon name="plus" size={10} />
         </TouchableOpacity>
       </View>

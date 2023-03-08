@@ -32,7 +32,7 @@ const Gainers = ({navigation}: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={gainers}
-        renderItem={({item}) => <StoreCard type='gainers' item={item} />}
+        renderItem={({item}) => <StoreCard item={item} />}
       />
       <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={()=>navigation.navigate('MyCart')}>
         <Icon name='shopping-cart' color='#fff' size={18} light/>

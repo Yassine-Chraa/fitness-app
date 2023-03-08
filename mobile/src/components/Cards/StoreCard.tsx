@@ -1,4 +1,4 @@
-import {Image} from '@rneui/themed';
+import { Image } from '@rneui/themed';
 import React from 'react';
 import {
   Text,
@@ -11,22 +11,21 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 
-const StoreCard = ({type, item}: any) => {
-  const navigation:any = useNavigation();
+const StoreCard = ({ item }: any) => {
+  const navigation: any = useNavigation();
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          name: item.name,
-          type: type,
+          id: item.id,
         })
       }>
       <View>
         <Image
-          source={{uri: 'https://placehold.jp/180x260.png'}}
-          style={{height: 150, width: 150}}
+          source={{ uri: item.product_img }}
+          style={{ height: 150, width: 150 }}
           PlaceholderContent={<ActivityIndicator />}
         />
       </View>
@@ -47,7 +46,7 @@ const StoreCard = ({type, item}: any) => {
               marginTop: 2,
               fontWeight: '500',
             }}>
-            {type == 'gainers' ? item.company : item.sizes}
+            {item.company}
           </Text>
         </View>
         <View
@@ -64,7 +63,7 @@ const StoreCard = ({type, item}: any) => {
               fontSize: 18,
               fontWeight: 'bold',
             }}>
-            ${item.price}
+            {item.price + ' DH'}
           </Text>
           <View style={styles.addToCartBtn}>
             <Icon name="plus" size={18} color={'#fff'} />

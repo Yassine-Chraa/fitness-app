@@ -1,4 +1,4 @@
-import axios from 'axios';
+import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import { getUrl, currentUser } from '../../Helpers/APIConfig';
@@ -25,13 +25,8 @@ export const ProductContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
   const getProducts = async () => {
     try {
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
 
-      const { data } = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}`);
       console.log(data)
       return data;
     } catch (error) {
@@ -41,12 +36,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const getProduct = async (id: number) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-      const { data } = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}/${id}`);
       setLoading(false);
       return data;
     } catch (error) {
@@ -63,7 +53,7 @@ export const ProductContextProvider = ({ children }: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const { data } = await axios.post(`${productUrl}`, product, config);
+      const { data } = await axios.post(`${productUrl}`, product);
       setLoading(false);
       return data;
     } catch (error) {
@@ -80,7 +70,7 @@ export const ProductContextProvider = ({ children }: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const { data } = await axios.put(`${productUrl}`, product, config);
+      const { data } = await axios.put(`${productUrl}/${id}`, product);
       setLoading(false);
       return data;
     } catch (error) {
@@ -97,7 +87,7 @@ export const ProductContextProvider = ({ children }: any) => {
           authorization: `Bearer ${currentUser.token}`,
         },
       };
-      const { data } = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}/${id}`);
       setLoading(false);
       return data;
     } catch (error) {
