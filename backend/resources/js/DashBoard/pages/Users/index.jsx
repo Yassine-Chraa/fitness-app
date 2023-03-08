@@ -26,7 +26,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const openEditHandler = () => {
+    const openFormHandler = () => {
         setSelectedID(id);
         setType("Edit");
         setOpenMenu(false);
@@ -81,7 +81,7 @@ export const ActionMenu = ({ id, setType, setSelectedID }) => {
                         disableRipple
                         color="warning"
                         variant="outlined"
-                        onClick={openEditHandler}
+                        onClick={openFormHandler}
                         sx={{
                             padding: "7px",
                             transition: "all 0.4s ease",
