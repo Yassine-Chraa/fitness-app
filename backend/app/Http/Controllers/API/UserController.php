@@ -67,7 +67,7 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->programs = $user->programs;
-        $user->history_items = $user->nutritionHistory->historyItems;
+        if($user->nutritionHistory)$user->history_items = $user->nutritionHistory->historyItems;
         return response()->json($user);
     }
 
