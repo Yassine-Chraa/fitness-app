@@ -28,6 +28,7 @@ export const useUser = () => {
 };
 
 const UserUrl = getUrl("Users");
+const uploadUrl = getUrl("Upload");
 
 export const UserContextProvider = ({ children }) => {
     const [controller, dispatch] = useMaterialUIController();
@@ -66,7 +67,7 @@ export const UserContextProvider = ({ children }) => {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
                 const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
+                    uploadUrl,
                     formData,
                     {
                         headers: {
@@ -103,7 +104,7 @@ export const UserContextProvider = ({ children }) => {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
                 const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
+                    uploadUrl,
                     formData,
                     {
                         headers: {

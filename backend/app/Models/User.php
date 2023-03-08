@@ -61,4 +61,8 @@ class User extends Authenticatable
     {
         return $this->hasOne(UserNutritionHistory::class);
     }
+    public function cart()
+    {
+        return $this->hasMany(CartItem::class);
+    }
 }

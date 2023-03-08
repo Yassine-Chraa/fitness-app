@@ -16,10 +16,6 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        foreach ($products as $i => $product) {
-            $products[$i] = $product;
-            $products[$i]->items = $product->items;
-        }
         return response()->json($products);
     }
 
@@ -62,7 +58,6 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $product->items = $product->items;
         return response()->json($product);
     }
 

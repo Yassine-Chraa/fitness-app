@@ -1,24 +1,37 @@
-import React from 'react';
-import {StyleSheet, View, TextInput, Text, FlatList,TouchableOpacity} from 'react-native';
+import { useState, useEffect } from 'react';
+import { StyleSheet, View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
 import cloths from '../../constants/cloths';
 import theme from '../../constants/theme';
-import {clothsCategories} from '../../constants/categories';
+import { clothsCategories } from '../../constants/categories';
 import StoreCard from '../../components/Cards/StoreCard';
+import { useProduct } from '../../context/providers/ProductContextProvider';
 
-const Cloths = ({navigation}: any): JSX.Element => {
+const Cloths = ({ navigation }: any): JSX.Element => {
+  const { getProducts } = useProduct();
+
+  const [products,setProducts] = useState(Array<object>)
+
+  const fetchData = async () => {
+    const data = await getProducts();
+    console.log(data)
+    setProducts(data);
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
-    <View style={{paddingHorizontal: 12, flex: 1}}>
+    <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <View style={{flexDirection: 'row', marginTop: 12}}>
+            <View style={{ flexDirection: 'row', marginTop: 12 }}>
               <View style={styles.inputContainer}>
                 <TextInput
-                  style={{flex: 1, fontSize: 18}}
+                  style={{ flex: 1, fontSize: 18 }}
                   placeholder="Search for cloths"
                 />
               </View>
@@ -31,14 +44,18 @@ const Cloths = ({navigation}: any): JSX.Element => {
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={cloths}
-        renderItem={({item}) => (
-          <StoreCard type="cloths" item={item} />
-        )}
+        data={products}
+        renderItem={({ item }:any) => {
+          if(item.category === 'gym_cloths'){
+            return <StoreCard item={item} />
+          }else{
+            return null;
+          }
+        }}
       />
-      <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={()=>navigation.navigate('MyCart')}>
-        <Icon name='shopping-cart' color='#fff' size={18} light/>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+      <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={() => navigation.navigate('MyCart')}>
+        <Icon name='shopping-cart' color='#fff' size={18} light />
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
           My Cart
         </Text>
       </TouchableOpacity>
