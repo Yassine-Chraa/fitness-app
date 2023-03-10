@@ -1,5 +1,5 @@
-import {Image} from '@rneui/themed';
-import React, {useState} from 'react';
+import { Image } from '@rneui/themed';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -9,9 +9,9 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 
-const MyCartCard = ({item,amount}: any) => {
+const MyCartCard = ({ item, amount }: any) => {
   const navigation: any = useNavigation();
   const [count, setCount] = useState(amount);
   return (
@@ -29,11 +29,11 @@ const MyCartCard = ({item,amount}: any) => {
           columnGap: 12,
         }}>
         <Image
-          source={{uri: item.product_img}}
-          style={{height: 75, width: 75, borderRadius: 5}}
+          source={{ uri: item.product_img || 'https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png' }}
+          style={{ height: 75, width: 75, borderRadius: 5 }}
           PlaceholderContent={<ActivityIndicator />}
         />
-        <View style={{height: 75, justifyContent: 'space-between'}}>
+        <View style={{ height: 75, justifyContent: 'space-between' }}>
           <View>
             <Text
               style={{

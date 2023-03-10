@@ -10,9 +10,13 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../../context/providers/CartContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const StoreCard = ({ item }: any) => {
   const navigation: any = useNavigation();
+  const { currentUser } = useAuth();
+  const { addProduct } = useCart();
   return (
     <TouchableOpacity
       style={styles.card}
@@ -24,7 +28,7 @@ const StoreCard = ({ item }: any) => {
       }>
       <View>
         <Image
-          source={{ uri: item.product_img }}
+          source={{ uri: item.product_img || 'https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png' }}
           style={{ height: 150, width: 150 }}
           PlaceholderContent={<ActivityIndicator />}
         />
@@ -65,9 +69,9 @@ const StoreCard = ({ item }: any) => {
             }}>
             {item.price + ' DH'}
           </Text>
-          <View style={styles.addToCartBtn}>
+          <TouchableOpacity style={styles.addToCartBtn}  activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: item.id })}>
             <Icon name="plus" size={18} color={'#fff'} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>

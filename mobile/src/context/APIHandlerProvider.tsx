@@ -1,8 +1,9 @@
-import {ProductContextProvider} from './providers/ProductContextProvider';
-import {Composer} from '../Helpers/Composer';
-import {AuthContextProvider} from './providers/AuthContextProvider';
-import {MealContextProvider} from './providers/MealContextProvider';
-import {EquipmentContextProvider} from './providers/EquipmentContextProvider';
+import { ProductContextProvider } from './providers/ProductContextProvider';
+import { Composer } from '../Helpers/Composer';
+import { AuthContextProvider } from './providers/AuthContextProvider';
+import { MealContextProvider } from './providers/MealContextProvider';
+import { EquipmentContextProvider } from './providers/EquipmentContextProvider';
+import { CartContextProvider } from './providers/CartContextProvider';
 
 const providers: any = [
   ProductContextProvider,
@@ -10,6 +11,7 @@ const providers: any = [
   MealContextProvider,
   EquipmentContextProvider,
   ProductContextProvider,
+  CartContextProvider
 ];
 
 const APIHandlerProvider = Composer(...providers);

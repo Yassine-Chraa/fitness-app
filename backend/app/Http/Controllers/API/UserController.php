@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -156,10 +157,29 @@ class UserController extends Controller
     public function getCart($id)
     {
         $cart = User::find($id)->cart;
-        foreach ($cart as $i => $item){
+        foreach ($cart as $i => $item) {
             $cart[$i]->product = Product::find($item->product_id);
         }
 
         return response()->json($cart);
+    }
+    /**
+     * Add Product to User Cart: api/users/cart
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addProduct(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'product_id' => 'required',
+        ]);
+
+        $newItem = new CartItem([
+            'user_id' => $request->get('user_id'),
+            'product_id' => $request->get('product_id'),
+        ]);
+        $newItem->save();
+        return response()->json(['message' => 'Product added to cart']);
     }
 }

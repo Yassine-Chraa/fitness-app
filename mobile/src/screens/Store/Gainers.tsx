@@ -1,24 +1,33 @@
-import React from 'react';
-import {StyleSheet, View, TextInput, FlatList,TouchableOpacity,Text} from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { StyleSheet, View, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
-import gainers from '../../constants/gainers';
 import theme from '../../constants/theme';
 import { gainersCategories } from '../../constants/categories';
 import StoreCard from '../../components/Cards/StoreCard';
+import { useProduct } from '../../context/providers/ProductContextProvider';
 
-const Gainers = ({navigation}: any): JSX.Element => {
+const Gainers = ({ navigation }: any): JSX.Element => {
+  const { getProducts, products } = useProduct();
+
+
+  const fetchData = async () => {
+    await getProducts();
+  }
+  useEffect(() => {
+    fetchData()
+  }, [])
   return (
-    <View style={{paddingHorizontal: 12, flex: 1}}>
+    <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <FlatList
         ListHeaderComponent={() => (
           <>
-            <View style={{flexDirection: 'row', marginTop: 12}}>
+            <View style={{ flexDirection: 'row', marginTop: 12 }}>
               <View style={styles.inputContainer}>
                 <TextInput
-                  style={{flex: 1, fontSize: 18}}
+                  style={{ flex: 1, fontSize: 18 }}
                   placeholder="Search for gainers"
                 />
               </View>
@@ -26,17 +35,23 @@ const Gainers = ({navigation}: any): JSX.Element => {
                 <Icon name="sliders-h" color={'#fff'} size={28} />
               </View>
             </View>
-            <ListCategories categories={gainersCategories}/>
+            <ListCategories categories={gainersCategories} />
           </>
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={gainers}
-        renderItem={({item}) => <StoreCard item={item} />}
+        data={products}
+        renderItem={({ item }: any) => {
+          if (item.category === 'gym_nutrition') {
+            return <StoreCard item={item} />
+          } else {
+            return null;
+          }
+        }}
       />
-      <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={()=>navigation.navigate('MyCart')}>
-        <Icon name='shopping-cart' color='#fff' size={18} light/>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+      <TouchableOpacity style={styles.cartBtn} activeOpacity={0.4} onPress={() => navigation.navigate('MyCart')}>
+        <Icon name='shopping-cart' color='#fff' size={18} light />
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
           My Cart
         </Text>
       </TouchableOpacity>

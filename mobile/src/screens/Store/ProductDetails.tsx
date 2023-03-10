@@ -12,21 +12,18 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProduct } from '../../context/providers/ProductContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useCart } from '../../context/providers/CartContextProvider';
 
 const ProductDetails = ({ navigation, route }: any) => {
+  const { currentUser } = useAuth();
+  const { addProduct } = useCart();
+  const { products } = useProduct();
   const { id } = route.params;
-  const { getProduct } = useProduct();
-  const [product, setProduct] = useState(Object);
 
-  const fetchData = async () => {
-    const data = await getProduct(id);
-    console.log(data)
-    setProduct(data);
-  }
+  const [product, setProduct] = useState(products[id-1]);
+  console.log(products)
 
-  useEffect(() => {
-    fetchData()
-  }, [])
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -48,7 +45,7 @@ const ProductDetails = ({ navigation, route }: any) => {
               </TouchableWithoutFeedback>
             </View>
             <Text style={{ fontSize: 17 }}>
-              {product.rating+ ' '}
+              {product.rating + ' '}
               <Icon
                 name="star"
                 size={17}
@@ -71,9 +68,9 @@ const ProductDetails = ({ navigation, route }: any) => {
       <View style={styles.footer}>
         <View>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Price</Text>
-          <Text style={styles.price}>{product.price+ ' DH'}</Text>
+          <Text style={styles.price}>{product.price + ' DH'}</Text>
         </View>
-        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4}>
+        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: product.id })}>
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
             Add to Cart
           </Text>

@@ -5,5 +5,7 @@ export default interface Product {
   description: string;
   image: string;
   stock: string;
-  prix: string;
+  price: string;
+  rating: number;
+  reviews: number;
 }

@@ -4,24 +4,16 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
-import cloths from '../../constants/cloths';
 import theme from '../../constants/theme';
 import { clothsCategories } from '../../constants/categories';
 import StoreCard from '../../components/Cards/StoreCard';
 import { useProduct } from '../../context/providers/ProductContextProvider';
 
 const Cloths = ({ navigation }: any): JSX.Element => {
-  const { getProducts } = useProduct();
+  const { getProducts, products } = useProduct();
 
-  const [products,setProducts] = useState(Array<object>)
-
-  const fetchData = async () => {
-    const data = await getProducts();
-    console.log(data)
-    setProducts(data);
-  }
   useEffect(() => {
-    fetchData()
+    getProducts();
   }, [])
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
@@ -45,10 +37,10 @@ const Cloths = ({ navigation }: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={products}
-        renderItem={({ item }:any) => {
-          if(item.category === 'gym_cloths'){
+        renderItem={({ item }: any) => {
+          if (item.category === 'gym_cloths') {
             return <StoreCard item={item} />
-          }else{
+          } else {
             return null;
           }
         }}
