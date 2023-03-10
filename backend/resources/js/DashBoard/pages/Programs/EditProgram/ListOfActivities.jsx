@@ -11,14 +11,29 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import MDBox from "../../../components/MDBox";
 import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
 import MDTypography from "../../../components/MDTypography";
+import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContextProvider";
 
 const ListOfActivities = (ProID) => {
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler } = controller;
+    const [workouts, setWorkouts] = useState([]);
+    const { getWorkOuts } = useWorkOut();
 
     const openAddmodalInvoker = () => {
         setOpenAddActivityModalHandler(dispatch, true);
     }
+
+    const fetchData = async () => {
+        let workouts = await getWorkOuts();
+        if (workouts) {
+            setWorkouts(workouts);
+        }
+    };
+
+
+    useEffect(() => {
+        fetchData();
+    }, []);
 
     return (
         <>
@@ -54,7 +69,13 @@ const ListOfActivities = (ProID) => {
                     </MDBox>
                     <MDBox>
 
-                        <ActivityItem activity={null} selectedID={ProID} />
+                        {
+                            workouts.map((workout) => (
+                                <WorkOutItem key={workout.id} workout={workout} selectedID={ProID} />
+                            ))
+                        }
+
+
 
                         <MDBox sx={{
                             width: '100%', display: 'flex', justifyContent: 'flex-end',
@@ -133,7 +154,15 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 //==================================================================================================
 
 
-export const ActivityItem = ({ activity, ProID }) => {
+export const WorkOutItem = ({ workout, ProID }) => {
+
+    const title = workout.title;
+
+    if (workout.title.split(" ").length > 1) {
+        const title = workout.title.split(" ")[0]
+            +" "+ workout.title.split(" ")[1]
+    }
+
     return (
         <MDBox style={{
             display: 'flex', justifyContent: "space-between", alignItems: "center",
@@ -156,7 +185,7 @@ export const ActivityItem = ({ activity, ProID }) => {
                     fontSize: '0.6rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem auto",
                     marginBottom: "0.3rem", textTransform: "uppercase",
                 }}>
-                    Sun
+                    {workout.day.slice(0, 3)}
                 </MDTypography>
             </MDBox>
             <MDBox>
@@ -168,10 +197,10 @@ export const ActivityItem = ({ activity, ProID }) => {
                         fontSize: '1rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem",
                         marginBottom: "0.1rem",
                     }}>
-                        title of the activity
+                        {title}
                     </MDTypography>
                     <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                        feature or category
+                        {workout.duration}
                     </MDTypography>
                 </MDBox>
             </MDBox>
@@ -182,7 +211,7 @@ export const ActivityItem = ({ activity, ProID }) => {
                 }}>
                     <DirectionsRunIcon sx={{ marginRight: "0.4rem", }} />
                     <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                        State Here
+                        {workout.state}
                     </MDTypography>
                 </MDBox>
             </MDBox>

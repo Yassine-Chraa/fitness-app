@@ -185,13 +185,13 @@ const Programs = () => {
             Header: "Category", isSorted: true, accessor: "category", width: "12%",
         },
         {
-            Header: "State", isSorted: true, accessor: "state", width: "12%", align: "center",
+            Header: "Difficulty Level", isSorted: true, accessor: "difficulty_level", width: "12%", align: "center",
         },
         {
             Header: "isFree", isSorted: true, accessor: "isfree", width: "10%", align: "center",
         },
         {
-            Header: "Duration", isSorted: true, accessor: "duration", width: "10%", align: "center",
+            Header: "Owner", isSorted: true, accessor: "owner_id", width: "10%", align: "center",
         },
         {
             Header: "actions", isSorted: true, accessor: "actions", width: "12%", align: "center",
@@ -201,7 +201,7 @@ const Programs = () => {
     const fetchData = async () => {
         let res = await getPrograms();
         res = res.map((program) => {
-            const { id, main_img, title, description, start_time, end_time, duration, break_duration, category, isFree } = program;
+            const { id, main_img, title, description, owner_id, difficulty_level, category, isFree } = program;
             return {
                 id: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
@@ -216,18 +216,19 @@ const Programs = () => {
                 category: (<MDTypography component="p" variant="caption" color="text" fontWeight="medium">
                     {category}
                 </MDTypography>),
-                state: (
+                difficulty_level: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
-                        {program.state}
+                        {program.difficulty_level}
                     </MDTypography>
                 ),
                 isfree: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
                         {isFree ? <Ball color={"green"} /> : <Ball color={"red"} />}
                     </MDTypography>
-                ), duration: (
+                ),
+                owner_id: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
-                        {program.duration}
+                        #{program.owner_id}
                     </MDTypography>
                 ),
                 actions: (<ActionMenu id={id} setSelectedID={setSelectedID} />),

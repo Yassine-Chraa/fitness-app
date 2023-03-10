@@ -20,18 +20,16 @@ class User extends Authenticatable
     protected $fillable = [
         'name',
         'email',
-        'profile',
-        'role',
         'password',
-        'weight',
-        'height',
+        'birth_date',
         'BMI',
         'body_fat',
+        'height',
         'gender',
-        'birth_date',
-        'workout_level',
         'top_goal',
-        'bio'
+        'weight',
+        'workout_level',
+        'bio',
     ];
 
     /**
@@ -55,7 +53,7 @@ class User extends Authenticatable
 
     public function programs()
     {
-        return $this->hasMany(Program::class,"owner_id");
+        return $this->hasMany(Program::class, "owner_id");
     }
     public function nutritionHistory()
     {

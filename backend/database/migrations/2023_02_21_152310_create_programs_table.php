@@ -19,10 +19,9 @@ return new class extends Migration
             $table->foreign('owner_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string("main_img")->default("https://bit.ly/34BY10g");
             $table->string("title");
-            $table->string("description");
-            $table->enum('state', ['progress', 'unstarted', 'finished'])->default("unstarted");
+            $table->text("description");
             $table->enum('category', ['maintaining', 'bulking', 'cutting'])->default("maintaining");
-            $table->enum('difficulty_level', ['low', 'moderate', 'high', 'extreme']);
+            $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->boolean("isFree")->default(true);
             $table->timestamps();
         });

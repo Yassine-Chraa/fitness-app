@@ -15,10 +15,7 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
-            $table->string('password');
-            $table->string('profile')->default('https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png');
+            $table->string('img_url')->default("https://bit.ly/34BY10g");
             $table->enum('role', ['admin', 'user', 'client', 'vip', 'coach'])->default('user');
             $table->string("bio")->nullable();
             $table->string('name');
@@ -27,7 +24,7 @@ return new class extends Migration
             $table->float('body_fat', places: 1)->default(20);
             $table->float('BMI')->default(22);
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->date('birth_date')->nullable();
+            $table->date('birth_date')->default("2000-02-02");
             $table->enum('workout_level', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->enum('top_goal', ['maintaining', 'bulking', 'cutting'])->default('maintaining');
             $table->rememberToken();
