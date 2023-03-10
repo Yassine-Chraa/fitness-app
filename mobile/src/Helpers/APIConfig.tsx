@@ -1,6 +1,6 @@
 import UserInfo from '../types/UserInfo';
 
-const baseURL = 'http://192.168.1.3:8000';
+const baseURL = 'http://192.168.1.5:8000';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -8,7 +8,7 @@ const endpoints: any = {
   DeleteAccount: '/api/deleteAccount',
   ResetPassword: '/password/email',
   Products: '/api/products',
-  Users: '/api/users',
+  Cart: '/api/users/cart',
   Meals: '/api/meals',
   Equipments: '/api/equipments',
   Activitys: '/api/activitys',

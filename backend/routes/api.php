@@ -27,8 +27,9 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 // group of all protected routes
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/users/total', [UserController::class, 'getTotal']);
-    Route::get('/users/cart/{id}', [UserController::class, 'getCart']);
+    Route::get('/users/total', [UserController::class, 'getTotal'])->name('users.total');
+    Route::get('/users/cart/{id}', [UserController::class, 'getCart'])->name('users.cart.index');
+    Route::post('/users/cart', [UserController::class, 'addProduct'])->name('users.cart.store');
     Route::apiResource('users', UserController::class);
 
     Route::apiResource('equipments', EquipmentController::class);

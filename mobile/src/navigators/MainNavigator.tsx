@@ -1,8 +1,8 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import {enableScreens} from 'react-native-screens';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {useEffect} from 'react';
-import {useAuth} from '../context/providers/AuthContextProvider';
+import { enableScreens } from 'react-native-screens';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useEffect } from 'react';
+import { useAuth } from '../context/providers/AuthContextProvider';
 import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
 import SignUp from '../screens/Authentification/SignUp';
@@ -21,25 +21,32 @@ import CoachProfile from '../screens/Profile/CoachProfile';
 import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
+import axios from '../Helpers/axiosConfig'
 
 enableScreens();
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const {isLogged, updateState} = useAuth();
+  const {currentUser, updateState } = useAuth();
   useEffect(() => {
-    updateState().then(()=>{
+    updateState().then(() => {
       SplashScreen.hide();
     })
-  }, [AsyncStorage.getItem('isLogged')]);
+  }, [SplashScreen]);
+  useEffect(()=>{
+    axios.defaults.headers.common[
+      "authorization"
+    ] = `Bearer ${currentUser?.token}`;
+    console.log('ok')
+  })
   return (
     <Stack.Navigator
-      initialRouteName={isLogged ? 'Auth' : 'Tab'}
+      initialRouteName={currentUser ? 'Auth' : 'Tab'}
       screenOptions={{
         headerBackTitleVisible: false,
         headerShown: false,
       }}>
-      {isLogged ? (
+      {currentUser ? (
         <>
           <Stack.Screen name="Tab" component={TabNavigator} />
           <Stack.Screen name="MuscleExercices" component={MuscleExercices} />

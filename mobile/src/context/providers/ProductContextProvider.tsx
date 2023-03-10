@@ -5,7 +5,8 @@ import { getUrl, currentUser } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
 
 export type ProductContextType = {
-  getProducts: () => Promise<Array<Product>>;
+  products: Array<Product>;
+  getProducts: () => Promise<void>;
   getProduct: (id: number) => Promise<Product>;
   addProduct: (product: Product) => Promise<{ message: string }>;
   updateProduct: (id: number, product: Product) => Promise<{ message: string }>;
@@ -23,12 +24,11 @@ const productUrl = getUrl('Products');
 
 export const ProductContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([])
   const getProducts = async () => {
     try {
-
       const { data } = await axios.get(`${productUrl}`);
-      console.log(data)
-      return data;
+      setProducts(data);
     } catch (error) {
       console.log(error);
     }
@@ -100,6 +100,7 @@ export const ProductContextProvider = ({ children }: any) => {
   return (
     <productContext.Provider
       value={{
+        products,
         getProducts,
         getProduct,
         addProduct,
