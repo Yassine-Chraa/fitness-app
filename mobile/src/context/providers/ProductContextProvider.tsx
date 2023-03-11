@@ -1,7 +1,7 @@
 import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { getUrl, currentUser } from '../../Helpers/APIConfig';
+import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
 
 export type ProductContextType = {
@@ -11,6 +11,8 @@ export type ProductContextType = {
   addProduct: (product: Product) => Promise<{ message: string }>;
   updateProduct: (id: number, product: Product) => Promise<{ message: string }>;
   deleteProduct: (id: number) => Promise<{ message: string }>;
+  searchProduct: (keyword: string) => Promise<void>;
+  changeCategory: (id: number) => Promise<void>;
 };
 const productContext = createContext<ProductContextType | null>(null);
 
@@ -27,7 +29,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const [products, setProducts] = useState([])
   const getProducts = async () => {
     try {
-      const { data } = await axios.get(`${productUrl}`);
+      const { data } = await axios.get(productUrl);
       setProducts(data);
     } catch (error) {
       console.log(error);
@@ -48,11 +50,6 @@ export const ProductContextProvider = ({ children }: any) => {
   const addProduct = async (product: Product) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
       const { data } = await axios.post(`${productUrl}`, product);
       setLoading(false);
       return data;
@@ -65,11 +62,6 @@ export const ProductContextProvider = ({ children }: any) => {
   const updateProduct = async (id: number, product: Product) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
       const { data } = await axios.put(`${productUrl}/${id}`, product);
       setLoading(false);
       return data;
@@ -82,11 +74,6 @@ export const ProductContextProvider = ({ children }: any) => {
   const deleteProduct = async (id: number) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
       const { data } = await axios.get(`${productUrl}/${id}`);
       setLoading(false);
       return data;
@@ -96,6 +83,22 @@ export const ProductContextProvider = ({ children }: any) => {
       setLoading(false);
     }
   };
+  const searchProduct = async (keyword: string) => {
+    try {
+        const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
+        setProducts(data);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const changeCategory = async (id: number) => {
+    try {
+      const { data } = await axios.get(`${productUrl}?category_id=${id}`);
+      setProducts(data);
+  } catch (e) {
+    console.log(e)
+  }
+  }
 
   return (
     <productContext.Provider
@@ -106,6 +109,8 @@ export const ProductContextProvider = ({ children }: any) => {
         addProduct,
         updateProduct,
         deleteProduct,
+        searchProduct,
+        changeCategory
       }}>
       {children}
     </productContext.Provider>

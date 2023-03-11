@@ -7,6 +7,7 @@ use App\Models\CartItem;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -179,7 +180,15 @@ class UserController extends Controller
             'user_id' => $request->get('user_id'),
             'product_id' => $request->get('product_id'),
         ]);
+
         $newItem->save();
-        return response()->json(['message' => 'Product added to cart']);
+        $newItem->product = Product::find($newItem->product_id);
+        return response()->json($newItem);
+    }
+    public function deleteProduct($user_id, $product_id)
+    {
+        CartItem::where('user_id', $user_id)->where('product_id', $product_id)->delete();
+
+        return response()->json(['message' => 'Product deleted from Cart']);
     }
 }

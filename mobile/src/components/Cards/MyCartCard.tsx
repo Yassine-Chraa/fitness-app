@@ -10,8 +10,12 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../../context/providers/CartContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const MyCartCard = ({ item, amount }: any) => {
+  const {currentUser} = useAuth();
+  const {deleteProduct} = useCart();
   const navigation: any = useNavigation();
   const [count, setCount] = useState(amount);
   return (
@@ -55,7 +59,12 @@ const MyCartCard = ({ item, amount }: any) => {
           </Text>
         </View>
       </View>
-
+      <TouchableOpacity
+        style={{ backgroundColor: theme.colors.button, height: 30, width: 30, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
+        activeOpacity={0.4}
+        onPress={() => deleteProduct(currentUser.user.id,item.id)}>
+        <Icon name="trash" size={16} color={'#fff'} />
+      </TouchableOpacity>
       <View style={styles.amountController}>
         <TouchableOpacity
           style={styles.iconContainer}

@@ -1,48 +1,53 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
 import theme from '../../constants/theme';
-import { gainersCategories } from '../../constants/categories';
 import StoreCard from '../../components/Cards/StoreCard';
 import { useProduct } from '../../context/providers/ProductContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
+import { useCategory } from '../../context/providers/CategoryConextProvider';
 
 const Gainers = ({ navigation }: any): JSX.Element => {
-  const { getProducts, products } = useProduct();
+  const { products, getProducts, searchProduct } = useProduct();
+  const { getCategories, categories } = useCategory();
 
+  const [keyword, setKeyword] = useState('');
 
-  const fetchData = async () => {
-    await getProducts();
-  }
-  useEffect(() => {
-    fetchData()
-  }, [])
+  useFocusEffect(
+    useCallback(() => {
+      getProducts();
+      getCategories();
+    }, [])
+  )
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
+      <View style={{ flexDirection: 'row', marginBottom: 12 }}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={{ flex: 1, fontSize: 18 }}
+            placeholder="Search for nutritions"
+            value={keyword}
+            onChangeText={setKeyword}
+          />
+        </View>
+        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={() => searchProduct(keyword)}>
+          <Icon name="search" color={'#fff'} size={28} />
+        </TouchableOpacity>
+      </View>
       <FlatList
         ListHeaderComponent={() => (
-          <>
-            <View style={{ flexDirection: 'row', marginTop: 12 }}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={{ flex: 1, fontSize: 18 }}
-                  placeholder="Search for gainers"
-                />
-              </View>
-              <View style={styles.sortBtn}>
-                <Icon name="sliders-h" color={'#fff'} size={28} />
-              </View>
-            </View>
-            <ListCategories categories={gainersCategories} />
-          </>
+          <ListCategories categories={categories.filter((category: any) => {
+            return category.parent === 'gym_nutrition'
+          })} />
         )}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={products}
         renderItem={({ item }: any) => {
-          if (item.category === 'gym_nutrition') {
+          if (item.category.parent === 'gym_nutrition') {
             return <StoreCard item={item} />
           } else {
             return null;

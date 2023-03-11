@@ -222,7 +222,7 @@ const Products = () => {
                         color="text"
                         fontWeight="medium"
                     >
-                        {category}
+                        {category.name}
                     </MDTypography>
                 ),
                 price: (

@@ -7,8 +7,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Workout from '../screens/Workout';
 import Store from '../screens/Store';
 import Food from '../screens/Food';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import { useAuth } from '../context/providers/AuthContextProvider';
 
 const Tab = createBottomTabNavigator();
 const TabNavigator = () => {
