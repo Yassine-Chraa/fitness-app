@@ -15,14 +15,16 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
+import { useCategory } from "../../context/APIContext/providers/CategoryContextProvider";
 
 const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif|webp)$/i;
 const colors = ["black", "blue", "white", "green"];
 const sizes = ["S", "M", "L", "XL"];
-const categories = ["gym_cloths", "gym_nutrition"];
+//const categories = ["gym_cloths", "gym_nutrition"];
 
 const ProductForm = ({ type, selectedID }) => {
     const { getProduct, updateProduct, addProduct } = useProduct();
+    const {getCategories,categories} = useCategory();
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
     const [imageFile, setImageFile] = useState("");
@@ -30,17 +32,17 @@ const ProductForm = ({ type, selectedID }) => {
 
     const [product, setProduct] = useState({});
 
-    const fetchData = () => {
+    const fetchData = async () => {
+        await getCategories();
+        console.log(categories)
         if (selectedID != 0)
             getProduct(selectedID).then((res) => setProduct(res));
         else
             setProduct({
                 product_img: "",
                 name: "",
-                category: "",
+                category_id: "",
                 description: "",
-                size: "L",
-                color: "black",
                 company: "",
                 price: "",
                 stock: 0,
@@ -71,8 +73,6 @@ const ProductForm = ({ type, selectedID }) => {
     };
 
     const confirm = async () => {
-        const formData = new FormData();
-        formData.append("imageFile", imageFile);
         try {
             const result =
                 type == "Add"
@@ -165,7 +165,7 @@ const ProductForm = ({ type, selectedID }) => {
                         </MDButton>
                     </MDBox>
                 </MDBox>
-                <Grid container xs={12} spacing={2}>
+                <Grid container spacing={2}>
                     <Grid item xs={12} sm={6}>
                         <MDInput
                             value={product.name}
@@ -242,12 +242,12 @@ const ProductForm = ({ type, selectedID }) => {
                             <Select
                                 variant="outlined"
                                 label="Select Category"
-                                value={product.category}
+                                value={product.category_id}
                                 onChange={(e) =>
                                     setProduct((prev) => {
                                         return {
                                             ...prev,
-                                            category: e.target.value,
+                                            category_id: e.target.value,
                                         };
                                     })
                                 }
@@ -256,82 +256,13 @@ const ProductForm = ({ type, selectedID }) => {
                                 }}
                             >
                                 {categories.map((item, index) => (
-                                    <MenuItem key={index} value={`${item}`}>
-                                        {item}
+                                    <MenuItem key={index} value={`${item.id}`}>
+                                        {item.name}
                                     </MenuItem>
                                 ))}
                             </Select>
                         </FormControl>
                     </Grid>
-                    {product.color && product.size ? (
-                        <>
-                            <Grid item xs={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="select-role-label">
-                                        Select Color
-                                    </InputLabel>
-                                    <Select
-                                        variant="outlined"
-                                        label="Select Color"
-                                        value={product.color}
-                                        onChange={(e) =>
-                                            setProduct((prev) => {
-                                                return {
-                                                    ...prev,
-                                                    color: e.target.value,
-                                                };
-                                            })
-                                        }
-                                        sx={{
-                                            padding: "0.75rem !important",
-                                        }}
-                                    >
-                                        {colors.map((item, index) => (
-                                            <MenuItem
-                                                key={index}
-                                                value={`${item}`}
-                                            >
-                                                {item}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                            <Grid item xs={6}>
-                                <FormControl fullWidth>
-                                    <InputLabel id="select-role-label">
-                                        Select Size
-                                    </InputLabel>
-                                    <Select
-                                        variant="outlined"
-                                        label="Select Size"
-                                        value={product.size}
-                                        onChange={(e) =>
-                                            setProduct((prev) => {
-                                                return {
-                                                    ...prev,
-                                                    color: e.target.value,
-                                                };
-                                            })
-                                        }
-                                        sx={{
-                                            padding: "0.75rem !important",
-                                        }}
-                                    >
-                                        {sizes.map((item, index) => (
-                                            <MenuItem
-                                                key={index}
-                                                value={`${item}`}
-                                            >
-                                                {item}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
-                            </Grid>
-                        </>
-                    ) : null}
-
                     <Grid item xs={12}>
                         <MDInput
                             value={product.description}

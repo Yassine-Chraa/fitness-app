@@ -17,7 +17,7 @@ function UserDesc({userInfo}: any): JSX.Element {
       <View style={styles.avatarName}>
         <Image
           style={{width: 70, height: 70, borderRadius: 35}}
-          source={{uri: 'https://randomuser.me/api/portraits/men/1.jpg'}}
+          source={{uri: userInfo.profile}}
         />
         <View style={{justifyContent: 'center'}}>
           <Text style={styles.name}>{userInfo.name}</Text>

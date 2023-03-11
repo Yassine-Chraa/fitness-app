@@ -1,13 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import axios from 'axios';
-import {createContext, useContext, useState} from 'react';
-import {getUrl, currentUser} from '../../Helpers/APIConfig';
+import axios from '../../Helpers/axiosConfig';
+import { createContext, useContext, useState } from 'react';
+import { getUrl, currentUser } from '../../Helpers/APIConfig';
 import storeData from '../../Helpers/Storage/storeData';
 import SignInObj from '../../types/SignInObj';
 import SignUpObj from '../../types/SignUpObj';
+import UserInfo from '../../types/UserInfo';
+import getData from '../../Helpers/Storage/getData';
 
 export type AuthContextType = {
-  isLogged: boolean;
+  currentUser: UserInfo | null;
   updateState: () => Promise<void>;
   signIn: (form: any) => Promise<string>;
   signUp: (form: any) => Promise<string>;
@@ -29,33 +31,35 @@ const resetPasswordUrl = getUrl('ResetPassword');
 const deleteAccountUrl = getUrl('DeleteAccount');
 const csrfTokenUrl = getUrl('CsrfToken');
 
+
+
 const config = {
   headers: {
     authorization: `Bearer ${currentUser.token}`,
   },
 };
-
-export const AuthContextProvider = ({children}: any) => {
+export const AuthContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
-  const [isLogged, setIsLogged] = useState(false);
+  const [currentUser, setCurrentUser] = useState(null);
 
   const updateState = async () => {
-    const res = await AsyncStorage.getItem('isLogged');
-    if (res == 'true') setIsLogged(true);
-    else setIsLogged(false);
+    setCurrentUser(await getData('current_user'));
   };
   const signIn = async (form: SignInObj) => {
     setLoading(true);
     try {
-      const {data} = await axios.post(`${signInUrl}`, form);
+      const { data } = await axios.post(`${signInUrl}`, form);
       if (data) {
+        setCurrentUser(data)
         const storeResult = await storeData('current_user', data);
-        console.log(data);
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${data.token}`;
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
-        AsyncStorage.setItem('isLogged', 'true');
         updateState();
+        await AsyncStorage.setItem('isLogged', 'true');
       }
       setLoading(false);
       return '_SUCCESS_';
@@ -67,13 +71,14 @@ export const AuthContextProvider = ({children}: any) => {
   const signUp = async (form: SignUpObj) => {
     setLoading(true);
     try {
-      const {data} = await axios.post(`${signUpUrl}`, form);
+      const { data } = await axios.post(`${signUpUrl}`, form);
       if (data) {
+        setCurrentUser(data)
         const storeResult = await storeData('current_user', data);
         if (!storeResult) {
           return '_STORAGE_ERROR_';
         }
-        AsyncStorage.setItem('isLogged', 'true');
+        await AsyncStorage.setItem('isLogged', 'true');
         updateState();
       }
       setLoading(false);
@@ -85,9 +90,8 @@ export const AuthContextProvider = ({children}: any) => {
   };
   const logout = async () => {
     //Todo: clear user tokens from db
-    await AsyncStorage.removeItem('current_user');
-    await AsyncStorage.setItem('isLogged', 'false');
-    setIsLogged(false);
+    await AsyncStorage.removeItem('current_user');  
+    setCurrentUser(null)
   };
   const resetPassword = async (email: string) => {
     try {
@@ -109,7 +113,7 @@ export const AuthContextProvider = ({children}: any) => {
   const deleteAccount = async () => {
     try {
       setLoading(true);
-      const {data} = await axios.get(`${deleteAccountUrl}`, config);
+      const { data } = await axios.get(`${deleteAccountUrl}`, config);
       setLoading(false);
       return data;
     } catch (error) {
@@ -121,7 +125,7 @@ export const AuthContextProvider = ({children}: any) => {
   return (
     <AuthContext.Provider
       value={{
-        isLogged,
+        currentUser,
         updateState,
         signIn,
         signUp,

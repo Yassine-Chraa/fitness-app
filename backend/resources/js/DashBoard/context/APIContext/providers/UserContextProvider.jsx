@@ -13,6 +13,7 @@ export const useUser = () => {
 };
 
 const UserUrl = getUrl("Users");
+const uploadUrl = getUrl("Upload");
 
 export const UserContextProvider = ({ children }) => {
     const [controller, dispatch] = useMaterialUIController();
@@ -49,13 +50,29 @@ export const UserContextProvider = ({ children }) => {
         try {
             let res;
             setLoadingAnimation(dispatch, true);
-            console.log(User)
-            console.log(localStorage.getItem('api_token'))
-            const { data } = await axios.post(`${UserUrl}`, User);
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(
+                    uploadUrl,
+                    formData,
+                    {
+                        headers: {
+                            "Content-Type": "multipart/form-data",
+                        },
+                    }
+                );
+                res = await axios.post(`${UserUrl}`, {
+                    ...User,
+                    profile: data.img_url,
+                });
+            } else {
+                res = await axios.post(`${UserUrl}`, User);
+            }
             setLoadingAnimation(dispatch, false);
             getUsers();
             setMessageObject(dispatch, { type: 'success', message: 'User Created successfully', state: 'mount' })
-            return data;
+            return res.data.message;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
@@ -71,7 +88,7 @@ export const UserContextProvider = ({ children }) => {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
                 const { data } = await axios.post(
-                    "http://127.0.0.1:8000/api/upload",
+                    uploadUrl,
                     formData,
                     {
                         headers: {

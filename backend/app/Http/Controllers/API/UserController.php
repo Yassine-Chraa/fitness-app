@@ -3,8 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\CartItem;
+use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use PhpParser\Node\Expr\Cast\Array_;
 
@@ -35,14 +38,14 @@ class UserController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
-
+        $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
         $newUser = new User([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
             'profile' => $request->get('profile'),
             'birth_date' => $request->get('birth_date'),
-            'BMI' => $request->get('BMI'),
+            'BMI' => $BMI,
             'body_fat' => $request->get('body_fat') || 20.0,
             'height' => $request->get('height'),
             'gender' => $request->get('gender'),
@@ -66,6 +69,8 @@ class UserController extends Controller
     public function show($id)
     {
         $user = User::findOrFail($id);
+        $user->programs = $user->programs;
+        if ($user->nutritionHistory) $user->history_items = $user->nutritionHistory->historyItems;
         return response()->json($user);
     }
 
@@ -100,11 +105,12 @@ class UserController extends Controller
                 'name' => 'required|min:4',
                 'email' => 'required|email',
             ]);
+            $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
             $user->name = $request->get('name');
             $user->email = $request->get('email');
             $user->profile = $request->get('profile');
             $user->role = $request->get('role');
-            $user->BMI = $request->get('BMI');
+            $user->BMI = $BMI;
             $user->body_fat = $request->get('body_fat');
             $user->weight = $request->get('weight');
             $user->height = $request->get('height');
@@ -143,5 +149,46 @@ class UserController extends Controller
     {
         $count = count((array)User::all());
         return response()->json(['total' => $count]);
+    }
+    /**
+     * Get User Cart Product: api/users/cart{id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getCart($id)
+    {
+        $cart = User::find($id)->cart;
+        foreach ($cart as $i => $item) {
+            $cart[$i]->product = Product::find($item->product_id);
+        }
+
+        return response()->json($cart);
+    }
+    /**
+     * Add Product to User Cart: api/users/cart
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addProduct(Request $request)
+    {
+        $request->validate([
+            'user_id' => 'required',
+            'product_id' => 'required',
+        ]);
+
+        $newItem = new CartItem([
+            'user_id' => $request->get('user_id'),
+            'product_id' => $request->get('product_id'),
+        ]);
+
+        $newItem->save();
+        $newItem->product = Product::find($newItem->product_id);
+        return response()->json($newItem);
+    }
+    public function deleteProduct($user_id, $product_id)
+    {
+        CartItem::where('user_id', $user_id)->where('product_id', $product_id)->delete();
+
+        return response()->json(['message' => 'Product deleted from Cart']);
     }
 }
