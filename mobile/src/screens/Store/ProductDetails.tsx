@@ -21,8 +21,8 @@ const ProductDetails = ({ navigation, route }: any) => {
   const { products } = useProduct();
   const { id } = route.params;
 
+  //change
   const [product, setProduct] = useState(products[id-1]);
-  console.log(products)
 
   return (
     <View style={{ flex: 1 }}>

@@ -1,10 +1,13 @@
 import axios from '../../Helpers/axiosConfig';
-import { createContext, useContext } from 'react';
+import { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
+import Product from '../../types/Product';
 
 export type CartContextType = {
-    getCart: (id: number | undefined) => Promise<Array<object>>;
-    addProduct: (product: any) => Promise<string>;
+    cart: Array<object>;
+    getCart: (id: number | undefined) => Promise<void>;
+    addProduct: (product: any) => Promise<void>;
+    deleteProduct: (user_id: number, product_id: number) => Promise<string>;
 };
 const CartContext = createContext<CartContextType | null>(null);
 
@@ -14,34 +17,52 @@ export const useCart = () => {
     return context;
 };
 
-const userUrl = getUrl('Cart');
+const cartUrl = getUrl('Cart');
 
 
 export const CartContextProvider = ({ children }: any) => {
+    const [cart, setCart] = useState(Array<any>);
 
     const getCart = async (id: number | undefined) => {
         try {
-            const { data } = await axios.get(`${userUrl}/${id}`);
-            return data;
+            const { data } = await axios.get(`${cartUrl}/${id}`);
+            setCart(data)
         } catch (e) {
             console.log(e);
         }
     };
     const addProduct = async (product: { user_id: number, product_id: number }) => {
         try {
-            const { data } = await axios.post(userUrl, product);
-            console.log(data)
-            return data.message;
+            const { data } = await axios.post(cartUrl, product);
+            setCart((prev) => {
+                return [...prev, data];
+            })
         } catch (e) {
             console.log(e);
         }
     };
+    const deleteProduct = async (user_id: number, product_id: number) => {
+        try {
+            const { data } = await axios.delete(`${cartUrl}/${user_id}/${product_id}`);
+            setCart((prev) => {
+                return prev.filter((item: any) => {
+                    return item.product_id != product_id
+                })
+            })
+
+            return data.message;
+        } catch (e) {
+            console.log(e);
+        }
+    }
 
     return (
         <CartContext.Provider
             value={{
+                cart,
                 getCart,
-                addProduct
+                addProduct,
+                deleteProduct
             }}>
             {children}
         </CartContext.Provider>

@@ -10,8 +10,8 @@ const endpoints: any = {
   Products: '/api/products',
   Cart: '/api/users/cart',
   Meals: '/api/meals',
-  Equipments: '/api/equipments',
   Activitys: '/api/activitys',
+  Categories: '/api/categories',
   CsrfToken: '/csrf-token',
 };
 

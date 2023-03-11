@@ -1,44 +1,62 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { StyleSheet, View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 //Components
 import ListCategories from '../../components/Categories';
 import theme from '../../constants/theme';
-import { clothsCategories } from '../../constants/categories';
 import StoreCard from '../../components/Cards/StoreCard';
 import { useProduct } from '../../context/providers/ProductContextProvider';
+import { useCategory } from '../../context/providers/CategoryConextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Cloths = ({ navigation }: any): JSX.Element => {
-  const { getProducts, products } = useProduct();
+  const { getProducts, products, searchProduct } = useProduct();
+  const { getCategories, categories } = useCategory();
 
-  useEffect(() => {
+  const [keyword, setKeyword] = useState('');
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+
+  const updateState = async () => {
+    console.log('ok')
+    await getCategories();
     getProducts();
-  }, [])
+  }
+  useFocusEffect(
+    useCallback(() => {
+      updateState();
+    }, [])
+  )
+  
+
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
+      <View style={{ flexDirection: 'row', marginTop: 12 }}>
+        <View style={styles.inputContainer}>
+          <TextInput
+            style={{ flex: 1, fontSize: 18 }}
+            placeholder="Search for cloths"
+            value={keyword}
+            onChangeText={setKeyword}
+          />
+        </View>
+        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={() => searchProduct(keyword)}>
+          <Icon name="search" color={'#fff'} size={28} />
+        </TouchableOpacity>
+      </View>
       <FlatList
-        ListHeaderComponent={() => (
-          <>
-            <View style={{ flexDirection: 'row', marginTop: 12 }}>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={{ flex: 1, fontSize: 18 }}
-                  placeholder="Search for cloths"
-                />
-              </View>
-              <View style={styles.sortBtn}>
-                <Icon name="sliders-h" color={'#fff'} size={28} />
-              </View>
-            </View>
-            <ListCategories categories={clothsCategories} />
-          </>
-        )}
+        ListHeaderComponent={() => {
+          return (
+            <ListCategories selectedCategoryIndex={selectedCategoryIndex} setSelectedCategoryIndex={setSelectedCategoryIndex} categories={categories.filter((category: any) => {
+              return category.parent === 'gym_cloths'
+            })} />
+          )
+        }}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={products}
         renderItem={({ item }: any) => {
-          if (item.category === 'gym_cloths') {
+          if (item.category.parent === 'gym_cloths') {
             return <StoreCard item={item} />
           } else {
             return null;
