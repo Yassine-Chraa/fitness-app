@@ -26,6 +26,7 @@ import { Box } from "@mui/system";
 import AddProgramModal from "./AddProgramModal";
 import EditProgram from "./EditProgram";
 import DeleteProgramModal from "./DeleteProgramModal";
+import { Link } from "react-router-dom";
 
 
 export const Profile = ({ image, name, email }) => (
@@ -74,25 +75,30 @@ export const ActionMenu = ({ id, setSelectedID }) => {
             onClose={handleCloseMenu}
         >
             <MDBox sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <IconButton
-                    size="small"
-                    disableRipple
-                    color="success"
-                    variant="outlined"
-                    onClick={openViewHandler}
-                    sx={{
-                        padding: '7px',
-                        transition: 'all 0.4s ease',
-                        ":hover": {
-                            color: '#fff',
-                            backgroundColor: '#333',
-                        }
-                    }}
+                <Link
+                    onClick={(e) => (!id ? e.preventDefault() : null)}
+                    to={`/dashboard/programs/${id}`}
                 >
-                    <RemoveRedEyeIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
-                </IconButton>
+                    <IconButton
+                        size="small"
+                        disableRipple
+                        color="success"
+                        variant="outlined"
+                        onClick={openViewHandler}
+                        sx={{
+                            padding: '7px',
+                            transition: 'all 0.4s ease',
+                            ":hover": {
+                                color: '#fff',
+                                backgroundColor: '#333',
+                            }
+                        }}
+                    >
+                        <RemoveRedEyeIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
+                    </IconButton>
+                </Link>
 
-                <IconButton
+                {/* <IconButton
                     size="small"
                     disableRipple
                     color="warning"
@@ -108,7 +114,7 @@ export const ActionMenu = ({ id, setSelectedID }) => {
                     }}
                 >
                     <EditIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
-                </IconButton>
+                </IconButton> */}
                 <IconButton
                     size="small"
                     disableRipple
@@ -250,65 +256,61 @@ const Programs = () => {
 
     return (
         <DashboardLayout>
-            {openEditProgramModalHandler ? <EditProgram selectedID={selectedID} /> :
-                (<>
+            {selectedID ? <DeleteProgramModal selectedID={selectedID} /> : ''}
+            <AddProgramModal />
+            <MDBox>
+                <Grid container spacing={6} justifyContent={"center"}>
+                    <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
+                        <Card>
+                            <MDBox
+                                display={"flex"}
+                                alignItems={"center"}
+                                mx={2}
+                                mt={-3}
+                                py={3}
+                                px={2}
+                                variant="gradient"
+                                bgColor="info"
+                                borderRadius="lg"
+                                coloredShadow="info"
+                            >
+                                <MDTypography variant="h6" color="white">
+                                    Programs Table
+                                </MDTypography>
+                                <MDBox ml={"auto"}>
+                                    <Tooltip title="Filter list">
+                                        <IconButton color="white">
+                                            <Icon>filter_list</Icon>
+                                        </IconButton>
+                                    </Tooltip>
+                                </MDBox>
+                            </MDBox>
+                            <MDBox pt={3} >
+                                <DataTable
+                                    canSearch={true}
+                                    table={{ columns: dataLabels, rows: data, }}
+                                />
+                                <MDBox sx={{
+                                    width: '100%', display: 'flex', justifyContent: 'flex-end',
+                                }}>
+                                    <Tooltip title="New Program !">
+                                        <IconButton
+                                            onClick={openAddmodalInvoker}
+                                            color="secondary"
+                                            sx={{
+                                                backgroundColor: 'inherit', marginTop: '0.2rem', marginRight: "1.6rem", marginBottom: "1rem",
+                                                borderRadius: "50%", borderWidth: "1px", borderStyle: "solid", borderColor: "secondary",
+                                            }}>
+                                            <Icon>add</Icon>
+                                        </IconButton>
+                                    </Tooltip>
+                                </MDBox>
+                            </MDBox>
+                        </Card>
+                    </Grid>
+                </Grid>
+            </MDBox>
 
-                    {selectedID ? <DeleteProgramModal selectedID={selectedID} /> : ''}
-                    <AddProgramModal />
-                    <MDBox>
-                        <Grid container spacing={6} justifyContent={"center"}>
-                            <Grid item lg={12} xl={12} md={12} sm={12} xs={12}>
-                                <Card>
-                                    <MDBox
-                                        display={"flex"}
-                                        alignItems={"center"}
-                                        mx={2}
-                                        mt={-3}
-                                        py={3}
-                                        px={2}
-                                        variant="gradient"
-                                        bgColor="info"
-                                        borderRadius="lg"
-                                        coloredShadow="info"
-                                    >
-                                        <MDTypography variant="h6" color="white">
-                                            Programs Table
-                                        </MDTypography>
-                                        <MDBox ml={"auto"}>
-                                            <Tooltip title="Filter list">
-                                                <IconButton color="white">
-                                                    <Icon>filter_list</Icon>
-                                                </IconButton>
-                                            </Tooltip>
-                                        </MDBox>
-                                    </MDBox>
-                                    <MDBox pt={3} >
-                                        <DataTable
-                                            canSearch={true}
-                                            table={{ columns: dataLabels, rows: data, }}
-                                        />
-                                        <MDBox sx={{
-                                            width: '100%', display: 'flex', justifyContent: 'flex-end',
-                                        }}>
-                                            <Tooltip title="New Program !">
-                                                <IconButton
-                                                    onClick={openAddmodalInvoker}
-                                                    color="secondary"
-                                                    sx={{
-                                                        backgroundColor: 'inherit', marginTop: '0.2rem', marginRight: "1.6rem", marginBottom: "1rem",
-                                                        borderRadius: "50%", borderWidth: "1px", borderStyle: "solid", borderColor: "secondary",
-                                                    }}>
-                                                    <Icon>add</Icon>
-                                                </IconButton>
-                                            </Tooltip>
-                                        </MDBox>
-                                    </MDBox>
-                                </Card>
-                            </Grid>
-                        </Grid>
-                    </MDBox>
-                </>)
-            }
 
         </DashboardLayout>
     );
