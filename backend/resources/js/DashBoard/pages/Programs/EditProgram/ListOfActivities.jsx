@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { setOpenActivityViewHandler, setOpenAddActivityModalHandler, setOpenDeleteActivityModalHandler, setOpenEditActivityModalHandler, setOpenEditProgramModalHandler, useMaterialUIController } from "../../../context/UIContext";
 import { styled, alpha } from '@mui/material/styles';
 import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
@@ -13,6 +12,10 @@ import { Card, Grid, Icon, IconButton, Menu, Pagination, Tooltip } from "@mui/ma
 import MDTypography from "../../../components/MDTypography";
 import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContextProvider";
 import { Stack } from "@mui/system";
+import AddWorkOutModal from "./WorkOuts/AddWorkOut";
+import EditWorkOutModal from "./WorkOuts/EditWorkOut";
+import { setOpenAddWorkOutModalHandler, useMaterialUIController } from "../../../context/UIContext";
+import { Link } from "react-router-dom";
 
 const ListOfActivities = (ProID) => {
     const [totalPages, setTotalPages] = useState(0);
@@ -22,9 +25,10 @@ const ListOfActivities = (ProID) => {
     const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
     const { getWorkOuts } = useWorkOut();
+    const [workoutID, setWorkoutID] = useState(0);
 
     const openAddmodalInvoker = () => {
-        setOpenAddActivityModalHandler(dispatch, true);
+        setOpenAddWorkOutModalHandler(dispatch, true);
     }
 
     const fetchData = async () => {
@@ -41,17 +45,25 @@ const ListOfActivities = (ProID) => {
     }, []);
 
     const searchEventHandler = (hint) => {
-        hint = hint.toLowerCase().replace(/\(|\)|\[|\]|\*/g, '');
-        console.log(hint)
-        const filteredItems = workouts.filter((item) => {
-            return item.title.toLowerCase().match(hint) != null;
-        })
+        hint = hint.trim()
+        if (hint != "") {
+            hint = hint.toLowerCase().replace(/\(|\)|\[|\]|\*/g, '');
+            console.log(hint)
+            const filteredItems = workouts.filter((item) => {
+                return item.title.toLowerCase().match(hint) != null;
+            })
 
-        setSampleOfData(() => filteredItems);
+            setSampleOfData(() => filteredItems);
+        } else {
+            setSampleOfData(workouts.slice(0, 10))
+        }
     }
 
     return (
         <>
+            {ProID ? <AddWorkOutModal ProgramID={ProID} /> : null}
+            {workoutID ? <EditWorkOutModal ProgramID={ProID} workOutID={workoutID} /> : null}
+
             <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Card style={{ padding: '1rem' }}>
                     <MDBox style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
@@ -87,7 +99,7 @@ const ListOfActivities = (ProID) => {
 
                         {
                             sampleOfData.map((workout) => (
-                                <WorkOutItem key={workout.id} workout={workout} selectedID={ProID} />
+                                <WorkOutItem key={workout.id} workout={workout} setWorkoutID={setWorkoutID} selectedID={ProID} />
                             ))
                         }
 
@@ -102,7 +114,7 @@ const ListOfActivities = (ProID) => {
                                         count={totalPages} variant="outlined" color="primary" />
                                 </Stack>
                             </MDBox>
-                            <Tooltip title="New Activity !">
+                            <Tooltip title="New WorkOut !">
                                 <IconButton
                                     onClick={openAddmodalInvoker}
                                     color="secondary"
@@ -175,7 +187,7 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 //==================================================================================================
 
 
-export const WorkOutItem = ({ workout, ProID }) => {
+export const WorkOutItem = ({ workout, ProID, setWorkoutID }) => {
 
     const title = workout.title;
 
@@ -231,13 +243,13 @@ export const WorkOutItem = ({ workout, ProID }) => {
                     flexDirection: "row",
                 }}>
                     <DirectionsRunIcon sx={{ marginRight: "0.4rem", }} />
-                    <MDTypography component="div" variant="button" color="text" fontWeight="light">
+                    <MDTypography component={'span'} variant="button" color="text" fontWeight="light">
                         {workout.state}
                     </MDTypography>
                 </MDBox>
             </MDBox>
             <MDBox>
-                <ActionMenu ActID={1} ProID={1} setSelectedID={() => console.log("12345")} />
+                <ActionMenu WorkOutID={workout.id} ProID={1} setWorkoutID={setWorkoutID} />
             </MDBox>
         </MDBox>
     );
@@ -247,27 +259,24 @@ export const WorkOutItem = ({ workout, ProID }) => {
 //==================================================================================================
 
 
-export const ActionMenu = ({ ActID, ProID, setSelectedID }) => {
+export const ActionMenu = ({ WorkOutID, ProID, setWorkoutID }) => {
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const { openActivityViewHandler } = controller
-
     const openEditHandler = () => {
-        setSelectedID(() => ActivityID);
-        setOpenEditActivityModalHandler(dispatch, true);
+        setWorkoutID(() => WorkOutID);
     }
 
     const openDeleteHandler = () => {
-        setSelectedID(() => ActivityID);
-        setOpenDeleteActivityModalHandler(dispatch, true);
+        setWorkoutID(() => WorkOutID);
+        setOpenDeleteWorkOutModalHandler(dispatch, true);
     }
 
     const openViewHandler = () => {
-        setSelectedID(() => ActivityID);
-        setOpenActivityViewHandler(dispatch, true);
+        setWorkoutID(() => WorkOutID);
+        setOpenWorkOutViewHandler(dispatch, true);
     }
 
     const settingMenu = () => (
@@ -280,31 +289,26 @@ export const ActionMenu = ({ ActID, ProID, setSelectedID }) => {
             onClose={handleCloseMenu}
         >
             <MDBox sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'column' }}>
-                <IconButton
-                    size="small" disableRipple color="success" variant="outlined"
-                    onClick={openViewHandler}
-                    sx={{
-                        padding: '7px', transition: 'all 0.4s ease',
-                        ":hover": {
-                            color: '#eee', backgroundColor: '#333',
-                        }
-                    }}
-                >
-                    <RemoveRedEyeIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
-                </IconButton>
 
-                <IconButton
-                    size="small" disableRipple color="warning" variant="outlined"
-                    onClick={openEditHandler}
-                    sx={{
-                        padding: '7px', transition: 'all 0.4s ease',
-                        ":hover": {
-                            color: '#eee', backgroundColor: '#333',
-                        }
-                    }}
+                <Link
+                    onClick={(e) => (!WorkOutID ? e.preventDefault() : null)}
+                    to={`/dashboard/programs/${ProID}/workout/${WorkOutID}`}
                 >
-                    <EditIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
-                </IconButton>
+                    <IconButton
+                        size="small" disableRipple color="warning" variant="outlined"
+                        onClick={openEditHandler}
+                        sx={{
+                            padding: '7px', transition: 'all 0.4s ease',
+                            ":hover": {
+                                color: '#eee', backgroundColor: '#333',
+                            }
+                        }}
+                    >
+                        <EditIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
+                    </IconButton>
+                </Link>
+
+
                 <IconButton
                     size="small" disableRipple color="error" variant="outlined"
                     onClick={openDeleteHandler}

@@ -63,7 +63,7 @@ export const WorkOutContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert("before")
+            console.log(WorkOut)
             const { data } = await axios.post(`${WorkOutUrl}`, WorkOut, config);
             console.log(JSON.stringify(data))
             setLoadingAnimation(dispatch, false);

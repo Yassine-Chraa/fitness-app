@@ -24,6 +24,11 @@ class WorkOut extends Model
     protected $table = 'workouts';
 
 
+    public function workout_exercise():HasMany
+    {
+        return $this->hasMany(WorkOutExercise::class, "workout_id");
+    }
+
     public function images():HasMany
     {
         return $this->hasMany(Resource::class, "workout_id");
@@ -34,7 +39,7 @@ class WorkOut extends Model
         return $this->hasMany(Exercise::class, "workout_id");
     }
 
-    public function program(): BelongsTo
+    public function programs(): BelongsTo
     {
         return $this->belongsTo(Program::class, "program_id");
     }

@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exercise;
 use App\Models\WorkOut;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 
 class WorkOutController extends Controller
 {
@@ -47,6 +48,7 @@ class WorkOutController extends Controller
     public function show($id)
     {
         $workout = WorkOut::findOrFail($id);
+        $workout->exercises = $workout->exercises()->get();
         return response()->json($workout);
     }
 

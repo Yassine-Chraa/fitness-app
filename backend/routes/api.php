@@ -3,6 +3,7 @@
 use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\EquipmentController;
+use App\Http\Controllers\API\ExerciseController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
@@ -12,6 +13,8 @@ use App\Http\Controllers\API\WorkOutController;
 use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
+use Illuminate\Http\Request;
+
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -30,14 +33,13 @@ use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users/total', [UserController::class, 'getTotal']);
     Route::apiResource('users', UserController::class);
-
     Route::apiResource('equipments', EquipmentController::class);
     Route::apiResource('products', ProductController::class);
     Route::apiResource('meals', MealController::class);
-    Route::apiResource('activities', ActivityController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
     Route::apiResource('workouts', WorkOutController::class);
+    Route::apiResource('exercises', ExerciseController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/deleteAccount', [AuthController::class, 'deleteAccount']);
     Route::post('upload', function (Request $request) {

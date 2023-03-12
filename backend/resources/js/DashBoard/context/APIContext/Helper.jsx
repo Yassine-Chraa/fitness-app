@@ -11,7 +11,7 @@ const endpoints = {
     Feedbacks: "api/feedbacks",
     Programs: "api/programs",
     WorkOuts: "api/workouts",
-    Exercises: "api/Exercises",
+    Exercises: "api/exercises",
     Equipments: "api/equipments",
 };
 
