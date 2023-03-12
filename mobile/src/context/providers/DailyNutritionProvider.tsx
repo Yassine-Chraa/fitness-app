@@ -3,39 +3,39 @@ import { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
 
-export type CartContextType = {
-    cart: Array<object>;
-    getCart: (id: number | undefined) => Promise<void>;
+export type DailyNutritionContextType = {
+    dailyNutrition: Array<object>;
+    getDailyNutrition: (user_id: number, date: string) => Promise<void>;
     addProduct: (product: any) => Promise<void>;
     deleteProduct: (user_id: number, product_id: number) => Promise<string>;
 };
-const CartContext = createContext<CartContextType | null>(null);
+const DailyNutritionContext = createContext<DailyNutritionContextType | null>(null);
 
-export const useCart = () => {
-    const context = useContext(CartContext);
+export const useDailyNutrition = () => {
+    const context = useContext(DailyNutritionContext);
     if (!context) throw new Error('Auth Provider is missing !');
     return context;
 };
 
-const cartUrl = getUrl('Cart');
+const DailyNutritionUrl = getUrl('dailyNutrition');
 
+export const DailyNutritionContextProvider = ({ children }: any) => {
+    const [dailyNutrition, setDailyNutrition] = useState(Array<any>);
 
-export const CartContextProvider = ({ children }: any) => {
-    const [cart, setCart] = useState(Array<any>);
-
-    const getCart = async (id: number | undefined) => {
+    const getDailyNutrition = async (user_id: number, date: string) => {
         try {
-            const { data } = await axios.get(`${cartUrl}/${id}`);
-            setCart(data)
+            const { data } = await axios.get(`${DailyNutritionUrl}/${user_id}/${date}`);
+            setDailyNutrition(data)
+            console.log(data)
         } catch (e) {
             console.log(e);
         }
     };
     const addProduct = async (product: { user_id: number, product_id: number }) => {
         try {
-            const { data } = await axios.post(cartUrl, product);
+            const { data } = await axios.post(DailyNutritionUrl, product);
             console.log(data)
-            setCart((prev) => {
+            setDailyNutrition((prev) => {
                 return [...prev, data];
             })
         } catch (e) {
@@ -44,8 +44,8 @@ export const CartContextProvider = ({ children }: any) => {
     };
     const deleteProduct = async (user_id: number, product_id: number) => {
         try {
-            const { data } = await axios.delete(`${cartUrl}/${user_id}/${product_id}`);
-            setCart((prev) => {
+            const { data } = await axios.delete(`${DailyNutritionUrl}/${user_id}/${product_id}`);
+            setDailyNutrition((prev) => {
                 return prev.filter((item: any) => {
                     return item.product_id != product_id
                 })
@@ -58,14 +58,14 @@ export const CartContextProvider = ({ children }: any) => {
     }
 
     return (
-        <CartContext.Provider
+        <DailyNutritionContext.Provider
             value={{
-                cart,
-                getCart,
+                dailyNutrition,
+                getDailyNutrition,
                 addProduct,
                 deleteProduct
             }}>
             {children}
-        </CartContext.Provider>
+        </DailyNutritionContext.Provider>
     );
 };

@@ -14,5 +14,6 @@ export default interface UserInfo {
     created_at: string;
     updated_at: string;
   };
+  ratings: Array<{user_id: number; product_id: number; rating: number}>;
   token: string;
 }

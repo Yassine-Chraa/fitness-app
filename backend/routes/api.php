@@ -32,8 +32,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users/cart/{id}', [UserController::class, 'getCart'])->name('users.cart.index');
     Route::post('/users/cart', [UserController::class, 'addProduct'])->name('users.cart.store');
     Route::delete('/users/cart/{user_id}/{product_id}', [UserController::class, 'deleteProduct'])->name('users.cart.destroy');
+    Route::get('/users/dailyNutrition/{user_id}/{date}', [UserController::class, 'getDailyNutrition'])->name('users.dailyNutrition.index');
     Route::apiResource('users', UserController::class);
 
+    Route::post('/products/rating', [ProductController::class, 'addReview'])->name('users.rating.store');
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('meals', MealController::class);

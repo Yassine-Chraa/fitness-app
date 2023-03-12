@@ -61,9 +61,9 @@ class AuthController extends Controller
         }
 
         $token = $user->createToken('api_Token')->plainTextToken;
-
         $result = [
             'user' => $user,
+            'ratings'=>$user->ratings,
             'token' => $token
         ];
 

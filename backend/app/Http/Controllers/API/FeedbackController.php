@@ -67,11 +67,11 @@ class FeedbackController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $feedback = Feedbacks::findOrFail($id);
         $request->validate([
             'user_id' => 'required',
             'message' => 'required',
         ]);
+        $feedback = Feedbacks::findOrFail($id);
         $feedback->user_id = $request->get('user_id');
         $feedback->message = $request->get('message');
 

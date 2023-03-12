@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback } from 'react';
+import { useState } from 'react';
 import { StyleSheet, View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -8,27 +8,13 @@ import theme from '../../constants/theme';
 import StoreCard from '../../components/Cards/StoreCard';
 import { useProduct } from '../../context/providers/ProductContextProvider';
 import { useCategory } from '../../context/providers/CategoryConextProvider';
-import { useFocusEffect } from '@react-navigation/native';
 
 const Cloths = ({ navigation }: any): JSX.Element => {
-  const { getProducts, products, searchProduct } = useProduct();
-  const { getCategories, categories } = useCategory();
+  const { products, searchProduct } = useProduct();
+  const { categories } = useCategory();
 
   const [keyword, setKeyword] = useState('');
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-
-  const updateState = async () => {
-    console.log('ok')
-    await getCategories();
-    getProducts();
-  }
-  useFocusEffect(
-    useCallback(() => {
-      updateState();
-    }, [])
-  )
-  
-
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <View style={{ flexDirection: 'row', marginTop: 12 }}>

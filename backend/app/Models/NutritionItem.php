@@ -7,25 +7,20 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Meal extends Model
+class NutritionItem extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
-
     protected $fillable = [
+        'daily_nutrition_id',
         'name',
+        'food_id',
         'category',
-        'description',
-        'weight',
-        'isVegan',
-        'isVegetable'
+        'poid',
+        'energy',
+        'protein',
+        'fat',
+        'fiber',
+        'Carbohydrate',
+        'time'
     ];
-
-    public function images()
-    {
-        return $this->hasMany(Resource::class,"meal_id");
-    }
-    public function mealItems()
-    {
-        return $this->hasMany(MealItem::class,"meal_id");
-    }
 }
