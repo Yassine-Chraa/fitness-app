@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {Image} from '@rneui/themed';
+import { useState, useEffect } from 'react';
+import { Image } from '@rneui/themed';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,20 +10,20 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from 'react-native';
-import {Table, Row, Rows} from 'react-native-table-component';
+import { Table, Row, Rows } from 'react-native-table-component';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
 
-const FoodDetails = ({navigation, route}: any) => {
-  const {label, image, nutrients, category} = route.params.item;
-  const width = Dimensions.get('screen').width - 24;
+const FoodDetails = ({ navigation, route }: any) => {
+  const { label, image, nutrients, category } = route.params.item;
+  const [poid, setPoid] = useState(route.params.type === 'daily_nutrition' ? route.params.poid : 0);
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            source={{uri: image || 'https://placehold.jp/400x500.png'}}
+            source={{ uri: image || 'https://placehold.jp/400x500.png' }}
             style={{
               height: 400,
             }}
@@ -38,9 +38,9 @@ const FoodDetails = ({navigation, route}: any) => {
                 <Icon name="heart" size={20} />
               </TouchableWithoutFeedback>
             </View>
-            <View style={{flexDirection: 'row', marginBottom: 24}}>
+            <View style={{ flexDirection: 'row', marginBottom: 24 }}>
               <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>{category}</Text>
+                <Text style={{ fontSize: 13 }}>{category}</Text>
               </View>
             </View>
             <Table
@@ -74,9 +74,12 @@ const FoodDetails = ({navigation, route}: any) => {
               <CustomTextInput
                 placeholder="Weight (g)"
                 keyboardType="numeric"
+                inputMode="numeric"
+                value={poid.toString()}
+                onChangeText={setPoid}
               />
-              <TouchableOpacity style={styles.addButton}>
-                <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+              <TouchableOpacity style={styles.addButton} >
+                <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
                   ADD TO YOUR DAILY DIET
                 </Text>
               </TouchableOpacity>

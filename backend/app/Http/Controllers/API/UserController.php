@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
+use App\Models\DailyNutrition;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -70,7 +71,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->programs = $user->programs;
-        if ($user->nutritionHistory) $user->history_items = $user->nutritionHistory->historyItems;
+        foreach ($user->dailyNutritions as $i => $dailyNutrition) {
+            $user->dailyNutritions[$i]->history_items = $dailyNutrition->historyItems;
+        }
+        $user->ratings = $user->ratings;
         return response()->json($user);
     }
 
@@ -185,10 +189,30 @@ class UserController extends Controller
         $newItem->product = Product::find($newItem->product_id);
         return response()->json($newItem);
     }
+
+    /**
+     * Delete Product from User Cart: api/users/cart/{user_id}/{product_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function deleteProduct($user_id, $product_id)
     {
         CartItem::where('user_id', $user_id)->where('product_id', $product_id)->delete();
 
         return response()->json(['message' => 'Product deleted from Cart']);
+    }
+
+    /**
+     * Get Daily Nutrition: api/users/dailyNutrition
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDailyNutrition($user_id, $date)
+    {
+        $dailyNutritions = User::find($user_id)->dailyNutritions;
+        $dailyNutrition = $dailyNutritions->where('date', $date)->first();
+        $dailyNutrition->history_items = $dailyNutrition->historyItems;
+
+        return response()->json($dailyNutrition);
     }
 }

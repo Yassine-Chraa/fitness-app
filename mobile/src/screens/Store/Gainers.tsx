@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, View, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -7,21 +7,15 @@ import ListCategories from '../../components/Categories';
 import theme from '../../constants/theme';
 import StoreCard from '../../components/Cards/StoreCard';
 import { useProduct } from '../../context/providers/ProductContextProvider';
-import { useFocusEffect } from '@react-navigation/native';
 import { useCategory } from '../../context/providers/CategoryConextProvider';
 
 const Gainers = ({ navigation }: any): JSX.Element => {
-  const { products, getProducts, searchProduct } = useProduct();
-  const { getCategories, categories } = useCategory();
+  const { products, searchProduct } = useProduct();
+  const { categories } = useCategory();
 
   const [keyword, setKeyword] = useState('');
+  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
-  useFocusEffect(
-    useCallback(() => {
-      getProducts();
-      getCategories();
-    }, [])
-  )
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <View style={{ flexDirection: 'row', marginBottom: 12 }}>
@@ -39,7 +33,7 @@ const Gainers = ({ navigation }: any): JSX.Element => {
       </View>
       <FlatList
         ListHeaderComponent={() => (
-          <ListCategories categories={categories.filter((category: any) => {
+          <ListCategories selectedCategoryIndex={selectedCategoryIndex} setSelectedCategoryIndex={setSelectedCategoryIndex} categories={categories.filter((category: any) => {
             return category.parent === 'gym_nutrition'
           })} />
         )}

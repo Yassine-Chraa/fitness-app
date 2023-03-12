@@ -4,8 +4,6 @@ import Screen from '../../components/Screen';
 import MyCartCard from '../../components/Cards/MyCartCard';
 import theme from '../../constants/theme';
 import { useCart } from '../../context/providers/CartContextProvider';
-import getData from '../../Helpers/Storage/getData';
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 
 
@@ -17,13 +15,6 @@ const MyCart = () => {
 
   const fetchData = async () => {
     await getCart(currentUser?.user.id);
-    setTotal(() => {
-      let _total = 0;
-      cart?.forEach((item: any) => {
-        _total += item.amount * item.product.price
-      });
-      return _total;
-    })
   };
   useEffect(() => {
     fetchData();
@@ -35,9 +26,9 @@ const MyCart = () => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={cart.map((item: any) => {
-          return item.product
+          return { product: item.product, amount: item.amount }
         })}
-        renderItem={({ item }: any) => <MyCartCard item={item} amount={item.amount} />}
+        renderItem={({ item }: any) => <MyCartCard item={item.product} setTotal={setTotal} />}
         ListFooterComponent={() => {
           return (
             <View

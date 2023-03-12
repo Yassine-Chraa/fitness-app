@@ -13,18 +13,20 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_nutrition_history_items', function (Blueprint $table) {
+        Schema::create('nutrition_items', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('history_id', unsigned: true)->nullable();
-            $table->foreign('history_id')->references('id')->on('user_nutrition_histories')->onUpdate('cascade')->onDelete('cascade');
+            $table->bigInteger('daily_nutrition_id', unsigned: true)->nullable();
+            $table->foreign('daily_nutrition_id')->references('id')->on('daily_nutrition')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name')->default('undefined');
+            $table->string('food_id');
+            $table->string('category');
             $table->float('poid', places: 1)->default(0);
             $table->float('energy', places: 1)->default(0);
             $table->float('protein', places: 2)->default(0);
             $table->float('fat', places: 2)->default(0);
             $table->float('fiber', places: 2)->default(0);
             $table->float('Carbohydrate', places: 2)->default(0);
-            $table->time('date');
+            $table->time('time');
         });
     }
 
@@ -35,6 +37,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_nutrition_history_items');
+        Schema::dropIfExists('nutrition_items');
     }
 };

@@ -50,6 +50,7 @@ export const AuthContextProvider = ({ children }: any) => {
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
       if (data) {
+
         setCurrentUser(data)
         const storeResult = await storeData('current_user', data);
         axios.defaults.headers.common[

@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   StyleSheet,
   View,
   TextInput,
   FlatList,
   TouchableOpacity,
+  Text,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -14,9 +15,9 @@ import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import axios from 'axios';
 
-const Food = ({navigation}: any): JSX.Element => {
+const Food = ({ navigation }: any): JSX.Element => {
   const [keyword, setKeyword] = useState('');
-  const [hints, setHints] = useState(Array<{food: object}>());
+  const [hints, setHints] = useState(Array<{ food: object }>());
 
   const search = () => {
     if (keyword) {
@@ -33,7 +34,6 @@ const Food = ({navigation}: any): JSX.Element => {
           },
         )
         .then(function (response) {
-          console.log(response.data.hints[0].food);
           setHints(response.data.hints);
         })
         .catch(function (error) {
@@ -45,10 +45,11 @@ const Food = ({navigation}: any): JSX.Element => {
   };
   return (
     <Screen name="Food" allowScroll={false} action='bookmark'>
-      <View style={{flexDirection: 'row', marginBottom: 32}}>
+      <View style={{ flexDirection: 'row', marginBottom: 32 }}>
         <View style={styles.inputContainer}>
           <TextInput
-            style={{flex: 1, fontSize: 18}}
+            style={{ flex: 1, fontSize: 18 }}
+            inputMode='search'
             placeholder="Search for food"
             value={keyword}
             onChangeText={setKeyword}
@@ -74,8 +75,14 @@ const Food = ({navigation}: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={hints}
-        renderItem={({item}) => <FoodsCard item={item.food} />}
+        renderItem={({ item }) => <FoodsCard item={item.food} />}
       />
+      <TouchableOpacity style={styles.historyBtn} activeOpacity={0.4} onPress={() => navigation.navigate('DailyNutrition')}>
+        <Icon name='utensils' color='#fff' size={18} />
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+          Daily Nutrition
+        </Text>
+      </TouchableOpacity>
     </Screen>
   );
 };
@@ -97,6 +104,19 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  historyBtn: {
+    zIndex: 2,
+    marginLeft: 'auto',
+    bottom: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.primary,
   },
 });
 
