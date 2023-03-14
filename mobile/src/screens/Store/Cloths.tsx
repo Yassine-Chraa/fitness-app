@@ -15,6 +15,10 @@ const Cloths = ({ navigation }: any): JSX.Element => {
 
   const [keyword, setKeyword] = useState('');
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
+
+  const search = () => {
+    searchProduct(keyword); setSelectedCategoryIndex(0)
+  }
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <View style={{ flexDirection: 'row', marginTop: 12 }}>
@@ -26,7 +30,7 @@ const Cloths = ({ navigation }: any): JSX.Element => {
             onChangeText={setKeyword}
           />
         </View>
-        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={() => searchProduct(keyword)}>
+        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={search}>
           <Icon name="search" color={'#fff'} size={28} />
         </TouchableOpacity>
       </View>
@@ -55,7 +59,7 @@ const Cloths = ({ navigation }: any): JSX.Element => {
           My Cart
         </Text>
       </TouchableOpacity>
-    </View>
+    </View >
   );
 };
 const styles = StyleSheet.create({

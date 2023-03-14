@@ -22,7 +22,7 @@ const Gainers = ({ navigation }: any): JSX.Element => {
         <View style={styles.inputContainer}>
           <TextInput
             style={{ flex: 1, fontSize: 18 }}
-            placeholder="Search for nutritions"
+            placeholder="Search for gym nutrition"
             value={keyword}
             onChangeText={setKeyword}
           />

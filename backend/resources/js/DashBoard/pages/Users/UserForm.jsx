@@ -31,7 +31,9 @@ const UserForm = ({ type, selectedID }) => {
     const ImageRef = useRef();
 
     const [user, setUser] = useState({});
+
     const fetchData = async () => {
+
         if (selectedID != 0)
             await getUser(selectedID).then((res) => setUser(res));
         else {

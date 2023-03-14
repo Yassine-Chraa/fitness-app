@@ -33,12 +33,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/users/cart', [UserController::class, 'addProduct'])->name('users.cart.store');
     Route::delete('/users/cart/{user_id}/{product_id}', [UserController::class, 'deleteProduct'])->name('users.cart.destroy');
     Route::get('/users/dailyNutrition/{user_id}/{date}', [UserController::class, 'getDailyNutrition'])->name('users.dailyNutrition.index');
+    Route::post('/users/dailyNutrition/item', [UserController::class, 'addFood'])->name('users.dailyNutrition.item.post');
+    Route::delete('/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}', [UserController::class, 'deleteFood'])->name('users.dailyNutrition.item.destroy');
     Route::apiResource('users', UserController::class);
 
     Route::post('/products/rating', [ProductController::class, 'addReview'])->name('users.rating.store');
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategorieController::class);
-    Route::apiResource('meals', MealController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
     Route::apiResource('workouts', WorkOutController::class);

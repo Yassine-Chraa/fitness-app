@@ -66,7 +66,7 @@ const Store = () => {
         </View>
       )}>
       <Tab.Screen name="Cloths" component={Cloths} />
-      <Tab.Screen name="Gainers" component={Gainers} />
+      <Tab.Screen name="Gym Nutrition" component={Gainers} />
     </Tab.Navigator>
   );
 };
