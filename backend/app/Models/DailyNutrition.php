@@ -16,11 +16,12 @@ class DailyNutrition extends Model
         'protein_consumed',
         'fat_consumed',
         'fiber_consumed',
-        'Carbohydrate_consumed'
+        'carbohydrate_consumed'
     ];
 
     public function historyItems()
     {
         return $this->hasMany(NutritionItem::class,'daily_nutrition_id');
     }
+    public $timestamps = false;
 }

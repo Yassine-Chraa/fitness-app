@@ -1,20 +1,21 @@
-import { useState, useEffect } from 'react';
-import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
+import { useEffect } from 'react';
+import { FlatList, StyleSheet, Text, View } from 'react-native';
 import Screen from '../../components/Screen';
-import MyCartCard from '../../components/Cards/MyCartCard';
 import theme from '../../constants/theme';
-import { useCart } from '../../context/providers/CartContextProvider';
-import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
 import DailyNutritionCard from '../../components/Cards/DailyNutritionCard';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 
 const DailyNutrition = () => {
-  const {dailyNutrition,getDailyNutrition} = useDailyNutrition();
+  const {currentUser} = useAuth();
+  const { dailyNutrition, forceUpdate, getDailyNutrition } = useDailyNutrition();
 
   useEffect(() => {
-    getDailyNutrition(1, '2023-03-12');
-  }, [])
+    const now = new Date();
+    const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate()}`;
+    getDailyNutrition(currentUser?.user.id, today);
+  }, [forceUpdate])
 
   return (
     <Screen name="Daily Nutrition" backButton noAction>
@@ -22,7 +23,42 @@ const DailyNutrition = () => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={dailyNutrition.history_items}
-        renderItem={({ item }: any) => <DailyNutritionCard item={item} />}
+        renderItem={({ item }: any) => <DailyNutritionCard daily_nutrition_id={1} item={item} />}
+        ListHeaderComponent={() => {
+          return (
+            <View
+              style={{
+                marginTop: 8,
+                marginBottom: 32,
+                marginHorizontal: 4,
+                paddingVertical: 12,
+                paddingHorizontal: 8,
+                borderRadius: 8,
+                backgroundColor: theme.colors.text,
+                elevation: 4,
+                rowGap: 4
+              }}>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text style={{ ...styles.footerText, color: theme.colors.background }}>Energy</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{dailyNutrition.energy_consumed?.toFixed(1) + ' kcal'}</Text>
+              </View>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                  alignItems: 'center',
+                }}>
+                <Text style={{ ...styles.footerText, color: theme.colors.background }}>Protein</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{dailyNutrition.protein_consumed?.toFixed(2) + ' g'}</Text>
+              </View>
+            </View>
+          );
+        }}
       />
     </Screen>
   );

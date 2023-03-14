@@ -1,4 +1,4 @@
-import {Image} from '@rneui/themed';
+import { Image } from '@rneui/themed';
 import React from 'react';
 import {
   Text,
@@ -9,11 +9,22 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const FoodCard = ({type, item}: any) => {
+const FoodCard = ({ daily_nutrition_id, item }: any) => {
+  const { addFood } = useDailyNutrition();
   const navigation: any = useNavigation();
-  const {label, image, nutrients, category} = item;
+  const { foodId, label, image, nutrients, category } = item;
+
+  const addFoodToDailyNutrition = () => {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    addFood({ daily_nutrition_id, name: label, api_id: foodId, category: category, poid: 50, energy: nutrients.ENERC_KCAL * 0.5, protein: nutrients.PROCNT * 0.5, fat: nutrients.FAT * 0.5, fiber: nutrients.FIBTG * 0.5, carbohydrate: nutrients.CHOCDF * 0.5, time: `${h}:${m}:${s}` })
+  }
   return (
     <TouchableOpacity
       style={styles.card}
@@ -30,8 +41,8 @@ const FoodCard = ({type, item}: any) => {
           width: '90%',
         }}>
         <Image
-          source={{uri: image || 'https://placehold.jp/180x260.png'}}
-          style={{height: 80, width: 80, borderRadius: 5}}
+          source={{ uri: image || 'https://placehold.jp/180x260.png' }}
+          style={{ height: 80, width: 80, borderRadius: 5 }}
           PlaceholderContent={<ActivityIndicator />}
           resizeMode="cover"
         />
@@ -54,22 +65,22 @@ const FoodCard = ({type, item}: any) => {
               {category}
             </Text>
           </View>
-          <View style={{flexDirection: 'row', columnGap: 6}}>
+          <View style={{ flexDirection: 'row', columnGap: 6 }}>
             <View style={styles.tag}>
-              <Text style={{fontSize: 13}}>
+              <Text style={{ fontSize: 13 }}>
                 Cal: {nutrients.ENERC_KCAL + ' kcal'}
               </Text>
             </View>
             <View style={styles.tag}>
-              <Text style={{fontSize: 13}}>
+              <Text style={{ fontSize: 13 }}>
                 Protein: {nutrients.PROCNT.toFixed(2) + ' g'}
               </Text>
             </View>
           </View>
         </View>
       </View>
-      <TouchableOpacity style={{top: 4}} activeOpacity={0.4}>
-        <Icon name="heart" size={22} />
+      <TouchableOpacity style={styles.addTo} activeOpacity={0.4} onPress={addFoodToDailyNutrition}>
+        <Icon name="plus" size={18} color={'#fff'} />
       </TouchableOpacity>
     </TouchableOpacity>
   );
@@ -96,6 +107,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 6,
     paddingVertical: 2,
     backgroundColor: theme.colors.statusBar,
+  },
+  addTo: {
+    height: 28,
+    width: 28,
+    borderRadius: 20,
+    backgroundColor: theme.colors.secondary,
+    justifyContent: 'center',
+    alignItems: 'center',
+    alignSelf: 'flex-end'
   },
 });
 export default FoodCard;

@@ -18,7 +18,6 @@ import axios from 'axios';
 const Food = ({ navigation }: any): JSX.Element => {
   const [keyword, setKeyword] = useState('');
   const [hints, setHints] = useState(Array<{ food: object }>());
-
   const search = () => {
     if (keyword) {
       axios
@@ -75,7 +74,7 @@ const Food = ({ navigation }: any): JSX.Element => {
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={hints}
-        renderItem={({ item }) => <FoodsCard item={item.food} />}
+        renderItem={({ item }) => <FoodsCard daily_nutrition_id={1} item={item.food} />}
       />
       <TouchableOpacity style={styles.historyBtn} activeOpacity={0.4} onPress={() => navigation.navigate('DailyNutrition')}>
         <Icon name='utensils' color='#fff' size={18} />

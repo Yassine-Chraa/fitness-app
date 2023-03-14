@@ -21,7 +21,7 @@ return new class extends Migration
             $table->float('protein_consumed', places: 2)->default(0);
             $table->float('fat_consumed', places: 2)->default(0);
             $table->float('fiber_consumed', places: 2)->default(0);
-            $table->float('Carbohydrate_consumed', places: 2)->default(0);
+            $table->float('carbohydrate_consumed', places: 2)->default(0);
             $table->date('date');
 
             $table->unique(['user_id','date'],'unique');

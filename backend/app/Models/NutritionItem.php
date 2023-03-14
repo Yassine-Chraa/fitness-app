@@ -13,7 +13,7 @@ class NutritionItem extends Model
     protected $fillable = [
         'daily_nutrition_id',
         'name',
-        'food_id',
+        'api_id',
         'category',
         'poid',
         'energy',
@@ -23,4 +23,5 @@ class NutritionItem extends Model
         'Carbohydrate',
         'time'
     ];
+    public $timestamps = false;
 }

@@ -9,7 +9,7 @@ const endpoints: any = {
   ResetPassword: '/password/email',
   Products: '/api/products',
   Cart: '/api/users/cart',
-  dailyNutrition: '/api/users/dailyNutrition',
+  DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
   Activitys: '/api/activitys',
   Categories: '/api/categories',

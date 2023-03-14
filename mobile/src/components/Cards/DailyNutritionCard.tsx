@@ -9,8 +9,10 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
+import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
 
-const DailyNutritionCard = ({ item }: any) => {
+const DailyNutritionCard = ({ daily_nutrition_id, item }: any) => {
+    const { deleteFood } = useDailyNutrition();
     const navigation: any = useNavigation();
     const { name, api_id, poid, energy, protein } = item;
     const [foodDetails, setFoodDetails] = useState(Object);
@@ -34,7 +36,6 @@ const DailyNutritionCard = ({ item }: any) => {
     useEffect(() => {
         fetchData();
     }, [api_id])
-    console.log(foodDetails)
     return (
         <TouchableOpacity
             style={styles.card}
@@ -43,8 +44,7 @@ const DailyNutritionCard = ({ item }: any) => {
                 navigation.navigate('FoodDetails', {
                     type: 'daily_nutrition',
                     item: foodDetails,
-                    poid
-                    
+                    weight:poid,
                 })
             }>
             <View
@@ -81,8 +81,8 @@ const DailyNutritionCard = ({ item }: any) => {
                     </View>
                 </View>
             </View>
-            <TouchableOpacity style={{ backgroundColor: theme.colors.button, height: 30, width: 30, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
-                activeOpacity={0.4}>
+            <TouchableOpacity style={styles.deleteBtn} activeOpacity={0.4} onPress={() => deleteFood(daily_nutrition_id, item.id)}
+            >
                 <Icon name="trash" size={16} color={'#fff'} />
             </TouchableOpacity>
         </TouchableOpacity>
@@ -113,5 +113,12 @@ const styles = StyleSheet.create({
         paddingVertical: 2,
         backgroundColor: theme.colors.statusBar,
     },
+    deleteBtn: {
+        backgroundColor: theme.colors.button,
+        height: 30, width: 30,
+        borderRadius: 15,
+        justifyContent: 'center',
+        alignItems: 'center'
+    }
 });
 export default DailyNutritionCard;
