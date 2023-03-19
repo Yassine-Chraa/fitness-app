@@ -33,7 +33,7 @@ const FoodDetails = ({ navigation, route }: any) => {
     } else {
       const now = new Date();
       const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate()}`;
-      await getDailyNutrition(currentUser?.user.id, today)
+      await getDailyNutrition(currentUser?.user?.id, today)
       addFood({ daily_nutrition_id: dailyNutrition.id, name: label, api_id: foodId, category: category, poid, energy: nutrients.ENERC_KCAL * (poid / 100), protein: nutrients.PROCNT * (poid / 100), fat: nutrients.FAT * (poid / 100), fiber: nutrients.FIBTG * (poid / 100), carbohydrate: nutrients.CHOCDF * (poid / 100), time: `${h}:${m}:${s}` })
       setPoid(0);
     }

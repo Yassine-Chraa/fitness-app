@@ -19,7 +19,7 @@ const CoachCard = ({item}: any) => {
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('CoachProfile', {
-          name: item.name,
+          item,
         })
       }>
       <View
@@ -45,7 +45,7 @@ const CoachCard = ({item}: any) => {
             </Text>
           </View>
           <View style={{flexDirection: 'row', columnGap: 6}}>
-            {item.badges.map((badge: any,index:number) => {
+            {['Body Building','General Fitness'].map((badge: any,index:number) => {
               return (
                 <View style={styles.tag} key={index}>
                   <Text style={{fontSize: 13}}>{badge}</Text>

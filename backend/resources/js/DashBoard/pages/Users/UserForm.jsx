@@ -39,7 +39,7 @@ const UserForm = ({ type, selectedID }) => {
         else {
             setUser({
                 id: 0,
-                profile: "",
+                profile: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
                 name: "",
                 email: "",
                 password: "fitnessapp",
