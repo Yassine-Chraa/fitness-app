@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
+import { Food_API_URL, Food_API_Token } from '@env'
 import {
   StyleSheet,
   View,
@@ -22,13 +23,13 @@ const Food = ({ navigation }: any): JSX.Element => {
     if (keyword) {
       axios
         .get(
-          `https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=${keyword}`,
+          `https://${Food_API_URL}/parser?ingr=${keyword}`,
           {
             headers: {
               'X-RapidAPI-Key':
-                '30b507191fmshf1309fbc3a2421ap1d2007jsn670e526d79e4',
+                Food_API_Token,
               'X-RapidAPI-Host':
-                'edamam-food-and-grocery-database.p.rapidapi.com',
+                Food_API_URL,
             },
           },
         )

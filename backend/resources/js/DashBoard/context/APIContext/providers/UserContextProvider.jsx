@@ -105,8 +105,8 @@ export const UserContextProvider = ({ children }) => {
             }
             setLoadingAnimation(dispatch, false);
             getUsers();
-            setMessageObject(dispatch, { type: 'success', message: 'User was Updated successfully', state: 'mount' })
-            return data;
+            setMessageObject(dispatch, { type: 'success', message: 'User updated successfully', state: 'mount' })
+            return true;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
@@ -128,7 +128,7 @@ export const UserContextProvider = ({ children }) => {
                     setLoadingAnimation(dispatch, true);
                     const { data } = await axios.delete(`${UserUrl}/${id}`);
                     setLoadingAnimation(dispatch, false);
-                    setMessageObject(dispatch, { type: 'success', message: 'User was Deleted successfully', state: 'mount' })
+                    setMessageObject(dispatch, { type: 'success', message: 'User deleted successfully', state: 'mount' })
                     getUsers();
                     return data;
                 } catch (error) {

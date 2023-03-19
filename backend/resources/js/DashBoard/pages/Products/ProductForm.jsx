@@ -39,7 +39,7 @@ const ProductForm = ({ type, selectedID }) => {
             getProduct(selectedID).then((res) => setProduct(res));
         else
             setProduct({
-                product_img: "",
+                product_img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
                 name: "",
                 category_id: "",
                 description: "",

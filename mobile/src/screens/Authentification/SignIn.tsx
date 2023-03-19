@@ -27,7 +27,6 @@ const SignIn = ({navigation}: any) => {
         password: password.value,
       };
       const signInResult = await signIn(sentData);
-      console.log(signInResult);
       switch (signInResult) {
         case '_STORAGE_ERROR_':
           Alert.alert('ERROR', 'Ooops! something went wrong !', [

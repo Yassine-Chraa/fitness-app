@@ -18,10 +18,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return response()->json($users);
+        if ($request->has('role')) $data = User::where('role', $request->get('role'))->get();
+        else $data = User::all();
+        return response()->json($data);
     }
 
     /**
@@ -34,7 +35,7 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -125,7 +126,7 @@ class UserController extends Controller
 
             $user->save();
 
-            return response()->json(['message' => "user updated successfully !"]);
+            return response()->json($user);
         }
     }
 
@@ -226,7 +227,7 @@ class UserController extends Controller
             'daily_nutrition_id' => 'required',
             'name' => 'required',
             'api_id' => 'required',
-            'poid'=> 'required'
+            'poid' => 'required'
         ]);
 
         $newItem = new NutritionItem([
@@ -273,9 +274,6 @@ class UserController extends Controller
 
         $item->delete();
         $dailyNutrition->save();
-
-
-
         return response()->json(['message' => 'Food deleted from Daily Nutrition']);
     }
 }

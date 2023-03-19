@@ -1,11 +1,14 @@
 export default interface UserInfo {
-  user: {
+  user?: {
     id: number;
     role: 'admin' | 'vip' | 'client' | 'normal_user' | 'coach';
     name: string;
     email: string;
-    workout_level: 'beginner' | 'Intermediate' | 'Advanced';
-    top_goal: 'Maintaining' | 'Bulking' | 'Cutting';
+    gender: 'male' | 'female';
+    birth_date: Date | String;
+    workout_level: 'beginner' | 'intermediate' | 'advanced';
+    top_goal: 'Maintaining' | 'bulking' | 'cutting';
+    height: number;
     weight: number;
     body_fat: number;
     BMI: number;
