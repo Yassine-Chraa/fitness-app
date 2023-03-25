@@ -11,8 +11,9 @@ const endpoints = {
     Feedbacks: "api/feedbacks",
     Programs: "api/programs",
     WorkOuts: "api/workouts",
-    Exercises: "api/exercises",
-    Equipments: "api/equipments",
+    Exercises: "api/Exercises",
+    Upload: "api/upload",
+    Category: "api/categories",
 };
 
 export const getUrl = (endpoint) => {

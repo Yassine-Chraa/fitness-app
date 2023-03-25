@@ -13,12 +13,17 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::all();
+        $keyword = $request->has('keyword') ? $request->get('keyword') : '';
+        if ($request->has('category_id')) {
+            $products = Product::where('category_id', $request->get('category_id'))->where('name', 'LIKE', $keyword . '%')->get();
+        } else {
+            $products = Product::where('name', 'LIKE', $keyword . '%')->get();
+        }
+
         foreach ($products as $i => $product) {
-            $products[$i] = $product;
-            $products[$i]->items = $product->items;
+            $products[$i]->category = $product->category;
         }
         return response()->json($products);
     }
@@ -33,7 +38,7 @@ class ProductController extends Controller
     {
         $request->validate([
             'name' => 'required|min:4',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -43,14 +48,15 @@ class ProductController extends Controller
         $newProduct = new Product([
             'name' => $request->get('name'),
             'product_img' => $request->get('product_img'),
-            'category' => $request->get('category'),
+            'category_id' => $request->get('category_id'),
             'description' => $request->get('description'),
             'stock' => $request->get('stock'),
             'price' => $request->get('price'),
             'company' => $request->get('company'),
         ]);
         $newProduct->save();
-        return response()->json(['message' => 'Product stored']);
+
+        return response()->json(['message' => 'Product Added']);
     }
 
     /**
@@ -62,7 +68,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $product->items = $product->items;
+        $product->category = $product->category;
         return response()->json($product);
     }
 
@@ -78,7 +84,7 @@ class ProductController extends Controller
         $product = Product::findOrFail($id);
         $request->validate([
             'name' => 'required|min:4',
-            'category' => 'required',
+            'category_id' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
             'stock' => 'required|integer|min:0',
@@ -86,7 +92,7 @@ class ProductController extends Controller
         ]);
         $product->name = $request->get('name');
         $product->product_img = $request->get('product_img');
-        $product->category = $request->get('category');
+        $product->category_id = $request->get('category_id');
         $product->description = $request->get('description');
         $product->price = $request->get('price');
         $product->stock = $request->get('stock');

@@ -6,6 +6,9 @@ export default interface UserInfo {
     email: string;
     workout_level: 'beginner' | 'Intermediate' | 'Advanced';
     top_goal: 'Maintaining' | 'Bulking' | 'Cutting';
+    weight: number;
+    body_fat: number;
+    BMI: number;
     email_verified_at: string | null;
     profile: string | null;
     created_at: string;

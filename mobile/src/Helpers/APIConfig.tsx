@@ -8,10 +8,10 @@ const endpoints: any = {
   DeleteAccount: '/api/deleteAccount',
   ResetPassword: '/password/email',
   Products: '/api/products',
-  Users: '/api/users',
+  Cart: '/api/users/cart',
   Meals: '/api/meals',
-  Equipments: '/api/equipments',
   Activitys: '/api/activitys',
+  Categories: '/api/categories',
   CsrfToken: '/csrf-token',
 };
 

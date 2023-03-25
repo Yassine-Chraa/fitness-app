@@ -1,16 +1,13 @@
 <?php
 
-use App\Http\Controllers\API\ActivityController;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\EquipmentController;
-use App\Http\Controllers\API\ExerciseController;
+use App\Http\Controllers\API\CategorieController;
 use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\MealController;
 use App\Http\Controllers\API\ProgramController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\WorkOutController;
-use App\Models\Program;
 use Illuminate\Support\Facades\Route;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -31,10 +28,14 @@ use Illuminate\Http\Request;
 // group of all protected routes
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/users/total', [UserController::class, 'getTotal']);
+    Route::get('/users/total', [UserController::class, 'getTotal'])->name('users.total');
+    Route::get('/users/cart/{id}', [UserController::class, 'getCart'])->name('users.cart.index');
+    Route::post('/users/cart', [UserController::class, 'addProduct'])->name('users.cart.store');
+    Route::delete('/users/cart/{user_id}/{product_id}', [UserController::class, 'deleteProduct'])->name('users.cart.destroy');
     Route::apiResource('users', UserController::class);
-    Route::apiResource('equipments', EquipmentController::class);
+
     Route::apiResource('products', ProductController::class);
+    Route::apiResource('categories', CategorieController::class);
     Route::apiResource('meals', MealController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);

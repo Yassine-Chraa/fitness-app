@@ -1,5 +1,5 @@
-import {Image} from '@rneui/themed';
-import React, {useState} from 'react';
+import { Image } from '@rneui/themed';
+import React, { useState } from 'react';
 import {
   Text,
   View,
@@ -9,19 +9,22 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../../context/providers/CartContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const MyCartCard = ({item}: any) => {
+const MyCartCard = ({ item, amount }: any) => {
+  const {currentUser} = useAuth();
+  const {deleteProduct} = useCart();
   const navigation: any = useNavigation();
-  const [amount, setAmount] = useState(item.amount);
+  const [count, setCount] = useState(amount);
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          name: item.name,
-          type: item.type,
+          id: item.id,
         })
       }>
       <View
@@ -30,11 +33,11 @@ const MyCartCard = ({item}: any) => {
           columnGap: 12,
         }}>
         <Image
-          source={{uri: 'https://placehold.jp/180x260.png'}}
-          style={{height: 75, width: 75, borderRadius: 5}}
+          source={{ uri: item.product_img || 'https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png' }}
+          style={{ height: 75, width: 75, borderRadius: 5 }}
           PlaceholderContent={<ActivityIndicator />}
         />
-        <View style={{height: 75, justifyContent: 'space-between'}}>
+        <View style={{ height: 75, justifyContent: 'space-between' }}>
           <View>
             <Text
               style={{
@@ -56,12 +59,17 @@ const MyCartCard = ({item}: any) => {
           </Text>
         </View>
       </View>
-
+      <TouchableOpacity
+        style={{ backgroundColor: theme.colors.button, height: 30, width: 30, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
+        activeOpacity={0.4}
+        onPress={() => deleteProduct(currentUser.user.id,item.id)}>
+        <Icon name="trash" size={16} color={'#fff'} />
+      </TouchableOpacity>
       <View style={styles.amountController}>
         <TouchableOpacity
           style={styles.iconContainer}
           activeOpacity={0.4}
-          onPress={() => setAmount((prev: any) => (prev > 0 ? --prev : prev))}>
+          onPress={() => setCount((prev: any) => (prev > 0 ? --prev : prev))}>
           <Icon name="minus" size={10} />
         </TouchableOpacity>
         <Text
@@ -75,7 +83,7 @@ const MyCartCard = ({item}: any) => {
         <TouchableOpacity
           style={styles.iconContainer}
           activeOpacity={0.4}
-          onPress={() => setAmount((prev: any) => ++prev)}>
+          onPress={() => setCount((prev: any) => ++prev)}>
           <Icon name="plus" size={10} />
         </TouchableOpacity>
       </View>

@@ -1,4 +1,5 @@
-import {Image} from '@rneui/themed';
+import { useState, useEffect } from 'react'
+import { Image } from '@rneui/themed';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,15 +11,25 @@ import {
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useProduct } from '../../context/providers/ProductContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useCart } from '../../context/providers/CartContextProvider';
 
-const ProductDetails = ({navigation, route}: any) => {
-  const {name, type} = route.params;
+const ProductDetails = ({ navigation, route }: any) => {
+  const { currentUser } = useAuth();
+  const { addProduct } = useCart();
+  const { products } = useProduct();
+  const { id } = route.params;
+
+  //change
+  const [product, setProduct] = useState(products[id-1]);
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            source={{uri: 'https://placehold.jp/400x500.png'}}
+            source={{ uri: 'https://placehold.jp/400x500.png' }}
             style={{
               height: 400,
             }}
@@ -28,47 +39,24 @@ const ProductDetails = ({navigation, route}: any) => {
 
           <View style={styles.details}>
             <View style={styles.heading}>
-              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.title}>{product.name}</Text>
               <TouchableWithoutFeedback>
                 <Icon name="heart" size={20} />
               </TouchableWithoutFeedback>
             </View>
-            <Text style={{fontSize: 17}}>
-              4.8{' '}
+            <Text style={{ fontSize: 17 }}>
+              {product.rating + ' '}
               <Icon
                 name="star"
                 size={17}
                 solid
                 color={theme.colors.notification}
               />{' '}
-              ({1.5}k+ review)
+              ({product.reviews}k+ review)
             </Text>
-            <Text style={{marginTop: 8, marginBottom: 12, fontSize: 15}}>
-              Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit
-              amet, consectetur Lorem ipsum dolor sit amet, consectetur Lorem
-              ipsum dolor sit amet, consectetur Lorem ipsum dolor sit amet,
-              consectetur Lorem ipsum dolor sit amet, consectetur
+            <Text style={{ marginTop: 8, marginBottom: 12, fontSize: 15 }}>
+              {product.description}
             </Text>
-            <View
-              style={{
-                ...styles.row,
-                display: type == 'cloths' ? 'flex' : 'none',
-              }}>
-              <TouchableOpacity
-                activeOpacity={0.4}
-                style={{...styles.size, backgroundColor: theme.colors.text}}>
-                <Text style={{color: '#fff'}}>S</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>M</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>L</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.size} activeOpacity={0.4}>
-                <Text>XL</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
         <View style={styles.backButton}>
@@ -79,11 +67,11 @@ const ProductDetails = ({navigation, route}: any) => {
       </ScrollView>
       <View style={styles.footer}>
         <View>
-          <Text style={{fontWeight: 'bold', fontSize: 15}}>Price</Text>
-          <Text style={styles.price}>290.99DH </Text>
+          <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Price</Text>
+          <Text style={styles.price}>{product.price + ' DH'}</Text>
         </View>
-        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4}>
-          <Text style={{color: '#fff', fontSize: 18, fontWeight: '600'}}>
+        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: product.id })}>
+          <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
             Add to Cart
           </Text>
         </TouchableOpacity>

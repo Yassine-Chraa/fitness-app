@@ -1,35 +1,43 @@
-import {Text, View, FlatList, StyleSheet, TouchableOpacity} from 'react-native';
+import { useState, useEffect } from 'react';
+import { Text, View, FlatList, StyleSheet, TouchableOpacity } from 'react-native';
 import Screen from '../../components/Screen';
 import MyCartCard from '../../components/Cards/MyCartCard';
 import theme from '../../constants/theme';
+import { useCart } from '../../context/providers/CartContextProvider';
+import getData from '../../Helpers/Storage/getData';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+
 
 const MyCart = () => {
-  const cartProducts = [
-    {
-      id: '1',
-      type:'cloths',
-      name: 'HIIT T-Shirt Mens',
-      sizes: 'S, M, L, XL',
-      price: '8.30',
-      amount: 2,
-    },
-    {
-      id: '2',
-      type:'gainer',
-      name: 'Hyper Mass',
-      company: 'Biotech USA',
-      price: '55.00',
-      amount: 0
-    }
-  ];
+  const { currentUser } = useAuth();
+  const { cart, getCart } = useCart();
+
+  const [total, setTotal] = useState(0);
+
+  const fetchData = async () => {
+    await getCart(currentUser?.user.id);
+    setTotal(() => {
+      let _total = 0;
+      cart?.forEach((item: any) => {
+        _total += item.amount * item.product.price
+      });
+      return _total;
+    })
+  };
+  useEffect(() => {
+    fetchData();
+  }, [])
 
   return (
     <Screen name="My Cart" backButton noAction>
       <FlatList
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={cartProducts}
-        renderItem={({item}) => <MyCartCard type={item.type} item={item} />}
+        data={cart.map((item: any) => {
+          return item.product
+        })}
+        renderItem={({ item }: any) => <MyCartCard item={item} amount={item.amount} />}
         ListFooterComponent={() => {
           return (
             <View
@@ -44,7 +52,7 @@ const MyCart = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={styles.footerText}>Total Price</Text>
-                <Text style={styles.footerText}>500 DH</Text>
+                <Text style={styles.footerText}>{total + ' DH'}</Text>
               </View>
               <TouchableOpacity style={styles.checkoutBtn} activeOpacity={0.4}>
                 <Text
@@ -61,7 +69,7 @@ const MyCart = () => {
           );
         }}
         ListFooterComponentStyle={{
-          marginTop: 'auto'
+          marginTop: 'auto',
         }}
       />
     </Screen>

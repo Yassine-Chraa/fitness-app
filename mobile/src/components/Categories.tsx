@@ -1,4 +1,4 @@
-import React from 'react';
+import { useState, useEffect } from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -7,12 +7,18 @@ import {
   Image,
   Text,
 } from 'react-native';
-import {Colors} from 'react-native/Libraries/NewAppScreen';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 import theme from '../constants/theme';
+import { useProduct } from '../context/providers/ProductContextProvider';
 
-const Categories = ({categories}:any) => {
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = React.useState(0);
+const Categories = ({ selectedCategoryIndex, setSelectedCategoryIndex,categories }: any) => {
+  const { changeCategory } = useProduct();
 
+  const change = async (id: number) => {
+    setSelectedCategoryIndex(id)
+    changeCategory(id)
+    console.log(id)
+  }
   return (
     <ScrollView
       horizontal
@@ -26,7 +32,7 @@ const Categories = ({categories}:any) => {
         <TouchableOpacity
           key={category.id}
           activeOpacity={0.8}
-          onPress={() => setSelectedCategoryIndex(category.id)}>
+          onPress={() => change(category.id)}>
           <View
             style={{
               backgroundColor:
@@ -35,8 +41,8 @@ const Categories = ({categories}:any) => {
             }}>
             <View style={styles.image}>
               <Image
-                source={{uri: 'https://placehold.jp/40x40.png'}}
-                style={{height: 40, width: 40,borderRadius: 20, resizeMode: 'cover'}}
+                source={{ uri: 'https://placehold.jp/40x40.png' }}
+                style={{ height: 40, width: 40, borderRadius: 20, resizeMode: 'cover' }}
               />
             </View>
             <Text

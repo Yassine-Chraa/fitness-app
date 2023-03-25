@@ -10,7 +10,7 @@ const Store = () => {
   return (
     <Tab.Navigator
       initialRouteName="Cloths"
-      tabBar={({state, navigation, position}) => (
+      tabBar={({state, navigation}) => (
         <View
           style={{
             flexDirection: 'row',

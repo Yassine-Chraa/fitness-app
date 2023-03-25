@@ -1,15 +1,18 @@
-import axios from 'axios';
+import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
-import { getUrl, currentUser } from '../../Helpers/APIConfig';
+import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
 
 export type ProductContextType = {
-  getProducts: () => Promise<Array<Product>>;
+  products: Array<Product>;
+  getProducts: () => Promise<void>;
   getProduct: (id: number) => Promise<Product>;
   addProduct: (product: Product) => Promise<{ message: string }>;
   updateProduct: (id: number, product: Product) => Promise<{ message: string }>;
   deleteProduct: (id: number) => Promise<{ message: string }>;
+  searchProduct: (keyword: string) => Promise<void>;
+  changeCategory: (id: number) => Promise<void>;
 };
 const productContext = createContext<ProductContextType | null>(null);
 
@@ -23,17 +26,11 @@ const productUrl = getUrl('Products');
 
 export const ProductContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
+  const [products, setProducts] = useState([])
   const getProducts = async () => {
     try {
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-
-      const { data } = await axios.get(`${productUrl}`, config);
-      console.log(data)
-      return data;
+      const { data } = await axios.get(productUrl);
+      setProducts(data);
     } catch (error) {
       console.log(error);
     }
@@ -41,12 +38,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const getProduct = async (id: number) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-      const { data } = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}/${id}`);
       setLoading(false);
       return data;
     } catch (error) {
@@ -58,12 +50,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const addProduct = async (product: Product) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-      const { data } = await axios.post(`${productUrl}`, product, config);
+      const { data } = await axios.post(`${productUrl}`, product);
       setLoading(false);
       return data;
     } catch (error) {
@@ -75,12 +62,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const updateProduct = async (id: number, product: Product) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-      const { data } = await axios.put(`${productUrl}`, product, config);
+      const { data } = await axios.put(`${productUrl}/${id}`, product);
       setLoading(false);
       return data;
     } catch (error) {
@@ -92,12 +74,7 @@ export const ProductContextProvider = ({ children }: any) => {
   const deleteProduct = async (id: number) => {
     try {
       setLoading(true);
-      const config = {
-        headers: {
-          authorization: `Bearer ${currentUser.token}`,
-        },
-      };
-      const { data } = await axios.get(`${productUrl}`, config);
+      const { data } = await axios.get(`${productUrl}/${id}`);
       setLoading(false);
       return data;
     } catch (error) {
@@ -106,15 +83,34 @@ export const ProductContextProvider = ({ children }: any) => {
       setLoading(false);
     }
   };
+  const searchProduct = async (keyword: string) => {
+    try {
+        const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
+        setProducts(data);
+    } catch (e) {
+      console.log(e)
+    }
+  }
+  const changeCategory = async (id: number) => {
+    try {
+      const { data } = await axios.get(`${productUrl}?category_id=${id}`);
+      setProducts(data);
+  } catch (e) {
+    console.log(e)
+  }
+  }
 
   return (
     <productContext.Provider
       value={{
+        products,
         getProducts,
         getProduct,
         addProduct,
         updateProduct,
         deleteProduct,
+        searchProduct,
+        changeCategory
       }}>
       {children}
     </productContext.Provider>

@@ -1,4 +1,4 @@
-import {Image} from '@rneui/themed';
+import { Image } from '@rneui/themed';
 import React from 'react';
 import {
   Text,
@@ -10,23 +10,26 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
+import { useCart } from '../../context/providers/CartContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const StoreCard = ({type, item}: any) => {
-  const navigation:any = useNavigation();
+const StoreCard = ({ item }: any) => {
+  const navigation: any = useNavigation();
+  const { currentUser } = useAuth();
+  const { addProduct } = useCart();
   return (
     <TouchableOpacity
       style={styles.card}
       activeOpacity={0.4}
       onPress={() =>
         navigation.navigate('ProductDetails', {
-          name: item.name,
-          type: type,
+          id: item.id,
         })
       }>
       <View>
         <Image
-          source={{uri: 'https://placehold.jp/180x260.png'}}
-          style={{height: 150, width: 150}}
+          source={{ uri: item.product_img || 'https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png' }}
+          style={{ height: 150, width: 150 }}
           PlaceholderContent={<ActivityIndicator />}
         />
       </View>
@@ -47,7 +50,7 @@ const StoreCard = ({type, item}: any) => {
               marginTop: 2,
               fontWeight: '500',
             }}>
-            {type == 'gainers' ? item.company : item.sizes}
+            {item.company}
           </Text>
         </View>
         <View
@@ -64,11 +67,11 @@ const StoreCard = ({type, item}: any) => {
               fontSize: 18,
               fontWeight: 'bold',
             }}>
-            ${item.price}
+            {item.price + ' DH'}
           </Text>
-          <View style={styles.addToCartBtn}>
+          <TouchableOpacity style={styles.addToCartBtn}  activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: item.id })}>
             <Icon name="plus" size={18} color={'#fff'} />
-          </View>
+          </TouchableOpacity>
         </View>
       </View>
     </TouchableOpacity>

@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Categorie;
 use Illuminate\Http\Request;
 
-class MealItemController extends Controller
+class CategorieController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,7 +15,8 @@ class MealItemController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Categorie::all();
+        return response()->json($categories);
     }
 
     /**
