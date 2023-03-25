@@ -11,7 +11,6 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
-import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const FoodCard = ({ daily_nutrition_id, item }: any) => {
   const { addFood } = useDailyNutrition();
@@ -20,9 +19,9 @@ const FoodCard = ({ daily_nutrition_id, item }: any) => {
 
   const addFoodToDailyNutrition = () => {
     var today = new Date();
-    var h = today.getHours();
-    var m = today.getMinutes();
-    var s = today.getSeconds();
+    var h = (today.getHours() < 10 ? '0' : '') + today.getHours();
+    var m = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
+    var s = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
     addFood({ daily_nutrition_id, name: label, api_id: foodId, category: category, poid: 50, energy: nutrients.ENERC_KCAL * 0.5, protein: nutrients.PROCNT * 0.5, fat: nutrients.FAT * 0.5, fiber: nutrients.FIBTG * 0.5, carbohydrate: nutrients.CHOCDF * 0.5, time: `${h}:${m}:${s}` })
   }
   return (
@@ -68,7 +67,7 @@ const FoodCard = ({ daily_nutrition_id, item }: any) => {
           <View style={{ flexDirection: 'row', columnGap: 6 }}>
             <View style={styles.tag}>
               <Text style={{ fontSize: 13 }}>
-                Cal: {nutrients.ENERC_KCAL + ' kcal'}
+                Cal: {nutrients.ENERC_KCAL.toFixed(2) + ' kcal'}
               </Text>
             </View>
             <View style={styles.tag}>

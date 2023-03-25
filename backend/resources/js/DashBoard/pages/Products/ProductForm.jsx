@@ -34,7 +34,6 @@ const ProductForm = ({ type, selectedID }) => {
 
     const fetchData = async () => {
         await getCategories();
-        console.log(categories)
         if (selectedID != 0)
             getProduct(selectedID).then((res) => setProduct(res));
         else

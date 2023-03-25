@@ -241,6 +241,7 @@ class UserController extends Controller
             'fat' => $request->get('fat'),
             'fiber' => $request->get('fiber'),
             'carbohydrate' => $request->get('carbohydrate'),
+            'time' => $request->get('time')
         ]);
 
         $newItem->save();

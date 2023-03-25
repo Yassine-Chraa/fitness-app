@@ -34,6 +34,7 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
     };
     const addFood = async (food: Food) => {
         try {
+            console.log(food)
             const { data } = await axios.post(`${DailyNutritionUrl}/item`, food);
             return data.message;
         } catch (e) {

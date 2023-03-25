@@ -81,10 +81,11 @@ class ProductController extends Controller
         $product->category = $product->category;
 
         $total = 0;
-        foreach ($product->ratings as $item) {
+        $ratings = ProductRating::where('product_id', $product->id)->get();
+        foreach ($ratings as $item) {
             $total += $item->rating;
         }
-        $product->reviews = count($product->ratings);
+        $product->reviews = count($ratings);
         if ($product->reviews > 0) $product->rating = $total / $product->reviews;
         else $product->rating = 0;
         $product->ratings = null;
