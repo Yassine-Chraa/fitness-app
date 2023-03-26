@@ -16,6 +16,7 @@ import {
 import { LoadingProcess, Message } from "./components/Message";
 import Profile from "./pages/Users/Profile";
 import ProductDetails from "./pages/Products/ProductDetails";
+import EditProgram from "./pages/Programs/EditProgram";
 
 export default function App() {
     const [controller, dispatch] = useMaterialUIController();
@@ -80,12 +81,9 @@ export default function App() {
             <LoadingProcess />
             {configsButton}
             <Routes>
-                <Route
-                    path="/dashboard/users/:id"
-                    element={<Profile />}
-                    key="profile"
-                />
-                <Route path="/dashboard/products/:id" element={<ProductDetails/>} key="productsDetails"/>
+                <Route path="/dashboard/users/:id" element={<Profile />} key="profile" />
+                <Route path="/dashboard/products/:id" element={<ProductDetails />} key="productsDetails" />
+                <Route path="/dashboard/Programs/:id" element={<EditProgram />} key="editProgram" />
                 <Route path="*" element={<Navigate to="/dashboard" />} />
                 {getRoutes(routes)}
             </Routes>

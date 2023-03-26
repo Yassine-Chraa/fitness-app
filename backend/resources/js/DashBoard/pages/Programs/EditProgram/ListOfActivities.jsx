@@ -9,11 +9,15 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MDBox from "../../../components/MDBox";
-import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
+import { Card, Grid, Icon, IconButton, Menu, Pagination, Tooltip } from "@mui/material";
 import MDTypography from "../../../components/MDTypography";
 import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContextProvider";
+import { Stack } from "@mui/system";
 
 const ListOfActivities = (ProID) => {
+    const [totalPages, setTotalPages] = useState(0);
+    const [sampleOfData, setSampleOfData] = useState([]);
+    const [search, setSearch] = useState("");
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
@@ -27,13 +31,24 @@ const ListOfActivities = (ProID) => {
         let workouts = await getWorkOuts();
         if (workouts) {
             setWorkouts(workouts);
+            setTotalPages(() => Math.ceil(workouts.length / 10));
+            setSampleOfData(workouts.slice(0, 10));
         }
     };
-
 
     useEffect(() => {
         fetchData();
     }, []);
+
+    const searchEventHandler = (hint) => {
+        hint = hint.toLowerCase().replace(/\(|\)|\[|\]|\*/g, '');
+        console.log(hint)
+        const filteredItems = workouts.filter((item) => {
+            return item.title.toLowerCase().match(hint) != null;
+        })
+
+        setSampleOfData(() => filteredItems);
+    }
 
     return (
         <>
@@ -49,10 +64,10 @@ const ListOfActivities = (ProID) => {
                                 marginBottom: "0.3rem",
                                 textTransform: "uppercase",
                             }}>
-                                Activities
+                                WorkOuts
                             </MDTypography>
-                            <MDTypography component="div" variant="button" color="text" fontWeight="light">
-                                all activities of the current program
+                            <MDTypography component={'span'} variant="button" color="text" fontWeight="light">
+                                all Workouts of the current program
                             </MDTypography>
                         </MDBox>
                         <MDBox>
@@ -61,6 +76,7 @@ const ListOfActivities = (ProID) => {
                                     <SearchIcon />
                                 </SearchIconWrapper>
                                 <StyledInputBase
+                                    onChange={(event) => searchEventHandler(event.target.value)}
                                     placeholder="Search…"
                                     inputProps={{ 'aria-label': 'search' }}
                                 />
@@ -70,17 +86,22 @@ const ListOfActivities = (ProID) => {
                     <MDBox>
 
                         {
-                            workouts.map((workout) => (
+                            sampleOfData.map((workout) => (
                                 <WorkOutItem key={workout.id} workout={workout} selectedID={ProID} />
                             ))
                         }
 
-
-
                         <MDBox sx={{
-                            width: '100%', display: 'flex', justifyContent: 'flex-end',
+                            width: '100%', display: 'flex', justifyContent: 'space-between',
                             marginBottom: '0.3rem', marginTop: "1rem",
                         }}>
+                            <MDBox >
+                                <Stack spacing={2}>
+                                    <Pagination
+                                        onChange={(event, page) => setSampleOfData(() => workouts.slice((page - 1) * 10, page * 10))}
+                                        count={totalPages} variant="outlined" color="primary" />
+                                </Stack>
+                            </MDBox>
                             <Tooltip title="New Activity !">
                                 <IconButton
                                     onClick={openAddmodalInvoker}
@@ -160,7 +181,7 @@ export const WorkOutItem = ({ workout, ProID }) => {
 
     if (workout.title.split(" ").length > 1) {
         const title = workout.title.split(" ")[0]
-            +" "+ workout.title.split(" ")[1]
+            + " " + workout.title.split(" ")[1]
     }
 
     return (
@@ -175,13 +196,13 @@ export const WorkOutItem = ({ workout, ProID }) => {
                 flexDirection: "column",
                 borderRadius: "6px", borderWidth: "1px", borderStyle: "solid", borderColor: "primary",
             }}>
-                <MDTypography style={{
+                <MDTypography component={'span'} style={{
                     fontSize: '1.6rem', fontWeight: '700', lineHeight: '1.25', margin: "0.2rem auto",
                     marginBottom: "0.2rem", textTransform: "uppercase",
                 }}>
-                    02
+                    {workout.id}
                 </MDTypography>
-                <MDTypography style={{
+                <MDTypography component={'span'} style={{
                     fontSize: '0.6rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem auto",
                     marginBottom: "0.3rem", textTransform: "uppercase",
                 }}>
@@ -193,13 +214,13 @@ export const WorkOutItem = ({ workout, ProID }) => {
                     flex: 1, display: 'flex', justifyContent: "space-between", alignItems: "flex-start",
                     flexDirection: "column",
                 }}>
-                    <MDTypography style={{
+                    <MDTypography component={'span'} style={{
                         fontSize: '1rem', fontWeight: '600', lineHeight: '1.25', margin: "0.1rem",
                         marginBottom: "0.1rem",
                     }}>
                         {title}
                     </MDTypography>
-                    <MDTypography component="div" variant="button" color="text" fontWeight="light">
+                    <MDTypography component={'span'} variant="button" color="text" fontWeight="light">
                         {workout.duration}
                     </MDTypography>
                 </MDBox>
