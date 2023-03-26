@@ -4,7 +4,6 @@ import InputBase from '@mui/material/InputBase';
 import SearchIcon from '@mui/icons-material/Search';
 import DirectionsRunIcon from '@mui/icons-material/DirectionsRun';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import MDBox from "../../../components/MDBox";
@@ -15,7 +14,8 @@ import { Stack } from "@mui/system";
 import AddWorkOutModal from "./WorkOuts/AddWorkOut";
 import EditWorkOutModal from "./WorkOuts/EditWorkOut";
 import { setOpenAddWorkOutModalHandler, useMaterialUIController } from "../../../context/UIContext";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
+import { useProgram } from "../../../context/APIContext/providers/ProgramContextProvider";
 
 const ListOfActivities = (ProID) => {
     const [totalPages, setTotalPages] = useState(0);
@@ -24,19 +24,25 @@ const ListOfActivities = (ProID) => {
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
-    const { getWorkOuts } = useWorkOut();
+    const { getProgram } = useProgram();
     const [workoutID, setWorkoutID] = useState(0);
 
     const openAddmodalInvoker = () => {
         setOpenAddWorkOutModalHandler(dispatch, true);
     }
 
+    const { programID } = useParams()
+
     const fetchData = async () => {
-        let workouts = await getWorkOuts();
-        if (workouts) {
-            setWorkouts(workouts);
-            setTotalPages(() => Math.ceil(workouts.length / 10));
-            setSampleOfData(workouts.slice(0, 10));
+        let program = await getProgram(programID);
+        if (program) {
+            let workouts = program.workouts;
+            console.log(workouts)
+            if (workouts) {
+                setWorkouts(workouts);
+                setTotalPages(() => Math.ceil(workouts.length / 10));
+                setSampleOfData(workouts.slice(0, 10));
+            }
         }
     };
 

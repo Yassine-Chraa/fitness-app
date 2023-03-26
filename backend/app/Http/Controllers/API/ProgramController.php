@@ -49,6 +49,7 @@ class ProgramController extends Controller
     public function show($id)
     {
         $program = Program::findOrFail($id);
+        $program->workouts = $program->workouts()->get();
         return response()->json($program);
     }
 

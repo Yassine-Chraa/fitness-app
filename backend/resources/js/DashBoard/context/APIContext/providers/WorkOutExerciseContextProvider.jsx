@@ -2,22 +2,22 @@ import { createContext, useContext } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
 
-const exerciseContext = createContext();
+const workoutContext = createContext();
 
-export const useExercise = () => {
-    const context = useContext(exerciseContext);
-    if (!context) throw new Error("Exercise Provider is missing");
+export const useWorkOutExercise = () => {
+    const context = useContext(workoutContext);
+    if (!context) throw new Error("WorkOutExercise Provider is missing");
     return context;
 };
 
-const ExerciseUrl = getUrl('Exercises');
+const WorkOutExerciseUrl = getUrl('WorkOutExercises');
 
-export const ExerciseContextProvider = ({ children }) => {
+export const WorkOutExerciseContextProvider = ({ children }) => {
 
     const [controller, dispatch] = useMaterialUIController();
 
     //-------------> perfect
-    const getExercises = async () => {
+    const getWorkOutExercises = async () => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -25,18 +25,19 @@ export const ExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-
-            const { data } = await axios.get(`${ExerciseUrl}`, config);
+            alert("getting all workouts");
+            const { data } = await axios.get(`${WorkOutExerciseUrl}`, config);
             setLoadingAnimation(dispatch, false);
-            console.log(data);
             return data;
         } catch (error) {
             console.log(error);
+            alert(error)
+            alert(WorkOutExerciseUrl)
             setLoadingAnimation(dispatch, false);
         }
     };
     //-------------> perfect
-    const getExercise = async (id) => {
+    const getWorkOutExercise = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -44,7 +45,7 @@ export const ExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.get(`${ExerciseUrl}/${id}`, config);
+            const { data } = await axios.get(`${WorkOutExerciseUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -54,7 +55,7 @@ export const ExerciseContextProvider = ({ children }) => {
         }
     };
     //-------------> perfect
-    const addExercise = async (Exercise) => {
+    const addWorkOutExercise = async (WorkOutExercise) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -62,8 +63,8 @@ export const ExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert("before")
-            const { data } = await axios.post(`${ExerciseUrl}`, Exercise, config);
+            console.log(WorkOutExercise)
+            const { data } = await axios.post(`${WorkOutExerciseUrl}`, WorkOutExercise, config);
             console.log(JSON.stringify(data))
             setLoadingAnimation(dispatch, false);
             return data;
@@ -74,7 +75,7 @@ export const ExerciseContextProvider = ({ children }) => {
         }
     };
     //-------------> perfect
-    const updateExercise = async (Exercise) => {
+    const updateWorkOutExercise = async (WorkOutExercise) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -82,7 +83,7 @@ export const ExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.put(`${ExerciseUrl}/${Exercise.id}`, Exercise, config);
+            const { data } = await axios.put(`${WorkOutExerciseUrl}/${WorkOutExercise.id}`, WorkOutExercise, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -92,7 +93,7 @@ export const ExerciseContextProvider = ({ children }) => {
         }
     };
 
-    const deleteExercise = async (id) => {
+    const deleteWorkOutExercise = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
             const config = {
@@ -100,7 +101,7 @@ export const ExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            const { data } = await axios.delete(`${ExerciseUrl}/${id}`, config);
+            const { data } = await axios.delete(`${WorkOutExerciseUrl}/${id}`, config);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -111,16 +112,16 @@ export const ExerciseContextProvider = ({ children }) => {
     };
 
     return (
-        <exerciseContext.Provider
+        <workoutContext.Provider
             value={{
-                getExercises,
-                getExercise,
-                addExercise,
-                updateExercise,
-                deleteExercise,
+                getWorkOutExercises,
+                getWorkOutExercise,
+                addWorkOutExercise,
+                updateWorkOutExercise,
+                deleteWorkOutExercise,
             }}
         >
             {children}
-        </exerciseContext.Provider>
+        </workoutContext.Provider>
     );
 };

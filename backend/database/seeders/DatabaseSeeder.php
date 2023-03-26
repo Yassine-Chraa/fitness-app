@@ -5,6 +5,7 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 use App\Models\Exercise;
+use App\Models\WorkOutExercise;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -17,6 +18,7 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         Exercise::factory(100)->create();
+        WorkOutExercise::factory(300)->create();
 
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',

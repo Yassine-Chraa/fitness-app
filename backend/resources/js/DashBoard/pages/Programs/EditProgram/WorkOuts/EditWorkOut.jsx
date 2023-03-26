@@ -25,16 +25,11 @@ const states = ['progress', 'unstarted', 'finished'];
 
 
 const EditWorkOut = () => {
-
     const [controller, dispatch] = useMaterialUIController();
-
     const { getExercises } = useExercise();
-
     const { updateWorkOut, getWorkOut } = useWorkOut();
-
     const [localDay, setLocalDay] = useState(days[0]);
     const [localState, setLocalState] = useState(states[0]);
-
     const [localTitle, setLocalTitle] = useState('');
     const [localDuration, setLocalDuration] = useState(0);
     const [localCategory, setLocalCategory] = useState(categories[0]);
@@ -42,26 +37,42 @@ const EditWorkOut = () => {
     const [localSample, setLocalSample] = useState([]);
     const [localWorkOutExercises, setLocalWorkOutExercises] = useState([]);
 
-
     const days_options = () => days.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
     const states_options = () => states.map((item, index) => <MenuItem key={index} value={`${item}`}>{item}</MenuItem>)
 
     const { programID, workOutID } = useParams()
 
     const confirmEditHandler = async () => {
+        let allIds = []
+        if (localExercises) {
+            let checkedExercises = localExercises.filter((exe) => exe.checked);
+            if (checkedExercises) {
+                for (let i = 0; i < checkedExercises.length; i++) {
+                    allIds[i] = checkedExercises[i].id;
+                }
+            }
+        }
+
         const workout = {
+            id: workOutID,
             title: localTitle,
             duration: localDuration,
             day: localDay,
             state: localState,
-            program_id: programID.ProID,
+            program_id: programID,
+            newExeIds: allIds,
         }
-        const result = await getWorkOut(workOutID);
-        if (result) {
 
+        const result = await updateWorkOut(workout);
+        if (result) {
+            if(result.exercises){
+                fetchData();
+            }
+            // console.log(localWorkOutExercises)
+            // console.log(result.exercises)
+            // console.log(localExercises)
         }
     };
-
 
     const fetchData = async () => {
         let workout = await getWorkOut(workOutID);
@@ -70,13 +81,14 @@ const EditWorkOut = () => {
             setLocalDuration(() => workout.duration)
             setLocalDay(() => workout.day)
             setLocalState(() => workout.state)
-            const all = workout.exercises.map((item => {
+            const checkedExercises = workout.exercises.map((item => {
                 return { ...item, ...{ checked: 1 } }
             }));
-            setLocalWorkOutExercises(() => all)
+            setLocalWorkOutExercises(() => checkedExercises)
 
             const allIds = workout.exercises.map((item => item.id));
             let exercises = await getExercises();
+
             if (exercises) {
                 const all = exercises.map((item => {
                     return { ...item, ...{ checked: allIds.includes(item.id) ? 1 : 0 } }

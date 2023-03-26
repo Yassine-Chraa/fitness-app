@@ -18,16 +18,6 @@ class ExerciseController extends Controller
         $exercises = Exercise::all();
         return response()->json($exercises);
     }
-    // /**
-    //  * Display a listing of the resource.
-    //  *
-    //  * @return \Illuminate\Http\Response
-    //  */
-    // public function indexByWorkOutID($id)
-    // {
-    //     $exercises = Exercise::all();
-    //     return response()->json($exercises);
-    // }
 
     /**
      * Store a newly created resource in storage.
