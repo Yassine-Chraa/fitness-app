@@ -68,4 +68,8 @@ class User extends Authenticatable
     {
         return $this->hasMany(ProductRating::class);
     }
+    public function weight()
+    {
+        return $this->hasMany(UserWeights::class);
+    }
 }

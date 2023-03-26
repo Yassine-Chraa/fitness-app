@@ -18,7 +18,7 @@ return new class extends Migration
             $table->bigInteger('daily_nutrition_id', unsigned: true);
             $table->foreign('daily_nutrition_id')->references('id')->on('daily_nutrition')->onUpdate('cascade')->onDelete('cascade');
             $table->string('name')->default('undefined');
-            $table->string('food_id');
+            $table->string('api_id');
             $table->string('category')->nullable();
             $table->float('poid', places: 1)->default(0);
             $table->float('energy', places: 1)->default(0);

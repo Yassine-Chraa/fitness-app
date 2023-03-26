@@ -8,7 +8,7 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 
 
 const DailyNutrition = () => {
-  const {currentUser} = useAuth();
+  const { currentUser } = useAuth();
   const { dailyNutrition, forceUpdate, getDailyNutrition } = useDailyNutrition();
 
   useEffect(() => {
@@ -22,8 +22,6 @@ const DailyNutrition = () => {
       <FlatList
         horizontal={false}
         showsVerticalScrollIndicator={false}
-        data={dailyNutrition.history_items}
-        renderItem={({ item }: any) => <DailyNutritionCard daily_nutrition_id={1} item={item} />}
         ListHeaderComponent={() => {
           return (
             <View
@@ -45,7 +43,7 @@ const DailyNutrition = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={{ ...styles.footerText, color: theme.colors.background }}>Energy</Text>
-                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{dailyNutrition.energy_consumed?.toFixed(1) + ' kcal'}</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.energy_consumed?.toFixed(1) | 0) + ' kcal'}</Text>
               </View>
               <View
                 style={{
@@ -54,11 +52,14 @@ const DailyNutrition = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={{ ...styles.footerText, color: theme.colors.background }}>Protein</Text>
-                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{dailyNutrition.protein_consumed?.toFixed(2) + ' g'}</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.protein_consumed?.toFixed(2) | 0) + ' g'}</Text>
               </View>
             </View>
           );
         }}
+        data={dailyNutrition.history_items}
+        renderItem={({ item }: any) => <DailyNutritionCard daily_nutrition_id={1} item={item} />}
+
       />
     </Screen>
   );

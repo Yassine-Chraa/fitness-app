@@ -1,5 +1,6 @@
 import { createContext, useContext, useState } from "react";
 import { getUrl } from "../Helper";
+import { setLoadingAnimation, setMessageObject, useMaterialUIController } from "../../UIContext";
 
 const productContext = createContext();
 
@@ -13,35 +14,42 @@ const ProductUrl = getUrl("Products");
 const uploadUrl = getUrl("Upload");
 
 export const ProductContextProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+    const [controller, dispatch] = useMaterialUIController();
     const [products, setProducts] = useState([]);
     const getProducts = async () => {
         try {
-            setLoading(true);
-
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${ProductUrl}`);
             setProducts(data);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
     const getProduct = async (id) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${ProductUrl}/${id}`);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
     const addProduct = async (Product, imageFile) => {
         try {
             let res;
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
@@ -57,18 +65,28 @@ export const ProductContextProvider = ({ children }) => {
             } else {
                 res = await axios.post(`${ProductUrl}`, Product);
             }
+
             getProducts();
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "success",
+                message: "Product stored successfully",
+                state: "mount",
+            });
             return res.data.message;
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
     const updateProduct = async (id, Product, imageFile) => {
         try {
             let res;
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
@@ -85,23 +103,41 @@ export const ProductContextProvider = ({ children }) => {
                 res = await axios.put(`${ProductUrl}/${id}`, Product);
             }
             getProducts();
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "success",
+                message: "Product updated successfully",
+                state: "mount",
+            });
             return res.data.message;
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
     const deleteProduct = async (id) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.delete(`${ProductUrl}/${id}`);
             getProducts();
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "success",
+                message: "User deleted successfully",
+                state: "mount",
+            });
             return data;
         } catch (error) {
-            console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
 
