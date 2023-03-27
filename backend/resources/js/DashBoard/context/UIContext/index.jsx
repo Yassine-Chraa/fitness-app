@@ -63,17 +63,17 @@ const reducer = (state, action) => {
             return { ...state, openProgramViewHandler: action.value };
         }
         //----------------------------------------------------------
-        case "OPEN_ACTIVITY_DELETE_MODAL": {
-            return { ...state, openDeleteActivityModalHandler: action.value };
+        case "OPEN_WORKOUT_DELETE_MODAL": {
+            return { ...state, openDeleteWorkOutModalHandler: action.value };
         }
-        case "OPEN_ACTIVITY_EDIT_MODAL": {
-            return { ...state, openEditActivityModalHandler: action.value };
+        case "OPEN_WORKOUT_EDIT_MODAL": {
+            return { ...state, openEditWorkOutModalHandler: action.value };
         }
-        case "OPEN_ACTIVITY_ADD_MODAL": {
-            return { ...state, openAddActivityModalHandler: action.value };
+        case "OPEN_WORKOUT_ADD_MODAL": {
+            return { ...state, openAddWorkOutModalHandler: action.value };
         }
-        case "OPEN_ACTIVITY_VIEW_MODAL": {
-            return { ...state, openActivityViewHandler: action.value };
+        case "OPEN_WORKOUT_VIEW_MODAL": {
+            return { ...state, openWorkOutViewHandler: action.value };
         }
         //----------------------------------------------------------
         case "OPEN_EXERCISE_DELETE_MODAL": {
@@ -120,10 +120,10 @@ const MaterialUIControllerProvider = ({ children }) => {
         openAddProgramModalHandler: false,
         openProgramViewHandler: false,
 
-        openDeleteActivityModalHandler: false,
-        openEditActivityModalHandler: false,
-        openAddActivityModalHandler: false,
-        openActivityViewHandler: false,
+        openDeleteWorkOutModalHandler: false,
+        openEditWorkOutModalHandler: false,
+        openAddWorkOutModalHandler: false,
+        openWorkOutViewHandler: false,
 
         openDeleteExerciseModalHandler: false,
         openEditExerciseModalHandler: false,
@@ -188,10 +188,10 @@ const setOpenEditProgramModalHandler = (dispatch, value) => dispatch({ type: "OP
 const setOpenAddProgramModalHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_ADD_MODAL", value });
 const setOpenProgramViewHandler = (dispatch, value) => dispatch({ type: "OPEN_PROGRAM_VIEW_MODAL", value });
 
-const setOpenDeleteActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_DELETE_MODAL", value });
-const setOpenEditActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_EDIT_MODAL", value });
-const setOpenAddActivityModalHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_ADD_MODAL", value });
-const setOpenActivityViewHandler = (dispatch, value) => dispatch({ type: "OPEN_ACTIVITY_VIEW_MODAL", value });
+const setOpenDeleteWorkOutModalHandler = (dispatch, value) => dispatch({ type: "OPEN_WORKOUT_DELETE_MODAL", value });
+const setOpenEditWorkOutModalHandler = (dispatch, value) => dispatch({ type: "OPEN_WORKOUT_EDIT_MODAL", value });
+const setOpenAddWorkOutModalHandler = (dispatch, value) => dispatch({ type: "OPEN_WORKOUT_ADD_MODAL", value });
+const setOpenWorkOutViewHandler = (dispatch, value) => dispatch({ type: "OPEN_WORKOUT_VIEW_MODAL", value });
 
 const setOpenDeleteExerciseModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_DELETE_MODAL", value });
 const setOpenEditExerciseModalHandler = (dispatch, value) => dispatch({ type: "OPEN_EXERCISE_EDIT_MODAL", value });
@@ -223,10 +223,10 @@ export {
     setOpenAddProgramModalHandler,
     setOpenProgramViewHandler,
 
-    setOpenDeleteActivityModalHandler,
-    setOpenEditActivityModalHandler,
-    setOpenAddActivityModalHandler,
-    setOpenActivityViewHandler,
+    setOpenDeleteWorkOutModalHandler,
+    setOpenEditWorkOutModalHandler,
+    setOpenAddWorkOutModalHandler,
+    setOpenWorkOutViewHandler,
 
     setOpenDeleteExerciseModalHandler,
     setOpenEditExerciseModalHandler,

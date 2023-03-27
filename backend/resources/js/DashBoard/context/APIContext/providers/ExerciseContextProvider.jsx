@@ -28,11 +28,10 @@ export const ExerciseContextProvider = ({ children }) => {
 
             const { data } = await axios.get(`${ExerciseUrl}`, config);
             setLoadingAnimation(dispatch, false);
+            console.log(data);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
-            alert(ExerciseUrl)
             setLoadingAnimation(dispatch, false);
         }
     };

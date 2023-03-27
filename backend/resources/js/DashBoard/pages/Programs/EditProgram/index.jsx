@@ -12,19 +12,15 @@ import { setOpenEditProgramModalHandler, setReloadData, useMaterialUIController 
 import DashboardLayout from "../../../layouts/DashboardLayout";
 import { Link, useParams } from "react-router-dom";
 
-
-//============================================================================================
 const imgRegex = /image\/(png|PNG|jpg|JPG|jpeg|JPEG|jfif|JFIF)$/i;
 const categories = ['maintaining', 'bulking', 'cutting'];
 const diff_levels = ['beginner', 'intermediate', 'advanced'];
-//============================================================================================
-
 
 const EditProgram = () => {
 
     const [controller, dispatch] = useMaterialUIController();
     const { openEditProgramModalHandler, reLoadData } = controller;
-    const { id } = useParams();
+    const { programID } = useParams();
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
     const [imageFile, setImageFile] = useState();
@@ -66,7 +62,7 @@ const EditProgram = () => {
 
 
     const fetchProgram = async () => {
-        const program = await getProgram(id);
+        const program = await getProgram(programID);
         if (program) {
             const { id, main_img, title, description, owner_id, difficulty_level, category, isFree } = program;
             setLocalCategory(category ? category : categories[0]);
@@ -136,7 +132,7 @@ const EditProgram = () => {
                         <Card style={{ padding: '1rem', marginBottom: '0.5rem' }}>
                             <MDTypography style={{
                                 fontSize: '1rem',
-                                fontWeight: '600',
+                                fontWeight: 'bold',
                                 lineHeight: '1.25',
                                 margin: "0.1rem auto",
                                 textTransform: "uppercase",
@@ -152,7 +148,7 @@ const EditProgram = () => {
                                         loading="lazy"
                                         style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
                                     />
-                                    <MDTypography onClick={() => ImageRef.current.click()} style={{ width: "100%", textAlign: "center", cursor: "pointer" }} variant="subtitle2" fontWeight="small" fontSize={14} mx={1}>
+                                    <MDTypography onClick={() => ImageRef.current.click()} style={{ width: "100%", textAlign: "center", cursor: "pointer" }} variant="subtitle2" fontWeight="light" fontSize={14} mx={1}>
                                         Change Image
                                     </MDTypography>
                                     <input ref={ImageRef} onChange={upLoadImageHandler} hidden accept="image/*" multiple type="file" onClick={() => console.log('upload is invoked !')} />
@@ -183,40 +179,6 @@ const EditProgram = () => {
 
 
                                 <Divider height={2} color={"#0009"} />
-
-
-                                {/* <Grid container spacing={1} justifyContent={"center"}>
-                                <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-                                    <MDBox mb={1}>
-                                        <MDInput value={localDuration} onChange={(val) => setLocalDuration(val.target.value)} type="number" label="Duration" variant="filled" fullWidth />
-                                    </MDBox>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={6} xl={6}>
-                                    <MDBox mb={1}>
-                                        <MDInput value={localBreakDuration} onChange={(val) => setLocalBreakDuration(val.target.value)} type="number" label="break Duration" variant="filled" fullWidth />
-                                    </MDBox>
-                                </Grid>
-                            </Grid>
-
-
-                            <Divider height={2} color={"#0009"} /> */}
-
-
-                                {/* <Grid container spacing={1} justifyContent={"center"}>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
-                                    <MDBox mb={1}>
-                                        <MDInput value={localStartTime} onChange={(val) => setLocalStartTime(val.target.value)} type="date" label="Start-time" variant="filled" fullWidth />
-                                    </MDBox>
-                                </Grid>
-                                <Grid item xs={12} sm={12} md={12} lg={12} xl={6}>
-                                    <MDBox mb={1}>
-                                        <MDInput value={localEndTime} onChange={(val) => setLocalEndTime(val.target.value)} type="date" label="End-time" variant="filled" fullWidth />
-                                    </MDBox>
-                                </Grid>
-                            </Grid>
-
-
-                            <Divider height={2} color={"#0009"} /> */}
 
 
                                 <Grid container spacing={1} justifyContent={"center"}>
@@ -263,7 +225,7 @@ const EditProgram = () => {
                                         <FormGroup>
                                             <FormControlLabel control={<Switch checked={localIsFree}
                                                 onChange={(event) => setLocalIsFree(prev => event.target.checked)}
-                                                defaultChecked />} label="isFree" />
+                                            />} label="isFree" />
                                         </FormGroup>
                                     </Grid>
                                 </Grid>
@@ -275,11 +237,11 @@ const EditProgram = () => {
                     {/* =======================( statistics and list of activities )======================= */}
 
                     <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
-                        <Grid container spacing={1}  >
+                        <Grid container spacing={1} mb={4} >
 
                             <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
 
-                            <ListOfActivities ProID={id} />
+                            <ListOfActivities ProID={programID} />
 
                         </Grid>
                     </Grid>
