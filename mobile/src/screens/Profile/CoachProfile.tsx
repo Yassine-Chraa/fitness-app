@@ -1,4 +1,4 @@
-import {Image} from '@rneui/themed';
+import { Image } from '@rneui/themed';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -11,14 +11,14 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 
-const CoachProfile = ({navigation, route}: any) => {
-  const {name} = route.params;
+const CoachProfile = ({ navigation, route }: any) => {
+  const { item } = route.params;
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            source={{uri: 'https://placehold.jp/400x500.png'}}
+            source={{ uri: 'https://placehold.jp/400x500.png' }}
             style={{
               height: 250,
             }}
@@ -28,58 +28,55 @@ const CoachProfile = ({navigation, route}: any) => {
           <View style={styles.details}>
             <View style={styles.heading}>
               <Image
-                source={{uri: 'https://randomuser.me/api/portraits/men/22.jpg'}}
+                source={{ uri: item.profile }}
                 style={styles.profileImage}
                 resizeMode={'cover'}
               />
-              <Text style={styles.title}>{name}</Text>
+              <Text style={styles.title}>{item.name}</Text>
             </View>
-            <View style={{gap: 24}}>
+            <View style={{ gap: 24 }}>
               <View>
                 <Text style={styles.subtitle}>Specializations</Text>
                 <View
-                  style={{flexDirection: 'row', columnGap: 10, marginTop: 4}}>
+                  style={{ flexDirection: 'row', columnGap: 10, marginTop: 4 }}>
                   <View style={styles.badge}>
-                    <Text style={{fontSize: 13}}>Body Building</Text>
+                    <Text style={{ fontSize: 13 }}>Body Building</Text>
                   </View>
                   <View style={styles.badge}>
-                    <Text style={{fontSize: 13}}>General Fitness</Text>
+                    <Text style={{ fontSize: 13 }}>General Fitness</Text>
                   </View>
                 </View>
               </View>
               <View>
                 <Text style={styles.subtitle}>Certifications</Text>
                 <View
-                  style={{flexDirection: 'row', columnGap: 10, marginTop: 4}}>
+                  style={{ flexDirection: 'row', columnGap: 10, marginTop: 4 }}>
                   <View
                     style={{
                       ...styles.badge,
                       backgroundColor: theme.colors.secondary,
                     }}>
-                    <Text style={{fontSize: 13, color: '#fff'}}>NASM CPT</Text>
+                    <Text style={{ fontSize: 13, color: '#fff' }}>NASM CPT</Text>
                   </View>
                 </View>
               </View>
               <View>
                 <Text style={styles.subtitle}>About</Text>
-                <Text style={{fontSize: 15, color: theme.colors.text}}>
-                  Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit
-                  amet, consectetur Lorem ipsum dolor sit amet, consectetur
-                  Lorem ipsum dolor sit amet, consectetur Lorem ipsum dolor sit
-                  amet, consectetur Lorem ipsum dolor sit amet, consectetur
+                <Text style={{ fontSize: 15, color: theme.colors.text }}>
+                  {item.bio}
                 </Text>
               </View>
               <View>
                 <Text style={styles.subtitle}>Progress photos</Text>
                 <View
-                  style={{flexDirection: 'row', columnGap: 10, marginTop: 4}}>
+                  style={{ flexDirection: 'row', columnGap: 10, marginTop: 4 }}>
                   <FlatList
                     data={[1, 2, 3]}
-                    renderItem={({item}) => {
+                    renderItem={({ item }) => {
                       return (
-                        <View key={item} style={{marginRight: 8}}>
+                        <View key={item} style={{ marginRight: 8 }}>
                           <Image
-                            source={{uri: 'https://placehold.jp/180x260.png'}}
+                            source={{ uri: 'https://placehold.jp/180x260.png' }}
                             style={{
                               height: 80,
                               width: 80,
@@ -94,18 +91,16 @@ const CoachProfile = ({navigation, route}: any) => {
                     horizontal
                     showsHorizontalScrollIndicator={false}
                     keyExtractor={(item: any) => item}
-                    style={{marginTop: 4}}
+                    style={{ marginTop: 4 }}
                   />
                 </View>
               </View>
             </View>
           </View>
         </View>
-        <View style={styles.backButton}>
-          <TouchableOpacity onPress={() => navigation.goBack()}>
-            <Icon name="arrow-left" size={22} color={theme.colors.text} />
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity activeOpacity={0.4} style={styles.backButton} onPress={() => navigation.goBack()}>
+          <Icon name="arrow-left" size={22} color={theme.colors.text} />
+        </TouchableOpacity>
       </ScrollView>
     </View>
   );
@@ -115,7 +110,7 @@ const styles = StyleSheet.create({
   backButton: {
     marginLeft: 5,
     position: 'absolute',
-    top: 8,
+    top: 10,
     left: 8,
   },
   details: {

@@ -84,7 +84,7 @@ const ProductDetails = () => {
                                         opacity: 0.6,
                                     }}
                                 >
-                                    {category}
+                                    {category?.name}
                                 </MDTypography>
                                 <MDTypography
                                     style={{

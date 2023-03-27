@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Text,
   View,
@@ -13,11 +13,18 @@ import { useNavigation } from '@react-navigation/native';
 import { useCart } from '../../context/providers/CartContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const MyCartCard = ({ item, amount }: any) => {
-  const {currentUser} = useAuth();
-  const {deleteProduct} = useCart();
+const MyCartCard = ({ item, setTotal }: any) => {
+  const { currentUser } = useAuth();
+  const { deleteProduct } = useCart();
   const navigation: any = useNavigation();
-  const [count, setCount] = useState(amount);
+  const [count, setCount] = useState(0);
+  const prevCountRef:any = useRef();
+
+  useEffect(() => {
+    console.log(prevCountRef.current)
+    setTotal((prev: number) => prev + (count - (prevCountRef.current | 0)) * item.price)
+    prevCountRef.current = count;
+  }, [count])
   return (
     <TouchableOpacity
       style={styles.card}
@@ -62,7 +69,7 @@ const MyCartCard = ({ item, amount }: any) => {
       <TouchableOpacity
         style={{ backgroundColor: theme.colors.button, height: 30, width: 30, borderRadius: 15, justifyContent: 'center', alignItems: 'center' }}
         activeOpacity={0.4}
-        onPress={() => deleteProduct(currentUser.user.id,item.id)}>
+        onPress={() => deleteProduct(currentUser.user.id, item.id)}>
         <Icon name="trash" size={16} color={'#fff'} />
       </TouchableOpacity>
       <View style={styles.amountController}>
@@ -78,7 +85,7 @@ const MyCartCard = ({ item, amount }: any) => {
             fontSize: 14,
             fontWeight: 'bold',
           }}>
-          {amount}
+          {count}
         </Text>
         <TouchableOpacity
           style={styles.iconContainer}

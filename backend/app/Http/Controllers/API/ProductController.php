@@ -4,6 +4,7 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Models\ProductRating;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -24,6 +25,15 @@ class ProductController extends Controller
 
         foreach ($products as $i => $product) {
             $products[$i]->category = $product->category;
+
+            $ratings = ProductRating::where('product_id', $products[$i]->id)->get();
+            $total = 0;
+            foreach ($ratings as $item) {
+                $total += $item->rating;
+            }
+            $products[$i]->reviews = count($ratings);
+            if ($products[$i]->reviews > 0) $products[$i]->rating = $total / $products[$i]->reviews;
+            else $products[$i]->rating = 0;
         }
         return response()->json($products);
     }
@@ -69,6 +79,16 @@ class ProductController extends Controller
     {
         $product = Product::findOrFail($id);
         $product->category = $product->category;
+
+        $total = 0;
+        $ratings = ProductRating::where('product_id', $product->id)->get();
+        foreach ($ratings as $item) {
+            $total += $item->rating;
+        }
+        $product->reviews = count($ratings);
+        if ($product->reviews > 0) $product->rating = $total / $product->reviews;
+        else $product->rating = 0;
+        $product->ratings = null;
         return response()->json($product);
     }
 
@@ -116,14 +136,26 @@ class ProductController extends Controller
         return response()->json(['message' => 'Product deleted']);
     }
 
-    /*public function addReview(Request $request, $id)
+    public function addReview(Request $request)
     {
-        $product = Product::findOrFail($id);
-        if ($product->reviews == 0) {
-            $product->rating = 5;
+
+        $request->validate([
+            'user_id' => 'required',
+            'product_id' => 'required',
+            'rating' => 'required',
+        ]);
+        $ratings = ProductRating::where('user_id', $request->get('user_id'))->where('product_id', $request->get('product_id'))->get();
+        if (count($ratings) > 0) {
+            ProductRating::where('user_id', $request->get('user_id'))->where('product_id', $request->get('product_id'))->update(['rating' => $request->get('rating')]);
+            return response()->json(['rating' => 'Rating updated']);
+        } else {
+            $newRating = new ProductRating([
+                'user_id' => $request->get('user_id'),
+                'product_id' => $request->get('product_id'),
+                'rating' => $request->get('rating'),
+            ]);
+            $newRating->save();
+            return response()->json(['rating' => 'Rating added']);
         }
-        $x =  $product->rating * $product->reviews;
-        $product->rating = ($x + $request->get('rating')) / ($product->reviews + 1);
-        $product->reviews += 1;
-    }*/
+    }
 }

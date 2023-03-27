@@ -1,6 +1,4 @@
-import UserInfo from '../types/UserInfo';
-
-const baseURL = 'http://192.168.1.5:8000';
+import {API_URL} from "@env";
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -9,28 +7,16 @@ const endpoints: any = {
   ResetPassword: '/password/email',
   Products: '/api/products',
   Cart: '/api/users/cart',
+  DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
+  Users: '/api/users',
   Activitys: '/api/activitys',
   Categories: '/api/categories',
   CsrfToken: '/csrf-token',
 };
 
-export const currentUser: UserInfo = {
-  user: {
-    id: 1,
-    role: 'admin',
-    name: 'Yassine Chraa',
-    email: 'yassinechraa@gmail.com',
-    email_verified_at: null,
-    profile: null,
-    created_at: '',
-    updated_at: '',
-  },
-  token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
-};
-
 export function getUrl(endpoint: PropertyKey) {
-  return baseURL + endpoints[endpoint];
+  return API_URL + endpoints[endpoint];
 }
 
 export default endpoints;

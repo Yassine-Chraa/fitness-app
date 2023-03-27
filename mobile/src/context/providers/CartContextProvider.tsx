@@ -34,6 +34,7 @@ export const CartContextProvider = ({ children }: any) => {
     const addProduct = async (product: { user_id: number, product_id: number }) => {
         try {
             const { data } = await axios.post(cartUrl, product);
+            console.log(data)
             setCart((prev) => {
                 return [...prev, data];
             })

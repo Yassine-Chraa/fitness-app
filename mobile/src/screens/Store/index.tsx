@@ -1,16 +1,33 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { useCallback } from 'react'
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../constants/theme';
 import Cloths from './Cloths';
 import Gainers from './Gainers';
+import { useProduct } from '../../context/providers/ProductContextProvider';
+import { useCategory } from '../../context/providers/CategoryConextProvider';
+import { useFocusEffect } from '@react-navigation/native';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const Tab = createMaterialTopTabNavigator();
 
 const Store = () => {
+  const { currentUser } = useAuth();
+  const { getProducts } = useProduct();
+  const { getCategories } = useCategory();
+  const updateState = async () => {
+    getCategories();
+    getProducts();
+  }
+  useFocusEffect(
+    useCallback(() => {
+      updateState();
+    }, [])
+  )
   return (
     <Tab.Navigator
       initialRouteName="Cloths"
-      tabBar={({state, navigation}) => (
+      tabBar={({ state, navigation }) => (
         <View
           style={{
             flexDirection: 'row',
@@ -49,7 +66,7 @@ const Store = () => {
         </View>
       )}>
       <Tab.Screen name="Cloths" component={Cloths} />
-      <Tab.Screen name="Gainers" component={Gainers} />
+      <Tab.Screen name="Gym Nutrition" component={Gainers} />
     </Tab.Navigator>
   );
 };

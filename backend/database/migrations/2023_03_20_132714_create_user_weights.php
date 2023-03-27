@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('user_nutrition_histories', function (Blueprint $table) {
+        Schema::create('user_weights', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('user_id', unsigned: true)->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->timestamps();
+            $table->float('value',places:1)->nullable();
+            $table->date('date');
         });
     }
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('user_nutrition_histories');
+        Schema::dropIfExists('user_weights');
     }
 };

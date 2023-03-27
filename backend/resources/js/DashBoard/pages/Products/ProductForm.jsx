@@ -34,12 +34,11 @@ const ProductForm = ({ type, selectedID }) => {
 
     const fetchData = async () => {
         await getCategories();
-        console.log(categories)
         if (selectedID != 0)
             getProduct(selectedID).then((res) => setProduct(res));
         else
             setProduct({
-                product_img: "",
+                product_img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
                 name: "",
                 category_id: "",
                 description: "",

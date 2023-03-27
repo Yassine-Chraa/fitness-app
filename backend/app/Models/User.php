@@ -21,6 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'profile',
         'birth_date',
         'BMI',
         'body_fat',
@@ -55,12 +56,20 @@ class User extends Authenticatable
     {
         return $this->hasMany(Program::class, "owner_id");
     }
-    public function nutritionHistory()
+    public function dailyNutritions()
     {
-        return $this->hasOne(UserNutritionHistory::class);
+        return $this->hasMany(DailyNutrition::class);
     }
     public function cart()
     {
         return $this->hasMany(CartItem::class);
+    }
+    public function ratings()
+    {
+        return $this->hasMany(ProductRating::class);
+    }
+    public function weight()
+    {
+        return $this->hasMany(UserWeights::class);
     }
 }

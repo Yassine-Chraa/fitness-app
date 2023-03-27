@@ -4,12 +4,12 @@ namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
 use App\Models\CartItem;
+use App\Models\DailyNutrition;
+use App\Models\NutritionItem;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
-use PhpParser\Node\Expr\Cast\Array_;
 
 class UserController extends Controller
 {
@@ -18,10 +18,11 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        return response()->json($users);
+        if ($request->has('role')) $data = User::where('role', $request->get('role'))->get();
+        else $data = User::all();
+        return response()->json($data);
     }
 
     /**
@@ -34,7 +35,7 @@ class UserController extends Controller
     {
 
         $request->validate([
-            'name' => ['required', 'string', 'max:255'],
+            'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
@@ -70,7 +71,10 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         $user->programs = $user->programs;
-        if ($user->nutritionHistory) $user->history_items = $user->nutritionHistory->historyItems;
+        foreach ($user->dailyNutritions as $i => $dailyNutrition) {
+            $user->dailyNutritions[$i]->history_items = $dailyNutrition->historyItems;
+        }
+        $user->ratings = $user->ratings;
         return response()->json($user);
     }
 
@@ -122,7 +126,7 @@ class UserController extends Controller
 
             $user->save();
 
-            return response()->json(['message' => "user updated successfully !"]);
+            return response()->json($user);
         }
     }
 
@@ -185,10 +189,92 @@ class UserController extends Controller
         $newItem->product = Product::find($newItem->product_id);
         return response()->json($newItem);
     }
+
+    /**
+     * Delete Product from User Cart: api/users/cart/{user_id}/{product_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
     public function deleteProduct($user_id, $product_id)
     {
         CartItem::where('user_id', $user_id)->where('product_id', $product_id)->delete();
 
         return response()->json(['message' => 'Product deleted from Cart']);
+    }
+
+    /**
+     * Get Daily Nutrition: api/users/dailyNutrition
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getDailyNutrition($user_id, $date)
+    {
+        $dailyNutritions = User::find($user_id)->dailyNutritions;
+        $dailyNutrition = $dailyNutritions->where('date', $date)->first();
+        $dailyNutrition->history_items = $dailyNutrition->historyItems;
+
+        return response()->json($dailyNutrition);
+    }
+
+    /**
+     * Post Daily Nutrition item: api/users/dailyNutrition/item
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addFood(Request $request)
+    {
+        $request->validate([
+            'daily_nutrition_id' => 'required',
+            'name' => 'required',
+            'api_id' => 'required',
+            'poid' => 'required'
+        ]);
+
+        $newItem = new NutritionItem([
+            'daily_nutrition_id' => $request->get('daily_nutrition_id'),
+            'name' => $request->get('name'),
+            'api_id' => $request->get('api_id'),
+            'category' => $request->get('category'),
+            'poid' => $request->get('poid'),
+            'energy' => $request->get('energy'),
+            'protein' => $request->get('protein'),
+            'fat' => $request->get('fat'),
+            'fiber' => $request->get('fiber'),
+            'carbohydrate' => $request->get('carbohydrate'),
+            'time' => $request->get('time')
+        ]);
+
+        $newItem->save();
+
+        $dailyNutrition = DailyNutrition::findOrFail($request->get('daily_nutrition_id'));
+        $dailyNutrition->energy_consumed += $request->get('energy');
+        $dailyNutrition->protein_consumed += $request->get('protein');
+        $dailyNutrition->fat_consumed += $request->get('fat');
+        $dailyNutrition->fiber_consumed += $request->get('fiber');
+        $dailyNutrition->carbohydrate_consumed += $request->get('carbohydrate');
+        $dailyNutrition->save();
+
+        return response()->json(['message' => 'Food Added to daily Nutrition']);
+    }
+
+    /**
+     * Delete Daily Nutrition item: api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteFood($daily_nutrition_id, $food_id)
+    {
+
+        $item = NutritionItem::findOrFail($food_id);
+        $dailyNutrition = DailyNutrition::findOrFail($daily_nutrition_id);
+        $dailyNutrition->energy_consumed -= $item->energy;
+        $dailyNutrition->protein_consumed -= $item->protein;
+        $dailyNutrition->fat_consumed -= $item->fat;
+        $dailyNutrition->fiber_consumed -= $item->fiber;
+        $dailyNutrition->carbohydrate_consumed -= $item->carbohydrate;
+
+        $item->delete();
+        $dailyNutrition->save();
+        return response()->json(['message' => 'Food deleted from Daily Nutrition']);
     }
 }

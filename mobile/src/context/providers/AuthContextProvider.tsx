@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
-import { getUrl, currentUser } from '../../Helpers/APIConfig';
+import { getUrl } from '../../Helpers/APIConfig';
 import storeData from '../../Helpers/Storage/storeData';
 import SignInObj from '../../types/SignInObj';
 import SignUpObj from '../../types/SignUpObj';
@@ -16,6 +16,7 @@ export type AuthContextType = {
   logout: () => void;
   resetPassword: (email: string) => Promise<string>;
   deleteAccount: () => Promise<any>;
+  updateCurrentUser: (user: any) => Promise<Boolean>;
 };
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -30,14 +31,10 @@ const signUpUrl = getUrl('SignUp');
 const resetPasswordUrl = getUrl('ResetPassword');
 const deleteAccountUrl = getUrl('DeleteAccount');
 const csrfTokenUrl = getUrl('CsrfToken');
+const usersUrl = getUrl('Users');
 
 
 
-const config = {
-  headers: {
-    authorization: `Bearer ${currentUser.token}`,
-  },
-};
 export const AuthContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
@@ -49,18 +46,12 @@ export const AuthContextProvider = ({ children }: any) => {
     setLoading(true);
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
-      if (data) {
-        setCurrentUser(data)
-        const storeResult = await storeData('current_user', data);
-        axios.defaults.headers.common[
-          "authorization"
-        ] = `Bearer ${data.token}`;
-        if (!storeResult) {
-          return '_STORAGE_ERROR_';
-        }
-        updateState();
-        await AsyncStorage.setItem('isLogged', 'true');
-      }
+      setCurrentUser(data)
+      const storeResult = await storeData('current_user', data);
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${data.token}`;
+      await AsyncStorage.setItem('isLogged', 'true');
       setLoading(false);
       return '_SUCCESS_';
     } catch (error) {
@@ -72,15 +63,12 @@ export const AuthContextProvider = ({ children }: any) => {
     setLoading(true);
     try {
       const { data } = await axios.post(`${signUpUrl}`, form);
-      if (data) {
-        setCurrentUser(data)
-        const storeResult = await storeData('current_user', data);
-        if (!storeResult) {
-          return '_STORAGE_ERROR_';
-        }
-        await AsyncStorage.setItem('isLogged', 'true');
-        updateState();
-      }
+      setCurrentUser(data)
+      const storeResult = await storeData('current_user', data);
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${data.token}`;
+      await AsyncStorage.setItem('isLogged', 'true');
       setLoading(false);
       return '_SUCCESS_';
     } catch (error) {
@@ -90,7 +78,7 @@ export const AuthContextProvider = ({ children }: any) => {
   };
   const logout = async () => {
     //Todo: clear user tokens from db
-    await AsyncStorage.removeItem('current_user');  
+    await AsyncStorage.removeItem('current_user');
     setCurrentUser(null)
   };
   const resetPassword = async (email: string) => {
@@ -113,7 +101,7 @@ export const AuthContextProvider = ({ children }: any) => {
   const deleteAccount = async () => {
     try {
       setLoading(true);
-      const { data } = await axios.get(`${deleteAccountUrl}`, config);
+      const { data } = await axios.get(`${deleteAccountUrl}`);
       setLoading(false);
       return data;
     } catch (error) {
@@ -121,6 +109,22 @@ export const AuthContextProvider = ({ children }: any) => {
       return false;
     }
   };
+  const updateCurrentUser = async (user: any) => {
+    setLoading(true);
+    try {
+      const { data } = await axios.put(`${usersUrl}/${currentUser?.user?.id}`, user);
+      const current_user: UserInfo | null = currentUser;
+      setCurrentUser((prev: any) => {
+        return { ...prev, user: data }
+      })
+      await storeData('current_user', { ...current_user!, user: data });
+      setLoading(false);
+      return true;
+    } catch (error) {
+      setLoading(false);
+      return false;
+    }
+  }
 
   return (
     <AuthContext.Provider
@@ -132,6 +136,7 @@ export const AuthContextProvider = ({ children }: any) => {
         logout,
         resetPassword,
         deleteAccount,
+        updateCurrentUser,
       }}>
       {children}
     </AuthContext.Provider>
