@@ -65,7 +65,7 @@ const EditWorkOut = () => {
 
         const result = await updateWorkOut(workout);
         if (result) {
-            if(result.exercises){
+            if (result.exercises) {
                 fetchData();
             }
             // console.log(localWorkOutExercises)
@@ -81,6 +81,11 @@ const EditWorkOut = () => {
             setLocalDuration(() => workout.duration)
             setLocalDay(() => workout.day)
             setLocalState(() => workout.state)
+
+            console.log("==============================================")
+            console.log(workout.exercises)
+            console.log("==============================================")
+
             const checkedExercises = workout.exercises.map((item => {
                 return { ...item, ...{ checked: 1 } }
             }));
@@ -88,6 +93,18 @@ const EditWorkOut = () => {
 
             const allIds = workout.exercises.map((item => item.id));
             let exercises = await getExercises();
+
+            console.log("==============================================")
+            console.log(checkedExercises)
+            console.log("==============================================")
+
+            console.log("==============================================")
+            console.log(allIds)
+            console.log("==============================================")
+
+            console.log("==============================================")
+            console.log(exercises)
+            console.log("==============================================")
 
             if (exercises) {
                 const all = exercises.map((item => {

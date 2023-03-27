@@ -51,7 +51,14 @@ class WorkOutController extends Controller
     public function show($id)
     {
         $workout = WorkOut::findOrFail($id);
-        $workout->exercises = $workout->workout_exercise()->get();
+        $workout_exercise = $workout->workout_exercise()->get();
+        $allExercises = [];
+        foreach($workout_exercise as $we){
+            array_push($allExercises, $we->exercise()->get()[0]);
+        }
+
+        $workout->exercises = $allExercises;
+
         return response()->json($workout);
     }
 
