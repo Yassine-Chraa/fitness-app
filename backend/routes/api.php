@@ -33,8 +33,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/users/cart', [UserController::class, 'addProduct'])->name('users.cart.store');
     Route::delete('/users/cart/{user_id}/{product_id}', [UserController::class, 'deleteProduct'])->name('users.cart.destroy');
     Route::get('/users/dailyNutrition/{user_id}/{date}', [UserController::class, 'getDailyNutrition'])->name('users.dailyNutrition.index');
-    Route::post('/users/dailyNutrition/item', [UserController::class, 'addFood'])->name('users.dailyNutrition.item.post');
+    Route::post('/users/dailyNutrition/item', [UserController::class, 'addFood'])->name('users.dailyNutrition.item.store');
     Route::delete('/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}', [UserController::class, 'deleteFood'])->name('users.dailyNutrition.item.destroy');
+    Route::get('/users/weights/{user_id}', [UserController::class, 'getWeights'])->name('users.weights.index');
+    Route::post('/users/weights', [UserController::class, 'addWeight'])->name('users.weights.store');
+    Route::put('/users/weights/{id}', [UserController::class, 'updateWeight'])->name('users.weights.update');
+    Route::delete('/users/weights/{id}', [UserController::class, 'deleteWeight'])->name('users.weights.destory');
     Route::apiResource('users', UserController::class);
 
     Route::post('/products/rating', [ProductController::class, 'addReview'])->name('users.rating.store');

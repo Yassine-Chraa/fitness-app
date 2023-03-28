@@ -8,6 +8,7 @@ use App\Models\DailyNutrition;
 use App\Models\NutritionItem;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\UserWeight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -161,7 +162,7 @@ class UserController extends Controller
      */
     public function getCart($id)
     {
-        $cart = User::find($id)->cart;
+        $cart = User::findOrFail($id)->cart;
         foreach ($cart as $i => $item) {
             $cart[$i]->product = Product::find($item->product_id);
         }
@@ -209,7 +210,7 @@ class UserController extends Controller
      */
     public function getDailyNutrition($user_id, $date)
     {
-        $dailyNutritions = User::find($user_id)->dailyNutritions;
+        $dailyNutritions = User::findOrFail($user_id)->dailyNutritions;
         $dailyNutrition = $dailyNutritions->where('date', $date)->first();
         $dailyNutrition->history_items = $dailyNutrition->historyItems;
 
@@ -276,5 +277,76 @@ class UserController extends Controller
         $item->delete();
         $dailyNutrition->save();
         return response()->json(['message' => 'Food deleted from Daily Nutrition']);
+    }
+
+    /**
+     * Get User Weights: api/users/weights/{user_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getWeights($user_id)
+    {
+        $weights = User::findOrFail($user_id)->weights;
+        return response()->json($weights);
+    }
+
+    /**
+     * Add Weight : api/users/weights
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function AddWeight(Request $request)
+    {
+
+        $request->validate([
+            'user_id' => 'required',
+            'value' => 'required|numeric|min:0',
+            'date' => 'required',
+        ]);
+
+        $newItem = new UserWeight([
+            'user_id' => $request->get('user_id'),
+            'value' => $request->get('value'),
+            'date' => $request->get('date'),
+        ]);
+
+        $newItem->save();
+        return response()->json($newItem);
+    }
+
+    /**
+     * Update Weight : api/users/weights/{id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function UpdateWeight(Request $request, $id)
+    {
+
+        $request->validate([
+            'user_id' => 'required',
+            'value' => 'required|numeric|min:0',
+            'date' => 'required',
+        ]);
+        $weight = UserWeight::findOrFail($id);
+        $weight->user_id = $request->get('user_id');
+        $weight->value = $request->get('value');
+        $weight->date = $request->get('date');
+
+        $weight->save();
+        return response()->json($weight);
+    }
+
+    /**
+     * Delete Weight : api/users/weights/{id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteWeight($id)
+    {
+
+        $weight = UserWeight::findOrFail($id);
+
+        $weight->delete();
+        return response()->json(['Message' => 'Delete With Success']);
     }
 }
