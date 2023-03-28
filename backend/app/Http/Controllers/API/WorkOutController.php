@@ -3,8 +3,12 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Exercise;
 use App\Models\WorkOut;
-use GuzzleHttp\Psr7\Request;
+use App\Models\WorkOutExercise;
+use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\DB;
 
 class WorkOutController extends Controller
 {
@@ -47,6 +51,14 @@ class WorkOutController extends Controller
     public function show($id)
     {
         $workout = WorkOut::findOrFail($id);
+        $workout_exercise = $workout->workout_exercise()->get();
+        $allExercises = [];
+        foreach($workout_exercise as $we){
+            array_push($allExercises, $we->exercise()->get()[0]);
+        }
+
+        $workout->exercises = $allExercises;
+
         return response()->json($workout);
     }
 
@@ -76,8 +88,34 @@ class WorkOutController extends Controller
             $workout->state = $request->get('state');
         }
 
+        if ($request->get('newExeIds')) {
+            $newIds = $request->get('newExeIds');
+            $oldExes = $workout->workout_exercise()->get();
+            if ($oldExes != []) {
+                foreach ($oldExes as $exe) {
+                    WorkOutExercise::destroy($exe->id);
+                }
+
+                // $org->products()->whereIn('id', $ids)->get()->delete()
+            }
+
+            $data = [];
+
+            if ($newIds != []) {
+                foreach ($newIds as $exercise_id) {
+                    $workoutexercise = new WorkOutExercise([
+                        'workout_id' => $id,
+                        'exercise_id' => $exercise_id
+                    ]);
+                    array_push($data, $workoutexercise);
+                }
+            }
+            $workout->workout_exercise()->saveMany($data);
+        }
+
         $workout->save();
-        return response()->json(['message' => "WorkOut updated successfully !"]);
+
+        return response()->json(['exercises' => $workout->workout_exercise()->get()]);
     }
 
     /**
@@ -94,4 +132,3 @@ class WorkOutController extends Controller
         return response()->json(['message' => 'WorkOut deleted successfully !']);
     }
 }
-

@@ -15,13 +15,14 @@ return new class extends Migration
     {
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('activity_id')->nullable();
             $table->string('title');
+            $table->string('img');
             $table->text('description');
             $table->string('api_id');
             $table->integer('rest');
             $table->integer('reps');
             $table->integer('sets');
+            $table->enum('category',["a","b","c","d","e","f"]);
             $table->enum('state', ['unstarted','progress','finished'])->default("unstarted");
             $table->timestamps();
         });
