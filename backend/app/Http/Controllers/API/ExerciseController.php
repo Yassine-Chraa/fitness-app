@@ -37,6 +37,7 @@ class ExerciseController extends Controller
             'reps' => $request->get('reps'),
             'sets' => $request->get('sets'),
             'state' => $request->get('state'),
+            'category' => $request->get('category'),
         ]);
         $newExercise->save();
         return response()->json(['message' => 'Exercise created successfully !']);
@@ -87,6 +88,9 @@ class ExerciseController extends Controller
         }
         if ($request->get('sets')) {
             $exercise->sets = $request->get('sets');
+        }
+        if ($request->get('category')) {
+            $exercise->sets = $request->get('category');
         }
 
         $exercise->save();
