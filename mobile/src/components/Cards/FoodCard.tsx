@@ -12,7 +12,7 @@ import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
 
-const FoodCard = ({ daily_nutrition_id, item }: any) => {
+const FoodCard = ({ user_id, date, item }: any) => {
   const { addFood } = useDailyNutrition();
   const navigation: any = useNavigation();
   const { foodId, label, image, nutrients, category } = item;
@@ -22,7 +22,8 @@ const FoodCard = ({ daily_nutrition_id, item }: any) => {
     var h = (today.getHours() < 10 ? '0' : '') + today.getHours();
     var m = (today.getMinutes() < 10 ? '0' : '') + today.getMinutes();
     var s = (today.getSeconds() < 10 ? '0' : '') + today.getSeconds();
-    addFood({ daily_nutrition_id, name: label, api_id: foodId, category: category, poid: 50, energy: nutrients.ENERC_KCAL * 0.5, protein: nutrients.PROCNT * 0.5, fat: nutrients.FAT * 0.5, fiber: nutrients.FIBTG * 0.5, carbohydrate: nutrients.CHOCDF * 0.5, time: `${h}:${m}:${s}` })
+    const date = `${today.getFullYear()}-${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}-${today.getDate() < 10 ? '0' : ''}${today.getDate()}`;
+    addFood(user_id, date, { name: label, api_id: foodId, category: category, poid: 50, energy: nutrients.ENERC_KCAL * 0.5, protein: nutrients.PROCNT * 0.5, fat: nutrients.FAT * 0.5, fiber: nutrients.FIBTG * 0.5, carbohydrate: nutrients.CHOCDF * 0.5, time: `${h}:${m}:${s}` })
   }
   return (
     <TouchableOpacity

@@ -2,12 +2,16 @@ import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Food from '../../types/Food';
+import DailyNutrition from '../../types/DailyNutrition'
 
 export type DailyNutritionContextType = {
-    dailyNutrition: Object<any>;
+    lastNuritions: Array<DailyNutrition>;
+    dailyNutrition: DailyNutrition;
     forceUpdate: boolean;
     getDailyNutrition: (user_id: number, date: string) => Promise<void>;
-    addFood: (food: Food) => Promise<string>;
+    getLastNutritions: (user_id:number) => Promise<void>;
+    addFood: (user_id:number,date:string,food: Food) => Promise<string>;
+    updateFood: (daily_nutrition_id:number,food_id:string,poid:number)=>Promise<string>
     deleteFood: (daily_nutrition_id: number, food_id: number) => Promise<string>;
 };
 const DailyNutritionContext = createContext<DailyNutritionContextType | null>(null);
@@ -21,9 +25,19 @@ export const useDailyNutrition = () => {
 const DailyNutritionUrl = getUrl('DailyNutrition');
 
 export const DailyNutritionContextProvider = ({ children }: any) => {
-    const [dailyNutrition, setDailyNutrition] = useState(Object<any>);
+    const [dailyNutrition, setDailyNutrition] = useState(Object);
+    const [lastNuritions, setLastNuritions] = useState([]);
     const [forceUpdate, setForceUpdate] = useState(false);
 
+    const getLastNutritions = async (user_id: number) => {
+        try {
+            const { data } = await axios.get(`${DailyNutritionUrl}/${user_id}`);
+            setLastNuritions(data)
+            setForceUpdate(prev => !prev);
+        } catch (e) {
+            console.log(e);
+        }
+    };
     const getDailyNutrition = async (user_id: number, date: string) => {
         try {
             const { data } = await axios.get(`${DailyNutritionUrl}/${user_id}/${date}`);
@@ -32,10 +46,18 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
             console.log(e);
         }
     };
-    const addFood = async (food: Food) => {
+    const addFood = async (user_id:number,date:string,food: Food) => {
         try {
-            console.log(food)
-            const { data } = await axios.post(`${DailyNutritionUrl}/item`, food);
+            const { data } = await axios.post(`${DailyNutritionUrl}/item/${user_id}/${date}`, food);
+            return data.message;
+        } catch (e) {
+            console.log(e);
+        }
+    };
+    const updateFood = async (daily_nutrition_id:number,food_id:string,poid:number) => {
+        try {
+            const { data } = await axios.put(`${DailyNutritionUrl}/item/${daily_nutrition_id}/${food_id}`, {poid});
+            setForceUpdate(prev => !prev);
             return data.message;
         } catch (e) {
             console.log(e);
@@ -51,10 +73,9 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
                 temp.history_items = temp.history_items.filter((item: any) => {
                     return item.id != food_id;
                 });
-                console.log(temp.history_items.length)
                 return temp;
             })
-            setForceUpdate(prev=>!prev);
+            setForceUpdate(prev => !prev);
 
             return data.message;
         } catch (e) {
@@ -65,10 +86,13 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
     return (
         <DailyNutritionContext.Provider
             value={{
+                lastNuritions,
                 dailyNutrition,
                 forceUpdate,
+                getLastNutritions,
                 getDailyNutrition,
                 addFood,
+                updateFood,
                 deleteFood
             }}>
             {children}
