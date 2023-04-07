@@ -70,6 +70,6 @@ class User extends Authenticatable
     }
     public function weights()
     {
-        return $this->hasMany(UserWeights::class);
+        return $this->hasMany(UserWeight::class);
     }
 }

@@ -19,9 +19,10 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const FoodDetails = ({ navigation, route }: any) => {
   const { currentUser } = useAuth();
-  const { dailyNutrition, getDailyNutrition, addFood } = useDailyNutrition();
+  const { addFood, updateFood } = useDailyNutrition();
+  const { daily_nutrition_id, food_id } = route.params;
   const { foodId, label, image, nutrients, category } = route.params.item;
-  const [poid, setPoid] = useState(route.params.type === 'daily_nutrition' ? route.params.weight : 0);
+  const [poid, setPoid] = useState(route.params.type === 'daily_nutrition' ? route.params.weight : '');
 
   const updateDailyNutrition = async () => {
     var today = new Date();
@@ -29,15 +30,12 @@ const FoodDetails = ({ navigation, route }: any) => {
     var m = today.getMinutes();
     var s = today.getSeconds();
     if (route.params.type === 'daily_nutrition') {
-
+      await updateFood(daily_nutrition_id, food_id, poid);
     } else {
-      const now = new Date();
-      const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate()}`;
-      await getDailyNutrition(currentUser?.user?.id, today)
-      addFood({ daily_nutrition_id: dailyNutrition.id, name: label, api_id: foodId, category: category, poid, energy: nutrients.ENERC_KCAL * (poid / 100), protein: nutrients.PROCNT * (poid / 100), fat: nutrients.FAT * (poid / 100), fiber: nutrients.FIBTG * (poid / 100), carbohydrate: nutrients.CHOCDF * (poid / 100), time: `${h}:${m}:${s}` })
-      setPoid(0);
+      const date = `${today.getFullYear()}-${today.getMonth() < 9 ? '0' : ''}${today.getMonth() + 1}-${today.getDate() < 10 ? '0' : ''}${today.getDate()}`;
+      await addFood(currentUser!.user!.id, date, { name: label, api_id: foodId, category: category, poid, energy: nutrients.ENERC_KCAL * (poid / 100) | 0, protein: nutrients.PROCNT * (poid / 100) | 0, fat: nutrients.FAT * (poid / 100) | 0, fiber: nutrients.FIBTG * (poid / 100) | 0, carbohydrate: nutrients.CHOCDF * (poid / 100) | 0, time: `${h}:${m}:${s}` })
+      setPoid('');
     }
-
   }
 
   return (
@@ -77,11 +75,11 @@ const FoodDetails = ({ navigation, route }: any) => {
               />
               <Rows
                 data={[
-                  ['Energy (cal)', nutrients.ENERC_KCAL],
-                  ['Protein (g)', nutrients.PROCNT],
-                  ['Fat (g)', nutrients.FAT],
-                  ['Fiber, total dietary (g)', nutrients.FIBTG],
-                  ['Carbohydrate (g)', nutrients.CHOCDF],
+                  ['Energy (cal)', nutrients?.ENERC_KCAL | 0],
+                  ['Protein (g)', nutrients?.PROCNT | 0],
+                  ['Fat (g)', nutrients?.FAT | 0],
+                  ['Fiber, total dietary (g)', nutrients?.FIBTG | 0],
+                  ['Carbohydrate (g)', nutrients?.CHOCDF | 0],
                 ]}
                 textStyle={styles.text}
               />

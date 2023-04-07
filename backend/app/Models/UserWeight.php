@@ -15,4 +15,5 @@ class UserWeight extends Model
         'value',
         'date',
     ];
+    public $timestamps = false;
 }

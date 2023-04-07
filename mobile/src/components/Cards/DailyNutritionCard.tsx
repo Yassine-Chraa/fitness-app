@@ -10,6 +10,7 @@ import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
 import axios from 'axios';
 import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
+import { Food_API_URL, APP_ID, APP_KEY } from '@env'
 
 const DailyNutritionCard = ({ daily_nutrition_id, item }: any) => {
     const { deleteFood } = useDailyNutrition();
@@ -19,15 +20,7 @@ const DailyNutritionCard = ({ daily_nutrition_id, item }: any) => {
     const fetchData = () => {
         axios
             .get(
-                `https://edamam-food-and-grocery-database.p.rapidapi.com/parser?ingr=${api_id}`,
-                {
-                    headers: {
-                        'X-RapidAPI-Key':
-                            '30b507191fmshf1309fbc3a2421ap1d2007jsn670e526d79e4',
-                        'X-RapidAPI-Host':
-                            'edamam-food-and-grocery-database.p.rapidapi.com',
-                    },
-                },
+                `${Food_API_URL}?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${api_id}`
             ).then((response) => {
                 setFoodDetails(response.data.hints[0].food);
 
@@ -43,8 +36,10 @@ const DailyNutritionCard = ({ daily_nutrition_id, item }: any) => {
             onPress={() =>
                 navigation.navigate('FoodDetails', {
                     type: 'daily_nutrition',
+                    daily_nutrition_id,
+                    food_id: item.id,
                     item: foodDetails,
-                    weight:poid,
+                    weight: poid,
                 })
             }>
             <View

@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Food_API_URL, Food_API_Token } from '@env'
+import React, { useEffect, useState } from 'react';
+import { Food_API_URL, APP_ID, APP_KEY } from '@env'
 import {
   StyleSheet,
   View,
@@ -15,23 +15,20 @@ import FoodsCard from '../../components/Cards/FoodCard';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import axios from 'axios';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
 
 const Food = ({ navigation }: any): JSX.Element => {
+  const { currentUser } = useAuth();
+  const { dailyNutrition } = useDailyNutrition()
   const [keyword, setKeyword] = useState('');
   const [hints, setHints] = useState(Array<{ food: object }>());
+
   const search = () => {
     if (keyword) {
       axios
         .get(
-          `https://${Food_API_URL}/parser?ingr=${keyword}`,
-          {
-            headers: {
-              'X-RapidAPI-Key':
-                Food_API_Token,
-              'X-RapidAPI-Host':
-                Food_API_URL,
-            },
-          },
+          `${Food_API_URL}?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${keyword}`
         )
         .then(function (response) {
           setHints(response.data.hints);
@@ -63,19 +60,12 @@ const Food = ({ navigation }: any): JSX.Element => {
           }}>
           <Icon name="search" color={'#fff'} size={24} />
         </TouchableOpacity>
-        <TouchableOpacity
-          style={{
-            ...styles.sortBtn,
-            backgroundColor: theme.colors.primary,
-          }}>
-          <Icon name="qrcode" color={'#fff'} size={24} />
-        </TouchableOpacity>
       </View>
       <FlatList
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={hints}
-        renderItem={({ item }) => <FoodsCard daily_nutrition_id={1} item={item.food} />}
+        renderItem={({ item }) => <FoodsCard user_id={currentUser?.user?.id} daily_nutrition_id={dailyNutrition.id} item={item.food} />}
       />
       <TouchableOpacity style={styles.historyBtn} activeOpacity={0.4} onPress={() => navigation.navigate('DailyNutrition')}>
         <Icon name='utensils' color='#fff' size={18} />

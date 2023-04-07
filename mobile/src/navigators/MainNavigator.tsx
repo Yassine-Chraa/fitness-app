@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
@@ -28,17 +27,21 @@ enableScreens();
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
-  const {currentUser, updateState } = useAuth();
+  const { currentUser, updateState } = useAuth();
   useEffect(() => {
-    updateState().then(() => {
-      SplashScreen.hide();
-    })
-  }, [SplashScreen]);
-  useEffect(()=>{
-    axios.defaults.headers.common[
-      "authorization"
-    ] = `Bearer ${currentUser?.token}`;
-  })
+    if (SplashScreen && currentUser==null) {
+      updateState().then(() => {
+        SplashScreen.hide();
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${currentUser!.token}`;
+      })
+    } else {
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${currentUser?.token}`;
+    }
+  }, [SplashScreen, currentUser]);
   return (
     <Stack.Navigator
       initialRouteName={currentUser ? 'Auth' : 'Tab'}
