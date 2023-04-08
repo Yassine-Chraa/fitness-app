@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react';
-import {Image} from '@rneui/themed';
+import { useState, useEffect } from 'react';
+import { Image } from '@rneui/themed';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -10,20 +10,42 @@ import {
   TouchableWithoutFeedback,
   Dimensions,
 } from 'react-native';
-import {Table, Row, Rows} from 'react-native-table-component';
+import { Table, Row, Rows } from 'react-native-table-component';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
+import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const FoodDetails = ({navigation, route}: any) => {
-  const {label, image, nutrients, category} = route.params.item;
-  const width = Dimensions.get('screen').width - 24;
+const FoodDetails = ({ navigation, route }: any) => {
+  const { currentUser } = useAuth();
+  const { dailyNutrition, getDailyNutrition, addFood } = useDailyNutrition();
+  const { foodId, label, image, nutrients, category } = route.params.item;
+  const [poid, setPoid] = useState(route.params.type === 'daily_nutrition' ? route.params.weight : 0);
+
+  const updateDailyNutrition = async () => {
+    var today = new Date();
+    var h = today.getHours();
+    var m = today.getMinutes();
+    var s = today.getSeconds();
+    if (route.params.type === 'daily_nutrition') {
+
+    } else {
+      const now = new Date();
+      const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate()}`;
+      await getDailyNutrition(currentUser?.user?.id, today)
+      addFood({ daily_nutrition_id: dailyNutrition.id, name: label, api_id: foodId, category: category, poid, energy: nutrients.ENERC_KCAL * (poid / 100), protein: nutrients.PROCNT * (poid / 100), fat: nutrients.FAT * (poid / 100), fiber: nutrients.FIBTG * (poid / 100), carbohydrate: nutrients.CHOCDF * (poid / 100), time: `${h}:${m}:${s}` })
+      setPoid(0);
+    }
+
+  }
+
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            source={{uri: image || 'https://placehold.jp/400x500.png'}}
+            source={{ uri: image || 'https://placehold.jp/400x500.png' }}
             style={{
               height: 400,
             }}
@@ -38,9 +60,9 @@ const FoodDetails = ({navigation, route}: any) => {
                 <Icon name="heart" size={20} />
               </TouchableWithoutFeedback>
             </View>
-            <View style={{flexDirection: 'row', marginBottom: 24}}>
+            <View style={{ flexDirection: 'row', marginBottom: 24 }}>
               <View style={styles.tag}>
-                <Text style={{fontSize: 13}}>{category}</Text>
+                <Text style={{ fontSize: 13 }}>{category}</Text>
               </View>
             </View>
             <Table
@@ -74,10 +96,13 @@ const FoodDetails = ({navigation, route}: any) => {
               <CustomTextInput
                 placeholder="Weight (g)"
                 keyboardType="numeric"
+                inputMode="numeric"
+                value={poid.toString()}
+                onChangeText={setPoid}
               />
-              <TouchableOpacity style={styles.addButton}>
-                <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
-                  ADD TO YOUR DAILY DIET
+              <TouchableOpacity style={styles.addButton} onPress={updateDailyNutrition}>
+                <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+                  {route.params.type === 'daily_nutrition' ? 'Update Weight' : 'ADD TO YOUR DAILY DIET'}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -86,7 +111,7 @@ const FoodDetails = ({navigation, route}: any) => {
       </ScrollView>
       <View style={styles.backButton}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={22} color={theme.colors.text} />
+          <Icon name="arrow-left" size={22} color='#fff' />
         </TouchableOpacity>
       </View>
     </View>
@@ -97,7 +122,7 @@ const styles = StyleSheet.create({
   backButton: {
     marginLeft: 5,
     position: 'absolute',
-    top: 8,
+    top: 12,
     left: 8,
   },
   details: {

@@ -1,16 +1,15 @@
 import axios from '../../Helpers/axiosConfig';
 import { createContext, useContext, useState } from 'react';
-import { Alert } from 'react-native';
 import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
+import getData from '../../Helpers/Storage/getData';
+import UserInfo from '../../types/UserInfo';
+import storeData from '../../Helpers/Storage/storeData';
 
 export type ProductContextType = {
   products: Array<Product>;
   getProducts: () => Promise<void>;
-  getProduct: (id: number) => Promise<Product>;
-  addProduct: (product: Product) => Promise<{ message: string }>;
-  updateProduct: (id: number, product: Product) => Promise<{ message: string }>;
-  deleteProduct: (id: number) => Promise<{ message: string }>;
+  addReview: (review: { user_id: number | undefined, product_id: number | undefined, rating: number }) => Promise<{ rating: number }>;
   searchProduct: (keyword: string) => Promise<void>;
   changeCategory: (id: number) => Promise<void>;
 };
@@ -35,58 +34,31 @@ export const ProductContextProvider = ({ children }: any) => {
       console.log(error);
     }
   };
-  const getProduct = async (id: number) => {
+  const addReview = async (review: { user_id: number | undefined, product_id: number | undefined, rating: number }) => {
     try {
-      setLoading(true);
-      const { data } = await axios.get(`${productUrl}/${id}`);
-      setLoading(false);
+      const { user_id, product_id, rating } = review;
+      const { data } = await axios.post(`${productUrl}/rating`, review);
+      console.log(data);
+      getProducts();
+      const current_user: UserInfo = await getData('current_user');
+      const i = current_user.ratings.findIndex(item => item.product_id == review.product_id);
+
+      if (i >= 0) current_user.ratings[i].rating = review.rating;
+      else {
+        if(user_id && product_id){
+          current_user.ratings.push({ user_id, product_id, rating })
+        }
+      }
+      await storeData('current_user', current_user);
       return data;
-    } catch (error) {
-      Alert.alert('Something went wrong');
-      console.log(error);
-      setLoading(false);
+    } catch (e) {
+      console.log(e)
     }
-  };
-  const addProduct = async (product: Product) => {
-    try {
-      setLoading(true);
-      const { data } = await axios.post(`${productUrl}`, product);
-      setLoading(false);
-      return data;
-    } catch (error) {
-      Alert.alert('Something went wrong');
-      console.log(error);
-      setLoading(false);
-    }
-  };
-  const updateProduct = async (id: number, product: Product) => {
-    try {
-      setLoading(true);
-      const { data } = await axios.put(`${productUrl}/${id}`, product);
-      setLoading(false);
-      return data;
-    } catch (error) {
-      Alert.alert('Something went wrong');
-      console.log(error);
-      setLoading(false);
-    }
-  };
-  const deleteProduct = async (id: number) => {
-    try {
-      setLoading(true);
-      const { data } = await axios.get(`${productUrl}/${id}`);
-      setLoading(false);
-      return data;
-    } catch (error) {
-      Alert.alert('Something went wrong');
-      console.log(error);
-      setLoading(false);
-    }
-  };
+  }
   const searchProduct = async (keyword: string) => {
     try {
-        const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
-        setProducts(data);
+      const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
+      setProducts(data);
     } catch (e) {
       console.log(e)
     }
@@ -95,9 +67,9 @@ export const ProductContextProvider = ({ children }: any) => {
     try {
       const { data } = await axios.get(`${productUrl}?category_id=${id}`);
       setProducts(data);
-  } catch (e) {
-    console.log(e)
-  }
+    } catch (e) {
+      console.log(e)
+    }
   }
 
   return (
@@ -105,10 +77,7 @@ export const ProductContextProvider = ({ children }: any) => {
       value={{
         products,
         getProducts,
-        getProduct,
-        addProduct,
-        updateProduct,
-        deleteProduct,
+        addReview,
         searchProduct,
         changeCategory
       }}>

@@ -58,8 +58,7 @@ const EditWorkout = ({navigation, route}: any) => {
         <FlatList
           data={workoutExercices}
           keyExtractor={item => item.id.toString()}
-          renderItem={({item, drag, isActive}: any) => {
-            const txt = `${item.sets}x${item.reps} reps / rest ${item.rest}`;
+          renderItem={({item}: any) => {
             return (
               <TouchableOpacity
                 key={item.id}

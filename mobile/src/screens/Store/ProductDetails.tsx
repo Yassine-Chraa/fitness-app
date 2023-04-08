@@ -7,23 +7,31 @@ import {
   View,
   ScrollView,
   TouchableOpacity,
-  TouchableWithoutFeedback,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProduct } from '../../context/providers/ProductContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useCart } from '../../context/providers/CartContextProvider';
+import { Rating } from 'react-native-ratings';
+import getData from '../../Helpers/Storage/getData';
 
 const ProductDetails = ({ navigation, route }: any) => {
   const { currentUser } = useAuth();
   const { addProduct } = useCart();
-  const { products } = useProduct();
+  const { products, addReview } = useProduct();
   const { id } = route.params;
-
-  //change
-  const [product, setProduct] = useState(products[id-1]);
-
+  const [rating, setRating] = useState(0);
+  const product = products.find(ele => ele.id == id);
+  const getUserRating = async () => {
+    const data = await getData('current_user');
+    console.log(data)
+    const ele = data.ratings.find((item: any) => item.product_id == product?.id);
+    if (ele != undefined) setRating(ele.rating);
+  }
+  useEffect(() => {
+    getUserRating();
+  }, [Rating])
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -39,23 +47,26 @@ const ProductDetails = ({ navigation, route }: any) => {
 
           <View style={styles.details}>
             <View style={styles.heading}>
-              <Text style={styles.title}>{product.name}</Text>
-              <TouchableWithoutFeedback>
-                <Icon name="heart" size={20} />
-              </TouchableWithoutFeedback>
+              <Text style={styles.title}>{product?.name}</Text>
+              <Rating
+                type='star'
+                startingValue={rating}
+                imageSize={20}
+                onFinishRating={(v: number) => addReview({ user_id: currentUser?.user.id, product_id: product?.id, rating: v })}
+              />
             </View>
             <Text style={{ fontSize: 17 }}>
-              {product.rating + ' '}
+              {product?.rating + ' '}
               <Icon
                 name="star"
                 size={17}
                 solid
                 color={theme.colors.notification}
               />{' '}
-              ({product.reviews}k+ review)
+              ({product?.reviews} review)
             </Text>
             <Text style={{ marginTop: 8, marginBottom: 12, fontSize: 15 }}>
-              {product.description}
+              {product?.description}
             </Text>
           </View>
         </View>
@@ -68,9 +79,9 @@ const ProductDetails = ({ navigation, route }: any) => {
       <View style={styles.footer}>
         <View>
           <Text style={{ fontWeight: 'bold', fontSize: 15 }}>Price</Text>
-          <Text style={styles.price}>{product.price + ' DH'}</Text>
+          <Text style={styles.price}>{product?.price + ' DH'}</Text>
         </View>
-        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: product.id })}>
+        <TouchableOpacity style={styles.addToCartButton} activeOpacity={0.4} onPress={() => addProduct({ user_id: currentUser?.user.id, product_id: product?.id })}>
           <Text style={{ color: '#fff', fontSize: 18, fontWeight: '600' }}>
             Add to Cart
           </Text>

@@ -1,17 +1,26 @@
-import {useState} from 'react';
-import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
+import { useState } from 'react';
+import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import Screen from '../../components/Screen';
-import {Image} from '@rneui/themed';
+import { Image } from '@rneui/themed';
 import theme from '../../constants/theme';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
 import DatePicker from 'react-native-date-picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const EditProfile = ({route, navigation}: any) => {
-  const [date, setDate] = useState(new Date());
+const EditProfile = ({ navigation }: any) => {
+  const { currentUser, updateCurrentUser } = useAuth();
+  const [form, setForm] = useState(currentUser?.user);
   const [open, setOpen] = useState(false);
-  const updateProfile = () => {
-    navigation.goBack();
+  const upload = async () => {
+
+  }
+  const updateProfile = async () => {
+    const res = await updateCurrentUser(form)
+    if (res) navigation.goBack();
+    else Alert.alert('ERROR', 'Ooops! something went wrong !', [
+      { text: 'Close' },
+    ]);
   };
   return (
     <Screen
@@ -21,7 +30,7 @@ const EditProfile = ({route, navigation}: any) => {
       actionFunction={updateProfile}>
       <View style={styles.heading}>
         <Image
-          source={{uri: 'https://randomuser.me/api/portraits/men/22.jpg'}}
+          source={{ uri: form?.profile! }}
           style={styles.profileImage}
           resizeMode={'cover'}
         />
@@ -36,12 +45,14 @@ const EditProfile = ({route, navigation}: any) => {
             borderRadius: 18,
             borderWidth: 4,
             borderColor: '#fff',
-          }}>
+          }}
+          onPress={() => upload()}
+        >
           <Icon name="camera" size={16} color="#fff" />
         </TouchableOpacity>
       </View>
-      <View style={{marginTop: 8, rowGap: 24}}>
-        <View style={{marginBottom: -12}}>
+      <View style={{ marginTop: 8, rowGap: 24 }}>
+        <View style={{ marginBottom: -12 }}>
           <Text style={styles.subTitle}>Name</Text>
           <CustomTextInput
             customStyle={{
@@ -49,24 +60,25 @@ const EditProfile = ({route, navigation}: any) => {
               backgroundColor: theme.colors.statusBar,
             }}
             placeholder="Name"
-            value={'Ben alla Ismail'}
+            value={form?.name}
           />
         </View>
         <View>
           <Text style={styles.subTitle}>Gender</Text>
           <View style={styles.toggle}>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={{
-                ...styles.toggleButton,
-                backgroundColor: theme.colors.textInput,
-                opacity: 0.5,
-              }}>
-              <Text style={styles.toggleText}>Male</Text>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.4} style={styles.toggleButton}>
-              <Text style={styles.toggleText}>Female</Text>
-            </TouchableOpacity>
+            {['male', 'female'].map((gender: string, index: number) => {
+              return (<TouchableOpacity key={index}
+                activeOpacity={0.4}
+                style={{
+                  ...styles.toggleButton,
+                  backgroundColor: form?.gender === gender ? theme.colors.button : theme.colors.background,
+
+                }} onPress={() => setForm((prev: any) => {
+                  return { ...prev, gender: gender }
+                })}>
+                <Text style={{ ...styles.toggleText, color: form?.gender === gender ? '#fff' : theme.colors.text }}>{gender.toUpperCase()}</Text>
+              </TouchableOpacity>)
+            })}
           </View>
         </View>
         <View>
@@ -79,7 +91,7 @@ const EditProfile = ({route, navigation}: any) => {
                 fontSize: 16,
                 color: theme.colors.text,
               }}>
-              {date.toLocaleDateString()}
+              {new Date(form?.birth_date).toLocaleDateString()}
             </Text>
             <Icon name="chevron-down" size={20} color={theme.colors.text} />
           </TouchableOpacity>
@@ -88,10 +100,12 @@ const EditProfile = ({route, navigation}: any) => {
             locale="en"
             mode="date"
             open={open}
-            date={date}
+            date={new Date(form?.birth_date)}
             onConfirm={date => {
               setOpen(false);
-              setDate(date);
+              setForm((prev: any) => {
+                return { ...prev, birth_date: date }
+              });
             }}
             onCancel={() => {
               setOpen(false);
@@ -101,41 +115,37 @@ const EditProfile = ({route, navigation}: any) => {
         <View>
           <Text style={styles.subTitle}>Current Level</Text>
           <View style={styles.toggle}>
-            <TouchableOpacity activeOpacity={0.4} style={styles.toggleButton}>
-              <Text style={styles.toggleText}>Beginner</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={{
-                ...styles.toggleButton,
-                backgroundColor: theme.colors.textInput,
-                opacity: 0.5,
-              }}>
-              <Text style={styles.toggleText}>Intermediate</Text>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.4} style={styles.toggleButton}>
-              <Text style={styles.toggleText}>Advanced</Text>
-            </TouchableOpacity>
+            {['beginner', 'intermediate', 'advanced'].map((level: string, index: number) => {
+              return (<TouchableOpacity key={index}
+                activeOpacity={0.4}
+                style={{
+                  ...styles.toggleButton,
+                  backgroundColor: form?.workout_level === level ? theme.colors.button : theme.colors.background,
+
+                }} onPress={() => setForm((prev: any) => {
+                  return { ...prev, workout_level: level }
+                })}>
+                <Text style={{ ...styles.toggleText, color: form?.workout_level === level ? '#fff' : theme.colors.text }}>{level.toUpperCase()}</Text>
+              </TouchableOpacity>)
+            })}
           </View>
         </View>
         <View>
           <Text style={styles.subTitle}>Your Goal</Text>
           <View style={styles.toggle}>
-            <TouchableOpacity activeOpacity={0.4} style={styles.toggleButton}>
-              <Text style={styles.toggleText}>Maintaining</Text>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.4} style={styles.toggleButton}>
-              <Text style={styles.toggleText}>Bulking</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              activeOpacity={0.4}
-              style={{
-                ...styles.toggleButton,
-                backgroundColor: theme.colors.textInput,
-                opacity: 0.5,
-              }}>
-              <Text style={styles.toggleText}>Cutting</Text>
-            </TouchableOpacity>
+          {['maintaining', 'bulking', 'cutting'].map((top_goal: string, index: number) => {
+              return (<TouchableOpacity key={index}
+                activeOpacity={0.4}
+                style={{
+                  ...styles.toggleButton,
+                  backgroundColor: form?.top_goal === top_goal ? theme.colors.button : theme.colors.background,
+
+                }} onPress={() => setForm((prev: any) => {
+                  return { ...prev, top_goal: top_goal }
+                })}>
+                <Text style={{ ...styles.toggleText, color: form?.top_goal === top_goal ? '#fff' : theme.colors.text }}>{top_goal.toUpperCase()}</Text>
+              </TouchableOpacity>)
+            })}
           </View>
         </View>
       </View>

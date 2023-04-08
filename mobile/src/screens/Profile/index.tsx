@@ -23,7 +23,7 @@ function Profile(): JSX.Element {
           }}
         />
         <TopButton />
-        <InfoGroup titles={[user?.weight, user?.body_fat, user?.BMI]} values={values} />
+        <InfoGroup titles={[user?.weight, user?.body_fat, user?.BMI.toFixed(2)]} values={values} />
         <Options />
       </View>
     </Screen>

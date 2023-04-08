@@ -1,12 +1,15 @@
-import {Image} from '@rneui/themed';
-import React from 'react';
-import {StyleSheet, Text, View,TouchableOpacity} from 'react-native';
+import { Image } from '@rneui/themed';
+import React, { useCallback } from 'react';
+import { Exercises_API_URL, Exercises_API_Token } from '@env';
+import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
+import axios from 'axios';
+import { useFocusEffect } from '@react-navigation/native';
 
-const MuscleExercices = ({navigation, route}: any) => {
-  const {muscle} = route.params;
+const MuscleExercices = ({ navigation, route }: any) => {
+  const { muscle } = route.params;
   const MuscleExercices = [
     {
       id: 1,
@@ -29,11 +32,33 @@ const MuscleExercices = ({navigation, route}: any) => {
       target: 'Chest',
     },
   ];
+
+  const getMuscles = async () => {
+    const { data } = await axios.get(
+      `https://${Exercises_API_URL}/search/`,
+      {
+        headers: {
+          'X-RapidAPI-Key':
+            Exercises_API_Token,
+          'X-RapidAPI-Host':
+            Exercises_API_URL,
+        },
+        params: {name: 'Incline Hammer Curls'},
+      },
+    );
+    console.log(data)
+
+  }
+  useFocusEffect(
+    useCallback(() => {
+      getMuscles();
+    }, [])
+  )
   return (
     <Screen name={muscle.name} action="search" backButton allowScroll>
       <TouchableOpacity style={styles.filterButton}>
-        <Icon name="filter" color={'#fff'} size={16}/>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+        <Icon name="filter" color={'#fff'} size={16} />
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
           Tous
         </Text>
       </TouchableOpacity>
@@ -43,14 +68,14 @@ const MuscleExercices = ({navigation, route}: any) => {
             key={exercice.id}
             style={styles.exercice}
             onPress={() =>
-              navigation.navigate('ExerciceDetails', {name: exercice.name})
+              navigation.navigate('ExerciceDetails', { name: exercice.name })
             }>
-            <View style={{flexDirection: 'row'}}>
+            <View style={{ flexDirection: 'row' }}>
               <Image
                 style={styles.image}
-                source={{uri: 'https://placehold.jp/60x60.png'}}
+                source={{ uri: 'https://placehold.jp/60x60.png' }}
               />
-              <View style={{gap: 4, justifyContent: 'center'}}>
+              <View style={{ gap: 4, justifyContent: 'center' }}>
                 <Text
                   style={{
                     fontSize: 18,

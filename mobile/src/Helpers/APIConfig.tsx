@@ -9,7 +9,9 @@ const endpoints: any = {
   ResetPassword: '/password/email',
   Products: '/api/products',
   Cart: '/api/users/cart',
+  DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
+  Users: '/api/users',
   Activitys: '/api/activitys',
   Categories: '/api/categories',
   CsrfToken: '/csrf-token',
@@ -35,7 +37,7 @@ export const currentUser: UserInfo = {
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return baseURL + endpoints[endpoint];
+  return API_URL + endpoints[endpoint];
 }
 
 export default endpoints;

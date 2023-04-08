@@ -31,13 +31,15 @@ const UserForm = ({ type, selectedID }) => {
     const ImageRef = useRef();
 
     const [user, setUser] = useState({});
+
     const fetchData = async () => {
+
         if (selectedID != 0)
             await getUser(selectedID).then((res) => setUser(res));
         else {
             setUser({
                 id: 0,
-                profile: "",
+                profile: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
                 name: "",
                 email: "",
                 password: "fitnessapp",

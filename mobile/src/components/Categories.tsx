@@ -15,9 +15,9 @@ const Categories = ({ selectedCategoryIndex, setSelectedCategoryIndex,categories
   const { changeCategory } = useProduct();
 
   const change = async (id: number) => {
+    //To Do : select category of search result
     setSelectedCategoryIndex(id)
     changeCategory(id)
-    console.log(id)
   }
   return (
     <ScrollView

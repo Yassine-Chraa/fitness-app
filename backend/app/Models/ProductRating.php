@@ -7,17 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class UserNutritionHistoryItem extends Model
+class ProductRating extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
-        'name',
-        'poid',
-        'energy',
-        'protein',
-        'fat',
-        'fiber',
-        'Carbohydrate',
-        'date'
+        'user_id',
+        'product_id',
+        'rating'
     ];
 }

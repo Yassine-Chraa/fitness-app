@@ -7,15 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class UserNutritionHistory extends Model
+class NutritionItem extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
-        'user_id'
+        'daily_nutrition_id',
+        'name',
+        'api_id',
+        'category',
+        'poid',
+        'energy',
+        'protein',
+        'fat',
+        'fiber',
+        'Carbohydrate',
+        'time'
     ];
-
-    public function historyItems()
-    {
-        return $this->hasMany(UserNutritionHistoryItem::class,'history_id');
-    }
+    public $timestamps = false;
 }

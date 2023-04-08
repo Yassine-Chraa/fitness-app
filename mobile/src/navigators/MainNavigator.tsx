@@ -22,6 +22,7 @@ import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig'
+import DailyNutrition from '../screens/Food/DailyNutrition';
 import Settings from '../screens/Profile/Settings';
 
 enableScreens();
@@ -38,7 +39,6 @@ const MainNavigator = () => {
     axios.defaults.headers.common[
       "authorization"
     ] = `Bearer ${currentUser?.token}`;
-    console.log('ok')
   })
   return (
     <Stack.Navigator
@@ -58,6 +58,7 @@ const MainNavigator = () => {
           <Stack.Screen name="EditWorkout" component={EditWorkout} />
           <Stack.Screen name="ProductDetails" component={ProductDetails} />
           <Stack.Screen name="FoodDetails" component={FoodDetails} />
+          <Stack.Screen name="DailyNutrition" component={DailyNutrition} />
           <Stack.Screen name="MyCart" component={MyCart} />
           <Stack.Screen name="EditProfile" component={EditProfile} />
           <Stack.Screen name="Coaches" component={Coaches} />

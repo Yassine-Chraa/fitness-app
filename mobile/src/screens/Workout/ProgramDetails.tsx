@@ -1,5 +1,5 @@
-import {useState} from 'react';
-import {Image} from '@rneui/themed';
+import { useState } from 'react';
+import { Image } from '@rneui/themed';
 import {
   StyleSheet,
   Text,
@@ -11,8 +11,8 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 
-const ProgramDetails = ({navigation, route}: any) => {
-  const {program} = route.params;
+const ProgramDetails = ({ navigation, route }: any) => {
+  const { program } = route.params;
   const programWorkouts: any = [
     {
       id: 1,
@@ -106,18 +106,21 @@ const ProgramDetails = ({navigation, route}: any) => {
     if (id != undefined) {
       if (id == new_id) {
         setShow(prev => !prev);
-      }else{
+      } else {
         setShow(true);
       }
+    } else {
+      setShow(true)
     }
     setId(new_id);
+
   };
   return (
-    <View style={{flex: 1}}>
+    <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            style={{width: '100%', height: 240}}
+            style={{ width: '100%', height: 240 }}
             source={require('../../assets/images/program1.jpg')}
           />
           <View
@@ -139,16 +142,16 @@ const ProgramDetails = ({navigation, route}: any) => {
                 Free
               </Text>
             )}
-            <Text style={{fontSize: 18, color: '#fff'}}>
+            <Text style={{ fontSize: 18, color: '#fff' }}>
               {program.type} {program.days} Days
             </Text>
-            <Text style={{fontSize: 28, color: '#fff', fontWeight: 'bold'}}>
+            <Text style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
               {program.name}
             </Text>
           </View>
         </View>
         <View style={styles.details}>
-          <View style={{marginBottom: 16}}>
+          <View style={{ marginBottom: 16 }}>
             <Text style={styles.subtitle}>Program description</Text>
             <Text style={styles.desc}>
               This is a three dayn beginner, general fitness plan that can be
@@ -166,7 +169,7 @@ const ProgramDetails = ({navigation, route}: any) => {
                   onPress={() => showExercices(workout.id)}>
                   <Text style={styles.workoutTitle}>Day {workout.id}</Text>
                   <View style={styles.workoutDetails}>
-                    <View style={{justifyContent: 'center'}}>
+                    <View style={{ justifyContent: 'center' }}>
                       <Text
                         style={{
                           fontSize: 18,
@@ -200,12 +203,12 @@ const ProgramDetails = ({navigation, route}: any) => {
                             type: 'workout'
                           })
                         }>
-                        <View style={{flexDirection: 'row'}}>
+                        <View style={{ flexDirection: 'row' }}>
                           <Image
                             style={styles.image}
-                            source={{uri: 'https://placehold.jp/60x60.png'}}
+                            source={{ uri: 'https://placehold.jp/60x60.png' }}
                           />
-                          <View style={{gap: 4, justifyContent: 'center'}}>
+                          <View style={{ gap: 4, justifyContent: 'center' }}>
                             <Text
                               style={{
                                 fontSize: 18,
@@ -232,7 +235,7 @@ const ProgramDetails = ({navigation, route}: any) => {
         </View>
       </ScrollView>
       <TouchableOpacity style={styles.addButton}>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
           Select As Current Program
         </Text>
       </TouchableOpacity>

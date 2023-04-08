@@ -1,30 +1,28 @@
-import React from 'react';
-import {StyleSheet, FlatList} from 'react-native';
+import { useCallback } from 'react';
+import { StyleSheet, FlatList } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import CoachCard from '../../components/Cards/CoachCard';
+import { useCoach } from '../../context/providers/CoachesContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Coaches = () => {
-  const coaches = [
-    {
-      id: 1,
-      name: 'Yassine Chraa',
-      badges: ['Body Building','General Fitness'],
-    },
-    {
-      id: 2,
-      name: 'Alan Walker',
-      badges: ['Body Building'],
-    },
-  ];
+  const { coaches, getCoaches } = useCoach();
+
+  const fetchData = async () => await getCoaches()
+  useFocusEffect(
+    useCallback(() => {
+      fetchData();
+    }, [])
+  )
   return (
     <Screen name={'Coaches'} action="search" backButton actionButton actionButtonType='Become a coach'>
       <FlatList
-        contentContainerStyle={{rowGap: 12,paddingBottom: 8,paddingTop: 8}}
+        contentContainerStyle={{ rowGap: 12, paddingBottom: 8, paddingTop: 8 }}
         horizontal={false}
         showsVerticalScrollIndicator={false}
         data={coaches}
-        renderItem={({item}: any) => <CoachCard item={item} />}
+        renderItem={({ item }: any) => <CoachCard item={item} />}
       />
     </Screen>
   );

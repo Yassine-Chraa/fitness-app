@@ -28,7 +28,11 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
 
@@ -41,7 +45,11 @@ export const UserContextProvider = ({ children }) => {
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
             return false;
         }
     };
@@ -53,15 +61,11 @@ export const UserContextProvider = ({ children }) => {
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
-                const { data } = await axios.post(
-                    uploadUrl,
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
                 res = await axios.post(`${UserUrl}`, {
                     ...User,
                     profile: data.img_url,
@@ -70,13 +74,21 @@ export const UserContextProvider = ({ children }) => {
                 res = await axios.post(`${UserUrl}`, User);
             }
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "success",
+                message: "User Created successfully",
+                state: "mount",
+            });
             getUsers();
-            setMessageObject(dispatch, { type: 'success', message: 'User Created successfully', state: 'mount' })
             return res.data.message;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
 
@@ -87,15 +99,11 @@ export const UserContextProvider = ({ children }) => {
             if (imageFile) {
                 const formData = new FormData();
                 formData.append("imageFile", imageFile);
-                const { data } = await axios.post(
-                    uploadUrl,
-                    formData,
-                    {
-                        headers: {
-                            "Content-Type": "multipart/form-data",
-                        },
-                    }
-                );
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
                 res = await axios.put(`${UserUrl}/${id}`, {
                     ...User,
                     profile: data.img_url,
@@ -104,13 +112,21 @@ export const UserContextProvider = ({ children }) => {
                 res = await axios.put(`${UserUrl}/${id}`, User);
             }
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "success",
+                message: "User updated successfully",
+                state: "mount",
+            });
             getUsers();
-            setMessageObject(dispatch, { type: 'success', message: 'User was Updated successfully', state: 'mount' })
-            return data;
+            return true;
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
 
@@ -128,14 +144,22 @@ export const UserContextProvider = ({ children }) => {
                     setLoadingAnimation(dispatch, true);
                     const { data } = await axios.delete(`${UserUrl}/${id}`);
                     setLoadingAnimation(dispatch, false);
-                    setMessageObject(dispatch, { type: 'success', message: 'User was Deleted successfully', state: 'mount' })
+                    setMessageObject(dispatch, {
+                        type: "success",
+                        message: "User deleted successfully",
+                        state: "mount",
+                    });
                     getUsers();
                     return data;
                 } catch (error) {
                     console.log(error);
                     alert(error);
                     setLoadingAnimation(dispatch, false);
-                    setMessageObject(dispatch, { type: 'error', message: 'Something Went wrong !', state: 'mount' });
+                    setMessageObject(dispatch, {
+                        type: "error",
+                        message: "Something Went wrong !",
+                        state: "mount",
+                    });
                 }
             }
         });
@@ -162,7 +186,7 @@ export const UserContextProvider = ({ children }) => {
                 addUser,
                 updateUser,
                 deleteUser,
-                getTotal
+                getTotal,
             }}
         >
             {children}
