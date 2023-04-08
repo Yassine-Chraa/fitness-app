@@ -1,6 +1,6 @@
-import UserInfo from '../types/UserInfo';
+import UserInfo from "../types/UserInfo";
 
-const baseURL = 'http://192.168.1.5:8000';
+const baseURL = 'http://192.168.0.105:8080';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -25,6 +25,11 @@ export const currentUser: UserInfo = {
     profile: null,
     created_at: '',
     updated_at: '',
+    workout_level: 'beginner',
+    top_goal: 'Maintaining',
+    weight: 0,
+    body_fat: 0,
+    BMI: 0,
   },
   token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
 };

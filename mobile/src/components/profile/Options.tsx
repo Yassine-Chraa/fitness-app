@@ -22,6 +22,7 @@ const Options = () => {
         title="Settings"
         iconName="wrench"
         BadgeColor={theme.colors.text}
+        link={'Settings'}
       />
       <Option
         title="FeedBack"

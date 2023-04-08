@@ -22,6 +22,7 @@ import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig'
+import Settings from '../screens/Profile/Settings';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -62,6 +63,7 @@ const MainNavigator = () => {
           <Stack.Screen name="Coaches" component={Coaches} />
           <Stack.Screen name="CoachProfile" component={CoachProfile} />
           <Stack.Screen name="GymLocation" component={GymLocation} />
+          <Stack.Screen name="Settings" component={Settings} />
         </>
       ) : (
         <>
