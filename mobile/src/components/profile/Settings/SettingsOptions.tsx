@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
-import Option from './Option';
-import theme from '../../constants/theme';
+import Option from '../Option';
+import theme from '../../../constants/theme';
 import SettingSwitch from './SettingSwitch';
 
 const SettingsOptions = (): any => {
@@ -11,7 +11,7 @@ const SettingsOptions = (): any => {
                 title="Manage Workout Reminder"
                 iconName="user-alt"
                 BadgeColor={theme.colors.primary}
-                link={'Coaches'}
+                link={'ManageWorkOutReminder'}
             />
             <Option
                 title="Enable Location Services"

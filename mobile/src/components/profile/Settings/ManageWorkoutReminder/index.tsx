@@ -1,14 +1,13 @@
 import { useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
-import Screen from '../../components/Screen';
-import theme from '../../constants/theme';
-import UserDesc from '../../components/profile/UserDesc';
-import { useAuth } from '../../context/providers/AuthContextProvider';
-import SettingsOptions from '../../components/profile/Settings/SettingsOptions';
-import FullDropDownList from '../../components/profile/Settings/FullDropDownList';
-import Devider from '../../components/tinyCompo/Devider';
+import { useAuth } from '../../../../context/providers/AuthContextProvider';
+import Devider from '../../../tinyCompo/Devider';
+import Screen from '../../../Screen';
+import theme from '../../../../constants/theme';
+import MWRswitch from './MWRswitch';
+import MWRitem from './MWRitem';
 
-const Settings = ({ route, navigation }: any) => {
+const ManageWorkOutReminder = ({ route, navigation }: any) => {
 
     const { currentUser } = useAuth();
     const user = currentUser?.user;
@@ -19,23 +18,24 @@ const Settings = ({ route, navigation }: any) => {
     };
     return (
         <Screen
-            name={'Settings'}
+            name={'WorkOut Reminder'}
             backButton
             action="save"
             actionFunction={updateProfile}>
             <ScrollView>
-                <UserDesc
-                    userInfo={{
-                        profile: user?.profile,
-                        name: user?.name,
-                        workout_level: user?.workout_level,
-                        top_goal: user?.top_goal,
-                    }}
-                />
+                <MWRswitch title="Push Notifications"/>
+                <MWRswitch title="Remind me if inactive for weeks"/>
+                <MWRswitch title="Daiy Workout Reminder"/>
+
                 <Devider />
-                <SettingsOptions />
-                <Devider />
-                <FullDropDownList />
+                
+                <MWRitem day="Monday"/>
+                <MWRitem day="Tuesday"/>
+                <MWRitem day="Wednesday"/>
+                <MWRitem day="Thursday"/>
+                <MWRitem day="Friday"/>
+                <MWRitem day="Saturday"/>
+                <MWRitem day="Sunday"/>
             </ScrollView>
         </Screen>
     );
@@ -96,4 +96,4 @@ const styles = StyleSheet.create({
         borderWidth: 1,
     },
 });
-export default Settings;
+export default ManageWorkOutReminder;

@@ -24,6 +24,7 @@ import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig'
 import DailyNutrition from '../screens/Food/DailyNutrition';
 import Settings from '../screens/Profile/Settings';
+import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -65,6 +66,7 @@ const MainNavigator = () => {
           <Stack.Screen name="CoachProfile" component={CoachProfile} />
           <Stack.Screen name="GymLocation" component={GymLocation} />
           <Stack.Screen name="Settings" component={Settings} />
+          <Stack.Screen name="ManageWorkOutReminder" component={ManageWorkOutReminder} />
         </>
       ) : (
         <>

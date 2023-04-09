@@ -1,9 +1,9 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import theme from '../../constants/theme';
+import theme from '../../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
-import appInfo from '../../../app.json';
-import { useAuth } from '../../context/providers/AuthContextProvider';
+import appInfo from '../../../../app.json';
+import { useAuth } from '../../../context/providers/AuthContextProvider';
 import { Switch } from '@rneui/base';
 import { useState } from 'react';
 const SettingSwitch = ({

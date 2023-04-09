@@ -9,9 +9,7 @@ const endpoints: any = {
   ResetPassword: '/password/email',
   Products: '/api/products',
   Cart: '/api/users/cart',
-  DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
-  Users: '/api/users',
   Activitys: '/api/activitys',
   Categories: '/api/categories',
   CsrfToken: '/csrf-token',
@@ -29,15 +27,19 @@ export const currentUser: UserInfo = {
     updated_at: '',
     workout_level: 'beginner',
     top_goal: 'Maintaining',
-    weight: 0,
     body_fat: 0,
     BMI: 0,
+    gender: 'male',
+    birth_date: "02-02-2000",
+    height: 0,
+    weight: 0,
   },
   token: '6|TXuZaatP5Oi2raNHyjMbMXiJOHxfglgJRFqxsVQk',
+  ratings: [],
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return API_URL + endpoints[endpoint];
+  return baseURL + endpoints[endpoint];
 }
 
 export default endpoints;

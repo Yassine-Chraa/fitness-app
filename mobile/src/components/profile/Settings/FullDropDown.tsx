@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { StyleSheet, View, Text, TouchableOpacity } from 'react-native';
-import theme from "../../constants/theme";
+import theme from '../../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
 

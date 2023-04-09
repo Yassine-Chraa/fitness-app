@@ -37,7 +37,7 @@ const usersUrl = getUrl('Users');
 
 export const AuthContextProvider = ({ children }: any) => {
   const [loading, setLoading] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
+  const [currentUser, setCurrentUser] = useState<any>(null);
 
   const updateState = async () => {
     setCurrentUser(await getData('current_user'));
