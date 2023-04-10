@@ -77,14 +77,12 @@ export const AuthContextProvider = ({ children }: any) => {
     }
   };
   const logout = async () => {
-    //Todo: clear user tokens from db
     await AsyncStorage.removeItem('current_user');
     setCurrentUser(null)
   };
   const resetPassword = async (email: string) => {
     try {
       setLoading(true);
-      console.log(csrfTokenUrl);
       const res = await axios.get(csrfTokenUrl);
       const csrfToken = res.data.csrfToken;
       axios.post(resetPasswordUrl, {

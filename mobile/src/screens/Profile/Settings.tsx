@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { StyleSheet, ScrollView } from 'react-native';
+import { StyleSheet, ScrollView, View,Text } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import UserDesc from '../../components/profile/UserDesc';
@@ -7,6 +7,7 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 import SettingsOptions from '../../components/profile/Settings/SettingsOptions';
 import FullDropDownList from '../../components/profile/Settings/FullDropDownList';
 import Devider from '../../components/tinyCompo/Devider';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const Settings = ({ route, navigation }: any) => {
 
@@ -36,6 +37,9 @@ const Settings = ({ route, navigation }: any) => {
                 <SettingsOptions />
                 <Devider />
                 <FullDropDownList />
+                <TouchableOpacity activeOpacity={0.6} style={styles.logoutBtn}>
+                    <Text style={styles.logoutText}>Reset/Logout</Text>
+                </TouchableOpacity>
             </ScrollView>
         </Screen>
     );
@@ -95,5 +99,19 @@ const styles = StyleSheet.create({
         borderColor: theme.colors.statusBar,
         borderWidth: 1,
     },
+    logoutText:{
+        fontSize: 24,
+        fontWeight: "900",
+        color: "#222",
+    },
+    logoutBtn:{
+        padding:4,
+        display: 'flex',
+        justifyContent: "center",
+        alignItems: "center",
+        margin:5,
+        backgroundColor: "#d44",
+        borderRadius: 10,
+    }
 });
 export default Settings;

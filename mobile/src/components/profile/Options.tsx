@@ -27,6 +27,7 @@ const Options = () => {
       <Option
         title="FeedBack"
         iconName="comment"
+        link="FeedBack"
         BadgeColor={theme.colors.button}
       />
       <Option

@@ -25,6 +25,7 @@ import axios from '../Helpers/axiosConfig'
 import DailyNutrition from '../screens/Food/DailyNutrition';
 import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
+import FeedBack from '../screens/Profile/FeedBack';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -67,6 +68,7 @@ const MainNavigator = () => {
           <Stack.Screen name="GymLocation" component={GymLocation} />
           <Stack.Screen name="Settings" component={Settings} />
           <Stack.Screen name="ManageWorkOutReminder" component={ManageWorkOutReminder} />
+          <Stack.Screen name="FeedBack" component={FeedBack} />
         </>
       ) : (
         <>
