@@ -1,6 +1,8 @@
-import { createContext, useContext } from "react";
-import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
+import { createContext, useContext, useState } from "react";
+import { useMaterialUIController, setLoadingAnimation, setMessageObject } from "../../UIContext";
 import { getUrl } from "../Helper";
+import Swal from "sweetalert2";
+
 
 const exerciseContext = createContext();
 
@@ -11,40 +13,30 @@ export const useExercise = () => {
 };
 
 const ExerciseUrl = getUrl('Exercises');
+const uploadUrl = getUrl("Upload");
 
 export const ExerciseContextProvider = ({ children }) => {
 
+    const [exercises,setExercises] = useState([]);
     const [controller, dispatch] = useMaterialUIController();
 
-    //-------------> perfect
     const getExercises = async () => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
 
-            const { data } = await axios.get(`${ExerciseUrl}`, config);
+            const { data } = await axios.get(`${ExerciseUrl}`);
             setLoadingAnimation(dispatch, false);
             console.log(data);
-            return data;
+            setExercises(data)
         } catch (error) {
             console.log(error);
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
     const getExercise = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${ExerciseUrl}/${id}`, config);
+            const { data } = await axios.get(`${ExerciseUrl}/${id}`);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -53,66 +45,113 @@ export const ExerciseContextProvider = ({ children }) => {
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
-    const addExercise = async (Exercise) => {
+    const addExercise = async (Exercise,imageFile) => {
         try {
+            let res;
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            alert("before")
-            const { data } = await axios.post(`${ExerciseUrl}`, Exercise, config);
-            console.log(JSON.stringify(data))
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                res = await axios.post(`${ExerciseUrl}`, {...Exercise,img: data.img_url});
+            } else {
+                res = await axios.post(`${ExerciseUrl}`, Exercise);
+            }
+
+            getExercises()
             setLoadingAnimation(dispatch, false);
-            return data;
+            setMessageObject(dispatch, {
+                type: "success",
+                message: res.data.message,
+                state: "mount",
+            });
+            return true;
         } catch (error) {
-            console.log(error);
-            alert(error);
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
-    //-------------> perfect
-    const updateExercise = async (Exercise) => {
+    const updateExercise = async (selectedID,Exercise,imageFile) => {
         try {
+
+            let res;
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.put(`${ExerciseUrl}/${Exercise.id}`, Exercise, config);
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                res =  await axios.put(`${ExerciseUrl}/${selectedID}`, {...Exercise,img:data.img_url});
+            } else {
+                res = await axios.put(`${ExerciseUrl}/${selectedID}`, Exercise);
+            }
+
+            getExercises();
             setLoadingAnimation(dispatch, false);
-            return data;
+            setMessageObject(dispatch, {
+                type: "success",
+                message: res.data.message,
+                state: "mount",
+            });
+
+            return true;
         } catch (error) {
-            console.log(error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
         }
     };
 
     const deleteExercise = async (id) => {
-        try {
-            setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.delete(`${ExerciseUrl}/${id}`, config);
-            setLoadingAnimation(dispatch, false);
-            return data;
-        } catch (error) {
-            console.log(error);
-            alert(error)
-            setLoadingAnimation(dispatch, false);
-        }
+        Swal.fire({
+            title: "Are you sure to delete exercise",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Yes",
+            width: "max-content",
+            padding: "8px 16px",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    setLoadingAnimation(dispatch, true);
+                    const { data } = await axios.delete(`${ExerciseUrl}/${id}`);
+                    getExercises();
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "success",
+                        message: data.message,
+                        state: "mount",
+                    });
+                } catch (error) {
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "error",
+                        message: "Something Went wrong !",
+                        state: "mount",
+                    });
+                }
+            }
+        });
     };
 
     return (
         <exerciseContext.Provider
             value={{
+                exercises,
                 getExercises,
                 getExercise,
                 addExercise,

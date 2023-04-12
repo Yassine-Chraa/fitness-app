@@ -27,16 +27,16 @@ class ExerciseController extends Controller
      */
     public function store(Request $request)
     {
-        //still need validation here
+        $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
         $newExercise = new Exercise([
-            "workout_id" => $request->get('workout_id'),
+            'img' => $request->get('img'),
             "title" => $request->get('title'),
             "description" => $request->get('description'),
             "api_id" => $request->get('api_id'),
-            'rest' => $request->get('rest'),
-            'reps' => $request->get('reps'),
-            'sets' => $request->get('sets'),
-            'state' => $request->get('state'),
             'category' => $request->get('category'),
         ]);
         $newExercise->save();
@@ -65,35 +65,19 @@ class ExerciseController extends Controller
     public function update(Request $request, $id)
     {
         $exercise = Exercise::findOrFail($id);
-        if ($request->get('workout_id')) {
-            $exercise->workout_id = $request->get('workout_id');
-        }
-        if ($request->get('title')) {
-            $exercise->title = $request->get('title');
-        }
-        if ($request->get('description')) {
-            $exercise->description = $request->get('description');
-        }
-        if ($request->get('api_id')) {
-            $exercise->api_id = $request->get('api_id');
-        }
-        if ($request->get('state')) {
-            $exercise->state = $request->get('state');
-        }
-        if ($request->get('rest')) {
-            $exercise->rest = $request->get('rest');
-        }
-        if ($request->get('reps')) {
-            $exercise->reps = $request->get('reps');
-        }
-        if ($request->get('sets')) {
-            $exercise->sets = $request->get('sets');
-        }
-        if ($request->get('category')) {
-            $exercise->sets = $request->get('category');
-        }
+        $request->validate([
+            'title' => 'required|min:3',
+            'description' => 'required',
+            'category' => 'required',
+        ]);
 
+        $exercise->img = $request->get('img');
+        $exercise->title = $request->get('title');
+        $exercise->description = $request->get('description');
+        $exercise->category = $request->get('category');
+        $exercise->api_id = $request->get('api_id');
         $exercise->save();
+
         return response()->json(['message' => "Exercise updated successfully !"]);
     }
 

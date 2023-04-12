@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\WorkOutExercise;
 use Illuminate\Http\Request;
 
-class WorkOutExerciseController extends Controller
+class WorkoutExerciseController extends Controller
 {
     /**
      * Display a listing of the resource.

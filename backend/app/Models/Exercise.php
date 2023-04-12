@@ -15,26 +15,9 @@ class Exercise extends Model
 
     protected $fillable = [
         "title",
+        "img",
         "description",
         "api_id",
-        "rest",
-        "reps",
-        "sets",
-        "state",
         "category",
     ];
-
-    public function workout_exercise():HasMany
-    {
-        return $this->hasMany(WorkOutExercise::class, "workout_id");
-    }
-
-    public function workouts():BelongsTo
-    {
-        return $this->belongsTo(WorkOut::class);
-    }
-    public function equipments():HasMany
-    {
-        return $this->hasMany(Equipments::class, "exercise_id");
-    }
 }

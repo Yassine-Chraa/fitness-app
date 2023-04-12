@@ -5,19 +5,18 @@ import MDTypography from "../../components/MDTypography";
 
 import { useParams } from "react-router-dom";
 import DashboardLayout from "../../layouts/DashboardLayout";
-import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
-
-const ProductDetails = () => {
+import { useExercise } from "../../context/APIContext/providers/ExerciseContextProvider";
+const ExerciseDetails = () => {
     const { id } = useParams();
-    const { getProduct } = useProduct();
-    const [product, setProduct] = useState({});
+    const { getExercise } = useExercise();
+    const [exercice, setExercice] = useState({});
     const fetchData = async () => {
-        const data = await getProduct(id);
+        const data = await getExercise(id);
         console.log(data);
-        setProduct(data);
+        setExercice(data);
     };
-    const { name, product_img, category, price, stock, description, items } =
-        product;
+    const { title, img, category, description } =
+        exercice;
     useEffect(() => {
         fetchData();
     }, []);
@@ -34,7 +33,7 @@ const ProductDetails = () => {
                                 justifyContent: "center",
                             }}
                         >
-                            <img style={{ width: "100%" }} src={product_img} />
+                            <img style={{ width: "100%" }} src={img} />
                         </MDBox>
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -46,22 +45,6 @@ const ProductDetails = () => {
                             }}
                         >
                             <MDBox>
-                                <Grid container columnGap={1}>
-                                    <MDTypography
-                                        item
-                                        style={{
-                                            backgroundColor: "orange",
-                                            color: "rgb(255, 255, 255)",
-                                            borderRadius: 6,
-                                            padding: "2px 8px",
-                                            fontSize: "0.9rem",
-                                        }}
-                                    >
-                                        Current Stock: {stock}
-                                    </MDTypography>
-                                </Grid>
-                            </MDBox>
-                            <MDBox>
                                 <MDTypography
                                     style={{
                                         fontSize: "2.8rem",
@@ -70,7 +53,7 @@ const ProductDetails = () => {
                                         color: "#000",
                                     }}
                                 >
-                                    {name}
+                                    {title}
                                 </MDTypography>
                                 <MDTypography
                                     style={{
@@ -80,16 +63,7 @@ const ProductDetails = () => {
                                         opacity: 0.6,
                                     }}
                                 >
-                                    {category?.name}
-                                </MDTypography>
-                                <MDTypography
-                                    style={{
-                                        fontSize: "2.5rem",
-                                        fontWeight: "bold",
-                                        marginTop: 16,
-                                    }}
-                                >
-                                    {price + " DH"}
+                                    {category}
                                 </MDTypography>
                             </MDBox>
                             <hr
@@ -108,7 +82,7 @@ const ProductDetails = () => {
                                         color: "#000",
                                     }}
                                 >
-                                    Product Overview
+                                    Instructions
                                 </MDTypography>
                                 <MDTypography
                                     style={{
@@ -129,4 +103,4 @@ const ProductDetails = () => {
     );
 };
 
-export default ProductDetails;
+export default ExerciseDetails;

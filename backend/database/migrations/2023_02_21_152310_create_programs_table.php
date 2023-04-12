@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->bigInteger('owner_id', unsigned: true)->nullable();
             $table->foreign('owner_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
-            $table->string("main_img")->default("https://bit.ly/34BY10g");
+            $table->string("main_img")->default("https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg");
             $table->string("title");
             $table->text("description");
             $table->enum('category', ['maintaining', 'bulking', 'cutting'])->default("maintaining");

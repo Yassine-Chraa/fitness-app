@@ -13,18 +13,14 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import {
     setOpenAddProgramModalHandler,
     setOpenDeleteProgramModalHandler,
-    setOpenEditProgramModalHandler,
     setOpenProgramViewHandler,
     useMaterialUIController,
 } from "../../context/UIContext";
 
-import MDButton from "../../components/MDButton";
-import { async } from "regenerator-runtime";
 
 import { useProgram } from "../../context/APIContext/providers/ProgramContextProvider";
 import { Box } from "@mui/system";
 import AddProgramModal from "./AddProgramModal";
-import EditProgram from "./EditProgram";
 import DeleteProgramModal from "./DeleteProgramModal";
 import { Link } from "react-router-dom";
 
@@ -45,17 +41,12 @@ export const ActionMenu = ({ id, setSelectedID }) => {
     const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
 
-    const { openProgramViewHandler, openDeleteProgramModalHandler } = controller
+    const { openDeleteProgramModalHandler } = controller
 
-    const openEditHandler = () => {
-        setSelectedID(() => id);
-        setOpenEditProgramModalHandler(dispatch, true);
-    }
 
     const openDeleteHandler = () => {
         setSelectedID(() => id);
         setOpenDeleteProgramModalHandler(dispatch, true);
-        console.log(openDeleteProgramModalHandler)
     }
 
     const openViewHandler = () => {
