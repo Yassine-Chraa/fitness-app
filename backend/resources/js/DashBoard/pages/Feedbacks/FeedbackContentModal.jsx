@@ -20,11 +20,12 @@ const FeedbackContentModal = ({ selectedID }) => {
     };
 
     useEffect(() => {
-        getFeedback(selectedID).then((res) => {
-            setFeedback(res);
-        });
+        if (selectedID != 0)
+            getFeedback(selectedID).then((res) => {
+                setFeedback(res);
+            });
     }, [selectedID]);
-    console.log(feedback)
+    console.log(feedback);
 
     return (
         <Modal

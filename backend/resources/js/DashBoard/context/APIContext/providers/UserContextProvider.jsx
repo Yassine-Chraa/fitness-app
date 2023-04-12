@@ -150,7 +150,6 @@ export const UserContextProvider = ({ children }) => {
                         state: "mount",
                     });
                     getUsers();
-                    return data;
                 } catch (error) {
                     console.log(error);
                     alert(error);

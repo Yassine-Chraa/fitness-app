@@ -9,22 +9,19 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class WorkOutExercise extends Model
+class WorkoutExercise extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
     protected $fillable = [
         'workout_id',
         'exercise_id',
+        'rest',
+        'reps',
+        'sets'
     ];
 
-    protected $table = 'workout_exercise';
-
-    public function workout(): BelongsTo
-    {
-        return $this->belongsTo(workout::class);
-    }
-    public function exercise(): BelongsTo
+    public function details()
     {
         return $this->belongsTo(Exercise::class);
     }

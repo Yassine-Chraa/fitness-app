@@ -4,12 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class WorkOut extends Model
+class Workout extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
 
@@ -21,26 +20,9 @@ class WorkOut extends Model
         'state',
     ];
 
-    protected $table = 'workouts';
 
-
-    public function workout_exercise():HasMany
+    public function exercises()
     {
-        return $this->hasMany(WorkOutExercise::class, "workout_id");
-    }
-
-    public function images():HasMany
-    {
-        return $this->hasMany(Resource::class, "workout_id");
-    }
-
-    public function exercises():HasMany
-    {
-        return $this->hasMany(Exercise::class, "workout_id");
-    }
-
-    public function program(): BelongsTo
-    {
-        return $this->belongsTo(Program::class, "program_id");
+        return $this->hasMany(WorkoutExercise::class);
     }
 }

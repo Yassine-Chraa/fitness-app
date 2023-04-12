@@ -16,14 +16,10 @@ return new class extends Migration
         Schema::create('exercises', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('img');
+            $table->string('img')->default('https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg');
             $table->text('description');
-            $table->string('api_id');
-            $table->integer('rest');
-            $table->integer('reps');
-            $table->integer('sets');
-            $table->enum('category',["a","b","c","d","e","f"]);
-            $table->enum('state', ['unstarted','progress','finished'])->default("unstarted");
+            $table->string('api_id')->nullable();
+            $table->enum('category',["Triceps","Chest","Shoulder","Biceps","Core","Back","Forearms","Upper Legs","Glutes","Calves","Cardio"]);
             $table->timestamps();
         });
     }
