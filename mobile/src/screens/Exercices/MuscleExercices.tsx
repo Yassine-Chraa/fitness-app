@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import { Exercises_API_URL, Exercises_API_Token } from '@env';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Screen from '../../components/Screen';
@@ -7,8 +7,10 @@ import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import axios from 'axios';
 import { useFocusEffect } from '@react-navigation/native';
+import { useExercise } from '../../context/providers/ExerciseContextProvider';
 
 const MuscleExercices = ({ navigation, route }: any) => {
+  const {exercises,getMuscleExercises} = useExercise();
   const { muscle } = route.params;
   const MuscleExercices = [
     {
@@ -33,6 +35,10 @@ const MuscleExercices = ({ navigation, route }: any) => {
     },
   ];
 
+  useEffect(()=>{
+    getMuscleExercises(muscle)
+  },[muscle])
+
   const getMuscles = async () => {
     const { data } = await axios.get(
       `https://${Exercises_API_URL}/search/`,
@@ -46,8 +52,6 @@ const MuscleExercices = ({ navigation, route }: any) => {
         params: {name: 'Incline Hammer Curls'},
       },
     );
-    console.log(data)
-
   }
   useFocusEffect(
     useCallback(() => {
@@ -62,18 +66,18 @@ const MuscleExercices = ({ navigation, route }: any) => {
           Tous
         </Text>
       </TouchableOpacity>
-      {MuscleExercices.map((exercice: any) => {
+      {exercises.map((exercise: any) => {
         return (
           <TouchableOpacity
-            key={exercice.id}
+            key={exercise.id}
             style={styles.exercice}
             onPress={() =>
-              navigation.navigate('ExerciceDetails', { name: exercice.name })
+              navigation.navigate('ExerciceDetails', { exercise })
             }>
             <View style={{ flexDirection: 'row' }}>
               <Image
                 style={styles.image}
-                source={{ uri: 'https://placehold.jp/60x60.png' }}
+                source={{ uri: exercise.img }}
               />
               <View style={{ gap: 4, justifyContent: 'center' }}>
                 <Text
@@ -82,9 +86,9 @@ const MuscleExercices = ({ navigation, route }: any) => {
                     color: theme.colors.text,
                     fontWeight: 'bold',
                   }}>
-                  {exercice.name}
+                  {exercise.title}
                 </Text>
-                <Text>{exercice.target}</Text>
+                <Text>{exercise.category}</Text>
               </View>
             </View>
           </TouchableOpacity>

@@ -42,6 +42,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/users/weights/{user_id}', [UserController::class, 'addWeight'])->name('users.weights.store');
     Route::put('/users/weights/{user_id}', [UserController::class, 'updateWeight'])->name('users.weights.update');
     Route::delete('/users/weights/{user_id}/{date}', [UserController::class, 'deleteWeight'])->name('users.weights.destory');
+    Route::get('/users/programs/{user_id}', [UserController::class, 'getPrograms'])->name('users.programs.index');
+
     Route::apiResource('users', UserController::class);
 
     Route::post('/products/rating', [ProductController::class, 'addReview'])->name('users.rating.store');
@@ -49,6 +51,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
+    Route::post('/workouts/exercises/{workout_id}', [WorkoutController::class, 'addExercise'])->name('workouts.exercises.store');
     Route::apiResource('workouts', WorkoutController::class);
     Route::apiResource('workoutexercises', WorkoutExerciseController::class);
     Route::apiResource('exercises', ExerciseController::class);

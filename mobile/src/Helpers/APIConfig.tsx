@@ -10,7 +10,8 @@ const endpoints: any = {
   DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
   Users: '/api/users',
-  Activitys: '/api/activitys',
+  Programs: '/api/users/programs',
+  Exercises: '/api/exercises',
   Categories: '/api/categories',
   CsrfToken: '/csrf-token',
 };
