@@ -31,6 +31,12 @@ class WorkoutController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'program_id' => 'required',
+            'title' => 'required|min:3',
+            'duration' => 'required',
+            'day' => 'required',
+        ]);
         $newWorkout = new Workout([
             "program_id" => $request->get('program_id'),
             "title" => $request->get('title'),
@@ -64,6 +70,12 @@ class WorkoutController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'program_id' => 'required',
+            'title' => 'required|min:3',
+            'duration' => 'required',
+            'day' => 'required',
+        ]);
         $workout = Workout::findOrFail($id);
         if ($request->get('program_id')) {
             $workout->program_id = $request->get('program_id');
@@ -121,5 +133,28 @@ class WorkoutController extends Controller
         $workout->delete();
 
         return response()->json(['message' => 'Workout deleted successfully !']);
+    }
+
+    /**
+     * Add exercise to workout.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function addExercise(Request $request,$workout_id)
+    {
+        $request->validate([
+            'workout_id' => 'required',
+            'exercise_id' => 'required',
+        ]);
+        $newExercise = new WorkoutExercise([
+            "workout_id" => $workout_id,
+            "exercise_id" => $request->get('exercise_id'),
+            "rest" => $request->get('rest'),
+            "reps" => $request->get('reps'),
+            "sets" => $request->get('sets'),
+        ]);
+        $newExercise->save();
+        return response()->json(['message' => 'Exercise Added to Workout Successfully !']);
     }
 }

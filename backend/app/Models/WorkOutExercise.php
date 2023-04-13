@@ -23,6 +23,6 @@ class WorkoutExercise extends Model
 
     public function details()
     {
-        return $this->belongsTo(Exercise::class);
+        return $this->belongsTo(Exercise::class,'exercise_id');
     }
 }

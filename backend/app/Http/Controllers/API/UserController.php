@@ -156,7 +156,7 @@ class UserController extends Controller
         return response()->json(['total' => $count]);
     }
     /**
-     * Get User Cart Product: api/users/cart{id}
+     * Get User Cart Product: api/users/cart/{id}
      *
      * @return \Illuminate\Http\Response
      */
@@ -405,5 +405,27 @@ class UserController extends Controller
         UserWeight::where('user_id', '=', $user_id)
             ->where('date', '=', $date)->delete();
         return response()->json(['Message' => 'Weight Deleted']);
+    }
+
+     /**
+     * Get User Programs: api/users/programs/{user_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPrograms($user_id)
+    {
+        $programs = User::findOrFail($user_id)->programs;
+
+        foreach ($programs as $i => $program) {
+            $programs[$i]->workouts = $program->workouts;
+            foreach ($program->workouts as $j => $workout) {
+                $programs[$i]->workouts[$j]->exercises = $workout->exercises;
+                foreach ($workout->exercises as $k => $exercise) {
+                    $programs[$i]->workouts[$j]->exercises[$k]->details = $exercise->details;
+
+                }
+            }
+        }
+        return response()->json($programs);
     }
 }

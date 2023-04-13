@@ -22,6 +22,6 @@ class Program extends Model
 
     public function workouts()
     {
-        return $this->hasMany(WorkOut::class,"program_id");
+        return $this->hasMany(WorkOut::class);
     }
 }

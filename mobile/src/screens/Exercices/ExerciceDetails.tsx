@@ -17,37 +17,13 @@ import theme from '../../constants/theme';
 
 const ExerciceDetails = ({navigation, route}: any) => {
   const width = Dimensions.get('screen').width - 24;
-  const {name, type} = route.params;
-  const equipements = [
-    {
-      id: 1,
-      name: 'Barbell',
-    },
-    {
-      id: 2,
-      name: 'Bench Press',
-    },
-  ];
-  const steps = [
-    {
-      id: 1,
-      content:
-        'Start off setting up your incline bench to a 45-degree angle or use a pre-designed incline bench press bench.',
-      img: 'https://placehold.jp/400x300.png',
-    },
-    {
-      id: 2,
-      content:
-        'Then lie flat on your back on the bench with your feet firmly planted on the floor gripping the barbell with aslightky wider than shoulder-width apart.',
-      img: 'https://placehold.jp/400x300.png',
-    },
-  ];
+  const {type} = route.params;
+  const {title,category,description,img} = route.params.exercise;
   return (
     <ScrollView style={{flex: 1}}>
       <View>
-        <Swiper height={300} loop={false}>
-          <Image
-            source={{uri: 'https://placehold.jp/400x300.png'}}
+      <Image
+            source={{uri: img}}
             style={{
               height: 300,
               zIndex: 1,
@@ -55,25 +31,6 @@ const ExerciceDetails = ({navigation, route}: any) => {
             PlaceholderContent={<ActivityIndicator />}
             resizeMode={'cover'}
           />
-          <Image
-            source={{uri: 'https://placehold.jp/400x400.png'}}
-            style={{
-              height: 300,
-              zIndex: 1,
-            }}
-            PlaceholderContent={<ActivityIndicator />}
-            resizeMode={'cover'}
-          />
-          <Image
-            source={{uri: 'https://placehold.jp/400x400.png'}}
-            style={{
-              height: 300,
-              zIndex: 1,
-            }}
-            PlaceholderContent={<ActivityIndicator />}
-            resizeMode={'cover'}
-          />
-        </Swiper>
 
         <View style={styles.details}>
           <TouchableWithoutFeedback>
@@ -82,17 +39,11 @@ const ExerciceDetails = ({navigation, route}: any) => {
             </View>
           </TouchableWithoutFeedback>
           <View style={styles.heading}>
-            <Text style={styles.title}>{name}</Text>
+            <Text style={styles.title}>{title}</Text>
           </View>
           <View style={{...styles.row, marginBottom: 24}}>
             <View style={styles.tag}>
-              <Text>Chest</Text>
-            </View>
-            <View style={styles.tag}>
-              <Text>Triceps</Text>
-            </View>
-            <View style={styles.tag}>
-              <Text>Shoulders</Text>
+              <Text>{category}</Text>
             </View>
           </View>
           {type !== 'workout' ? (
@@ -119,67 +70,17 @@ const ExerciceDetails = ({navigation, route}: any) => {
               </View>
             </View>
           ) : null}
-          <View style={{marginBottom: 24}}>
-            <Text style={styles.subtitle}>Equipement</Text>
-            <FlatList
-              data={equipements}
-              renderItem={({item}) => {
-                return (
-                  <View key={item.id} style={{marginRight: 8}}>
-                    <Image
-                      source={{uri: 'https://placehold.jp/180x260.png'}}
-                      style={{
-                        height: 80,
-                        width: 80,
-                        borderRadius: 6,
-                      }}
-                      PlaceholderContent={<ActivityIndicator />}
-                      resizeMode={'cover'}
-                    />
-                    <Text style={{textAlign: 'center'}}>{item.name}</Text>
-                  </View>
-                );
-              }}
-              horizontal
-              showsHorizontalScrollIndicator={false}
-              keyExtractor={(item: any) => item.id.toString()}
-              style={{marginTop: 4}}
-            />
-          </View>
           <View>
             <Text style={styles.subtitle}>Execution</Text>
-            <ScrollView>
-              {steps.map(step => {
-                return (
-                  <View
-                    style={{...styles.row, gap: 20, marginBottom: 10}}
-                    key={step.id}>
-                    <Text
-                      style={{
-                        fontSize: 18,
-                        fontWeight: 'bold',
-                        color: theme.colors.text,
-                      }}>
-                      {step.id}
-                    </Text>
-                    <Text
-                      style={{
-                        fontSize: 16,
-                        color: theme.colors.text,
-                        width: '90%',
-                      }}>
-                      {step.content}
-                    </Text>
-                  </View>
-                );
-              })}
-            </ScrollView>
+            <Text>
+              {description}
+            </Text>
           </View>
         </View>
       </View>
       <View style={styles.backButton}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={22} color={theme.colors.text} />
+          <Icon name="arrow-left" size={22} color={'#fff'} />
         </TouchableOpacity>
       </View>
     </ScrollView>
