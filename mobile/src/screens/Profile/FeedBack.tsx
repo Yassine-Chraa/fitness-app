@@ -2,19 +2,20 @@ import { useState } from 'react';
 import { StyleSheet, ScrollView, View, Text } from 'react-native';
 import Screen from '../../components/Screen';
 import FBSwipper from '../../components/profile/FBSwipper';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 
 
 const FeedBack = ({ route, navigation }: any) => {
 
     return (
-        <Screen
-            name={'FeedBack'}
-            backButton
-            action="save"
-            actionFunction={null}>
+        <SafeAreaView style={{
+            flex: 1,
+            margin: 0,
+            padding: 0,
+        }}>
             <FBSwipper />
-        </Screen>
+        </SafeAreaView>
     );
 };
 
