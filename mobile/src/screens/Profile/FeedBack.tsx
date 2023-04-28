@@ -1,8 +1,7 @@
-import { useState } from 'react';
-import { StyleSheet, ScrollView, View, Text } from 'react-native';
-import Screen from '../../components/Screen';
-import FBSwipper from '../../components/profile/FBSwipper';
+import React from 'react';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import FeedBackComponents from '../../components/profile/FeedBackComponents';
 
 
 
@@ -14,7 +13,7 @@ const FeedBack = ({ route, navigation }: any) => {
             margin: 0,
             padding: 0,
         }}>
-            <FBSwipper />
+            <FeedBackComponents />
         </SafeAreaView>
     );
 };
@@ -29,4 +28,5 @@ const styles = StyleSheet.create({
         marginRight: 'auto',
     },
 });
+
 export default FeedBack;

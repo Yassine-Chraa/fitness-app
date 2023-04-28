@@ -5,6 +5,7 @@ import { CartContextProvider } from './providers/CartContextProvider';
 import { CategoryContextProvider } from './providers/CategoryConextProvider';
 import { DailyNutritionContextProvider } from './providers/DailyNutritionProvider';
 import { CoachContextProvider} from './providers/CoachesContextProvider'
+import { feedBackContextProvider } from './providers/FeedBackContextProvider';
 const providers: any = [
   ProductContextProvider,
   AuthContextProvider,
@@ -12,7 +13,8 @@ const providers: any = [
   CartContextProvider,
   CategoryContextProvider,
   DailyNutritionContextProvider,
-  CoachContextProvider
+  CoachContextProvider,
+  feedBackContextProvider,
 ];
 
 const APIHandlerProvider = Composer(...providers);

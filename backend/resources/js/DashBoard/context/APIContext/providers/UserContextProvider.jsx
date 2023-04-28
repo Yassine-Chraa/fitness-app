@@ -19,6 +19,9 @@ export const UserContextProvider = ({ children }) => {
     const [controller, dispatch] = useMaterialUIController();
     const [users, setUsers] = useState([]);
 
+    console.log("user url : ");
+    console.log(localStorage.getItem('api_token'));
+
     const getUsers = async () => {
         try {
             setLoadingAnimation(dispatch, true);

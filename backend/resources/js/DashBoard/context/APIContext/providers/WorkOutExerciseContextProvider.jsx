@@ -25,6 +25,7 @@ export const WorkOutExerciseContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
+
             alert("getting all workouts");
             const { data } = await axios.get(`${WorkOutExerciseUrl}`, config);
             setLoadingAnimation(dispatch, false);
