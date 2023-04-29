@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Text, TextInput, View, Alert } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import FBReaction from './FBReaction';
+import { useFeedBack } from '../../../context/providers/FeedBackContextProvider';
+import UserInfo from '../../../types/UserInfo';
+import getData from '../../../Helpers/Storage/getData';
+import { useNavigation } from '@react-navigation/native';
 
 
-const FBLastSlide = ({ goNext, currentIndex, question, feedback, setFeedback }: any): JSX.Element => {
+const FBLastSlide = ({ goNext, question, currentIndex, feedback, setFeedback }: any): JSX.Element => {
 
     const [checkedIndex, setCheckedIndex] = useState(feedback["f" + (currentIndex + 1)]);
+    const [text, setText] = useState('');
+    const { addFeedBack } = useFeedBack();
+    const navigation: any = useNavigation();
 
     const checkReactionHandler = (index: number) => {
         if (index != checkedIndex) {
@@ -17,57 +23,98 @@ const FBLastSlide = ({ goNext, currentIndex, question, feedback, setFeedback }: 
         }
     }
 
+    const updateFeedBack = () => {
+        feedback["message"] = text;
+        setFeedback(() => feedback);
+    }
+
+    const sendFeedback = () => {
+        updateFeedBack();
+        addFeedBack(feedback).then((info) => {
+            Alert.alert(
+                'Done',
+                "You have Sent Your Feedback successfully, do you want to quite ?",
+                [
+                    {
+                        text: 'No',
+                        onPress: () => console.log('Cancel Pressed'),
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Yes',
+                        onPress: () => navigation.goBack(),
+                    },
+                ],
+                { cancelable: false }
+            );
+        }).catch(() => {
+            Alert.alert(
+                'Error',
+                'There was an error whiling sending you feedback ! try later :)',
+                [
+                    {
+                        text: 'quite',
+                        onPress: () => navigation.goBack(),
+                        style: 'cancel',
+                    },
+                    {
+                        text: 'Try',
+                        onPress: () => console.log('OK Pressed'),
+                    },
+                ],
+                { cancelable: false }
+            );
+        });
+    }
+
+    useEffect(() => {
+        getData("current_user").
+            then((user: UserInfo) => {
+                if (user.user) {
+                    feedback.id = user.user.id
+                    setFeedback(() => feedback);
+                }
+            })
+    }, [])
+
     return (
         <View style={SlideStyle.slide}>
 
-            <View style={SlideStyle.QContainer}>
-                <Text style={SlideStyle.Qtext}>{question}</Text>
+            <View style={SlideStyle.TitleContainer}>
+                <Text style={SlideStyle.Title}>{question}</Text>
             </View>
-            <View style={SlideStyle.AnswerContainer}>
-                <View style={SlideStyle.AnswerRow}>
-                    <FBReaction
-                        index={1}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="very_good.png" title="Very Good" />
-                    <FBReaction
-                        index={2}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="good.png" title="Good" />
-                </View>
 
-                <View style={SlideStyle.AnswerRow}>
-                    <FBReaction
-                        index={3}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="fair.png" title="Fair" />
-                    <FBReaction
-                        index={4}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="poor.png" title="Poor" />
-                </View>
-
-                <View style={SlideStyle.navigation}>
-                    <TouchableOpacity
-                        onPress={() => goNext(currentIndex - 1)}
-                        activeOpacity={0.6}
-                        style={SlideStyle.BtnContainer}>
-                        <Icon name="chevron-circle-left" color={'#fff'} size={16} style={SlideStyle.icon} />
-                        <Text style={SlideStyle.btn}>Back</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => goNext(currentIndex + 1)}
-                        activeOpacity={0.6}
-                        style={{ ...SlideStyle.BtnContainer, flexDirection: 'row-reverse' }}>
-                        <Icon name="chevron-circle-right" color={'#fff'} size={16} style={SlideStyle.icon} />
-                        <Text style={SlideStyle.btn}>Next</Text>
-                    </TouchableOpacity>
-                </View>
+            <View style={SlideStyle.InputContainer}>
+                <TextInput
+                    multiline={true}
+                    numberOfLines={30}
+                    scrollEnabled={true}
+                    onBlur={updateFeedBack}
+                    placeholder="Type your feedback here..."
+                    onChangeText={(text) => setText(text)}
+                    value={text}
+                    style={SlideStyle.textInput}
+                />
             </View>
+
+            <View style={SlideStyle.BackBtnContainer}>
+                <TouchableOpacity
+                    onPress={() => goNext(currentIndex - 1)}
+                    activeOpacity={0.6}
+                >
+                    <Icon name="chevron-circle-left"
+                        color={'#fff'} size={16} style={SlideStyle.BackIcon} />
+                </TouchableOpacity>
+            </View>
+
+            <TouchableOpacity
+                onPress={sendFeedback}
+                activeOpacity={0.6}
+                style={SlideStyle.BtnContainer}>
+                <Text style={SlideStyle.btn}>Send</Text>
+            </TouchableOpacity>
+
+
         </View>
     )
 }
@@ -89,14 +136,15 @@ const SlideStyle = StyleSheet.create({
         fontSize: 30,
         fontWeight: 'bold'
     },
-    QContainer: {
+    TitleContainer: {
         padding: 10,
         margin: 10,
-        marginVertical: 25,
+        marginVertical: 30,
     },
-    Qtext: {
+    Title: {
+        textAlign: 'center',
         color: "#fffe",
-        fontSize: 36,
+        fontSize: 28,
         fontWeight: "700",
     },
     AnswerContainer: {
@@ -118,38 +166,54 @@ const SlideStyle = StyleSheet.create({
         flexDirection: "row"
     },
     BtnContainer: {
-        margin: 5,
-        borderWidth: 2,
-        borderColor: "#eee",
+        margin: 20,
         borderRadius: 40,
         display: "flex",
         justifyContent: "space-around",
-        flexDirection: "row",
+        flexDirection: 'row-reverse',
         alignItems: 'center',
-        paddingVertical: 4,
-        paddingHorizontal: 4,
-        backgroundColor: "#1976d2"
-    },
-    icon: {
-        marginRight: 0,
-        fontSize: 44,
-        color: "#fff",
+        paddingVertical: 5,
+        paddingHorizontal: 40,
+        backgroundColor: "#fff",
+        shadowColor: 'rgba(2, 2, 2, 0.4)',
+        shadowOpacity: 1.5,
+        elevation: 8,
+        shadowRadius: 20,
+        shadowOffset: { width: 1, height: 13 },
     },
     btn: {
-        marginRight: 10,
-        marginLeft: 10,
-        fontSize: 22,
+        marginHorizontal: 50,
+        fontSize: 32,
         fontWeight: "700",
         textTransform: 'uppercase',
+        color: "#1976d2",
+    },
+    BackBtnContainer: {
+        position: 'absolute',
+        top: 7, left: 10,
+    },
+    BackIcon: {
+        marginRight: 0,
+        fontSize: 30,
         color: "#fff",
     },
-    navigation: {
+    InputContainer: {
         display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'nowrap',
-        justifyContent: 'space-between',
+        justifyContent: 'center',
         alignItems: 'center',
-        paddingHorizontal: 20,
-        width: '100%'
-    }
+        width: '94%',
+        height: '100%',
+        flex: 1,
+        backgroundColor: '#00000055',
+        borderRadius: 12,
+    },
+    textInput: {
+        width: '100%',
+        fontSize: 18,
+        color: '#fff',
+        lineHeight: 24,
+        padding: 10,
+        fontFamily: 'arial',
+        textAlignVertical: 'top',
+    },
 })

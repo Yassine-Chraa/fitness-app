@@ -13,7 +13,7 @@ const FeedBack = ({ route, navigation }: any) => {
             margin: 0,
             padding: 0,
         }}>
-            <FeedBackComponents />
+            <FeedBackComponents route={route} navigation={navigation}/>
         </SafeAreaView>
     );
 };

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Feedbacks;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Routing\Route;
 
 class FeedbackController extends Controller
 {
@@ -50,30 +51,82 @@ class FeedbackController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'message' => 'required',
         ]);
 
+        $id = Feedbacks::select('id')
+            ->where('user_id', '=', $request->get('user_id'))
+            ->get();
 
+        if (count($id) == 0) {
+            $newFeedback = new Feedbacks([
+                'user_id' => $request->get('user_id'),
+                'message' => $request->get('message'),
+                'f1' =>  $request->get('f1'),
+                'f2' =>  $request->get('f2'),
+                'f3' =>  $request->get('f3'),
+                'f4' =>  $request->get('f4'),
+                'f5' =>  $request->get('f5'),
+                'f6' =>  $request->get('f6'),
+                'f7' =>  $request->get('f7'),
+                'f8' =>  $request->get('f8'),
+                'f9' =>  $request->get('f9'),
+                'f10' =>  $request->get('f10'),
+                'f11' =>  $request->get('f11'),
+                'f12' =>  $request->get('f12'),
+            ]);
+            $newFeedback->save();
+        } else {
+            $feedback = Feedbacks::findOrFail($id[0])[0];
 
-        $newFeedback = new Feedbacks([
-            'user_id' => $request->get('user_id'),
-            'message' => $request->get('message'),
-            'f1' =>  $request->get('f1'),
-            'f2' =>  $request->get('f2'),
-            'f3' =>  $request->get('f3'),
-            'f4' =>  $request->get('f4'),
-            'f5' =>  $request->get('f5'),
-            'f6' =>  $request->get('f6'),
-            'f7' =>  $request->get('f7'),
-            'f8' =>  $request->get('f8'),
-            'f9' =>  $request->get('f9'),
-            'f10' =>  $request->get('f10'),
-            'f11' =>  $request->get('f11'),
-            'f12' =>  $request->get('f12'),
-        ]);
+            $feedback->user_id = $request->get('user_id');
+            if ($request->get('message')) {
+                $feedback->message = $request->get('message');
+            }
+            if ($request->get('f1')) {
+                $feedback->f1 = $request->get('f1');
+            }
+            if ($request->get('f2')) {
+                $feedback->f2 = $request->get('f2');
+            }
+            if ($request->get('f3')) {
+                $feedback->f3 = $request->get('f3');
+            }
+            if ($request->get('f4')) {
+                $feedback->f4 = $request->get('f4');
+            }
+            if ($request->get('f5')) {
+                $feedback->f5 = $request->get('f5');
+            }
+            if ($request->get('f6')) {
+                $feedback->f6 = $request->get('f6');
+            }
+            if ($request->get('f7')) {
+                $feedback->f7 = $request->get('f7');
+            }
+            if ($request->get('f8')) {
+                $feedback->f8 = $request->get('f8');
+            }
+            if ($request->get('f9')) {
+                $feedback->f9 = $request->get('f9');
+            }
+            if ($request->get('f10')) {
+                $feedback->f10 = $request->get('f10');
+            }
+            if ($request->get('f11')) {
+                $feedback->f11 = $request->get('f11');
+            }
+            if ($request->get('f12')) {
+                $feedback->f12 = $request->get('f12');
+            }
 
-        $newFeedback->save();
-        return response()->json(['message' => 'Feedbacks stored']);
+            // return response()->json(['test' => $feedback]);
+
+            $feedback->save();
+
+            return response()->json(['message' => 'Feedback is updated successfully !']);
+        }
+
+        return response()->json(['message' => 'Feedback is stored successfully !']);
     }
 
     /**
@@ -116,27 +169,54 @@ class FeedbackController extends Controller
     {
         $request->validate([
             'user_id' => 'required',
-            'message' => 'required',
         ]);
 
         $feedback = Feedbacks::findOrFail($id);
 
         $feedback->user_id = $request->get('user_id');
-        $feedback->message = $request->get('message');
-        $feedback->f1 =  $request->get('f1')?$request->get('f1'): 1;
-        $feedback->f2=  $request->get('f2')?$request->get('f2'): 1;
-        $feedback->f3 =  $request->get('f3')?$request->get('f3'): 1;
-        $feedback->f4 =  $request->get('f4')?$request->get('f4'): 1;
-        $feedback->f5 =  $request->get('f5')?$request->get('f5'): 1;
-        $feedback->f6 =  $request->get('f6')?$request->get('f6'): 1;
-        $feedback->f7 =  $request->get('f7')?$request->get('f7'): 1;
-        $feedback->f8 =  $request->get('f8')?$request->get('f8'): 1;
-        $feedback->f9 =  $request->get('f9')?$request->get('f9'): 1;
-        $feedback->f10 =  $request->get('f10')?$request->get('f10'): 1;
-        $feedback->f11 =  $request->get('f11')?$request->get('f11'): 1;
-        $feedback->f12 =  $request->get('f12')?$request->get('f12'): 1;
+        if ($request->get('message')) {
+            $feedback->message = $request->get('message');
+        }
+        if ($request->get('f1')) {
+            $feedback->f1 = $request->get('f1');
+        }
+        if ($request->get('f2')) {
+            $feedback->f2 = $request->get('f2');
+        }
+        if ($request->get('f3')) {
+            $feedback->f3 = $request->get('f3');
+        }
+        if ($request->get('f4')) {
+            $feedback->f4 = $request->get('f4');
+        }
+        if ($request->get('f5')) {
+            $feedback->f5 = $request->get('f5');
+        }
+        if ($request->get('f6')) {
+            $feedback->f6 = $request->get('f6');
+        }
+        if ($request->get('f7')) {
+            $feedback->f7 = $request->get('f7');
+        }
+        if ($request->get('f8')) {
+            $feedback->f8 = $request->get('f8');
+        }
+        if ($request->get('f9')) {
+            $feedback->f9 = $request->get('f9');
+        }
+        if ($request->get('f10')) {
+            $feedback->f10 = $request->get('f10');
+        }
+        if ($request->get('f11')) {
+            $feedback->f11 = $request->get('f11');
+        }
+        if ($request->get('f12')) {
+            $feedback->f12 = $request->get('f12');
+        }
+
         $feedback->save();
-        return response()->json(['message' => 'Feedbacks updated']);
+
+        return response()->json(['message' => 'Feedback was updated successfully !']);
     }
 
     /**
@@ -150,6 +230,6 @@ class FeedbackController extends Controller
         $feedback = Feedbacks::findOrFail($id);
         $feedback->delete();
 
-        return response()->json(['message' => 'Feedbacks deleted']);
+        return response()->json(['message' => 'Feedback was deleted successfully !']);
     }
 }

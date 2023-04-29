@@ -7,6 +7,7 @@ import getData from '../../../Helpers/Storage/getData';
 import UserInfo from '../../../types/UserInfo';
 import { useFeedBack } from '../../../context/providers/FeedBackContextProvider';
 import FBSlide from './FBSlide';
+import FBLastSlide from './FBLastSlide';
 
 
 const questions = [
@@ -22,6 +23,7 @@ const questions = [
     "How likely are you to recommend this app to a friend? fake question 22",
     "How likely are you to recommend this app to a friend? fake question 33",
     "How likely are you to recommend this app to a friend? fake question 44",
+    "Please consider leaving a comment down below to let us know your thoughts.",
 ];
 
 const __FEEDBACK__: FeedBack = {
@@ -42,8 +44,7 @@ const __FEEDBACK__: FeedBack = {
     f12: 1,
 }
 
-const FeedBackComponents = (): JSX.Element => {
-    const navigation: any = useNavigation();
+const FeedBackComponents = ({route, navigation}:any): JSX.Element => {
     const [swiperIndex, setSwiperIndex] = useState(0);
     const [feedback, setFeedback] = useState<FeedBack>(__FEEDBACK__);
     const [user, setUser] = useState<UserInfo>();
@@ -54,25 +55,13 @@ const FeedBackComponents = (): JSX.Element => {
             setSwiperIndex(() => newIndex);
         } else if (newIndex >= questions.length) {
             setSwiperIndex(() => questions.length - 1);
-            if (user?.user) {
-                feedback.id = user.user.id
-                setFeedback(() => feedback);
-            }
-            addFeedBack(feedback).then((info) => {
-                console.log(info)
-            }).catch(() => {
-                console.log("There was an error while uploading the current feedback !")
-            })
         }
         else {
             setSwiperIndex(() => 0);
         }
     };
 
-    useEffect(() => {
-        getData("current_user").
-            then((user: UserInfo) => setUser(() => user))
-    }, [])
+    // console.log("test ==> "+(questions.length - 1 == swiperIndex))
 
     return (
         <View style={styles.swipperContainer} >
@@ -82,18 +71,27 @@ const FeedBackComponents = (): JSX.Element => {
                 scrollEnabled={false}
                 showsButtons={false} loop={false}
                 style={styles.wrapper}
-                paginationStyle={{
-                    position: 'absolute',
-                    top: -80,
-                    left: 0,
-                }}
-                dot={<View style={{
-                    backgroundColor: '#dddf',
-                    width: 12, height: 12,
-                    borderRadius: 6, marginLeft: 4,
-                    marginRight: 4, marginTop: 4,
-                    marginBottom: 4
-                }} />}
+                paginationStyle={
+                    questions.length - 1 == swiperIndex ? {
+                        position: 'absolute',
+                        top: '-90%',
+                        left: 0,
+                    } : {
+                        position: 'absolute',
+                        top: -80,
+                        left: 0,
+                    }
+                }
+                dot={
+                    <View style={{
+                        backgroundColor: '#dddf',
+                        width: 12, height: 12,
+                        borderRadius: 6, marginLeft: 4,
+                        marginRight: 4, marginTop: 4,
+                        marginBottom: 4
+                    }}
+                    />
+                }
                 activeDot={<View style={{
                     backgroundColor: '#ff5252',
                     width: 14, height: 14,
@@ -103,15 +101,18 @@ const FeedBackComponents = (): JSX.Element => {
                 }} />}
             >
                 {
-                    questions.map(question =>
+                    questions.map((question, index) =>
                         <FBSlide
+                            key={question + index}
                             goNext={goNext}
                             currentIndex={swiperIndex}
                             question={question}
                             setFeedback={setFeedback}
                             feedback={feedback}
+                            isEnd={index == questions.length - 1}
                         />)
                 }
+
             </Swiper>
         </View>
     );

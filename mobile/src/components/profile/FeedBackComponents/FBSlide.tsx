@@ -3,9 +3,16 @@ import { StyleSheet, Text, View } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FBReaction from './FBReaction';
+import FBLastSlide from './FBLastSlide';
 
 
-const FBSlide = ({ goNext, currentIndex, question, feedback, setFeedback }: any): JSX.Element => {
+const FBSlide = ({ goNext,
+    currentIndex,
+    question,
+    feedback,
+    setFeedback,
+    isEnd
+}: any): JSX.Element => {
 
     const [checkedIndex, setCheckedIndex] = useState(feedback["f" + (currentIndex + 1)]);
 
@@ -18,57 +25,69 @@ const FBSlide = ({ goNext, currentIndex, question, feedback, setFeedback }: any)
     }
 
     return (
-        <View style={SlideStyle.slide}>
+        <>
+            {isEnd ?
+                <FBLastSlide
+                    goNext={goNext}
+                    currentIndex={currentIndex}
+                    setFeedback={setFeedback}
+                    feedback={feedback}
+                    question={question}
+                /> :
 
-            <View style={SlideStyle.QContainer}>
-                <Text style={SlideStyle.Qtext}>{question}</Text>
-            </View>
-            <View style={SlideStyle.AnswerContainer}>
-                <View style={SlideStyle.AnswerRow}>
-                    <FBReaction
-                        index={1}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="very_good.png" title="Very Good" />
-                    <FBReaction
-                        index={2}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="good.png" title="Good" />
+                <View style={SlideStyle.slide}>
+                    <View style={SlideStyle.QContainer}>
+                        <Text style={SlideStyle.Qtext}>{question}</Text>
+                    </View>
+                    <View style={SlideStyle.AnswerContainer}>
+                        <View style={SlideStyle.AnswerRow}>
+                            <FBReaction
+                                index={1}
+                                currentIndex={checkedIndex}
+                                setIndex={checkReactionHandler}
+                                imgUri="very_good.png" title="Very Good" />
+                            <FBReaction
+                                index={2}
+                                currentIndex={checkedIndex}
+                                setIndex={checkReactionHandler}
+                                imgUri="good.png" title="Good" />
+                        </View>
+
+                        <View style={SlideStyle.AnswerRow}>
+                            <FBReaction
+                                index={3}
+                                currentIndex={checkedIndex}
+                                setIndex={checkReactionHandler}
+                                imgUri="fair.png" title="Fair" />
+                            <FBReaction
+                                index={4}
+                                currentIndex={checkedIndex}
+                                setIndex={checkReactionHandler}
+                                imgUri="poor.png" title="Poor" />
+                        </View>
+
+                        <View style={SlideStyle.navigation}>
+                            <TouchableOpacity
+                                onPress={() => goNext(currentIndex - 1)}
+                                activeOpacity={0.6}
+                                style={SlideStyle.BtnContainer}>
+                                <Icon name="chevron-circle-left" color={'#fff'} size={16} style={SlideStyle.icon} />
+                                <Text style={SlideStyle.btn}>Back</Text>
+                            </TouchableOpacity>
+
+                            <TouchableOpacity
+                                onPress={() => goNext(currentIndex + 1)}
+                                activeOpacity={0.6}
+                                style={{ ...SlideStyle.BtnContainer, flexDirection: 'row-reverse' }}>
+                                <Icon name="chevron-circle-right" color={'#fff'} size={16} style={SlideStyle.icon} />
+                                <Text style={SlideStyle.btn}>Next</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
                 </View>
+            }
 
-                <View style={SlideStyle.AnswerRow}>
-                    <FBReaction
-                        index={3}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="fair.png" title="Fair" />
-                    <FBReaction
-                        index={4}
-                        currentIndex={checkedIndex}
-                        setIndex={checkReactionHandler}
-                        imgUri="poor.png" title="Poor" />
-                </View>
-
-                <View style={SlideStyle.navigation}>
-                    <TouchableOpacity
-                        onPress={() => goNext(currentIndex - 1)}
-                        activeOpacity={0.6}
-                        style={SlideStyle.BtnContainer}>
-                        <Icon name="chevron-circle-left" color={'#fff'} size={16} style={SlideStyle.icon} />
-                        <Text style={SlideStyle.btn}>Back</Text>
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        onPress={() => goNext(currentIndex + 1)}
-                        activeOpacity={0.6}
-                        style={{ ...SlideStyle.BtnContainer, flexDirection: 'row-reverse' }}>
-                        <Icon name="chevron-circle-right" color={'#fff'} size={16} style={SlideStyle.icon} />
-                        <Text style={SlideStyle.btn}>Next</Text>
-                    </TouchableOpacity>
-                </View>
-            </View>
-        </View>
+        </>
     )
 }
 
