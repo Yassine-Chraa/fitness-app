@@ -2,40 +2,16 @@ import {Image} from '@rneui/themed';
 import {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const CurrentProgram = ({navigation}: any) => {
   const {currentUser} = useAuth()
-  const {getUserPrograms,programs} = useProgram();
-  const userProgram: any = {
-    name: 'Test Plan',
-    workouts: [
-      {
-        id: 1,
-        name: 'Push Workout',
-        exercicesNumber: 9,
-        duration: 55,
-      },
-      {
-        id: 2,
-        name: 'Pull Workout',
-        exercicesNumber: 10,
-        duration: 60,
-      },
-      {
-        id: 3,
-        name: 'Legs Workout',
-        exercicesNumber: 5,
-        duration: 90,
-      },
-    ],
-  };
+  const {getCurrentProgram,currentProgram} = useProgram();
 
   useEffect(()=>{
-    getUserPrograms(currentUser!.user!.id);
+    getCurrentProgram(currentUser!.user!.id);
   },[currentUser])
   return (
     <View style={{paddingHorizontal: 12, flex: 1}}>
@@ -59,7 +35,7 @@ const CurrentProgram = ({navigation}: any) => {
             </Text>
           </View>
         </View>
-        {programs[0]?.workouts?.map((workout: any) => {
+        {currentProgram?.details?.workouts?.map((workout: any) => {
           return (
             <TouchableOpacity
               key={workout.id}

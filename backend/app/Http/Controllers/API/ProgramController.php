@@ -33,7 +33,6 @@ class ProgramController extends Controller
             "description" => $request->get('description'),
             "difficulty_level" => $request->get('difficulty_level'),
             'category' => $request->get('category'),
-            'owner_id' => $request->get('owner_id'),
             "isFree" => $request->get('isFree'),
         ]);
         $newProgram->save();
@@ -71,9 +70,6 @@ class ProgramController extends Controller
         }
         if ($request->get('description')) {
             $program->description = $request->get('description');
-        }
-        if ($request->get('owner_id')) {
-            $program->owner_id = $request->get('owner_id');
         }
         if ($request->get('category')) {
             $program->category = $request->get('category');

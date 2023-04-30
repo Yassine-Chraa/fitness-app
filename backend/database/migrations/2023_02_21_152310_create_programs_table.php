@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('owner_id', unsigned: true)->nullable();
-            $table->foreign('owner_id')->references('id')->on('users')->onUpdate('cascade')->onDelete('cascade');
             $table->string("main_img")->default("https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg");
             $table->string("title");
             $table->text("description");
             $table->enum('category', ['maintaining', 'bulking', 'cutting'])->default("maintaining");
             $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->boolean("isFree")->default(true);
+            $table->string("days")->default(3);
+            $table->boolean("isPublic")->default(1);
             $table->timestamps();
         });
     }

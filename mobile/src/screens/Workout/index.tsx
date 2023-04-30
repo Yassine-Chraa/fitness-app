@@ -3,6 +3,7 @@ import Discover from './Discover';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import CurrentProgram from './CurrentProgram';
 import theme from '../../constants/theme';
+import MyPrograms from './MyPrograms';
 
 const Tab = createMaterialTopTabNavigator();
 
@@ -50,6 +51,7 @@ const Workout = () => {
       )}>
       <Tab.Screen name="Discover" component={Discover} />
       <Tab.Screen name="Current" component={CurrentProgram} />
+      <Tab.Screen name="My Programs" component={MyPrograms} />
     </Tab.Navigator>
   );
 };
