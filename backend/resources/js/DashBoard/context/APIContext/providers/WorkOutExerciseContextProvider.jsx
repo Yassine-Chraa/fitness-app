@@ -21,6 +21,9 @@ export const WorkOutExerciseContextProvider = ({ children }) => {
         try {
             setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${WorkOutExerciseUrl}`);
+
+            alert("getting all workouts");
+
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {

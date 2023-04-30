@@ -7,6 +7,7 @@ import SignInObj from '../../types/SignInObj';
 import SignUpObj from '../../types/SignUpObj';
 import UserInfo from '../../types/UserInfo';
 import getData from '../../Helpers/Storage/getData';
+import { useUIController, setLoadAnimation } from '../UIContext';
 
 export type AuthContextType = {
   currentUser: UserInfo | null;
@@ -42,15 +43,16 @@ const usersUrl = getUrl('Users');
 
 
 export const AuthContextProvider = ({ children }: any) => {
-  const [loading, setLoading] = useState(false);
   const [currentUser, setCurrentUser] = useState(null);
-  const [weights, setWeights] = useState([]);
+  const [weights, setWeights] = useState
+  const [controller, dispatch] = useUIController();
+  const } = controller
 
   const updateState = async () => {
     setCurrentUser(await getData('current_user'));
   };
   const signIn = async (form: SignInObj) => {
-    setLoading(true);
+    setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
       setCurrentUser(data)
@@ -59,15 +61,15 @@ export const AuthContextProvider = ({ children }: any) => {
         "authorization"
       ] = `Bearer ${data.token}`;
       await AsyncStorage.setItem('isLogged', 'true');
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return '_SUCCESS_';
     } catch (error) {
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return '_FAILURE_';
     }
   };
   const signUp = async (form: SignUpObj) => {
-    setLoading(true);
+    setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signUpUrl}`, form);
       setCurrentUser(data)
@@ -76,48 +78,46 @@ export const AuthContextProvider = ({ children }: any) => {
         "authorization"
       ] = `Bearer ${data.token}`;
       await AsyncStorage.setItem('isLogged', 'true');
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return '_SUCCESS_';
     } catch (error) {
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return '_FAILURE_';
     }
   };
   const logout = async () => {
-    //Todo: clear user tokens from db
     await AsyncStorage.removeItem('current_user');
     setCurrentUser(null)
   };
   const resetPassword = async (email: string) => {
     try {
-      setLoading(true);
-      console.log(csrfTokenUrl);
+      setLoadAnimation(dispatch, true);
       const res = await axios.get(csrfTokenUrl);
       const csrfToken = res.data.csrfToken;
       axios.post(resetPasswordUrl, {
         _token: csrfToken,
         email,
       });
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return 'You will receive email with your password reset link!';
     } catch (error) {
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return '';
     }
   };
   const deleteAccount = async () => {
     try {
-      setLoading(true);
+      setLoadAnimation(dispatch, true);
       const { data } = await axios.get(`${deleteAccountUrl}`);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return false;
     }
   };
   const updateCurrentUser = async (user: any) => {
-    setLoading(true);
+    setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.put(`${usersUrl}/${currentUser?.user?.id}`, user);
       const current_user: UserInfo | null = currentUser;
@@ -125,10 +125,10 @@ export const AuthContextProvider = ({ children }: any) => {
         return { ...prev, user: data }
       })
       await storeData('current_user', { ...current_user!, user: data });
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return true;
     } catch (error) {
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return false;
     }
   }

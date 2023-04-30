@@ -9,6 +9,10 @@ import { useAuth } from '../context/providers/AuthContextProvider';
 import { Button } from '@rneui/base';
 import axios from '../Helpers/axiosConfig'
 import { useDailyNutrition } from '../context/providers/DailyNutritionProvider';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import getData from '../Helpers/Storage/getData';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { setIsCheckStateOk, setIsError, useUIController } from '../context/UIContext';
 
 function Home(): JSX.Element {
   const { currentUser, getUserWeights, weights, addUserWeight, editUserWeight, deleteUserWeight } = useAuth();
@@ -117,6 +121,10 @@ function Home(): JSX.Element {
   ], forceUpdate])
   return (
     <Screen name="Fitness App" allowScroll>
+
+      {/* this section just for test */}
+      <Tester />
+
       <View>
         <View style={styles.card}>
           <View>
@@ -124,6 +132,7 @@ function Home(): JSX.Element {
           </View>
           <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <PieChart
+              paddingLeft='0'
               data={[
                 {
                   name: 'Daily Calory',
@@ -215,6 +224,8 @@ function Home(): JSX.Element {
             <Text style={styles.subtitle}>Energy expended</Text>
             <View>
               <BarChart
+                yAxisLabel='0'
+                yAxisSuffix='0'
                 data={{
                   labels: lastNuritions?.map((item) => {
                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
@@ -325,3 +336,47 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+
+
+//============================================================
+
+const Tester = () => {
+  const [controller, dispatch] = useUIController()
+
+  const pressHandler = () => {
+    setIsCheckStateOk(dispatch,
+      {
+        isCheck: true,
+        isSuccess: true,
+        message: "You have updated your profil successfully !"
+      });
+    // setIsError(dispatch, true);
+  }
+
+  return (
+    <TouchableOpacity activeOpacity={0.6}
+      onPress={pressHandler}
+      style={btnStyle.btnContainer}
+    >
+      <Text style={btnStyle.button}>
+        Test Test
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+const btnStyle = StyleSheet.create({
+  button: {
+    borderRadius: 10,
+    paddingHorizontal: 60,
+    paddingVertical: 20,
+    color: "white"
+  },
+  btnContainer: {
+    backgroundColor: "blue",
+    margin: 40,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "red",
+  }
+});

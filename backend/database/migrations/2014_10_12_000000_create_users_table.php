@@ -22,13 +22,13 @@ return new class extends Migration
             $table->string('password');
             $table->string("profile")->default("https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png");
             $table->rememberToken();
-            $table->string("bio")->nullable();
+            $table->string("bio")->default("there is no autobiography !");
             $table->float('weight', places: 1)->default(70.0);
             $table->float('height', places: 2)->default(1,75);
             $table->float('body_fat', places: 1)->default(20);
             $table->float('BMI')->default(22);
             $table->enum('gender', ['male', 'female'])->default('male');
-            $table->date('birth_date')->nullable();
+            $table->date('birth_date')->default("02-02-2020");
             $table->enum('workout_level', ['beginner', 'intermediate', 'advanced'])->default('beginner');
             $table->enum('top_goal', ['maintaining', 'bulking', 'cutting'])->default('maintaining');
             $table->timestamps();

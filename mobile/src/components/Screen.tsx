@@ -5,12 +5,12 @@ import {
   Text,
   TouchableOpacity,
 } from 'react-native';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {useNavigation} from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import theme from '../constants/theme';
 
-const Header = ({name, action, actionFunction, backButton, noAction}: any) => {
+const Header = ({ name, action, actionFunction, backButton, noAction }: any) => {
   const navigation = useNavigation();
 
   let icon;
@@ -83,11 +83,11 @@ const Screen = ({
       {allowScroll ? (
         <ScrollView showsVerticalScrollIndicator={false}>{children}</ScrollView>
       ) : (
-        <View style={{flex: 1}}>{children}</View>
+        <View style={{ flex: 1 }}>{children}</View>
       )}
       {actionButton ? (
         <TouchableOpacity style={styles.addButton} activeOpacity={0.7}>
-          <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
             {actionButtonType}
           </Text>
         </TouchableOpacity>
