@@ -22,6 +22,14 @@ import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig'
 import DailyNutrition from '../screens/Food/DailyNutrition';
+import Settings from '../screens/Profile/Settings';
+import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
+import FeedBack from '../screens/Profile/FeedBack';
+import LoadingAnimation from '../components/Animations/LoadingAnimation';
+import { useUIController, setCurrentUser } from '../context/UIContext';
+import getData from '../Helpers/Storage/getData';
+import ErrorAnimation from '../components/Animations/ErrorAnimation';
+import CheckStateAlert from '../components/Animations/CheckStateAlert';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -42,39 +50,53 @@ const MainNavigator = () => {
       ] = `Bearer ${currentUser?.token}`;
     }
   }, [SplashScreen, currentUser]);
+  const [controller, dispatch] = useUIController();
   return (
-    <Stack.Navigator
-      initialRouteName={currentUser ? 'Auth' : 'Tab'}
-      screenOptions={{
-        headerBackTitleVisible: false,
-        headerShown: false,
-      }}>
-      {currentUser ? (
-        <>
-          <Stack.Screen name="Tab" component={TabNavigator} />
-          <Stack.Screen name="MuscleExercices" component={MuscleExercices} />
-          <Stack.Screen name="AllExercices" component={AllExercices} />
-          <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
-          <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
-          <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
-          <Stack.Screen name="EditWorkout" component={EditWorkout} />
-          <Stack.Screen name="ProductDetails" component={ProductDetails} />
-          <Stack.Screen name="FoodDetails" component={FoodDetails} />
-          <Stack.Screen name="DailyNutrition" component={DailyNutrition} />
-          <Stack.Screen name="MyCart" component={MyCart} />
-          <Stack.Screen name="EditProfile" component={EditProfile} />
-          <Stack.Screen name="Coaches" component={Coaches} />
-          <Stack.Screen name="CoachProfile" component={CoachProfile} />
-          <Stack.Screen name="GymLocation" component={GymLocation} />
-        </>
-      ) : (
-        <>
-          <Stack.Screen name="signIn" component={SignIn} />
-          <Stack.Screen name="signUp" component={SignUp} />
-          <Stack.Screen name="resetPassword" component={ResetPassword} />
-        </>
-      )}
-    </Stack.Navigator>
+    <>
+
+      {/* Animation and alerts here */}
+      <LoadingAnimation />
+      <CheckStateAlert/>
+      <ErrorAnimation/>
+
+
+      <Stack.Navigator
+        initialRouteName={currentUser ? 'Auth' : 'Tab'}
+        screenOptions={{
+          headerBackTitleVisible: false,
+          headerShown: false,
+        }}>
+        {currentUser ? (
+          <>
+            <Stack.Screen name="Tab" component={TabNavigator} />
+            <Stack.Screen name="MuscleExercices" component={MuscleExercices} />
+            <Stack.Screen name="AllExercices" component={AllExercices} />
+            <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
+            <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
+            <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+            <Stack.Screen name="EditWorkout" component={EditWorkout} />
+            <Stack.Screen name="ProductDetails" component={ProductDetails} />
+            <Stack.Screen name="FoodDetails" component={FoodDetails} />
+            <Stack.Screen name="DailyNutrition" component={DailyNutrition} />
+            <Stack.Screen name="MyCart" component={MyCart} />
+            <Stack.Screen name="EditProfile" component={EditProfile} />
+            <Stack.Screen name="Coaches" component={Coaches} />
+            <Stack.Screen name="CoachProfile" component={CoachProfile} />
+            <Stack.Screen name="GymLocation" component={GymLocation} />
+            <Stack.Screen name="Settings" component={Settings} />
+            <Stack.Screen name="ManageWorkOutReminder" component={ManageWorkOutReminder} />
+            <Stack.Screen name="FeedBack" component={FeedBack} />
+          </>
+        ) : (
+          <>
+            <Stack.Screen name="signIn" component={SignIn} />
+            <Stack.Screen name="signUp" component={SignUp} />
+            <Stack.Screen name="resetPassword" component={ResetPassword} />
+          </>
+        )}
+      </Stack.Navigator>
+    </>
+
   );
 };
 export default MainNavigator;

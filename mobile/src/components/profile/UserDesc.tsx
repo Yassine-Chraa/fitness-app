@@ -1,12 +1,12 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity} from 'react-native';
-import {View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
-import {Image} from '@rneui/themed';
-import {useNavigation} from '@react-navigation/native';
+import { Image } from '@rneui/themed';
+import { useNavigation } from '@react-navigation/native';
 
-function UserDesc({userInfo}: any): JSX.Element {
+function UserDesc({ userInfo }: any): JSX.Element {
   const navigation: any = useNavigation();
 
   return (
@@ -16,17 +16,17 @@ function UserDesc({userInfo}: any): JSX.Element {
       onPress={() => navigation.navigate('EditProfile')}>
       <View style={styles.avatarName}>
         <Image
-          style={{width: 70, height: 70, borderRadius: 35}}
-          source={{uri: userInfo.profile}}
+          style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 1, borderColor: "#eee" }}
+          source={{ uri: userInfo.profile }}
         />
-        <View style={{justifyContent: 'center'}}>
+        <View style={{ justifyContent: 'center' }}>
           <Text style={styles.name}>{userInfo.name}</Text>
           <Text style={styles.subtitle}>
             {userInfo.workout_level + ' / ' + userInfo.top_goal}
           </Text>
         </View>
       </View>
-      <View style={{alignItems: 'center'}}>
+      <View style={{ alignItems: 'center' }}>
         <TouchableOpacity>
           <Icon name={'chevron-right'} size={16} solid style={styles.chevron} />
         </TouchableOpacity>

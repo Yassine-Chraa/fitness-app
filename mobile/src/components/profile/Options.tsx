@@ -22,10 +22,12 @@ const Options = () => {
         title="Settings"
         iconName="wrench"
         BadgeColor={theme.colors.text}
+        link={'Settings'}
       />
       <Option
         title="FeedBack"
         iconName="comment"
+        link="FeedBack"
         BadgeColor={theme.colors.button}
       />
       <Option

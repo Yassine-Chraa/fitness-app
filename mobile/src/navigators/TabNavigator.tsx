@@ -38,7 +38,6 @@ const TabNavigator = () => {
               iconName = focused ? '' : '';
               break;
           }
-          // You can return any component that you like here!
           return <Icon name={iconName} size={size} color={color} solid />;
         },
         headerShown: false,
