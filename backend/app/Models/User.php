@@ -54,7 +54,7 @@ class User extends Authenticatable
 
     public function programs()
     {
-        return $this->hasMany(Program::class, "owner_id");
+        return $this->hasMany(UserProgram::class);
     }
     public function dailyNutritions()
     {

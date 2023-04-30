@@ -5,14 +5,16 @@ import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 
-const Discover = ({navigation}: any) => {
-  const {getPrograms,programs} = useProgram();
+const MyPrograms = ({navigation}: any) => {
+  const {currentUser} = useAuth()
+  const {getUserPrograms,userPrograms} = useProgram();
 
   useEffect(()=>{
-    getPrograms();
-  },[])
+    getUserPrograms(currentUser!.user!.id);
+  },[currentUser])
   return (
     <SafeAreaView style={{paddingHorizontal: 12, flex: 1}}>
       <ScrollView style={{marginTop: 12,marginBottom: 4}} showsVerticalScrollIndicator={false}>
@@ -22,13 +24,15 @@ const Discover = ({navigation}: any) => {
             Tous
           </Text>
         </TouchableOpacity>
-        {programs.map((program: any) => {
+        {userPrograms?.map((program: any) => {
+            console.log(program.details)
+          const {id,isFree,category,days,title} = program.details;
           return (
             <TouchableHighlight
-              key={program.id}
+              key={id}
               style={styles.program}
               onPress={() =>
-                navigation.navigate('ProgramDetails', {program: program})
+                navigation.navigate('MyProgramsDetails', {program: program.details})
               }>
               <View>
                 <Image
@@ -43,23 +47,23 @@ const Discover = ({navigation}: any) => {
                     height: '100%',
                     justifyContent: 'center',
                   }}>
-                  {program.isPro ? (
-                    <Text style={styles.tag}>Pro</Text>
+                  {isFree ? (
+                    <Text style={styles.tag}>Free</Text>
                   ) : (
                     <Text
                       style={{
                         ...styles.tag,
                         backgroundColor: '#7D8F69',
                       }}>
-                      Free
+                      Pro
                     </Text>
                   )}
                   <Text style={{fontSize: 18, color: '#fff'}}>
-                    {program.type} {program.days} Days
+                    {category} {days} Days
                   </Text>
                   <Text
                     style={{fontSize: 28, color: '#fff', fontWeight: 'bold'}}>
-                    {program.name}
+                    {title}
                   </Text>
                 </View>
               </View>
@@ -99,4 +103,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Discover;
+export default MyPrograms;

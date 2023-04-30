@@ -22,6 +22,7 @@ import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig'
 import DailyNutrition from '../screens/Food/DailyNutrition';
+import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -57,6 +58,7 @@ const MainNavigator = () => {
           <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
           <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
           <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+          <Stack.Screen name="MyProgramsDetails" component={MyProgramsDetails} />
           <Stack.Screen name="EditWorkout" component={EditWorkout} />
           <Stack.Screen name="ProductDetails" component={ProductDetails} />
           <Stack.Screen name="FoodDetails" component={FoodDetails} />
