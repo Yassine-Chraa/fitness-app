@@ -1,5 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { getUrl } from "../Helper";
+import { setLoadingAnimation, setMessageObject, useMaterialUIController } from "../../UIContext";
+import Swal from "sweetalert2";
 
 const feedbackContext = createContext();
 
@@ -12,42 +14,63 @@ export const useFeedback = () => {
 const feedbackUrl = getUrl("Feedbacks");
 
 export const FeedbackContextProvider = ({ children }) => {
-    const [loading, setLoading] = useState(false);
+    const [controller, dispatch] = useMaterialUIController();
     const [feedbacks, setFeedbacks] = useState([]);
     const getFeedbacks = async () => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${feedbackUrl}`);
             setFeedbacks(data);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
 
         } catch (error) {
             console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
     const getFeedback = async (id) => {
         try {
-            setLoading(true);
+            setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${feedbackUrl}/${id}`);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            setLoading(false);
+            setLoadingAnimation(dispatch, false);
         }
     };
     const deleteFeedback = async (id) => {
-        try {
-            setLoading(true);
-            const { data } = await axios.delete(`${feedbackUrl}/${id}`);
-            getFeedbacks();
-            setLoading(false);
-            return data;
-        } catch (error) {
-            console.log(error);
-            setLoading(false);
-        }
+        Swal.fire({
+            title: "Are you sure to delete feedback",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Yes",
+            width: "max-content",
+            padding: "8px 16px",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    setLoadingAnimation(dispatch, true);
+                    const { data } = await axios.delete(`${feedbackUrl}/${id}`);
+                    getFeedbacks();
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "success",
+                        message: data.message,
+                        state: "mount",
+                    });
+                    return data;
+                } catch (error) {
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "error",
+                        message: "Something Went wrong !",
+                        state: "mount",
+                    });
+                }
+            }
+        });
+
     };
 
     return (

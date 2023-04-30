@@ -12,11 +12,13 @@ class DailyNutrition extends Model
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
         'user_id',
+        'date',
         'energy_consumed',
         'protein_consumed',
         'fat_consumed',
         'fiber_consumed',
-        'carbohydrate_consumed'
+        'carbohydrate_consumed',
+        'energy_expended'
     ];
 
     public function historyItems()

@@ -18,6 +18,12 @@ export type AuthContextType = {
   resetPassword: (email: string) => Promise<string>;
   deleteAccount: () => Promise<any>;
   updateCurrentUser: (user: any) => Promise<Boolean>;
+  weights: Array<any>;
+  getUserWeights: (user_id: number) => Promise<void>;
+  addUserWeight: (user_id: number, value: number, date: string) => Promise<string>;
+  editUserWeight: (user_id: number, value: number, date: string) => Promise<string>;
+  deleteUserWeight: (user_id: number, date: string) => Promise<string>;
+
 };
 const AuthContext = createContext<AuthContextType | null>(null);
 
@@ -37,9 +43,10 @@ const usersUrl = getUrl('Users');
 
 
 export const AuthContextProvider = ({ children }: any) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState(null);
+  const [weights, setWeights] = useState
   const [controller, dispatch] = useUIController();
-  const {isLoading} = controller;
+  const } = controller
 
   const updateState = async () => {
     setCurrentUser(await getData('current_user'));
@@ -49,7 +56,7 @@ export const AuthContextProvider = ({ children }: any) => {
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
       setCurrentUser(data)
-      const storeResult = await storeData('current_user', data);
+      await storeData('current_user', data);
       axios.defaults.headers.common[
         "authorization"
       ] = `Bearer ${data.token}`;
@@ -66,7 +73,7 @@ export const AuthContextProvider = ({ children }: any) => {
     try {
       const { data } = await axios.post(`${signUpUrl}`, form);
       setCurrentUser(data)
-      const storeResult = await storeData('current_user', data);
+      await storeData('current_user', data);
       axios.defaults.headers.common[
         "authorization"
       ] = `Bearer ${data.token}`;
@@ -125,6 +132,40 @@ export const AuthContextProvider = ({ children }: any) => {
       return false;
     }
   }
+  const getUserWeights = async (user_id: number) => {
+    try {
+      const { data } = await axios.get(`${usersUrl}/weights/${user_id}`);
+      setWeights(data);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const addUserWeight = async (user_id: number, value: number, date: string) => {
+    try {
+      const { data } = await axios.post(`${usersUrl}/weights/${user_id}`, { value, date });
+      return data.message;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const editUserWeight = async (user_id: number, value: number, date: string) => {
+    try {
+      const { data } = await axios.put(`${usersUrl}/weights/${user_id}`, { value, date });
+      console.log(data)
+      return data.message;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const deleteUserWeight = async (user_id: number, date: string) => {
+    try {
+      const { data } = await axios.delete(`${usersUrl}/weights/${user_id}/${date}`);
+      console.log(data)
+      return data.message;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <AuthContext.Provider
@@ -137,6 +178,11 @@ export const AuthContextProvider = ({ children }: any) => {
         resetPassword,
         deleteAccount,
         updateCurrentUser,
+        weights,
+        getUserWeights,
+        addUserWeight,
+        editUserWeight,
+        deleteUserWeight
       }}>
       {children}
     </AuthContext.Provider>

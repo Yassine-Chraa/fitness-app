@@ -12,10 +12,9 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 const Tab = createMaterialTopTabNavigator();
 
 const Store = () => {
-  const { currentUser } = useAuth();
   const { getProducts } = useProduct();
   const { getCategories } = useCategory();
-  const updateState = async () => {
+  const updateState = () => {
     getCategories();
     getProducts();
   }

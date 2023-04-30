@@ -13,10 +13,9 @@ const DailyNutrition = () => {
 
   useEffect(() => {
     const now = new Date();
-    const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate()}`;
-    getDailyNutrition(currentUser?.user.id, today);
+    const today = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate() < 10 ? '0' : ''}${now.getDate()}`;
+    getDailyNutrition(currentUser!.user!.id, today);
   }, [forceUpdate])
-
   return (
     <Screen name="Daily Nutrition" backButton noAction>
       <FlatList
@@ -43,7 +42,7 @@ const DailyNutrition = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={{ ...styles.footerText, color: theme.colors.background }}>Energy</Text>
-                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.energy_consumed?.toFixed(1) | 0) + ' kcal'}</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.energy_consumed ? dailyNutrition.energy_consumed.toFixed(1) : 0) + ' kcal'}</Text>
               </View>
               <View
                 style={{
@@ -52,13 +51,13 @@ const DailyNutrition = () => {
                   alignItems: 'center',
                 }}>
                 <Text style={{ ...styles.footerText, color: theme.colors.background }}>Protein</Text>
-                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.protein_consumed?.toFixed(2) | 0) + ' g'}</Text>
+                <Text style={{ ...styles.footerText, color: theme.colors.customCard }}>{(dailyNutrition.energy_consumed ? dailyNutrition.protein_consumed.toFixed(2) : 0) + ' g'}</Text>
               </View>
             </View>
           );
         }}
         data={dailyNutrition.history_items}
-        renderItem={({ item }: any) => <DailyNutritionCard daily_nutrition_id={1} item={item} />}
+        renderItem={({ item }: any) => <DailyNutritionCard daily_nutrition_id={dailyNutrition.id} item={item} />}
 
       />
     </Screen>

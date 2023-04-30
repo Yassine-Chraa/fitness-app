@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useEffect } from 'react';
@@ -37,27 +36,21 @@ const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const { currentUser, updateState } = useAuth();
-  const [controller, dispatch] = useUIController();
-
   useEffect(() => {
-    getData("current_user").then((user) => {
-      setCurrentUser(dispatch, user)
+    if (SplashScreen && currentUser==null) {
+      updateState().then(() => {
+        SplashScreen.hide();
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${currentUser!.token}`;
+      })
+    } else {
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${currentUser?.token}`;
     }
-    );
-  }, [currentUser])
-
-  useEffect(() => {
-    updateState().then(() => {
-      SplashScreen.hide();
-    })
-  }, [SplashScreen]);
-
-  useEffect(() => {
-    axios.defaults.headers.common[
-      "authorization"
-    ] = `Bearer ${currentUser?.token}`;
-  })
-
+  }, [SplashScreen, currentUser]);
+  const [controller, dispatch] = useUIController();
   return (
     <>
 
