@@ -42,7 +42,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/users/weights/{user_id}', [UserController::class, 'addWeight'])->name('users.weights.store');
     Route::put('/users/weights/{user_id}', [UserController::class, 'updateWeight'])->name('users.weights.update');
     Route::delete('/users/weights/{user_id}/{date}', [UserController::class, 'deleteWeight'])->name('users.weights.destory');
-    Route::get('/users/programs/{user_id}', [UserController::class, 'getPrograms'])->name('users.programs.index');
+    Route::get('/users/programs', [UserController::class, 'getPrograms'])->name('users.programs.index');
+    Route::post('/users/programs', [UserController::class, 'createProgram'])->name('users.programs.post');
+    Route::put('/users/programs/{program_id}', [UserController::class, 'updateProgram'])->name('users.programs.update');
+    Route::put('/users/programs/{program_id}', [UserController::class, 'deleteProgram'])->name('users.programs.delete');
+    Route::put('/users/programs/enroll', [UserController::class, 'enrollProgram'])->name('users.programs.enroll');
 
     Route::apiResource('users', UserController::class);
 

@@ -30,6 +30,7 @@ import { useUIController, setCurrentUser } from '../context/UIContext';
 import getData from '../Helpers/Storage/getData';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
+import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -37,7 +38,7 @@ const Stack = createNativeStackNavigator();
 const MainNavigator = () => {
   const { currentUser, updateState } = useAuth();
   useEffect(() => {
-    if (SplashScreen && currentUser==null) {
+    if (SplashScreen && currentUser == null) {
       updateState().then(() => {
         SplashScreen.hide();
         axios.defaults.headers.common[
@@ -53,13 +54,10 @@ const MainNavigator = () => {
   const [controller, dispatch] = useUIController();
   return (
     <>
-
       {/* Animation and alerts here */}
       <LoadingAnimation />
-      <CheckStateAlert/>
-      <ErrorAnimation/>
-
-
+      <CheckStateAlert />
+      <ErrorAnimation />
       <Stack.Navigator
         initialRouteName={currentUser ? 'Auth' : 'Tab'}
         screenOptions={{
@@ -74,6 +72,7 @@ const MainNavigator = () => {
             <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
             <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
             <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+            <Stack.Screen name="MyProgramsDetails" component={MyProgramsDetails} />
             <Stack.Screen name="EditWorkout" component={EditWorkout} />
             <Stack.Screen name="ProductDetails" component={ProductDetails} />
             <Stack.Screen name="FoodDetails" component={FoodDetails} />
@@ -96,7 +95,6 @@ const MainNavigator = () => {
         )}
       </Stack.Navigator>
     </>
-
   );
 };
 export default MainNavigator;

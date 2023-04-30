@@ -7,20 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class Program extends Model
+class UserProgram extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
-        "main_img",
-        "title",
-        "description",
-        'category',
-        "isFree",
-        "difficulty_level",
+        'program_id',
+        'user_id',
+        'isUsed',
     ];
 
-    public function workouts()
+    public function details()
     {
-        return $this->hasMany(WorkOut::class);
+        return $this->belongsTo(Program::class,'program_id');
     }
 }
