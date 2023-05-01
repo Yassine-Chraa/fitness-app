@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View, Dimensions } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Dimensions, Button } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit';
 import Swiper from 'react-native-swiper';
@@ -7,6 +7,8 @@ import Screen from '../components/Screen';
 import theme from '../constants/theme';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import getData from '../Helpers/Storage/getData';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { setIsCheckStateOk, setIsError, useUIController } from '../context/UIContext';
 
 function Home(): JSX.Element {
   const cardWidth = Dimensions.get('window').width - 56;
@@ -18,6 +20,9 @@ function Home(): JSX.Element {
   });
   return (
     <Screen name="Fitness App" allowScroll>
+
+      {/* this section just for test */}
+      <Tester />
 
       <View>
         <View style={styles.card}>
@@ -185,3 +190,47 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
+
+
+//============================================================
+
+const Tester = () => {
+  const [controller, dispatch] = useUIController()
+
+  const pressHandler = () => {
+    setIsCheckStateOk(dispatch,
+      {
+        isCheck: true,
+        isSuccess: true,
+        message: "You have updated your profil successfully !"
+      });
+    // setIsError(dispatch, true);
+  }
+
+  return (
+    <TouchableOpacity activeOpacity={0.6}
+      onPress={pressHandler}
+      style={btnStyle.btnContainer}
+    >
+      <Text style={btnStyle.button}>
+        Test Test
+      </Text>
+    </TouchableOpacity>
+  );
+};
+
+const btnStyle = StyleSheet.create({
+  button: {
+    borderRadius: 10,
+    paddingHorizontal: 60,
+    paddingVertical: 20,
+    color: "white"
+  },
+  btnContainer: {
+    backgroundColor: "blue",
+    margin: 40,
+    borderRadius: 30,
+    borderWidth: 2,
+    borderColor: "red",
+  }
+});

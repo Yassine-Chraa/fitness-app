@@ -30,41 +30,9 @@ const FBLastSlide = ({ goNext, question, currentIndex, feedback, setFeedback }: 
 
     const sendFeedback = () => {
         updateFeedBack();
-        addFeedBack(feedback).then((info) => {
-            Alert.alert(
-                'Done',
-                "You have Sent Your Feedback successfully, do you want to quite ?",
-                [
-                    {
-                        text: 'No',
-                        onPress: () => console.log('Cancel Pressed'),
-                        style: 'cancel',
-                    },
-                    {
-                        text: 'Yes',
-                        onPress: () => navigation.goBack(),
-                    },
-                ],
-                { cancelable: false }
-            );
-        }).catch(() => {
-            Alert.alert(
-                'Error',
-                'There was an error whiling sending you feedback ! try later :)',
-                [
-                    {
-                        text: 'quite',
-                        onPress: () => navigation.goBack(),
-                        style: 'cancel',
-                    },
-                    {
-                        text: 'Try',
-                        onPress: () => console.log('OK Pressed'),
-                    },
-                ],
-                { cancelable: false }
-            );
-        });
+        addFeedBack(feedback).then(() => {
+            navigation.goBack()
+        })
     }
 
     useEffect(() => {

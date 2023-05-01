@@ -29,6 +29,8 @@ import FeedBack from '../screens/Profile/FeedBack';
 import LoadingAnimation from '../components/Animations/LoadingAnimation';
 import { useUIController, setCurrentUser } from '../context/UIContext';
 import getData from '../Helpers/Storage/getData';
+import ErrorAnimation from '../components/Animations/ErrorAnimation';
+import CheckStateAlert from '../components/Animations/CheckStateAlert';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -61,6 +63,8 @@ const MainNavigator = () => {
 
       {/* Animation and alerts here */}
       <LoadingAnimation />
+      <CheckStateAlert/>
+      <ErrorAnimation/>
 
 
       <Stack.Navigator

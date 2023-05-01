@@ -1,26 +1,34 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import { View, StyleSheet } from 'react-native';
 import LottieView from 'lottie-react-native';
-import AnimationJson from '../../assets/animations/loading.json'
-import { useUIController, setLoadAnimation } from '../../context/UIContext';
+import AnimationJson from '../../assets/animations/Error-Robot.json'
+import { useUIController, setIsError } from '../../context/UIContext';
 
-const LoadingAnimation = (): JSX.Element => {
+const ErrorAnimation = (): JSX.Element => {
     const [controller, dispatch] = useUIController()
-    const { isLoading } = controller;
+    const { isError } = controller;
+
+    useEffect(() => {
+        if(isError){
+            setTimeout(() => {
+                setIsError(dispatch, false);
+            }, 2000)
+        }
+    }, [isError])
 
     return (
         <>
             {
-                isLoading ? <View style={style.container}>
+                isError ? <View style={style.container}>
                     <LottieView
                         source={AnimationJson}
                         autoPlay
                         loop
-                        speed={1.5}
+                        speed={1}
                         resizeMode="cover"
                         style={{
-                            width: 280,
-                            height: 280,
+                            width: 380,
+                            height: 380,
                             backgroundColor: 'transparent',
                         }}
                     />
@@ -30,13 +38,13 @@ const LoadingAnimation = (): JSX.Element => {
     );
 };
 
-export default LoadingAnimation;
+export default ErrorAnimation;
 
 const style = StyleSheet.create({
     container: {
         width: '100%',
         height: '100%',
-        backgroundColor: '#00000099',
+        backgroundColor: '#00000044',
         flex: 1,
         position: 'absolute',
         zIndex: 2,

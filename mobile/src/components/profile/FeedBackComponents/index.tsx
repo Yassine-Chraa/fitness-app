@@ -44,7 +44,7 @@ const __FEEDBACK__: FeedBack = {
     f12: 1,
 }
 
-const FeedBackComponents = ({route, navigation}:any): JSX.Element => {
+const FeedBackComponents = (): JSX.Element => {
     const [swiperIndex, setSwiperIndex] = useState(0);
     const [feedback, setFeedback] = useState<FeedBack>(__FEEDBACK__);
     const [user, setUser] = useState<UserInfo>();
@@ -60,8 +60,6 @@ const FeedBackComponents = ({route, navigation}:any): JSX.Element => {
             setSwiperIndex(() => 0);
         }
     };
-
-    // console.log("test ==> "+(questions.length - 1 == swiperIndex))
 
     return (
         <View style={styles.swipperContainer} >

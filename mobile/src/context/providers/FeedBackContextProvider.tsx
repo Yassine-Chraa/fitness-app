@@ -5,7 +5,7 @@ import { getUrl } from '../../Helpers/APIConfig';
 import FeedBack from '../../types/FeedBack';
 import getData from '../../Helpers/Storage/getData';
 import UserInfo from '../../types/UserInfo';
-import { useUIController, setLoadAnimation } from '../UIContext';
+import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
 
 export type feedBackContextType = {
     getFeedBacks: () => Promise<Array<FeedBack>>;
@@ -38,6 +38,7 @@ export const feedBackContextProvider = ({ children }: any) => {
 
     const getFeedBacks = async () => {
         try {
+            setLoadAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${currentUser?.token}`,
@@ -45,10 +46,23 @@ export const feedBackContextProvider = ({ children }: any) => {
             };
 
             const { data } = await axios.get(`${FeedBackUrl}`, config);
-            console.log(data)
+            setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: true,
+                    message: "You have got the feedback successfully !"
+                });
             return data;
         } catch (error) {
             console.log(error);
+            setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Ooops, Something went Wrong !"
+                });
         }
     };
     const getFeedBack = async (id: number) => {
@@ -61,11 +75,23 @@ export const feedBackContextProvider = ({ children }: any) => {
             };
             const { data } = await axios.get(`${FeedBackUrl}`, config);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: true,
+                    message: "Ooops, Something went Wrong !"
+                });
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Ooops, Something went Wrong !"
+                });
         }
     };
     const addFeedBack = async (FeedBack: FeedBack) => {
@@ -80,11 +106,23 @@ export const feedBackContextProvider = ({ children }: any) => {
             const { data } = await axios.post(`${FeedBackUrl}`, FeedBack, config);
             console.log(data)
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: true,
+                    message: "Ooops, Something went Wrong !"
+                });
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Ooops, Something went Wrong !"
+                });
         }
     };
     const updateFeedBack = async (id: number, FeedBack: FeedBack) => {
@@ -97,11 +135,23 @@ export const feedBackContextProvider = ({ children }: any) => {
             };
             const { data } = await axios.put(`${FeedBackUrl}`, FeedBack, config);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: true,
+                    message: "Ooops, Something went Wrong !"
+                });
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Ooops, Something went Wrong !"
+                });
         }
     };
     const deleteFeedBack = async (id: number) => {
@@ -114,11 +164,23 @@ export const feedBackContextProvider = ({ children }: any) => {
             };
             const { data } = await axios.get(`${FeedBackUrl}`, config);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: true,
+                    message: "Ooops, Something went Wrong !"
+                });
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Ooops, Something went Wrong !"
+                });
         }
     };
 
