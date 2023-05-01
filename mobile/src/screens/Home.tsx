@@ -1,7 +1,7 @@
-import React, {useEffect, useState} from 'react';
-import {FlatList, StyleSheet, Text, View, Dimensions} from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { FlatList, StyleSheet, Text, View, Dimensions } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import {BarChart, LineChart, PieChart} from 'react-native-chart-kit';
+import { BarChart, LineChart, PieChart } from 'react-native-chart-kit';
 import Swiper from 'react-native-swiper';
 import Screen from '../components/Screen';
 import theme from '../constants/theme';
@@ -18,13 +18,15 @@ function Home(): JSX.Element {
   });
   return (
     <Screen name="Fitness App" allowScroll>
+
       <View>
         <View style={styles.card}>
           <View>
             <Text style={styles.subtitle}>Calories (cal)</Text>
           </View>
-          <View style={{flexDirection: 'row', alignItems: 'center'}}>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
             <PieChart
+              paddingLeft='0'
               data={[
                 {
                   name: 'TDEE',
@@ -61,7 +63,7 @@ function Home(): JSX.Element {
           </View>
         </View>
         <Swiper
-          style={{height: 325}}
+          style={{ height: 325 }}
           loop={false}
           activeDotColor={theme.colors.primary}>
           <View style={styles.card}>
@@ -111,6 +113,8 @@ function Home(): JSX.Element {
             <Text style={styles.subtitle}>Energy expended</Text>
             <View>
               <BarChart
+                yAxisLabel='0'
+                yAxisSuffix='0'
                 data={{
                   labels: ['M', 'T', 'W', 'T', 'F', 'S', 'Sat'],
                   datasets: [

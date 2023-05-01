@@ -5,6 +5,7 @@ import Product from '../../types/Product';
 import getData from '../../Helpers/Storage/getData';
 import UserInfo from '../../types/UserInfo';
 import storeData from '../../Helpers/Storage/storeData';
+import { useUIController, setLoadAnimation } from '../UIContext';
 
 export type ProductContextType = {
   products: Array<Product>;
@@ -24,7 +25,8 @@ export const useProduct = () => {
 const productUrl = getUrl('Products');
 
 export const ProductContextProvider = ({ children }: any) => {
-  const [loading, setLoading] = useState(false);
+  const [controller, dispatch] = useUIController();
+  const {isLoading} = controller;
   const [products, setProducts] = useState([])
   const getProducts = async () => {
     try {
@@ -35,6 +37,7 @@ export const ProductContextProvider = ({ children }: any) => {
     }
   };
   const addReview = async (review: { user_id: number | undefined, product_id: number | undefined, rating: number }) => {
+    setLoadAnimation(dispatch, true);
     try {
       const { user_id, product_id, rating } = review;
       const { data } = await axios.post(`${productUrl}/rating`, review);
@@ -50,24 +53,32 @@ export const ProductContextProvider = ({ children }: any) => {
         }
       }
       await storeData('current_user', current_user);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (e) {
+      setLoadAnimation(dispatch, false);
       console.log(e)
     }
   }
   const searchProduct = async (keyword: string) => {
+    setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
       setProducts(data);
+      setLoadAnimation(dispatch, false);
     } catch (e) {
+      setLoadAnimation(dispatch, false);
       console.log(e)
     }
   }
   const changeCategory = async (id: number) => {
+    setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.get(`${productUrl}?category_id=${id}`);
       setProducts(data);
+      setLoadAnimation(dispatch, false);
     } catch (e) {
+      setLoadAnimation(dispatch, false);
       console.log(e)
     }
   }

@@ -5,6 +5,7 @@ import { getUrl } from '../../Helpers/APIConfig';
 import FeedBack from '../../types/FeedBack';
 import getData from '../../Helpers/Storage/getData';
 import UserInfo from '../../types/UserInfo';
+import { useUIController, setLoadAnimation } from '../UIContext';
 
 export type feedBackContextType = {
     getFeedBacks: () => Promise<Array<FeedBack>>;
@@ -25,7 +26,8 @@ export const useFeedBack = () => {
 const FeedBackUrl = getUrl('FeedBacks');
 
 export const feedBackContextProvider = ({ children }: any) => {
-    const [loading, setLoading] = useState(false);
+    const [controller, dispatch] = useUIController();
+    const { isLoading } = controller;
     const [currentUser, setCurrentUser] = useState<UserInfo>()
 
     useEffect(() => {
@@ -51,24 +53,24 @@ export const feedBackContextProvider = ({ children }: any) => {
     };
     const getFeedBack = async (id: number) => {
         try {
-            setLoading(true);
+            setLoadAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${currentUser?.token}`,
                 },
             };
             const { data } = await axios.get(`${FeedBackUrl}`, config);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
         }
     };
     const addFeedBack = async (FeedBack: FeedBack) => {
         try {
-            setLoading(true);
+            setLoadAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${currentUser?.token}`,
@@ -77,46 +79,46 @@ export const feedBackContextProvider = ({ children }: any) => {
             console.log(FeedBack) //------------
             const { data } = await axios.post(`${FeedBackUrl}`, FeedBack, config);
             console.log(data)
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
         }
     };
     const updateFeedBack = async (id: number, FeedBack: FeedBack) => {
         try {
-            setLoading(true);
+            setLoadAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${currentUser?.token}`,
                 },
             };
             const { data } = await axios.put(`${FeedBackUrl}`, FeedBack, config);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
         }
     };
     const deleteFeedBack = async (id: number) => {
         try {
-            setLoading(true);
+            setLoadAnimation(dispatch, true);
             const config = {
                 headers: {
                     authorization: `Bearer ${currentUser?.token}`,
                 },
             };
             const { data } = await axios.get(`${FeedBackUrl}`, config);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoading(false);
+            setLoadAnimation(dispatch, false);
         }
     };
 

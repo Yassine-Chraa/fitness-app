@@ -1,8 +1,10 @@
 import axios from '../../Helpers/axiosConfig';
-import { createContext, useContext, useState } from 'react';
+import { createContext, useContext, useState, useEffect } from 'react';
 import { Alert } from 'react-native';
-import { getUrl, currentUser } from '../../Helpers/APIConfig';
+import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
+import UserInfo from '../../types/UserInfo';
+import { useUIController, setLoadAnimation } from '../UIContext';
 
 export type ProductContextType = {
   getProducts: () => Promise<Array<Product>>;
@@ -22,12 +24,14 @@ export const useProduct = () => {
 const productUrl = getUrl('Products');
 
 export const ProductContextProvider = ({ children }: any) => {
-  const [loading, setLoading] = useState(false);
+  const [controller, dispatch] = useUIController()
+  const { currentUser } = controller;
+
   const getProducts = async () => {
     try {
       const config = {
         headers: {
-          authorization: `Bearer ${currentUser.token}`,
+          authorization: `Bearer ${currentUser?.token}`,
         },
       };
 
@@ -40,70 +44,70 @@ export const ProductContextProvider = ({ children }: any) => {
   };
   const getProduct = async (id: number) => {
     try {
-      setLoading(true);
+      setLoadAnimation(dispatch, true);
       const config = {
         headers: {
-          authorization: `Bearer ${currentUser.token}`,
+          authorization: `Bearer ${currentUser?.token}`,
         },
       };
       const { data } = await axios.get(`${productUrl}`, config);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {
       Alert.alert('Something went wrong');
       console.log(error);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
     }
   };
   const addProduct = async (product: Product) => {
     try {
-      setLoading(true);
+      setLoadAnimation(dispatch, true);
       const config = {
         headers: {
-          authorization: `Bearer ${currentUser.token}`,
+          authorization: `Bearer ${currentUser?.token}`,
         },
       };
       const { data } = await axios.post(`${productUrl}`, product, config);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {
       Alert.alert('Something went wrong');
       console.log(error);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
     }
   };
   const updateProduct = async (id: number, product: Product) => {
     try {
-      setLoading(true);
+      setLoadAnimation(dispatch, true);
       const config = {
         headers: {
-          authorization: `Bearer ${currentUser.token}`,
+          authorization: `Bearer ${currentUser?.token}`,
         },
       };
       const { data } = await axios.put(`${productUrl}`, product, config);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {
       Alert.alert('Something went wrong');
       console.log(error);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
     }
   };
   const deleteProduct = async (id: number) => {
     try {
-      setLoading(true);
+      setLoadAnimation(dispatch, true);
       const config = {
         headers: {
-          authorization: `Bearer ${currentUser.token}`,
+          authorization: `Bearer ${currentUser?.token}`,
         },
       };
       const { data } = await axios.get(`${productUrl}`, config);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {
       Alert.alert('Something went wrong');
       console.log(error);
-      setLoading(false);
+      setLoadAnimation(dispatch, false);
     }
   };
 
