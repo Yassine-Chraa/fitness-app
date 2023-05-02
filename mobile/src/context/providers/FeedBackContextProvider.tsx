@@ -1,5 +1,5 @@
 import axios from '../../Helpers/axiosConfig';
-import { createContext, useContext, useEffect, useState } from 'react';
+import { createContext, useContext } from 'react';
 import { Alert } from 'react-native';
 import { getUrl } from '../../Helpers/APIConfig';
 import FeedBack from '../../types/FeedBack';
@@ -28,24 +28,13 @@ const FeedBackUrl = getUrl('FeedBacks');
 export const feedBackContextProvider = ({ children }: any) => {
     const [controller, dispatch] = useUIController();
     const { isLoading } = controller;
-    const [currentUser, setCurrentUser] = useState<UserInfo>()
-
-    useEffect(() => {
-        getData("current_user").then((user) =>
-            setCurrentUser(() => user))
-    })
 
 
     const getFeedBacks = async () => {
         try {
             setLoadAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser?.token}`,
-                },
-            };
 
-            const { data } = await axios.get(`${FeedBackUrl}`, config);
+            const { data } = await axios.get(`${FeedBackUrl}`);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
@@ -68,12 +57,7 @@ export const feedBackContextProvider = ({ children }: any) => {
     const getFeedBack = async (id: number) => {
         try {
             setLoadAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser?.token}`,
-                },
-            };
-            const { data } = await axios.get(`${FeedBackUrl}`, config);
+            const { data } = await axios.get(`${FeedBackUrl}`);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
@@ -97,13 +81,8 @@ export const feedBackContextProvider = ({ children }: any) => {
     const addFeedBack = async (FeedBack: FeedBack) => {
         try {
             setLoadAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser?.token}`,
-                },
-            };
             console.log(FeedBack) //------------
-            const { data } = await axios.post(`${FeedBackUrl}`, FeedBack, config);
+            const { data } = await axios.post(`${FeedBackUrl}`, FeedBack);
             console.log(data)
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
@@ -128,12 +107,7 @@ export const feedBackContextProvider = ({ children }: any) => {
     const updateFeedBack = async (id: number, FeedBack: FeedBack) => {
         try {
             setLoadAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser?.token}`,
-                },
-            };
-            const { data } = await axios.put(`${FeedBackUrl}`, FeedBack, config);
+            const { data } = await axios.put(`${FeedBackUrl}`, FeedBack);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
@@ -157,12 +131,7 @@ export const feedBackContextProvider = ({ children }: any) => {
     const deleteFeedBack = async (id: number) => {
         try {
             setLoadAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${currentUser?.token}`,
-                },
-            };
-            const { data } = await axios.get(`${FeedBackUrl}`, config);
+            const { data } = await axios.get(`${FeedBackUrl}`);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {

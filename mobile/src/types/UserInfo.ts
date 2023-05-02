@@ -1,5 +1,5 @@
 export default interface UserInfo {
-  user?:User;
+  user:User;
   ratings: Array<{ user_id: number; product_id: number; rating: number }>;
   token: string;
 }

@@ -7,7 +7,6 @@ import { DailyNutritionContextProvider } from './providers/DailyNutritionProvide
 import { CoachContextProvider } from './providers/CoachesContextProvider'
 import { ExerciseContextProvider } from './providers/ExerciseContextProvider';
 import { ProgramContextProvider } from './providers/ProgramContextProvider';
-import { CoachContextProvider} from './providers/CoachesContextProvider'
 import { feedBackContextProvider } from './providers/FeedBackContextProvider';
 const providers: any = [
   ProductContextProvider,
@@ -17,7 +16,7 @@ const providers: any = [
   DailyNutritionContextProvider,
   CoachContextProvider,
   ProgramContextProvider,
-  ExerciseContextProvider
+  ExerciseContextProvider,
   feedBackContextProvider,
 ];
 

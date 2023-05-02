@@ -8,6 +8,8 @@ import { Picker } from '@react-native-picker/picker';
 
 const MyProgramsDetails = ({ navigation, route }: any) => {
     const { program } = route.params
+    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+
     return (
         <View style={{ paddingHorizontal: 12, flex: 1 }}>
             <ScrollView>
@@ -94,9 +96,12 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                     <Picker
                         onValueChange={(v: string) => console.log(v)}
                         style={{ borderWidth: 1 }}>
-                        <Picker.Item label="Bronze" value="bronze" />
-                        <Picker.Item label="Silver" value="silver" />
-                        <Picker.Item label="gold" value="gold" />
+                        {weekDays.map((day) => {
+                            return (
+                                <Picker.Item label={day} value={day.toLowerCase()} />
+                            )
+                        })}
+
                     </Picker>
                     <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
                         <View style={{ width: '60%', marginTop: 8 }}><Button radius={5}>Add</Button></View>
