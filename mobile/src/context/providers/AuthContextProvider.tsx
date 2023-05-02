@@ -43,10 +43,10 @@ const usersUrl = getUrl('Users');
 
 
 export const AuthContextProvider = ({ children }: any) => {
-  const [currentUser, setCurrentUser] = useState(null);
-  const [weights, setWeights] = useState
+  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [weights, setWeights] = useState([]);
   const [controller, dispatch] = useUIController();
-  const } = controller
+  const {loading} = controller
 
   const updateState = async () => {
     setCurrentUser(await getData('current_user'));

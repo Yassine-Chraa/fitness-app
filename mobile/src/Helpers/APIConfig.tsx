@@ -1,4 +1,4 @@
-const baseURL = 'http://192.168.0.105:8080';
+import {API_URL} from "@env";
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -7,6 +7,7 @@ const endpoints: any = {
   ResetPassword: '/password/email',
   Products: '/api/products',
   Cart: '/api/users/cart',
+  DailyNutrition: '/api/users/dailyNutrition',
   Meals: '/api/meals',
   Users: '/api/users',
   Programs: '/api/programs',
@@ -20,7 +21,7 @@ const endpoints: any = {
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return baseURL + endpoints[endpoint];
+  return API_URL + endpoints[endpoint];
 }
 
 export default endpoints;

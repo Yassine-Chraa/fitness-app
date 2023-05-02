@@ -9,8 +9,6 @@ import { useAuth } from '../context/providers/AuthContextProvider';
 import { Button } from '@rneui/base';
 import axios from '../Helpers/axiosConfig'
 import { useDailyNutrition } from '../context/providers/DailyNutritionProvider';
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import getData from '../Helpers/Storage/getData';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { setIsCheckStateOk, setIsError, useUIController } from '../context/UIContext';
 
@@ -31,32 +29,34 @@ function Home(): JSX.Element {
     setNow(date);
   }
   const getDailyCalory = async () => {
-    var dob = new Date(currentUser?.user?.birth_date);
-    var month_diff = Date.now() - dob.getTime();
-    var age_dt = new Date(month_diff);
-    var year = age_dt.getUTCFullYear();
-    var age = Math.abs(year - 1970);
-    const options = {
-      method: 'GET',
-      url: 'https://fitness-calculator.p.rapidapi.com/dailycalorie',
-      params: {
-        age,
-        gender: 'male',
-        height: '180',
-        weight: '70',
-        activitylevel: 'level_1'
-      },
-      headers: {
-        'X-RapidAPI-Key': '30b507191fmshf1309fbc3a2421ap1d2007jsn670e526d79e4',
-        'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
-      }
-    };
+    if (typeof currentUser?.user?.birth_date == 'string') {
+      var dob = new Date(currentUser?.user?.birth_date)
+      var month_diff = Date.now() - dob.getTime();
+      var age_dt = new Date(month_diff);
+      var year = age_dt.getUTCFullYear();
+      var age = Math.abs(year - 1970);
+      const options = {
+        method: 'GET',
+        url: 'https://fitness-calculator.p.rapidapi.com/dailycalorie',
+        params: {
+          age,
+          gender: 'male',
+          height: '180',
+          weight: '70',
+          activitylevel: 'level_1'
+        },
+        headers: {
+          'X-RapidAPI-Key': '30b507191fmshf1309fbc3a2421ap1d2007jsn670e526d79e4',
+          'X-RapidAPI-Host': 'fitness-calculator.p.rapidapi.com'
+        }
+      };
 
-    try {
-      const { data } = await axios.request(options);
-      setBMR(data.data.BMR);
-    } catch (e) {
-      console.log(e)
+      try {
+        const { data } = await axios.request(options);
+        setBMR(data.data.BMR);
+      } catch (e) {
+        console.log(e)
+      }
     }
   }
   const fetchData1 = async () => {
@@ -73,7 +73,7 @@ function Home(): JSX.Element {
         await addUserWeight(currentUser!.user!.id, Number(weight), now);
         setWeight('')
         setShowModal(false);
-        fetchData()
+        await getUserWeights(currentUser!.user!.id);
       } catch (e) {
         console.log(e)
       }
@@ -85,7 +85,7 @@ function Home(): JSX.Element {
         await editUserWeight(currentUser!.user!.id, Number(weight), now);
         setWeight('')
         setShowModal(false);
-        fetchData()
+        await getUserWeights(currentUser!.user!.id);
       } catch (e) {
         console.log(e)
       }
@@ -96,7 +96,7 @@ function Home(): JSX.Element {
       await deleteUserWeight(currentUser!.user!.id, now);
       setWeight('')
       setShowModal(false);
-      fetchData()
+      await getUserWeights(currentUser!.user!.id);
     } catch (e) {
       console.log(e)
     }
