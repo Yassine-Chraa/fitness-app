@@ -20,7 +20,7 @@ The Fitness App provides the following features:
 - **Exercise Library:** The app includes a library of exercises with step-by-step instructions and demonstration videos.
 - **Advice and Tips:** Users can access advice and tips from certified fitness professionals.
 - **Personalized Plans:** Users can create personalized fitness plans tailored to their specific goals and preferences.
-- **Connect with Coaches and Doctors:** Users can connect with certified coaches and doctors who offer services through the app.
+- **Connect with Coaches:** Users can connect with certified coaches and doctors who offer services through the app.
 
 ## Installation
 

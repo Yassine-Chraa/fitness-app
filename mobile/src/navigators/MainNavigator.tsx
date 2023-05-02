@@ -26,8 +26,7 @@ import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
 import FeedBack from '../screens/Profile/FeedBack';
 import LoadingAnimation from '../components/Animations/LoadingAnimation';
-import { useUIController, setCurrentUser } from '../context/UIContext';
-import getData from '../Helpers/Storage/getData';
+import { useUIController } from '../context/UIContext';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
 import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
@@ -51,7 +50,6 @@ const MainNavigator = () => {
       ] = `Bearer ${currentUser?.token}`;
     }
   }, [SplashScreen, currentUser]);
-  const [controller, dispatch] = useUIController();
   return (
     <>
       {/* Animation and alerts here */}

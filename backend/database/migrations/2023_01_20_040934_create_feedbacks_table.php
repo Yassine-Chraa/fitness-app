@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('feedbacks', function (Blueprint $table) {
-            $table->id()->autoIncrement();
-            $table->bigInteger('user_id');
+            $table->id();
+            $table->bigInteger('user_id',unsigned:true);
             $table->foreign('user_id')->references('id')->on('users')->onUpdate('CASCADE')->onDelete('CASCADE');
             $table->text('message');
             $table->enum('f1', ['1', '2', '3','4'])->default("1");
