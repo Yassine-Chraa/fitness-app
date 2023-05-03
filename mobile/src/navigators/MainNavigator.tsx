@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { useEffect } from 'react';
+import React,{ useEffect } from 'react';
 import { useAuth } from '../context/providers/AuthContextProvider';
 import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
@@ -31,6 +31,10 @@ import { useUIController, setCurrentUser } from '../context/UIContext';
 import getData from '../Helpers/Storage/getData';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
+import ViewProfile from '../components/profile/ViewProfile';
+import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
+import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
+import AchievmentsGallery from '../components/profile/ViewProfile/AchievmentsGallery';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -87,12 +91,16 @@ const MainNavigator = () => {
             <Stack.Screen name="DailyNutrition" component={DailyNutrition} />
             <Stack.Screen name="MyCart" component={MyCart} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
+            <Stack.Screen name="ViewProfile" component={ViewProfile} />
             <Stack.Screen name="Coaches" component={Coaches} />
             <Stack.Screen name="CoachProfile" component={CoachProfile} />
             <Stack.Screen name="GymLocation" component={GymLocation} />
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="ManageWorkOutReminder" component={ManageWorkOutReminder} />
             <Stack.Screen name="FeedBack" component={FeedBack} />
+            <Stack.Screen name="ImageGallery" component={ImageGallery} />
+            <Stack.Screen name="ImageSwipper" component={ImageSwipper} />
+            <Stack.Screen name="AchievmentsGallery" component={AchievmentsGallery} />
           </>
         ) : (
           <>
