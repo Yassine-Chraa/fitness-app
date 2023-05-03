@@ -1,5 +1,4 @@
 import React, { useMemo, useReducer, useContext, createContext } from 'react';
-import UserInfo from '../types/UserInfo';
 import CheckStateType from '../types/CheckStateType';
 const ReactNativeUI = createContext<Array<any>>([]);
 
@@ -9,9 +8,6 @@ const reducer = (state: any, action: any) => {
     switch (action.type) {
         case "SET_LOAD_ANIMATION": {
             return { ...state, isLoading: action.value };
-        }
-        case "SET_CURRENT_USER": {
-            return { ...state, currentUser: action.value };
         }
         case "IS_CHECK_STATE_OK": {
             return { ...state, checkState: action.value };
@@ -27,12 +23,6 @@ const reducer = (state: any, action: any) => {
 };
 
 
-const _USER_: UserInfo = {
-    ratings: [],
-    token: '',
-}
-
-
 const _CHECK_STATE_:CheckStateType = {
     isCheck: false,
     isSuccess: false,
@@ -43,7 +33,6 @@ const _CHECK_STATE_:CheckStateType = {
 const UIControllerProvider = ({ children }: any): JSX.Element => {
     const initialState = {
         isLoading: false,
-        currentUser: _USER_,
         isFailedCheck: false,
         checkState: _CHECK_STATE_,
 
@@ -69,7 +58,6 @@ const useUIController = () => {
 };
 
 const setLoadAnimation = (dispatch: any, value: any) => dispatch({ type: "SET_LOAD_ANIMATION", value });
-const setCurrentUser = (dispatch: any, value: any) => dispatch({ type: "SET_CURRENT_USER", value });
 const setIsCheckStateOk = (dispatch: any, value: any) => dispatch({ type: "IS_CHECK_STATE_OK", value });
 const setIsError = (dispatch: any, value: any) => dispatch({ type: "SET_IS_ERROR", value });
 
@@ -78,7 +66,6 @@ export {
     UIControllerProvider,
     useUIController,
     setLoadAnimation,
-    setCurrentUser,
     setIsCheckStateOk,
     setIsError,
 };

@@ -1,4 +1,4 @@
-import { Card, Divider, Grid } from "@mui/material";
+import { Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import MDBox from "../../components/MDBox";
 import MDTypography from "../../components/MDTypography";
@@ -11,10 +11,6 @@ const ProductDetails = () => {
     const { id } = useParams();
     const { getProduct } = useProduct();
     const [product, setProduct] = useState({});
-    const [colorInd, setColorInd] = useState(0);
-    const [sizeInd, setSizeInd] = useState(0);
-    const sizes = ["XS", "S", "M", "L", "XL"];
-    const colors = ["black", "blue", "white", "green"];
     const fetchData = async () => {
         const data = await getProduct(id);
         console.log(data);

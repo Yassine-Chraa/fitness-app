@@ -144,7 +144,6 @@ const EditProgram = () => {
                                     <img
                                         onClick={() => ImageRef.current.click()}
                                         src={localImgUrl ? localImgUrl : 'https://bit.ly/34BY10g'}
-                                        alt={"main image that describes the program"}
                                         loading="lazy"
                                         style={{ cursor: 'pointer', width: "100%", height: "170px", maxWidth: "280px", borderRadius: "3px" }}
                                     />

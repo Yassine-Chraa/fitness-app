@@ -1,35 +1,18 @@
 import {Image} from '@rneui/themed';
-import React from 'react';
+import {useEffect} from 'react';
 import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useProgram } from '../../context/providers/ProgramContextProvider';
 
 const Discover = ({navigation}: any) => {
-  const programs: any = [
-    {
-      id: 1,
-      name: 'Push/Pull/Legs Program',
-      type: 'Bulking',
-      days: 3,
-      isPro: false,
-    },
-    {
-      id: 2,
-      name: 'Pro Program 1',
-      type: 'Cutting',
-      days: 4,
-      isPro: true,
-    },
-    {
-      id: 3,
-      name: 'Pro Program 2',
-      type: 'Maintaining',
-      days: 3,
-      isPro: true,
-    },
-  ];
+  const {getPrograms,programs} = useProgram();
+
+  useEffect(()=>{
+    getPrograms();
+  },[])
   return (
     <SafeAreaView style={{paddingHorizontal: 12, flex: 1}}>
       <ScrollView style={{marginTop: 12,marginBottom: 4}} showsVerticalScrollIndicator={false}>

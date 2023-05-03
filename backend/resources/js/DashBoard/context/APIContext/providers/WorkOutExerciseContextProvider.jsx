@@ -20,20 +20,14 @@ export const WorkOutExerciseContextProvider = ({ children }) => {
     const getWorkOutExercises = async () => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
+            const { data } = await axios.get(`${WorkOutExerciseUrl}`);
 
             alert("getting all workouts");
-            const { data } = await axios.get(`${WorkOutExerciseUrl}`, config);
+
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
-            alert(WorkOutExerciseUrl)
             setLoadingAnimation(dispatch, false);
         }
     };

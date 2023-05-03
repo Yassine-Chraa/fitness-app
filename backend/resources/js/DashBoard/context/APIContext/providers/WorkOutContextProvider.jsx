@@ -15,8 +15,6 @@ const WorkOutUrl = getUrl('WorkOuts');
 export const WorkOutContextProvider = ({ children }) => {
 
     const [controller, dispatch] = useMaterialUIController();
-
-    //-------------> perfect
     const getWorkOuts = async () => {
         try {
             setLoadingAnimation(dispatch, true);
@@ -25,8 +23,8 @@ export const WorkOutContextProvider = ({ children }) => {
                     authorization: `Bearer ${localStorage.getItem('api_token')}`,
                 },
             };
-            alert("getting all workouts");
             const { data } = await axios.get(`${WorkOutUrl}`, config);
+            console.log(data)
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
@@ -40,12 +38,7 @@ export const WorkOutContextProvider = ({ children }) => {
     const getWorkOut = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${WorkOutUrl}/${id}`, config);
+            const { data } = await axios.get(`${WorkOutUrl}/${id}`);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {

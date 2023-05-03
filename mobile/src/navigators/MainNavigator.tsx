@@ -1,4 +1,3 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React,{ useEffect } from 'react';
@@ -27,10 +26,10 @@ import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
 import FeedBack from '../screens/Profile/FeedBack';
 import LoadingAnimation from '../components/Animations/LoadingAnimation';
-import { useUIController, setCurrentUser } from '../context/UIContext';
-import getData from '../Helpers/Storage/getData';
+import { useUIController } from '../context/UIContext';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
+import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
 import ViewProfile from '../components/profile/ViewProfile';
 import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
 import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
@@ -41,36 +40,26 @@ const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const { currentUser, updateState } = useAuth();
-  const [controller, dispatch] = useUIController();
-
   useEffect(() => {
-    getData("current_user").then((user) => {
-      setCurrentUser(dispatch, user)
+    if (SplashScreen && currentUser == null) {
+      updateState().then(() => {
+        SplashScreen.hide();
+        axios.defaults.headers.common[
+          "authorization"
+        ] = `Bearer ${currentUser!.token}`;
+      })
+    } else {
+      axios.defaults.headers.common[
+        "authorization"
+      ] = `Bearer ${currentUser?.token}`;
     }
-    );
-  }, [currentUser])
-
-  useEffect(() => {
-    updateState().then(() => {
-      SplashScreen.hide();
-    })
-  }, [SplashScreen]);
-
-  useEffect(() => {
-    axios.defaults.headers.common[
-      "authorization"
-    ] = `Bearer ${currentUser?.token}`;
-  })
-
+  }, [SplashScreen, currentUser]);
   return (
     <>
-
       {/* Animation and alerts here */}
       <LoadingAnimation />
-      <CheckStateAlert/>
-      <ErrorAnimation/>
-
-
+      <CheckStateAlert />
+      <ErrorAnimation />
       <Stack.Navigator
         initialRouteName={currentUser ? 'Auth' : 'Tab'}
         screenOptions={{
@@ -85,6 +74,7 @@ const MainNavigator = () => {
             <Stack.Screen name="ExerciceDetails" component={ExerciceDetails} />
             <Stack.Screen name="WorkoutDetails" component={WorkoutDetails} />
             <Stack.Screen name="ProgramDetails" component={ProgramDetails} />
+            <Stack.Screen name="MyProgramsDetails" component={MyProgramsDetails} />
             <Stack.Screen name="EditWorkout" component={EditWorkout} />
             <Stack.Screen name="ProductDetails" component={ProductDetails} />
             <Stack.Screen name="FoodDetails" component={FoodDetails} />
@@ -111,7 +101,6 @@ const MainNavigator = () => {
         )}
       </Stack.Navigator>
     </>
-
   );
 };
 export default MainNavigator;

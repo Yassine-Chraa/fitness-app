@@ -11,6 +11,7 @@ export const useProgram = () => {
 };
 
 const ProgramUrl = getUrl('Programs');
+const uploadUrl = getUrl("Upload");
 
 export const ProgramContextProvider = ({ children }) => {
 
@@ -20,17 +21,11 @@ export const ProgramContextProvider = ({ children }) => {
     const getPrograms = async () => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.get(`${ProgramUrl}`, config);
+            const { data } = await axios.get(`${ProgramUrl}`);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -38,59 +33,47 @@ export const ProgramContextProvider = ({ children }) => {
     const getProgram = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            alert(ProgramUrl)
-            const { data } = await axios.get(`${ProgramUrl}/${id}`, config);
+            const { data } = await axios.get(`${ProgramUrl}/${id}`);
             console.log(data);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
-    const addProgram = async (Program) => {
+    const addProgram = async (Program,imageFile) => {
         try {
+            let res;
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            alert(ProgramUrl)
-            const { data } = await axios.post(`${ProgramUrl}`, Program, config);
-            console.log(JSON.stringify(data))
+            if (imageFile) {
+                const formData = new FormData();
+                formData.append("imageFile", imageFile);
+                const { data } = await axios.post(uploadUrl, formData, {
+                    headers: {
+                        "Content-Type": "multipart/form-data",
+                    },
+                });
+                res = await axios.post(`${ProgramUrl}`, {...Program,main_img: data.img_url});
+            } else {
+                res = await axios.post(`${ProgramUrl}`, Program);
+            }
             setLoadingAnimation(dispatch, false);
-            return data;
+            return true;
         } catch (error) {
             console.log(error);
-            alert(error);
             setLoadingAnimation(dispatch, false);
         }
     };
-    //-------------> perfect
     const updateProgram = async (Program) => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            console.log(Program)
-            const { data } = await axios.put(`${ProgramUrl}/${Program.id}`, Program, config);
+            const { data } = await axios.put(`${ProgramUrl}/${Program.id}`, Program);
             console.log(data)
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log("Error : " + error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
         }
     };
@@ -98,17 +81,11 @@ export const ProgramContextProvider = ({ children }) => {
     const deleteProgram = async (id) => {
         try {
             setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem('api_token')}`,
-                },
-            };
-            const { data } = await axios.delete(`${ProgramUrl}/${id}`, config);
+            const { data } = await axios.delete(`${ProgramUrl}/${id}`);
             setLoadingAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            alert(error)
             setLoadingAnimation(dispatch, false);
         }
     };

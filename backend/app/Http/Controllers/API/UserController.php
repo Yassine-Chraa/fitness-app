@@ -7,7 +7,10 @@ use App\Models\CartItem;
 use App\Models\DailyNutrition;
 use App\Models\NutritionItem;
 use App\Models\Product;
+use App\Models\Program;
 use App\Models\User;
+use App\Models\UserProgram;
+use App\Models\UserWeight;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 
@@ -155,13 +158,13 @@ class UserController extends Controller
         return response()->json(['total' => $count]);
     }
     /**
-     * Get User Cart Product: api/users/cart{id}
+     * Get User Cart Product: api/users/cart/{id}
      *
      * @return \Illuminate\Http\Response
      */
     public function getCart($id)
     {
-        $cart = User::find($id)->cart;
+        $cart = User::findOrFail($id)->cart;
         foreach ($cart as $i => $item) {
             $cart[$i]->product = Product::find($item->product_id);
         }
@@ -203,35 +206,68 @@ class UserController extends Controller
     }
 
     /**
-     * Get Daily Nutrition: api/users/dailyNutrition
+     * Get Last  7 day Nutrition: api/users/dailyNutrition/{user_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getLastNutritions($user_id)
+    {
+        $nutritions = DailyNutrition::where('user_id', $user_id)->orderBy('date', 'asc')->limit(7)->get();
+
+        return response()->json($nutritions);
+    }
+    /**
+     * Get Daily Nutrition: api/users/dailyNutrition/{user_id}/{date}
      *
      * @return \Illuminate\Http\Response
      */
     public function getDailyNutrition($user_id, $date)
     {
-        $dailyNutritions = User::find($user_id)->dailyNutritions;
-        $dailyNutrition = $dailyNutritions->where('date', $date)->first();
-        $dailyNutrition->history_items = $dailyNutrition->historyItems;
+        $dailyNutrition = DailyNutrition::where('user_id', $user_id)->where('date', $date)->first();
+        if ($dailyNutrition) $dailyNutrition->history_items = $dailyNutrition->historyItems;
 
         return response()->json($dailyNutrition);
     }
 
     /**
-     * Post Daily Nutrition item: api/users/dailyNutrition/item
+     * Post Daily Nutrition item: api/users/dailyNutrition/item/{user_id}/{date}
      *
      * @return \Illuminate\Http\Response
      */
-    public function addFood(Request $request)
+    public function addFood(Request $request, $user_id, $date)
     {
         $request->validate([
-            'daily_nutrition_id' => 'required',
             'name' => 'required',
             'api_id' => 'required',
             'poid' => 'required'
         ]);
-
+        $dailyNutrition = DailyNutrition::where('user_id', $user_id)->where('date', $date)->first();
+        if (!$dailyNutrition) {
+            $newDailyNutrition = new DailyNutrition([
+                'user_id' => $user_id,
+                'date' => $date,
+                'energy_consumed' => $request->get('energy'),
+                'protein_consumed' => $request->get('protein'),
+                'fat_consumed' => $request->get('fat'),
+                'fiber_consumed' => $request->get('fiber'),
+                'carbohydrate_consumed' => $request->get('carbohydrate'),
+            ]);
+            $newDailyNutrition->save();
+            $id = $newDailyNutrition->id;
+        } else {
+            DailyNutrition::where('user_id', $user_id)
+                ->where('date', $date)
+                ->update(array(
+                    'energy_consumed' => $dailyNutrition->energy_consumed + $request->get('energy'),
+                    'protein_consumed' => $dailyNutrition->protein_consumed + $request->get('protein'),
+                    'fat_consumed' => $dailyNutrition->fat_consumed + $request->get('fat'),
+                    'fiber_consumed' => $dailyNutrition->fiber_consumed + $request->get('fiber'),
+                    'carbohydrate_consumed' =>  $dailyNutrition->carbohydrate_consumed + $request->get('carbohydrate')
+                ));
+            $id = $dailyNutrition->id;
+        }
         $newItem = new NutritionItem([
-            'daily_nutrition_id' => $request->get('daily_nutrition_id'),
+            'daily_nutrition_id' => $id,
             'name' => $request->get('name'),
             'api_id' => $request->get('api_id'),
             'category' => $request->get('category'),
@@ -246,13 +282,43 @@ class UserController extends Controller
 
         $newItem->save();
 
-        $dailyNutrition = DailyNutrition::findOrFail($request->get('daily_nutrition_id'));
-        $dailyNutrition->energy_consumed += $request->get('energy');
-        $dailyNutrition->protein_consumed += $request->get('protein');
-        $dailyNutrition->fat_consumed += $request->get('fat');
-        $dailyNutrition->fiber_consumed += $request->get('fiber');
-        $dailyNutrition->carbohydrate_consumed += $request->get('carbohydrate');
+        return response()->json(['message' => 'Food Added to daily Nutrition']);
+    }
+
+    /**
+     * Update Daily Nutrition item: api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateFood(Request $request, $daily_nutrition_id, $food_id)
+    {
+        /*$request->validate([
+            'poid' => 'required'
+        ]);*/
+
+
+        $item = NutritionItem::findOrFail($food_id);
+        $temp = ($request->get('poid') / $item->poid);
+
+
+        $dailyNutrition = DailyNutrition::findOrFail($daily_nutrition_id);
+        $dailyNutrition->energy_consumed += $item->energy * ($temp - 1);
+        $dailyNutrition->protein_consumed += $item->protein * ($temp - 1);
+        $dailyNutrition->fat_consumed += $item->fat * ($temp - 1);
+        $dailyNutrition->fiber_consumed +=  $item->fiber * ($temp - 1);
+        $dailyNutrition->carbohydrate_consumed += $item->carbohydrate * ($temp - 1);
         $dailyNutrition->save();
+
+
+        $item->energy *= $temp;
+        $item->protein *= $temp;
+        $item->fat *= $temp;
+        $item->fiber *= $temp;
+        $item->carbohydrate *= $temp;
+        $item->poid = $request->get('poid');
+
+        $item->save();
+
 
         return response()->json(['message' => 'Food Added to daily Nutrition']);
     }
@@ -276,5 +342,189 @@ class UserController extends Controller
         $item->delete();
         $dailyNutrition->save();
         return response()->json(['message' => 'Food deleted from Daily Nutrition']);
+    }
+
+    /**
+     * Get User Weights: api/users/weights/{user_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getWeights($user_id)
+    {
+        $weights = User::findOrFail($user_id)->weights()->orderBy('date', 'asc')->limit(7)->get();
+        return response()->json($weights);
+    }
+
+    /**
+     * Add Weight : api/users/weights/{user_id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function addWeight(Request $request, $user_id)
+    {
+
+        $request->validate([
+            'value' => 'required|numeric|min:0',
+            'date' => 'required',
+        ]);
+
+        $weight = new UserWeight([
+            'user_id' => $user_id,
+            'value' => $request->get('value'),
+            'date' => $request->get('date'),
+        ]);
+
+        $weight->save();
+        return response()->json(['message' => 'Weight Added']);
+    }
+
+    /**
+     * Update Weight : api/users/weights/{id}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function updateWeight(Request $request, $user_id)
+    {
+
+        /*$request->validate([
+            'value' => 'required|numeric|min:0',
+            'date' => 'required',
+        ]);*/
+        UserWeight::where('user_id', '=', $user_id)
+            ->where('date', '=', $request->get('date'))
+            ->update(array('value' =>  $request->get('value'), "date" => $request->get('date')));
+        return response()->json(['message' => "Weight Updated"]);
+    }
+
+    /**
+     * Delete Weight : api/users/weights/{user_id}/{date}
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteWeight($user_id, $date)
+    {
+
+        UserWeight::where('user_id', '=', $user_id)
+            ->where('date', '=', $date)->delete();
+        return response()->json(['Message' => 'Weight Deleted']);
+    }
+
+    /**
+     * Get User Programs: api/users/programs
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getPrograms(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required'],
+        ]);
+        if ($request->has('isUsed')) {
+            $programs = User::findOrFail($request->get('user_id'))->programs->where('isUsed', $request->get('isUsed'));
+        } else {
+            $programs = User::findOrFail($request->get('user_id'))->programs;
+        }
+        foreach ($programs as $i => $program) {
+            $programs[$i]->details->workouts = $program->details->workouts;
+            foreach ($program->details->workouts as $j => $workout) {
+                $programs[$i]->details->workouts[$j]->exercises = $workout->exercises;
+                foreach ($workout->exercises as $k => $exercise) {
+                    $programs[$i]->details->workouts[$j]->exercises[$k]->details = $exercise->details;
+                }
+            }
+        }
+        return response()->json($programs);
+    }
+
+    /**
+     * POST: api/users/programs
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function createProgram(Request $request)
+    {
+        $request->validate([
+            'user_id' => ['required'],
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+        ]);
+        $newProgram = new Program([
+            "main_img" => $request->get('main_img'),
+            "title" => $request->get('title'),
+            "description" => $request->get('description'),
+            "difficulty_level" => $request->get('difficulty_level'),
+            'category' => $request->get('category'),
+            "isFree" => 1,
+            "isPublic" => 0
+        ]);
+        $newProgram->save();
+
+        $newUserProgram = new Program([
+            "user_id" => $request->get('user_id'),
+            "program_id" => $newProgram->id,
+        ]);
+
+        $newUserProgram->save();
+
+        return response()->json(['message' => 'Program Was Created successfully !']);
+    }
+
+    /**
+     * PUT: api/user/programs/{program_id}
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function updateProgram(Request $request,$program_id)
+    {
+        $request->validate([
+            'title' => ['required', 'string', 'min:3', 'max:255'],
+        ]);
+        $userProgram = UserProgram::findOrFail($program_id);
+        if($request->has('isUsed')){
+            $userProgram->isUsed = $request->get('isUsed');
+        }else{
+            $userProgram->title = $request->get('title');
+        }
+
+        $userProgram->save();
+
+        return response()->json(['message' => 'Program Was Updated successfully !']);
+    }
+
+    /**
+     * Delete: api/user/programs/{program_id}
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteProgram($program_id)
+    {
+        $userProgram = UserProgram::findOrFail($program_id);
+        $userProgram->delete();
+
+        return response()->json(['message' => 'Program Was Deleted successfully !']);
+    }
+
+    /**
+     * Post: api/user/programs/enroll
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function enrollProgram(Request $request)
+    {
+        $request->validate([
+            'program_id' => ['required'],
+            'user_id' => ['required'],
+        ]);
+        $newUserProgram = new Program([
+            "program_id" => $request->get('program_id'),
+            "user_id" => $request->get('user_id'),
+        ]);
+
+        $newUserProgram->save();
+
+        return response()->json(['message' => 'Program Was Added successfully !']);
     }
 }

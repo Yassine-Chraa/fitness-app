@@ -1,6 +1,7 @@
 import { createContext, useContext, useState } from "react";
 import { getUrl } from "../Helper";
 import { setLoadingAnimation, setMessageObject, useMaterialUIController } from "../../UIContext";
+import Swal from "sweetalert2";
 
 const productContext = createContext();
 
@@ -120,25 +121,36 @@ export const ProductContextProvider = ({ children }) => {
         }
     };
     const deleteProduct = async (id) => {
-        try {
-            setLoadingAnimation(dispatch, true);
-            const { data } = await axios.delete(`${ProductUrl}/${id}`);
-            getProducts();
-            setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, {
-                type: "success",
-                message: "User deleted successfully",
-                state: "mount",
-            });
-            return data;
-        } catch (error) {
-            setLoadingAnimation(dispatch, false);
-            setMessageObject(dispatch, {
-                type: "error",
-                message: "Something Went wrong !",
-                state: "mount",
-            });
-        }
+        Swal.fire({
+            title: "Are you sure to delete product",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Yes",
+            width: "max-content",
+            padding: "8px 16px",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    setLoadingAnimation(dispatch, true);
+                    const { data } = await axios.delete(`${ProductUrl}/${id}`);
+                    getProducts();
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "success",
+                        message: data.message,
+                        state: "mount",
+                    });
+                } catch (error) {
+                    setLoadingAnimation(dispatch, false);
+                    setMessageObject(dispatch, {
+                        type: "error",
+                        message: "Something Went wrong !",
+                        state: "mount",
+                    });
+                }
+            }
+        });
+
     };
 
     return (

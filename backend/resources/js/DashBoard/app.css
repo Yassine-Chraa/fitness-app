@@ -14,3 +14,7 @@
     width: max-content;
     padding: 4px 13px;
 }
+.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-elevation8.MuiPopover-paper.css-hm2aps-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+        height: 160px;
+        overflow-y: auto;
+}

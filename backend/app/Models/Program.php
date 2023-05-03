@@ -17,16 +17,10 @@ class Program extends Model
         'category',
         "isFree",
         "difficulty_level",
-        "owner_id",
     ];
-
-    public function images()
-    {
-        return $this->hasMany(Resource::class,"program_id");
-    }
 
     public function workouts()
     {
-        return $this->hasMany(WorkOut::class,"program_id");
+        return $this->hasMany(WorkOut::class);
     }
 }

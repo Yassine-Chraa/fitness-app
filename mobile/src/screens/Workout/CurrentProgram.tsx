@@ -1,34 +1,18 @@
 import {Image} from '@rneui/themed';
-import React from 'react';
+import {useEffect} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
 import theme from '../../constants/theme';
+import { useProgram } from '../../context/providers/ProgramContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const CurrentProgram = ({navigation}: any) => {
-  const userProgram: any = {
-    name: 'Test Plan',
-    workouts: [
-      {
-        id: 1,
-        name: 'Push Workout',
-        exercicesNumber: 9,
-        duration: 55,
-      },
-      {
-        id: 2,
-        name: 'Pull Workout',
-        exercicesNumber: 10,
-        duration: 60,
-      },
-      {
-        id: 3,
-        name: 'Legs Workout',
-        exercicesNumber: 5,
-        duration: 90,
-      },
-    ],
-  };
+  const {currentUser} = useAuth()
+  const {getCurrentProgram,currentProgram} = useProgram();
+
+  useEffect(()=>{
+    getCurrentProgram(currentUser!.user!.id);
+  },[currentUser])
   return (
     <View style={{paddingHorizontal: 12, flex: 1}}>
       <ScrollView>
@@ -51,13 +35,13 @@ const CurrentProgram = ({navigation}: any) => {
             </Text>
           </View>
         </View>
-        {userProgram.workouts.map((workout: any) => {
+        {currentProgram?.details?.workouts?.map((workout: any) => {
           return (
             <TouchableOpacity
               key={workout.id}
               style={styles.workout}
               onPress={() =>
-                navigation.navigate('WorkoutDetails', {name: workout.name})
+                navigation.navigate('WorkoutDetails', {name:workout.title,exercises: workout.exercises})
               }>
               <View style={{flexDirection: 'row'}}>
                 <Image
@@ -72,18 +56,20 @@ const CurrentProgram = ({navigation}: any) => {
                       fontWeight: 'bold',
                       marginTop: -4,
                     }}>
-                    {workout.name}
+                    {workout.title}
                   </Text>
                   <Text>
-                    {workout.exercicesNumber} exercices, {workout.duration} min
+                    {workout.day}, {workout.duration} min
                   </Text>
                   <Text
                     style={{
                       backgroundColor: theme.colors.notification,
                       textAlign: 'center',
-                      borderRadius: 12,
+                      borderRadius: 6,
+                      paddingVertical: 3,
+                      paddingHorizontal:4
                     }}>
-                    Not Started
+                    {workout.state}
                   </Text>
                 </View>
               </View>

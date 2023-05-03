@@ -19,7 +19,6 @@ import { Image } from '@mui/icons-material';
 
 
 const imgRegex = /image\/(png|PNG|jpg|JPG|jpeg|JPEG|jfif|JFIF)$/i;
-const vidRegex = /video\/(mp4|gif|GIF|MP4)$/i;
 const categories = ['maintaining', 'bulking', 'cutting'];
 const diff_levels = ['beginner', 'intermediate', 'advanced'];
 
@@ -30,7 +29,7 @@ const AddProgramModal = () => {
     const { openAddProgramModalHandler, reLoadData } = controller;
 
     const [localImgUrl, setLocalImgUrl] = useState(null);
-    const [imageFile, setImageFile] = useState();
+    const [imageFile, setImageFile] = useState('');
     const ImageRef = useRef();
 
     const { addProgram } = useProgram();
@@ -46,13 +45,13 @@ const AddProgramModal = () => {
 
     const upLoadImageHandler = (event) => {
         var file = event.target.files[0];
-        setImageFile(file);
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
             return;
         }
+        setImageFile(file);
         const fileReader = new FileReader();
-        fileReader.onload = (e) => {
+        fileReader.onloadend = (e) => {
             const { result } = e.target;
             if (result) {
                 setLocalImgUrl(result)
@@ -66,14 +65,13 @@ const AddProgramModal = () => {
 
     const confirmAddHandler = async () => {
         const program = {
-            main_img: localImgUrl != null ? localImgUrl : 'https://bit.ly/34BY10g',
             title: localTitle,
             description: localDesc,
             category: localCategory,
-            state: localdiffLevel,
+            difficulty_level: localdiffLevel,
             isFree: false,
         }
-        const result = await addProgram(program);
+        const result = await addProgram(program,imageFile);
         if (result) {
             setOpenAddProgramModalHandler(dispatch, false);
             setReloadData(dispatch, !reLoadData)

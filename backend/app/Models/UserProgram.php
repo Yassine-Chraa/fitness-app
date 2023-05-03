@@ -7,12 +7,17 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class UserWeights extends Model
+class UserProgram extends Model
 {
     use HasApiTokens, HasFactory, Notifiable;
     protected $fillable = [
+        'program_id',
         'user_id',
-        'value',
-        'date',
+        'isUsed',
     ];
+
+    public function details()
+    {
+        return $this->belongsTo(Program::class,'program_id');
+    }
 }

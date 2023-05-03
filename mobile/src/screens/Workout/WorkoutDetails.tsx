@@ -17,26 +17,8 @@ import theme from '../../constants/theme';
 
 const WorkoutDetails = ({navigation, route}: any) => {
   const width = Dimensions.get('screen').width;
-  const {name} = route.params;
-  const workoutExercices = [
-    {
-      id: 1,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-      sets: 3,
-      reps: 12,
-      rest: '90s',
-    },
-    {
-      id: 2,
-      name: 'Dumbbell Incline Bench Press',
-      target: 'Chest',
-      sets: 3,
-      reps: 12,
-      rest: '90s',
-    },
-  ];
-  const [data, setData] = useState(workoutExercices);
+  const {name,exercises} = route.params;
+  const [data, setData] = useState(exercises);
 
   const editWorkout = () => navigation.navigate('EditWorkout', {id: 1});
   return (
@@ -62,7 +44,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                   disabled={isActive}
                   onPress={() =>
                     navigation.navigate('ExerciceDetails', {
-                      name: item.name,
+                      exercise: item.details,
                       type: 'workout',
                     })
                   }>
@@ -88,7 +70,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                     </TouchableWithoutFeedback>
                     <Image
                       style={styles.image}
-                      source={{uri: 'https://placehold.jp/60x60.png'}}
+                      source={{uri: item.details.img}}
                     />
                     <View
                       style={{
@@ -102,14 +84,14 @@ const WorkoutDetails = ({navigation, route}: any) => {
                           color: theme.colors.text,
                           fontWeight: 'bold',
                         }}>
-                        {item.name}
+                        {item.details.title}
                       </Text>
                       <View
                         style={{
                           flexDirection: 'row',
                           justifyContent: 'space-between',
                         }}>
-                        <Text>{item.target}</Text>
+                        <Text>{item.details.category}</Text>
                         <Text style={{marginRight: 8}}>{txt}</Text>
                       </View>
                     </View>
