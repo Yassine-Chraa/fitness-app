@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../Helpers/axiosConfig';
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import storeData from '../../Helpers/Storage/storeData';
 import SignInObj from '../../types/SignInObj';
@@ -55,6 +55,7 @@ export const AuthContextProvider = ({ children }: any) => {
     setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
+      console.log(data)
       setCurrentUser(data)
       await storeData('current_user', data);
       axios.defaults.headers.common[
