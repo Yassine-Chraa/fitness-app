@@ -19,7 +19,7 @@ The Fitness App provides the following features:
 - **Virtual Workouts:** Users can access virtual workouts designed by professional trainers.
 - **Exercise Library:** The app includes a library of exercises with step-by-step instructions and demonstration videos.
 - **Advice and Tips:** Users can access advice and tips from certified fitness professionals.
-- **Personalized Plans:** Users can create personalized fitness plans tailored to their specific goals and preferences.
+- **Daily Nutrition:** Users can create add foods to their daily Nutrition to track and calculate consumed calories.
 - **Connect with Coaches:** Users can connect with certified coaches and doctors who offer services through the app.
 
 ## Installation
