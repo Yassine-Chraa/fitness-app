@@ -1,3 +1,4 @@
+import React from 'react'
 import 'react-native-gesture-handler';
 import { StatusBar, useColorScheme, Platform, UIManager } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';

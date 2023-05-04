@@ -6,6 +6,7 @@ import Screen from '../../Screen';
 import { useNavigation } from '@react-navigation/native';
 import AchievmentsSwipper from './AchievmentsSwipper';
 import ProgressSwipper from './ProgressSwipper';
+import PostTemplate from '../../PostTemplate';
 
 
 const imageTest = require('../../../assets/images/gym.jpg')
@@ -74,11 +75,9 @@ const ViewProfile = (): JSX.Element => {
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
-            <PostCard />
+            <PostTemplate />
+            <PostTemplate />
+            <PostTemplate />
 
         </Screen>
     );

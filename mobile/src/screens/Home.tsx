@@ -125,6 +125,8 @@ function Home(): JSX.Element {
       {/* this section just for test */}
       <Tester />
 
+
+
       <View>
         <View style={styles.card}>
           <View>
@@ -227,7 +229,7 @@ function Home(): JSX.Element {
                 yAxisLabel='0'
                 yAxisSuffix='0'
                 data={{
-                  labels: lastNuritions?.map((item) => {
+                  labels: lastNuritions?.map((item:any) => {
                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
                   }),
                   datasets: [
