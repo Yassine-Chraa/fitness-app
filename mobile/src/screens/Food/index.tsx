@@ -41,7 +41,7 @@ const Food = ({ navigation }: any): JSX.Element => {
     }
   };
   return (
-    <Screen name="Food" allowScroll={false} action='bookmark'>
+    <Screen name="Food" allowScroll={false} noAction>
       <View style={{ flexDirection: 'row', marginBottom: 32 }}>
         <View style={styles.inputContainer}>
           <TextInput

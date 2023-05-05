@@ -7,5 +7,6 @@ export default interface Program {
   category: 'maintaining' | 'bulking' | 'cutting';
   difficulty_level: 'beginner' | 'intermediate' | 'advanced';
   isFree: boolean;
+  days: number;
   workouts: Array<object>
 }

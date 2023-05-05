@@ -42,7 +42,6 @@ class WorkoutController extends Controller
             "title" => $request->get('title'),
             "duration" => $request->get('duration'),
             "day" => $request->get('day'),
-            'state' => $request->get('state'),
         ]);
         $newWorkout->save();
         return response()->json(['message' => 'Workout created successfully !']);
@@ -71,29 +70,15 @@ class WorkoutController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'program_id' => 'required',
             'title' => 'required|min:3',
             'duration' => 'required',
             'day' => 'required',
         ]);
         $workout = Workout::findOrFail($id);
-        if ($request->get('program_id')) {
-            $workout->program_id = $request->get('program_id');
-        }
-        if ($request->get('title')) {
-            $workout->title = $request->get('title');
-        }
-        if ($request->get('duration')) {
-            $workout->duration = $request->get('duration');
-        }
-        if ($request->get('day')) {
-            $workout->day = $request->get('day');
-        }
-        if ($request->get('state')) {
-            $workout->state = $request->get('state');
-        }
-
-        if ($request->get('newExeIds')) {
+        $workout->title = $request->get('title');
+        $workout->duration = $request->get('duration');
+        $workout->day = $request->get('day');
+        if ($request->has('newExeIds')) {
             $newIds = $request->get('newExeIds');
             $oldExes = $workout->workout_exercise()->get();
             if ($oldExes != []) {
@@ -114,11 +99,14 @@ class WorkoutController extends Controller
                 }
             }
             $workout->workout_exercise()->saveMany($data);
+            $workout->save();
+
+            return response()->json(['exercises' => $workout->workout_exercise()->get()]);
+        } else {
+            $workout->save();
+
+            return response()->json(['message' => 'Workout updated successfully !']);
         }
-
-        $workout->save();
-
-        return response()->json(['exercises' => $workout->workout_exercise()->get()]);
     }
 
     /**
@@ -141,7 +129,7 @@ class WorkoutController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function addExercise(Request $request,$workout_id)
+    public function addExercise(Request $request, $workout_id)
     {
         $request->validate([
             'workout_id' => 'required',

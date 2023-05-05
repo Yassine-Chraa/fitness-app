@@ -1,73 +1,73 @@
 import { Image } from '@rneui/themed';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import CheckBox from '@react-native-community/checkbox';
-import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
+import { useExercise } from '../../context/providers/ExerciseContextProvider';
+import { useWorkout } from '../../context/providers/WorkoutContextProvider';
 
-const AllExercices = ({ navigation, route }: any) => {
-  const Exercices = [
-    {
-      id: 1,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 2,
-      name: 'Dumbbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 3,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 4,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-  ];
+const AllExercices = ({ route }: any) => {
+  const navigation: any = useNavigation()
+  const { workoutId } = route.params;
+  const { exercises, getExercises } = useExercise()
+  const { addExerciseToWorkout,getWorkoutExercises } = useWorkout()
 
+  const [checked, setChecked] = useState([]);
+
+  const confirm = async () => {
+    checked.forEach(ele => {
+      addExerciseToWorkout(workoutId, ele)
+    });
+    getWorkoutExercises(workoutId)
+    navigation.goBack('WorkoutDetails')
+  }
+
+  useEffect(() => {
+    getExercises();
+  }, [])
   return (
     <Screen
       action="search"
-      backButton
-      allowScroll
-      actionButton
-      actionButtonType="Confirm">
-      <TouchableOpacity style={styles.filterButton}>
-        <Icon name="filter" color={'#fff'} size={16} />
+      backButton>
+      <ScrollView>
+        <TouchableOpacity style={styles.filterButton}>
+          <Icon name="filter" color={'#fff'} size={16} />
+          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+            Tous
+          </Text>
+        </TouchableOpacity>
+        {exercises.map((exercise: any) => {
+          return (
+            <Exercice exercise={exercise} setChecked={setChecked} />
+          );
+        })}
+      </ScrollView>
+      <TouchableOpacity style={styles.confirmButton} activeOpacity={0.7} onPress={confirm}>
         <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-          Tous
+          Confirm
         </Text>
       </TouchableOpacity>
-      {Exercices.map((exercice: any) => {
-        return (
-          <Exercice exercice={exercice} />
-        );
-      })}
     </Screen>
   );
 };
 
 
-const Exercice = ({ exercice }: any) => {
+const Exercice = ({ exercise, setChecked }: any) => {
   const navigation: any = useNavigation();
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (<TouchableOpacity
-    key={exercice.id}
     style={styles.exercice}
     onPress={() =>
-      navigation.navigate('ExerciceDetails', { type: 'workout',name: exercice.name })
+      navigation.navigate('ExerciceDetails', { type: 'workout', exercise })
     }>
     <View style={{ flexDirection: 'row' }}>
       <Image
         style={styles.image}
-        source={{ uri: 'https://placehold.jp/60x60.png' }}
+        source={{ uri: exercise.img }}
       />
       <View style={{ gap: 4, justifyContent: 'center' }}>
         <Text
@@ -76,15 +76,18 @@ const Exercice = ({ exercice }: any) => {
             color: theme.colors.text,
             fontWeight: 'bold',
           }}>
-          {exercice.name}
+          {exercise.title}
         </Text>
-        <Text>{exercice.target}</Text>
+        <Text>{exercise.category}</Text>
       </View>
     </View>
     <View style={{ justifyContent: 'center' }}>
       <CheckBox
         value={toggleCheckBox}
-        onValueChange={(newValue) => setToggleCheckBox(newValue)}
+        onValueChange={(newValue) => {
+          setToggleCheckBox(newValue);
+          setChecked(prev => [...prev, exercise.id])
+        }}
       />
     </View>
   </TouchableOpacity>)
@@ -97,7 +100,7 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    backgroundColor: theme.colors.statusBar,
+    backgroundColor: theme.colors.button,
     borderRadius: 16,
   },
   image: {
@@ -116,6 +119,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     backgroundColor: theme.colors.customCard,
+  },
+  confirmButton: {
+    zIndex: 2,
+    marginLeft: 'auto',
+    bottom: 20,
+    paddingVertical: 10,
+    paddingHorizontal: 24,
+    borderRadius: 12,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.primary,
   },
 });
 

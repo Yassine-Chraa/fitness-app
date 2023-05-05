@@ -1,24 +1,65 @@
-import {Image} from '@rneui/themed';
-import {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import { Image } from '@rneui/themed';
+import { useState, useCallback } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Modal, Pressable, TextInput } from 'react-native';
+import { Picker } from '@react-native-picker/picker';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
+import { Button } from '@rneui/base';
+import { useWorkout } from '../../context/providers/WorkoutContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
-const CurrentProgram = ({navigation}: any) => {
-  const {currentUser} = useAuth()
-  const {getCurrentProgram,currentProgram} = useProgram();
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+const CurrentProgram = ({ navigation }: any) => {
+  const { currentUser } = useAuth()
+  const { getCurrentProgram, currentProgram, userPrograms } = useProgram();
+  const { addWorkout, updateWorkout, deleteWorkout } = useWorkout()
+  const width = Dimensions.get('screen').width - 24;
+  const [form, setForm] = useState({
+    title: "",
+    duration: Number(),
+    day: "Monday"
+  })
+  const [selectedId, setSelectedId] = useState(-1);
+  const [showForm, setShowForm] = useState(false)
+  const [editMode, setEditMode] = useState(false)
 
-  useEffect(()=>{
-    getCurrentProgram(currentUser!.user!.id);
-  },[currentUser])
+  const submit = async () => {
+    const temp = await addWorkout({ program_id: currentProgram.details.id, ...form });
+    if (temp) {
+      setForm({
+        title: "",
+        duration: Number(),
+        day: "Monday"
+      })
+      setShowForm(false);
+      await getCurrentProgram(currentUser!.user.id)
+    }
+  }
+  const update = async () => {
+    const temp = await updateWorkout(selectedId, form);
+    if (temp) {
+      setForm({
+        title: "",
+        duration: Number(),
+        day: "Monday"
+      })
+      setEditMode(false)
+      setShowForm(false);
+      await getCurrentProgram(currentUser!.user.id)
+    }
+  }
+
+  useFocusEffect(useCallback(() => {
+    getCurrentProgram(currentUser!.user.id);
+  }, [currentUser, userPrograms]))
   return (
-    <View style={{paddingHorizontal: 12, flex: 1}}>
+    <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView>
-        <View style={{marginBottom: 12}}>
+        <View style={{ marginBottom: 12 }}>
           <Image
-            style={{width: '100%', height: 180, borderRadius: 12}}
+            style={{ width: '100%', height: 180, borderRadius: 12 }}
             source={require('../../assets/images/program1.jpg')}
           />
           <View
@@ -29,9 +70,9 @@ const CurrentProgram = ({navigation}: any) => {
               height: '100%',
               justifyContent: 'center',
             }}>
-            <Text style={{fontSize: 18, color: '#fff'}}>Bulking 3 Days</Text>
-            <Text style={{fontSize: 28, color: '#fff', fontWeight: 'bold'}}>
-              Push/Pull/Legs Program
+            <Text style={{ fontSize: 18, color: '#fff' }}>{currentProgram?.details?.category} {currentProgram.details ? currentProgram.details?.days + ' Days' : ''}</Text>
+            <Text style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
+              {currentProgram?.details?.title}
             </Text>
           </View>
         </View>
@@ -41,14 +82,14 @@ const CurrentProgram = ({navigation}: any) => {
               key={workout.id}
               style={styles.workout}
               onPress={() =>
-                navigation.navigate('WorkoutDetails', {name:workout.title,exercises: workout.exercises})
+                navigation.navigate('WorkoutDetails', { workoutId: workout.id, name: workout.title, exercises: workout.exercises })
               }>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Image
                   style={styles.image}
-                  source={{uri: 'https://placehold.jp/80x80.png'}}
+                  source={{ uri: 'https://placehold.jp/80x80.png' }}
                 />
-                <View style={{justifyContent: 'space-between'}}>
+                <View style={{ justifyContent: 'space-between' }}>
                   <Text
                     style={{
                       fontSize: 18,
@@ -67,21 +108,88 @@ const CurrentProgram = ({navigation}: any) => {
                       textAlign: 'center',
                       borderRadius: 6,
                       paddingVertical: 3,
-                      paddingHorizontal:4
+                      paddingHorizontal: 4
                     }}>
                     {workout.state}
                   </Text>
                 </View>
               </View>
+              <View style={{ flexDirection: 'row', columnGap: 4 }}>
+                <TouchableOpacity style={{ ...styles.btn, backgroundColor: theme.colors.primary }} activeOpacity={0.4} onPress={async () => {
+                  setSelectedId(workout.id)
+                  setEditMode(true)
+                  setShowForm(true)
+                  setForm({
+                    title: workout.title,
+                    duration: workout.duration,
+                    day: workout.day
+                  })
+                }}
+                >
+                  <Icon solid name="edit" size={15} color={'#fff'} />
+                </TouchableOpacity>
+                <TouchableOpacity style={{ ...styles.btn, backgroundColor: theme.colors.secondary }} activeOpacity={0.4} onPress={async () => {
+                  await deleteWorkout(workout.id)
+                  await getCurrentProgram(currentUser!.user.id)
+                }}
+                >
+                  <Icon name="trash" size={15} color={'#fff'} />
+                </TouchableOpacity>
+              </View>
             </TouchableOpacity>
           );
         })}
+        <View style={{ width, justifyContent: 'center', marginTop: 8 }}>
+          <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
+            <Text
+              style={{ color: theme.colors.text, fontSize: 18, fontWeight: 'bold' }}>
+              ADD DAY TO PROGRAM
+            </Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
-          Add Day to Program
-        </Text>
-      </TouchableOpacity>
+      <Modal animationType="slide"
+        transparent={true}
+        visible={showForm}
+      >
+        <View style={styles.modal}>
+          <Pressable style={{ position: 'absolute', right: 8, top: 8 }} onPress={() => {
+            setEditMode(false)
+            setShowForm(false);
+            setForm({
+              title: "",
+              duration: Number(),
+              day: "Monday"
+            })
+          }}><Icon name="times" color={theme.colors.text} size={18} /></Pressable>
+          <Text style={{ fontSize: 20, color: theme.colors.text, fontWeight: 'bold', marginBottom: 8 }}>{editMode ? "Update" : "Create"} Workout</Text>
+          <TextInput value={form.title}
+            onChangeText={(v) => setForm(prev => {
+              return { ...prev, title: v }
+            })}
+            placeholder='Name' style={styles.input} inputMode={"text"} />
+          <TextInput value={form.duration.toString()}
+            onChangeText={(v) => setForm((prev: any) => {
+              return { ...prev, duration: v }
+            })}
+            placeholder='Duration' style={styles.input} inputMode={"decimal"} />
+          <Picker
+            selectedValue={form.day}
+            onValueChange={(v: string) => setForm((prev: any) => {
+              return { ...prev, day: v }
+            })}
+            style={{ borderWidth: 1 }}>
+            {days.map((day) => {
+              return (
+                <Picker.Item label={day} value={day.toLowerCase()} />
+              )
+            })}
+          </Picker>
+          <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
+            <View style={{ width: '60%', marginTop: 12 }}><Button radius={5} onPress={editMode ? update : submit}>Save</Button></View>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -99,17 +207,44 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   addButton: {
-    zIndex: 2,
-    marginLeft: 'auto',
-    bottom: 20,
+    width: '100%',
     paddingVertical: 10,
-    paddingHorizontal: 24,
-    borderRadius: 12,
+    borderRadius: 6,
     flexDirection: 'row',
     justifyContent: 'center',
     alignItems: 'center',
     gap: 10,
-    backgroundColor: theme.colors.primary,
+    borderWidth: 1,
+    borderColor: theme.colors.primary
+  },
+  modal: {
+    marginTop: 'auto',
+    marginBottom: 'auto',
+    marginLeft: 'auto',
+    marginRight: 'auto',
+    paddingVertical: 32,
+    paddingHorizontal: 16,
+    backgroundColor: theme.colors.background,
+    elevation: 4,
+    width: "80%",
+    borderRadius: 6,
+  },
+  input: {
+    backgroundColor: theme.colors.statusBar,
+    paddingHorizontal: 8,
+    borderRadius: 4,
+    marginTop: 8,
+    marginBottom: 6,
+    paddingVertical: 6,
+    marginVertical: 8,
+    fontSize: 15
+  },
+  btn: {
+    height: 26,
+    width: 26,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 });
 
