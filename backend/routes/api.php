@@ -45,8 +45,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/users/programs', [UserController::class, 'getPrograms'])->name('users.programs.index');
     Route::post('/users/programs', [UserController::class, 'createProgram'])->name('users.programs.post');
     Route::put('/users/programs/{program_id}', [UserController::class, 'updateProgram'])->name('users.programs.update');
-    Route::put('/users/programs/{program_id}', [UserController::class, 'deleteProgram'])->name('users.programs.delete');
-    Route::put('/users/programs/enroll', [UserController::class, 'enrollProgram'])->name('users.programs.enroll');
+    Route::delete('/users/programs/{program_id}', [UserController::class, 'deleteProgram'])->name('users.programs.delete');
+    Route::post('/users/programs/enroll', [UserController::class, 'enrollProgram'])->name('users.programs.enroll');
 
     Route::apiResource('users', UserController::class);
 
@@ -55,7 +55,6 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
-    Route::post('/workouts/exercises/{workout_id}', [WorkoutController::class, 'addExercise'])->name('workouts.exercises.store');
     Route::apiResource('workouts', WorkoutController::class);
     Route::apiResource('workoutexercises', WorkoutExerciseController::class);
     Route::apiResource('exercises', ExerciseController::class);

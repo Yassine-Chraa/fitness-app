@@ -13,7 +13,7 @@ const endpoints: any = {
   Programs: '/api/programs',
   UserPrograms: '/api/users/programs',
   Workouts: '/api/workouts',
-  ProgramWorkouts: '/api/programs/workouts',
+  WorkoutExercises: '/api/workoutexercises',
   Exercises: '/api/exercises',
   Categories: '/api/categories',
   FeedBacks: '/api/feedbacks',

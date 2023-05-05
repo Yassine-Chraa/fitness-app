@@ -16,6 +16,15 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::all();
+            foreach ($programs as $i => $program) {
+                $programs[$i]->workouts = $program->workouts;
+                foreach ($program->workouts as $j => $workout) {
+                    $programs[$i]->workouts[$j]->exercises = $workout->exercises;
+                    foreach ($workout->exercises as $k => $exercise) {
+                        $programs[$i]->workouts[$j]->exercises[$k]->details = $exercise->details;
+                    }
+                }
+            }
         return response()->json($programs);
     }
 

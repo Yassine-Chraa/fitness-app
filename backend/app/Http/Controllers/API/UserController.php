@@ -420,20 +420,28 @@ class UserController extends Controller
             'user_id' => ['required'],
         ]);
         if ($request->has('isUsed')) {
-            $programs = User::findOrFail($request->get('user_id'))->programs->where('isUsed', $request->get('isUsed'));
-        } else {
-            $programs = User::findOrFail($request->get('user_id'))->programs;
-        }
-        foreach ($programs as $i => $program) {
-            $programs[$i]->details->workouts = $program->details->workouts;
-            foreach ($program->details->workouts as $j => $workout) {
-                $programs[$i]->details->workouts[$j]->exercises = $workout->exercises;
+            $ret = User::findOrFail($request->get('user_id'))->programs->firstWhere('isUsed', $request->get('isUsed'));
+            $ret->details->workouts = $ret->details->workouts;
+            foreach ($ret->details->workouts as $j => $workout) {
+                $ret->details->workouts[$j]->exercises = $workout->exercises;
                 foreach ($workout->exercises as $k => $exercise) {
-                    $programs[$i]->details->workouts[$j]->exercises[$k]->details = $exercise->details;
+                    $ret->details->workouts[$j]->exercises[$k]->details = $exercise->details;
+                }
+            }
+        } else {
+            $ret = User::findOrFail($request->get('user_id'))->programs;
+            foreach ($ret as $i => $program) {
+                $ret[$i]->details->workouts = $program->details->workouts;
+                foreach ($program->details->workouts as $j => $workout) {
+                    $ret[$i]->details->workouts[$j]->exercises = $workout->exercises;
+                    foreach ($workout->exercises as $k => $exercise) {
+                        $ret[$i]->details->workouts[$j]->exercises[$k]->details = $exercise->details;
+                    }
                 }
             }
         }
-        return response()->json($programs);
+
+        return response()->json($ret);
     }
 
     /**
@@ -446,20 +454,17 @@ class UserController extends Controller
     {
         $request->validate([
             'user_id' => ['required'],
-            'title' => ['required', 'string', 'min:3', 'max:255'],
+            'title' => ['required', 'min:3', 'max:255'],
         ]);
         $newProgram = new Program([
-            "main_img" => $request->get('main_img'),
             "title" => $request->get('title'),
-            "description" => $request->get('description'),
             "difficulty_level" => $request->get('difficulty_level'),
             'category' => $request->get('category'),
-            "isFree" => 1,
             "isPublic" => 0
         ]);
         $newProgram->save();
 
-        $newUserProgram = new Program([
+        $newUserProgram = new UserProgram([
             "user_id" => $request->get('user_id'),
             "program_id" => $newProgram->id,
         ]);
@@ -475,16 +480,24 @@ class UserController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function updateProgram(Request $request,$program_id)
+    public function updateProgram(Request $request, $program_id)
     {
-        $request->validate([
-            'title' => ['required', 'string', 'min:3', 'max:255'],
-        ]);
-        $userProgram = UserProgram::findOrFail($program_id);
-        if($request->has('isUsed')){
+
+
+        if ($request->has('isUsed')) {
+            $request->validate([
+                'isUsed' => 'required',
+            ]);
+            $userProgram = UserProgram::findOrFail($program_id);
             $userProgram->isUsed = $request->get('isUsed');
-        }else{
+        } else {
+            $request->validate([
+                'title' => ['required', 'min:3', 'max:255'],
+            ]);
+            $userProgram = Program::findOrFail($program_id);
             $userProgram->title = $request->get('title');
+            $userProgram->difficulty_level = $request->get('difficulty_level');
+            $userProgram->category = $request->get('category');
         }
 
         $userProgram->save();
@@ -501,7 +514,11 @@ class UserController extends Controller
     public function deleteProgram($program_id)
     {
         $userProgram = UserProgram::findOrFail($program_id);
+        $id = $userProgram->program_id;
         $userProgram->delete();
+
+        $program = Program::findOrFail($id);
+        $program->delete();
 
         return response()->json(['message' => 'Program Was Deleted successfully !']);
     }
@@ -518,13 +535,13 @@ class UserController extends Controller
             'program_id' => ['required'],
             'user_id' => ['required'],
         ]);
-        $newUserProgram = new Program([
+        $newUserProgram = new UserProgram([
             "program_id" => $request->get('program_id'),
             "user_id" => $request->get('user_id'),
         ]);
 
         $newUserProgram->save();
 
-        return response()->json(['message' => 'Program Was Added successfully !']);
+        return response()->json(['message' => 'Program Was Enrolled successfully !']);
     }
 }

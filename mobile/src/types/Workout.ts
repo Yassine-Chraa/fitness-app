@@ -1,3 +1,6 @@
 export default interface Workout {
-    id: number;
-};
+  program_id: number;
+  title: string;
+  duration: number;
+  day: string
+}
