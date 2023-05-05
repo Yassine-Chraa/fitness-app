@@ -8,6 +8,7 @@ import { CoachContextProvider } from './providers/CoachesContextProvider'
 import { ExerciseContextProvider } from './providers/ExerciseContextProvider';
 import { ProgramContextProvider } from './providers/ProgramContextProvider';
 import { feedBackContextProvider } from './providers/FeedBackContextProvider';
+import { WorkoutContextProvider } from './providers/WorkoutContextProvider';
 const providers: any = [
   ProductContextProvider,
   AuthContextProvider,
@@ -18,6 +19,7 @@ const providers: any = [
   ProgramContextProvider,
   ExerciseContextProvider,
   feedBackContextProvider,
+  WorkoutContextProvider
 ];
 
 const APIHandlerProvider = Composer(...providers);

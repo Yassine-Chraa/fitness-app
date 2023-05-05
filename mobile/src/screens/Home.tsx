@@ -121,10 +121,6 @@ function Home(): JSX.Element {
   ], forceUpdate])
   return (
     <Screen name="Fitness App" allowScroll>
-
-      {/* this section just for test */}
-      <Tester />
-
       <View>
         <View style={styles.card}>
           <View>
@@ -221,7 +217,7 @@ function Home(): JSX.Element {
             </View>
           </View>
           <View style={styles.card}>
-            <Text style={styles.subtitle}>Energy expended</Text>
+            <Text style={styles.subtitle}>Energy Consumed</Text>
             <View>
               <BarChart
                 yAxisLabel='0'
