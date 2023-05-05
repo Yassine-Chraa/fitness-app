@@ -1,4 +1,4 @@
-import {API_URL} from "@env";
+import {API_URL} from '@env';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -21,6 +21,7 @@ const endpoints: any = {
 };
 
 export function getUrl(endpoint: PropertyKey) {
+  console.log(API_URL)
   return API_URL + endpoints[endpoint];
 }
 
