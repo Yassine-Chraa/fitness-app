@@ -36,14 +36,24 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        $newProgram = new Program([
-            "main_img" => $request->get('main_img'),
-            "title" => $request->get('title'),
-            "description" => $request->get('description'),
-            "difficulty_level" => $request->get('difficulty_level'),
-            'category' => $request->get('category'),
-            "isFree" => $request->get('isFree'),
-        ]);
+        if($request->has('main_img')){
+            $newProgram = new Program([
+                "main_img" => $request->get('main_img'),
+                "title" => $request->get('title'),
+                "description" => $request->get('description'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isFree" => $request->get('isFree'),
+            ]);
+        }else{
+            $newProgram = new Program([
+                "title" => $request->get('title'),
+                "description" => $request->get('description'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isFree" => $request->get('isFree'),
+            ]);
+        }
         $newProgram->save();
         return response()->json(['message' => 'Program created successfully !']);
     }

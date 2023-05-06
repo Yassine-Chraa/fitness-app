@@ -16,9 +16,9 @@ export type WorkoutContextType = {
   updateWorkout: (workoutId: number, workout: { title: string, duration: number, day: string }) => Promise<string>;
   deleteWorkout: (workoutId: number) => Promise<string>;
   getWorkoutExercises: (workout_id: number) => Promise<void>;
-  addExerciseToWorkout: (workout_id: number, exercise_id: number) => Promise<string>;
-  updateWorkoutExercise: (exercise:exeriseParmType) => Promise<string>;
-  deleteWorkoutExercise: (exerciseId:number) => Promise<string>;
+  addExerciseToWorkout: (workout_id: number, exercise_id: number, others: undefined | { sets: number, reps: number, rest: number }) => Promise<string>;
+  updateWorkoutExercise: (exercise: exeriseParmType) => Promise<string>;
+  deleteWorkoutExercise: (exerciseId: number) => Promise<string>;
 };
 const WorkoutContext = createContext<WorkoutContextType | null>(null);
 
@@ -32,7 +32,6 @@ const WorkoutUrl = getUrl('Workouts');
 const workoutExercisesUrl = getUrl('WorkoutExercises');
 
 export const WorkoutContextProvider = ({ children }: any) => {
-  const [workouts, setWorkouts] = useState([])
   const [workoutExercises, setWorkoutExercises] = useState([])
   const addWorkout = async (workout: any) => {
     try {
@@ -66,10 +65,15 @@ export const WorkoutContextProvider = ({ children }: any) => {
       console.log(error);
     }
   }
-  const addExerciseToWorkout = async (workout_id: number, exercise_id: number) => {
+  const addExerciseToWorkout = async (workout_id: number, exercise_id: number, others: undefined | { sets: number, reps: number, rest: number }) => {
     try {
-      const { data } = await axios.post(workoutExercisesUrl, { workout_id, exercise_id });
-      return data.message
+      let res;
+      if (others) {
+        res = await axios.post(workoutExercisesUrl, { workout_id, exercise_id, ...others });
+      } else {
+        res = await axios.post(workoutExercisesUrl, { workout_id, exercise_id });
+      }
+      return res.data.message
     } catch (error) {
       console.log(error);
     }

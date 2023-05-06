@@ -38,6 +38,13 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
+
+    /**
+     * Attempt to log the user into the application.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return bool
+     */
     public function login(Request $request)
     {
         $this->validateLogin($request);
@@ -55,14 +62,17 @@ class LoginController extends Controller
         }
 
         if ($this->attemptLogin($request)) {
-            if ($request->hasSession()) {
-                $request->session()->put('auth.password_confirmed_at', time());
+            if($this->guard()->user()->role != 'admin'){
+                $this->logout($request);
+            }else{
+                if ($request->hasSession()) {
+                    $request->session()->put('auth.password_confirmed_at', time());
+                }
+                //Generate user token
+                $token = $request->user()->createToken("api_token")->plainTextToken;
+                $request->session()->put('api_token', $token);
+                return $this->sendLoginResponse($request);
             }
-            //Generate user token
-            $token = $request->user()->createToken("api_token")->plainTextToken;
-            $request->session()->put('api_token', $token);
-
-            return $this->sendLoginResponse($request);
         }
 
         // If the login attempt was unsuccessful we will increment the number of attempts

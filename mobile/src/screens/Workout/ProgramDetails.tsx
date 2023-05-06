@@ -14,6 +14,7 @@ import theme from '../../constants/theme';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 
+const allowedUsers = ['client', 'vip', 'admin'];
 const ProgramDetails = ({ navigation, route }: any) => {
   const { currentUser } = useAuth();
   const { enrollProgram, useProgramAsCurrent } = useProgram();
@@ -37,10 +38,21 @@ const ProgramDetails = ({ navigation, route }: any) => {
 
   };
   const enroll = () => {
-    enrollProgram(currentUser!.user.id, program.id);
-    useProgramAsCurrent(program.id)
-    navigation.navigate('Current')
-    Alert.alert("Program Enrolled !")
+    if (program.isFree == 1) {
+      enrollProgram(currentUser!.user.id, program.id);
+      useProgramAsCurrent(program.id)
+      navigation.navigate('Current')
+      Alert.alert("Program Enrolled !")
+    } else {
+      if (allowedUsers.includes(currentUser!.user.role)) { 
+        enrollProgram(currentUser!.user.id, program.id);
+        useProgramAsCurrent(program.id)
+        navigation.navigate('Current')
+        Alert.alert("Premium Program Enrolled !")
+      }else{
+        Alert.alert("Became Client To Enroll This Program !")
+      }
+    }
   }
 
   return (

@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import DashboardLayout from "../../layouts/DashboardLayout";
 import DataTable from "../../components/DataTable";
 import MDTypography from "../../components/MDTypography";
-import { useProduct } from "../../context/APIContext/providers/ProductContextProvider";
 import MDBox from "../../components/MDBox";
 import { Card, Grid, Icon, IconButton, Menu, Tooltip } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
