@@ -1,13 +1,13 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from '../../Helpers/axiosConfig';
-import { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import storeData from '../../Helpers/Storage/storeData';
 import SignInObj from '../../types/SignInObj';
 import SignUpObj from '../../types/SignUpObj';
 import UserInfo from '../../types/UserInfo';
 import getData from '../../Helpers/Storage/getData';
-import { useUIController, setLoadAnimation } from '../UIContext';
+import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
 
 export type AuthContextType = {
   currentUser: UserInfo | null;
@@ -46,11 +46,16 @@ export const AuthContextProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [weights, setWeights] = useState([]);
   const [controller, dispatch] = useUIController();
-  const {loading} = controller
+  const { loading } = controller
+
+
 
   const updateState = async () => {
     setCurrentUser(await getData('current_user'));
   };
+
+
+  //-------------------------------
   const signIn = async (form: SignInObj) => {
     setLoadAnimation(dispatch, true);
     try {
@@ -62,9 +67,21 @@ export const AuthContextProvider = ({ children }: any) => {
       ] = `Bearer ${data.token}`;
       await AsyncStorage.setItem('isLogged', 'true');
       setLoadAnimation(dispatch, false);
+      setIsCheckStateOk(dispatch,
+        {
+            isCheck: true,
+            isSuccess: true,
+            message: "You Have Loged In Successfully, Welcome To FitnessApp !"
+        });
       return '_SUCCESS_';
     } catch (error) {
       setLoadAnimation(dispatch, false);
+      setIsCheckStateOk(dispatch,
+        {
+            isCheck: true,
+            isSuccess: false,
+            message: "Oooops! somethingg went wrong. Please, try later !"
+        });
       return '_FAILURE_';
     }
   };
@@ -79,9 +96,21 @@ export const AuthContextProvider = ({ children }: any) => {
       ] = `Bearer ${data.token}`;
       await AsyncStorage.setItem('isLogged', 'true');
       setLoadAnimation(dispatch, false);
+      setIsCheckStateOk(dispatch,
+        {
+            isCheck: true,
+            isSuccess: true,
+            message: "You Have Create An Account Successfully, Welcome To FitnessApp !"
+        });
       return '_SUCCESS_';
     } catch (error) {
       setLoadAnimation(dispatch, false);
+      setIsCheckStateOk(dispatch,
+        {
+            isCheck: true,
+            isSuccess: false,
+            message: "Oooops! somethingg went wrong. Please, try later !"
+        });
       return '_FAILURE_';
     }
   };

@@ -217,7 +217,7 @@ function Home(): JSX.Element {
                 yAxisLabel=''
                 yAxisSuffix=''
                 data={{
-                  labels: lastNuritions?.map((item) => {
+                  labels: lastNuritions?.map((item:any) => {
                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
                   }),
                   datasets: [
