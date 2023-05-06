@@ -6,6 +6,7 @@ import {WorkOutContextProvider} from './providers/WorkOutContextProvider';
 import {ExerciseContextProvider} from './providers/ExerciseContextProvider';
 import { Composer } from "./Composer";
 import { categoryContextProvider } from "./providers/CategoryContextProvider";
+import { WorkOutExerciseContextProvider } from "./providers/WorkOutExerciseContextProvider";
 
 const providers = [
     UserContextProvider,
@@ -15,7 +16,8 @@ const providers = [
     ProgramContextProvider,
     ExerciseContextProvider,
     WorkOutContextProvider,
-    categoryContextProvider
+    categoryContextProvider,
+    WorkOutExerciseContextProvider
 ];
 
 export const APIHandlerProvider = Composer(...providers);

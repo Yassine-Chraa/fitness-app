@@ -30,6 +30,7 @@ import { useUIController } from '../context/UIContext';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
 import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
+import CoachClients from '../screens/Profile/CoachClients';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -78,6 +79,7 @@ const MainNavigator = () => {
             <Stack.Screen name="MyCart" component={MyCart} />
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="Coaches" component={Coaches} />
+            <Stack.Screen name="CoachClients" component={CoachClients} />
             <Stack.Screen name="CoachProfile" component={CoachProfile} />
             <Stack.Screen name="GymLocation" component={GymLocation} />
             <Stack.Screen name="Settings" component={Settings} />

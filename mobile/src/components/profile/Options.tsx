@@ -1,17 +1,24 @@
 import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import Option from './Option';
 import theme from '../../constants/theme';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const Options = () => {
+  const { currentUser } = useAuth()
   return (
     <View style={styles.container}>
-      <Option
+      {currentUser?.user.role == 'coach' ? (<Option
+        title="Clients"
+        iconName="user-alt"
+        BadgeColor={theme.colors.primary}
+        link={'Coaches'}
+      />) : (<Option
         title="Coaches"
         iconName="user-alt"
         BadgeColor={theme.colors.primary}
         link={'Coaches'}
-      />
+      />)}
       <Option
         title="Gym Location"
         iconName="dumbbell"

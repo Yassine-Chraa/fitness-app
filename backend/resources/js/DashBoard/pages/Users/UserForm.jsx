@@ -50,7 +50,7 @@ const UserForm = ({ type, selectedID }) => {
                 top_goal: "bulking",
                 height: 1.75,
                 weight: 70,
-                birth_date: "",
+                birth_date: "2000-01-01",
             });
         }
     };

@@ -1,21 +1,25 @@
-import { Card, Checkbox, Chip, Grid } from "@mui/material";
-import ImageListItem from "@mui/material/ImageListItem";
-import ImageListItemBar from "@mui/material/ImageListItemBar";
+import { Card, Grid } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import MDBox from "../../../../components/MDBox";
 import MDButton from "../../../../components/MDButton";
 import MDInput from "../../../../components/MDInput";
-import MDTypography from "../../../../components/MDTypography";
-import { useMaterialUIController } from "../../../../context/UIContext";
 import { useWorkOut } from "../../../../context/APIContext/providers/WorkOutContextProvider";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { Menu, IconButton,Tooltip,Icon } from "@mui/material";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import EditIcon from "@mui/icons-material/Edit";
+import DeleteIcon from "@mui/icons-material/Delete";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import MDTypography from "../../../../components/MDTypography";
 import DashboardLayout from "../../../../layouts/DashboardLayout";
 import { Link, useParams } from "react-router-dom";
 import { useExercise } from "../../../../context/APIContext/providers/ExerciseContextProvider";
-import MDAvatar from "../../../../components/MDAvatar";
+import { useWorkOutExercise } from "../../../../context/APIContext/providers/WorkOutExerciseContextProvider";
+import DataTable from "../../../../components/DataTable";
+import { useMaterialUIController } from "../../../../context/UIContext";
 
 const days = [
     "sunday",
@@ -29,10 +33,140 @@ const days = [
 const categories = ["all", "checked", "a", "b", "c", "d", "e", "f"];
 const states = ["progress", "unstarted", "finished"];
 
-const EditWorkOut = () => {
+const ActionMenu = ({ id, setType, setSelectedID }) => {
+    const { deleteExercise } = useExercise();
+    const [openMenu, setOpenMenu] = useState(false);
+    const handleOpenMenu = (event) => {
+        setOpenMenu(event.currentTarget);
+    };
+    const handleCloseMenu = () => setOpenMenu(false);
     const [controller, dispatch] = useMaterialUIController();
+
+    const openEditHandler = () => {
+        setSelectedID(id);
+        setType("Edit");
+        setOpenMenu(false);
+        setOpenFormHandler(dispatch, true);
+    };
+
+    const settingMenu = () => {
+        return (
+            <Menu
+                anchorEl={openMenu}
+                anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                }}
+                open={Boolean(openMenu)}
+                onClose={handleCloseMenu}
+            >
+                <MDBox
+                    sx={{
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Link
+                        onClick={(e) => (!id ? e.preventDefault() : null)}
+                        to={`/dashboard/exercises/${id}`}
+                    >
+                        <IconButton
+                            size="small"
+                            disableRipple
+                            color="success"
+                            variant="outlined"
+                            sx={{
+                                padding: "7px",
+                                transition: "all 0.4s ease",
+                                ":hover": {
+                                    color: "#fff",
+                                    backgroundColor: "#333",
+                                },
+                            }}
+                        >
+                            <RemoveRedEyeIcon
+                                sx={{ fontWeight: "bolder", fontSize: "24" }}
+                            />
+                        </IconButton>
+                    </Link>
+
+                    <IconButton
+                        size="small"
+                        disableRipple
+                        color="warning"
+                        variant="outlined"
+                        onClick={openEditHandler}
+                        sx={{
+                            padding: "7px",
+                            transition: "all 0.4s ease",
+                            ":hover": {
+                                color: "#fff",
+                                backgroundColor: "#333",
+                            },
+                        }}
+                    >
+                        <EditIcon
+                            sx={{ fontWeight: "bolder", fontSize: "24" }}
+                        />
+                    </IconButton>
+                    <IconButton
+                        size="small"
+                        disableRipple
+                        color="error"
+                        variant="outlined"
+                        onClick={() => {
+                            setOpenMenu(false);
+                            deleteExercise(id);
+                        }}
+                        sx={{
+                            padding: "7px",
+                            transition: "all 0.4s ease",
+                            ":hover": {
+                                color: "#fff",
+                                backgroundColor: "#333",
+                            },
+                        }}
+                    >
+                        <DeleteIcon
+                            sx={{ fontWeight: "bolder", fontSize: "24" }}
+                        />
+                    </IconButton>
+                </MDBox>
+            </Menu>
+        );
+    };
+
+    return (
+        <div>
+            {settingMenu()}
+            <IconButton
+                size="small"
+                disableRipple
+                color="inherit"
+                sx={{
+                    backgroundColor: "#ddd",
+                    transition: "all 0.4s ease-in-out",
+                    ":hover": {
+                        color: "#fff",
+                        backgroundColor: "#333",
+                    },
+                }}
+                aria-haspopup="false"
+                variant="contained"
+                onClick={handleOpenMenu}
+            >
+                <MoreVertIcon sx={{ fontWeight: "bolder", fontSize: "24" }} />
+            </IconButton>
+        </div>
+    );
+};
+
+const EditWorkOut = () => {
     const { getExercises, exercises } = useExercise();
     const { updateWorkOut, getWorkOut } = useWorkOut();
+    const { getWorkOutExercises, workoutExercises } = useWorkOutExercise();
     const [localDay, setLocalDay] = useState(days[0]);
     const [localState, setLocalState] = useState(states[0]);
     const [localTitle, setLocalTitle] = useState("");
@@ -116,6 +250,7 @@ const EditWorkOut = () => {
                 setLocalSample(all);
             }
         }
+        await getWorkOutExercises(workOutID);
     };
 
     useEffect(() => {
@@ -236,7 +371,7 @@ const EditWorkOut = () => {
                         </MDBox>
                     </Grid>
                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6}>
-                        <Grid
+                        {/*<Grid
                             container
                             spacing={1}
                             my={1}
@@ -257,9 +392,10 @@ const EditWorkOut = () => {
                                 </Grid>
                             ))}
                         </Grid>
+                         */}
                         <ListOfExercises
                             exercises={exercises}
-                            workOutExercises={localWorkOutExercises}
+                            workoutExercises={workoutExercises}
                         />
                     </Grid>
                 </Grid>
@@ -272,16 +408,85 @@ export default EditWorkOut;
 
 const label = { inputProps: { "aria-label": "Checkbox" } };
 
-export const ListOfExercises = ({ exercises, workOutExercises }) => {
-    const [checkEvent, setCheckEvent] = useState(true);
-    const checkHandler = (isChecked, index) => {
-        exercises[index].checked = isChecked ? 1 : 0;
-        setCheckEvent((prev) => !prev);
+export const ListOfExercises = ({ workoutExercises }) => {
+    const [selectedID, setSelectedID] = useState(0);
+    const [type, setType] = useState("Add");
+    const openFormInvoker = () => {
+        setType("Add");
+        setOpenFormHandler(dispatch, true);
     };
+
+    const dataLabels = [
+        {
+            Header: "Id",
+            accessor: "id",
+            width: "5%",
+            align: "center",
+        },
+        {
+            Header: "Title",
+            accessor: "title",
+        },
+        {
+            Header: "Category",
+            accessor: "category",
+            align: "center",
+        },
+        {
+            Header: "Actions",
+            isSorted: false,
+            accessor: "actions",
+            width: "12%",
+            align: "center",
+        },
+    ];
+
+    const data = workoutExercises?.map((ele) => {
+        const { id, title, category } = ele.details;
+        return {
+            id: (
+                <MDTypography
+                    component="p"
+                    variant="caption"
+                    color="text"
+                    fontWeight="medium"
+                >
+                    {id}
+                </MDTypography>
+            ),
+            title: (
+                <MDTypography
+                    component="p"
+                    variant="caption"
+                    color="text"
+                    fontWeight="medium"
+                >
+                    {title}
+                </MDTypography>
+            ),
+
+            category: (
+                <MDTypography
+                    component="p"
+                    variant="caption"
+                    color="text"
+                    fontWeight="medium"
+                >
+                    {category}
+                </MDTypography>
+            ),
+            actions: (
+                <ActionMenu
+                    id={id}
+                    setType={setType}
+                    setSelectedID={setSelectedID}
+                />
+            ),
+        };
+    });
     return (
         <Card
             sx={{
-                height: 460,
                 overflowX: "hidden",
                 overflowY: "scroll",
                 padding: "0.3rem",
@@ -292,32 +497,40 @@ export const ListOfExercises = ({ exercises, workOutExercises }) => {
         >
             <Grid
                 container
-                spacing={1}
                 style={{
                     display: "flex",
                     justifyContent: "center",
                     alignContent: "center",
                 }}
             >
-                {exercises.map((item) => (
-                    <Grid
-                        px={2}
-                        py={4}
-                        container
-                        key={item.id}
-                        alignItems={"center"}
-                    >
-                        <MDAvatar
-                            src={item.img}
-                            size={50}
-                            style={{ borderRadius: 4 }}
-                        />
-                        <div style={{marginLeft: '8px'}}>
-                            <h6 style={{fontSize: 14}}>{item.title}</h6>
-                            <span style={{fontSize: 12,backgroundColor: '#315',padding: '2px 4px',borderRadius: '3px',backgroundColor: 'rgb(255, 214, 92)'}}>{item.category}</span>
-                        </div>
-                    </Grid>
-                ))}
+                <DataTable
+                    canSearch={true}
+                    table={{
+                        columns: dataLabels,
+                        rows: data,
+                    }}
+                />
+                <MDBox
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "flex-start",
+                        marginLeft: "1rem",
+                        marginBottom: "1rem",
+                    }}
+                >
+                    <Tooltip title="Add new Product">
+                        <IconButton
+                            onClick={() => {
+                                openFormInvoker();
+                            }}
+                            color="black"
+                            sx={{ backgroundColor: "#ddd" }}
+                        >
+                            <Icon>add</Icon>
+                        </IconButton>
+                    </Tooltip>
+                </MDBox>
             </Grid>
         </Card>
     );
