@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = RouteServiceProvider::Dashboard;
+    protected $redirectTo = RouteServiceProvider::Start;
 
     /**
      * Create a new controller instance.
@@ -58,7 +58,18 @@ class RegisterController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
     }
+    public function logout(Request $request)
+    {
+        $this->guard()->logout();
 
+        $request->session()->invalidate();
+
+        $request->session()->regenerateToken();
+
+        return $request->wantsJson()
+            ? new JsonResponse([], 204)
+            : redirect('/');
+    }
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
@@ -67,13 +78,16 @@ class RegisterController extends Controller
 
         $this->guard()->login($user);
 
-        if ($response = $this->registered($request, $user)) {
-            return $response;
+        if ($this->guard()->user()->role != 'admin') {
+            $this->logout($request);
+        } else {
+            if ($response = $this->registered($request, $user)) {
+                return $response;
+            }
+
+            $token = $request->user()->createToken("api_token")->plainTextToken;
+            $request->session()->put('api_token', $token);
         }
-
-        $token = $request->user()->createToken("api_token")->plainTextToken;
-        $request->session()->put('api_token', $token);
-
         return $request->wantsJson()
             ? new JsonResponse([], 201)
             : redirect($this->redirectPath());

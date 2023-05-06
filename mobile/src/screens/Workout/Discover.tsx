@@ -1,41 +1,41 @@
-import {Image} from '@rneui/themed';
-import {useEffect,useState} from 'react';
-import {StyleSheet, Text, TouchableHighlight, View} from 'react-native';
-import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
-import {SafeAreaView} from 'react-native-safe-area-context';
+import { Image } from '@rneui/themed';
+import { useCallback, useState } from 'react';
+import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
-const Discover = ({navigation}: any) => {
-  const {currentUser} = useAuth();
-  const {getPrograms,getUserPrograms,programs,userPrograms} = useProgram();
-  const [filtredPrograms,setFiltredPrograms] = useState<any>([])
+const Discover = ({ navigation }: any) => {
+  const { currentUser } = useAuth();
+  const { getPrograms, getUserPrograms, programs, userPrograms } = useProgram();
+  const [filtredPrograms, setFiltredPrograms] = useState<any>([])
 
-  const fetch = async ()=>{
+  const fetch = async () => {
     await getUserPrograms(currentUser!.user.id);
     await getPrograms();
-    const temp = programs.filter(program=>{
-      const map = userPrograms.map((item)=>{
+    const temp = programs.filter(program => {
+      const map = userPrograms.map((item) => {
         return item.details.id;
       })
-      
+
       return map.includes(program.id) == false;
     })
     setFiltredPrograms(temp);
-    
+
   }
-  useEffect(()=>{
+  useFocusEffect(useCallback(() => {
     fetch()
-  },[currentUser])
-  console.log('sss')
+  }, [currentUser]))
   return (
-    <SafeAreaView style={{paddingHorizontal: 12, flex: 1}}>
-      <ScrollView style={{marginTop: 12,marginBottom: 4}} showsVerticalScrollIndicator={false}>
+    <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
+      <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>
         <TouchableOpacity style={styles.filterButton}>
           <Icon name="filter" color={'#fff'} size={15} />
-          <Text style={{color: '#fff', fontSize: 15, fontWeight: 'bold'}}>
+          <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>
             Tous
           </Text>
         </TouchableOpacity>
@@ -45,11 +45,11 @@ const Discover = ({navigation}: any) => {
               key={program.id}
               style={styles.program}
               onPress={() =>
-                navigation.navigate('ProgramDetails', {program: program})
+                navigation.navigate('ProgramDetails', { program: program })
               }>
               <View>
                 <Image
-                  style={{width: '100%', height: 180, borderRadius: 8}}
+                  style={{ width: '100%', height: 180, borderRadius: 8 }}
                   source={require('../../assets/images/program1.jpg')}
                 />
                 <View
@@ -71,11 +71,11 @@ const Discover = ({navigation}: any) => {
                       Free
                     </Text>
                   )}
-                  <Text style={{fontSize: 18, color: '#fff'}}>
+                  <Text style={{ fontSize: 18, color: '#fff' }}>
                     {program.type} {program.days} Days
                   </Text>
                   <Text
-                    style={{fontSize: 28, color: '#fff', fontWeight: 'bold'}}>
+                    style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
                     {program.title}
                   </Text>
                 </View>

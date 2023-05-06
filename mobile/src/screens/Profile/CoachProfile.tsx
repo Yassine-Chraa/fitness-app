@@ -7,12 +7,26 @@ import {
   ScrollView,
   TouchableOpacity,
   FlatList,
+  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
+const allowedUsers = ['vip', 'admin'];
 const CoachProfile = ({ navigation, route }: any) => {
+  const {currentUser} = useAuth()
   const { item } = route.params;
+
+  const connect = async ()=>{
+    if (allowedUsers.includes(currentUser!.user.role)){
+      //Connect To Coach
+      //table coachClient
+      //addClient(clientId,coachId)
+    }else{
+      Alert.alert('You must become a Vip User')
+    }
+  }
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -102,6 +116,11 @@ const CoachProfile = ({ navigation, route }: any) => {
           <Icon name="arrow-left" size={22} color={theme.colors.text} />
         </TouchableOpacity>
       </ScrollView>
+      <TouchableOpacity style={styles.addButton} onPress={connect}>
+          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+            Connect
+          </Text>
+        </TouchableOpacity>
     </View>
   );
 };
@@ -152,6 +171,20 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 4,
     backgroundColor: theme.colors.statusBar,
+  },
+  addButton: {
+    zIndex: 2,
+    marginLeft: 'auto',
+    bottom: 10,
+    right: 4,
+    paddingVertical: 10,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    gap: 10,
+    backgroundColor: theme.colors.primary,
   },
 });
 export default CoachProfile;

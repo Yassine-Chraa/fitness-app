@@ -40,10 +40,21 @@ class WorkoutExerciseController extends Controller
             'workout_id' => 'required',
             'exercise_id' => 'required',
         ]);
-        $newWorkoutExercise = new WorkOutExercise([
-            "workout_id" => $request->get('workout_id'),
-            "exercise_id" => $request->get('exercise_id'),
-        ]);
+        if ($request->has('sets')) {
+            $newWorkoutExercise = new WorkOutExercise([
+                "workout_id" => $request->get('workout_id'),
+                "exercise_id" => $request->get('exercise_id'),
+                "sets" => $request->get('sets'),
+                "reps" => $request->get('reps'),
+                "rest" => $request->get('rest')
+            ]);
+        } else {
+            $newWorkoutExercise = new WorkOutExercise([
+                "workout_id" => $request->get('workout_id'),
+                "exercise_id" => $request->get('exercise_id'),
+            ]);
+        }
+
         $newWorkoutExercise->save();
         return response()->json(['message' => 'Exercise added to workout !']);
     }

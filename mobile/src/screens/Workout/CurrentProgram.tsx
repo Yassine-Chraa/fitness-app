@@ -76,10 +76,10 @@ const CurrentProgram = ({ navigation }: any) => {
             </Text>
           </View>
         </View>
-        {currentProgram?.details?.workouts?.map((workout: any) => {
+        {currentProgram?.details?.workouts?.map((workout: any,index) => {
           return (
             <TouchableOpacity
-              key={workout.id}
+              key={index}
               style={styles.workout}
               onPress={() =>
                 navigation.navigate('WorkoutDetails', { workoutId: workout.id, name: workout.title, exercises: workout.exercises })

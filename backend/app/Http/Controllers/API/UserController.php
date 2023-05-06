@@ -56,7 +56,7 @@ class UserController extends Controller
             'top_goal' => $request->get('top_goal'),
             'weight' => $request->get('weight'),
             'workout_level' => $request->get('workout_level'),
-            'bio' => $request->get('bio'),
+            'bio' => $request->has('bio') ? $request->get('bio') : 'Bio Not Added',
         ]);
 
         $newUser->save();

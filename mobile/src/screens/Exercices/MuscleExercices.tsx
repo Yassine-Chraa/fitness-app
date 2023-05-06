@@ -1,65 +1,21 @@
 import { Image } from '@rneui/themed';
-import React, { useCallback, useEffect } from 'react';
-import { Exercises_API_URL, Exercises_API_Token } from '@env';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import axios from 'axios';
-import { useFocusEffect } from '@react-navigation/native';
 import { useExercise } from '../../context/providers/ExerciseContextProvider';
 
 const MuscleExercices = ({ navigation, route }: any) => {
   const {exercises,getMuscleExercises} = useExercise();
   const { muscle } = route.params;
-  const MuscleExercices = [
-    {
-      id: 1,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 2,
-      name: 'Dumbbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 3,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-    {
-      id: 4,
-      name: 'Barbell Incline Bench Press',
-      target: 'Chest',
-    },
-  ];
 
   useEffect(()=>{
     getMuscleExercises(muscle)
   },[muscle])
 
-  const getMuscles = async () => {
-    const { data } = await axios.get(
-      `https://${Exercises_API_URL}/search/`,
-      {
-        headers: {
-          'X-RapidAPI-Key':
-            Exercises_API_Token,
-          'X-RapidAPI-Host':
-            Exercises_API_URL,
-        },
-        params: {name: 'Incline Hammer Curls'},
-      },
-    );
-  }
-  useFocusEffect(
-    useCallback(() => {
-      getMuscles();
-    }, [])
-  )
   return (
-    <Screen name={muscle.name} action="search" backButton allowScroll>
+    <Screen name={muscle} noAction backButton allowScroll>
       <TouchableOpacity style={styles.filterButton}>
         <Icon name="filter" color={'#fff'} size={16} />
         <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>

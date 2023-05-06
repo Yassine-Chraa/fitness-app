@@ -88,24 +88,6 @@ export const ActionMenu = ({ id, setSelectedID }) => {
                         <RemoveRedEyeIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
                     </IconButton>
                 </Link>
-
-                {/* <IconButton
-                    size="small"
-                    disableRipple
-                    color="warning"
-                    variant="outlined"
-                    onClick={openEditHandler}
-                    sx={{
-                        padding: '7px',
-                        transition: 'all 0.4s ease',
-                        ":hover": {
-                            color: '#fff',
-                            backgroundColor: '#333',
-                        }
-                    }}
-                >
-                    <EditIcon sx={{ fontWeight: 'bolder', fontSize: '24' }} />
-                </IconButton> */}
                 <IconButton
                     size="small"
                     disableRipple
@@ -198,7 +180,7 @@ const Programs = () => {
     const fetchData = async () => {
         let res = await getPrograms();
         res = res.map((program) => {
-            const { id, main_img, title, description, owner_id, difficulty_level, category, isFree } = program;
+            const { id, title, category, isFree } = program;
             return {
                 id: (
                     <MDTypography component="p" variant="caption" color="text" fontWeight="medium">
@@ -282,7 +264,11 @@ const Programs = () => {
                                     table={{ columns: dataLabels, rows: data, }}
                                 />
                                 <MDBox sx={{
-                                    width: '100%', display: 'flex', justifyContent: 'flex-end',
+                                    width: "100%",
+                                    display: "flex",
+                                    justifyContent: "flex-start",
+                                    marginLeft: "1rem",
+                                    marginBottom: "1rem",
                                 }}>
                                     <Tooltip title="New Program !">
                                         <IconButton
