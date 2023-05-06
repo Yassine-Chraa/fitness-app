@@ -5,30 +5,32 @@ import {
 } from 'react-native';
 import PostType from '../../types/PostType';
 import { usePost } from '../../context/providers/PostContextProvider';
-import FAImagePicker from '../ImageViews/FAImagePicker';
+import FAImagePicker from '../FAImageHandlers/FAImagePicker';
 
-const PostInput = ({ user_id }: any) => {
+const PostInput = ({ user_id,reLoadPosts }: any) => {
     const [text, setText] = useState('');
-    const [imageUrl, setImageUrl] = useState('');
+    const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [img_url, setImg_url] = useState('')
     const [isVisible, setIsVisible] = useState(false);
     const { addPost } = usePost();
-
-
 
     const handleTextChange = (content: string) => {
         setText(() => content)
     };
 
     const handlePost = async () => {
-        console.log('Text:', text);
-        console.log('img_url:', img_url);
         const post: PostType = {
             content: text,
             image_url: img_url,
             user_id: user_id,
         }
-        await addPost(post);
+        const result = await addPost(post);
+        if(result){
+            setImg_url(() => '');
+            setCurrentImageUrl(() => '');
+            setText(() => '');
+            reLoadPosts();
+        }
     };
 
     const displayModalHandler = () => {
@@ -39,13 +41,13 @@ const PostInput = ({ user_id }: any) => {
         <>
             <FAImagePicker setIsVisible={setIsVisible}
                 isVisible={isVisible}
-                setImageUrl={setImageUrl}
+                setCurrentImageUrl={setCurrentImageUrl}
                 setImg_url={setImg_url}
             />
 
             <View style={styles.container}>
-                <View style={{ ...styles.showImage, borderWidth: imageUrl ? 1 : 0 }}>
-                    {imageUrl && <Image source={{ uri: imageUrl }} style={styles.selectedImage} />}
+                <View style={{ ...styles.showImage, borderWidth: currentImageUrl ? 1 : 0 }}>
+                    {currentImageUrl && <Image source={{ uri: currentImageUrl }} style={styles.selectedImage} />}
                 </View>
                 <View style={styles.contentAreaContainer}>
                     <TouchableOpacity style={styles.writerImageContainer} onPress={() => console.log('')}>
@@ -68,7 +70,7 @@ const PostInput = ({ user_id }: any) => {
                                 <Icon name={'image'} size={18} solid color={'#000d'} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.postButton} activeOpacity={0.5}
-                                onPress={handlePost} disabled={!text && !imageUrl}>
+                                onPress={handlePost} disabled={!text && !currentImageUrl}>
                                 <Text style={styles.postButtonText}>Post</Text>
                             </TouchableOpacity>
                         </View>

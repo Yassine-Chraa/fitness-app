@@ -78,7 +78,7 @@ class PostController extends Controller
      */
     public function getPostByUserId($user_id)
     {
-        $posts = Post::where('user_id', '=', $user_id)->get();
+        $posts = Post::where('user_id', '=', $user_id)->orderBy('created_at', 'desc')->get();
 
         foreach ($posts as $post) {
             $temp = clone $post;

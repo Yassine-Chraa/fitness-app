@@ -23,7 +23,7 @@ export const useReply = () => {
     return context;
 };
 
-const ReplyUrl = getUrl('Replys');
+const ReplyUrl = getUrl('Replies');
 const ReplysByCommentId = getUrl('ReplysByCommentId');
 
 export const ReplyContextProvider = ({ children }: any) => {
@@ -69,11 +69,7 @@ export const ReplyContextProvider = ({ children }: any) => {
     };
     const addReply = async (Reply: ReplyType) => {
         try {
-            setLoadAnimation(dispatch, true);
-            console.log(Reply) //------------
             const { data } = await axios.post(`${ReplyUrl}`, Reply);
-            console.log(data)
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
@@ -84,7 +80,6 @@ export const ReplyContextProvider = ({ children }: any) => {
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,

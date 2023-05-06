@@ -16,7 +16,7 @@ class ReactionController extends Controller
     public function index()
     {
         $reactions = Reaction::all();
-        foreach($reactions as $reaction){
+        foreach ($reactions as $reaction) {
             $reaction->user = $reaction->user;
         }
         return response()->json($reactions);
@@ -30,35 +30,63 @@ class ReactionController extends Controller
      */
     public function store(Request $request)
     {
+        $reactions = Reaction::where('post_id', '=', $request->post_id)->get();
+        $num_likes = count($reactions);
+
         $request->validate([
             'user_id' => ['required'],
             'post_id' => ['required'],
         ]);
+
+        $reactions = Reaction::where('post_id', '=', $request->post_id)
+            ->where('user_id', '=', $request->user_id)
+            ->get();
+        if (count($reactions)) {
+            return response()->json($num_likes);
+        }
 
         $newReaction = new Reaction([
             "user_id" => $request->get('user_id'),
             "post_id" => $request->get('post_id'),
         ]);
         $newReaction->save();
-        return response()->json(['message' => 'Reaction is stored successfully !']);
+
+        return response()->json($num_likes + 1);
     }
 
     /**
      * GET: api/Reactions/{id}
      *
-     * @param  int  $id
+     * @param  int  $post_id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show($post_id)
     {
-        $reaction = Reaction::findOrFail($id);
-        $reaction = [
-            'id' => $reaction->id,
-            'user_id' => $reaction->user_id,
-            'post_id' => $reaction->post_id,
-            'user' => $reaction->user,
-        ];
-        return response()->json($reaction);
+        $reactions = Reaction::where('post_id', '=', $post_id)->orderBy('created_at', 'asc')->get();
+
+        foreach ($reactions as $reaction) {
+            $reaction->user = $reaction->user;
+        }
+
+        return response()->json($reactions);
+    }
+
+    /**
+     * get: api/dgetReactionByPostUserId
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getReactionByPostUserId($user_id, $post_id)
+    {
+        $reactions = Reaction::where('post_id', '=', $post_id)
+            ->where('user_id', '=', $user_id)
+            ->get();
+
+        if (count($reactions) == 0) {
+            return response()->json(0);
+        }
+
+        return response()->json(1);
     }
 
     /**
@@ -73,5 +101,29 @@ class ReactionController extends Controller
         $reaction->delete();
 
         return response()->json(['message' => 'Reaction was deleted successfully !']);
+    }
+
+    /**
+     * delete: api/deleteReactionByPostUserId
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function deleteReactionByPostUserId($user_id, $post_id)
+    {
+        $reactions = Reaction::where('post_id', '=', $post_id)->get();
+        $num_likes = count($reactions);
+
+        $reactions = Reaction::where('post_id', '=', $post_id)
+            ->where('user_id', '=', $user_id)
+            ->get();
+
+        if (count($reactions) == 0) {
+            return response()->json($num_likes);
+        }
+
+        $reaction = $reactions[0];
+        $reaction->delete();
+
+        return response()->json($num_likes - 1);
     }
 }

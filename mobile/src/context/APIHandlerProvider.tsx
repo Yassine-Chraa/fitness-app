@@ -14,6 +14,7 @@ import { ReplyContextProvider } from './providers/ReplyContextProvider';
 import { UpLoadImageContextProvider } from './providers/UpLoadImageContextProvider';
 
 import { WorkoutContextProvider } from './providers/WorkoutContextProvider';
+import { ReactionContextProvider } from './providers/ReactionContextProvider';
 const providers: any = [
   ProductContextProvider,
   AuthContextProvider,
@@ -28,6 +29,7 @@ const providers: any = [
   CommentContextProvider,
   ReplyContextProvider,
   UpLoadImageContextProvider,
+  ReactionContextProvider,
   WorkoutContextProvider
 ];
 

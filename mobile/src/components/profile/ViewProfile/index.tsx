@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import InfoGroup from '../InfoGroup';
-import PostCard from './PostCard';
 import Screen from '../../Screen';
 import { useNavigation } from '@react-navigation/native';
 import AchievmentsSwipper from './AchievmentsSwipper';
@@ -61,9 +60,8 @@ const ViewProfile = ({ route }: any): JSX.Element => {
         loadPosts();
     }, [])
 
-    const addNewPostHandler = (content:any) => {
-        console.log("<<=====(new Post)======>>")
-        console.log(content)
+    const reLoadPosts = () => {
+        loadPosts();
     }
 
     return (
@@ -98,7 +96,7 @@ const ViewProfile = ({ route }: any): JSX.Element => {
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostInput user_id={user_id}/>
+            <PostInput user_id={user_id} reLoadPosts={reLoadPosts}/>
 
             {
                 posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)

@@ -4,14 +4,15 @@ import ListReplies from '../ListReplies';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import InputReply from '../ListReplies/InputReply';
 import { useReply } from '../../../context/providers/ReplyContextProvider';
+import ReplyType from '../../../types/ReplyType';
 
-const Comment = ({ username, text, image, comment_id }: any): JSX.Element => {
+const Comment = ({ username, text, image, comment_id, user_id }: any): JSX.Element => {
     const [showReplies, setShowReplies] = useState(false);
     const [liked, setLiked] = useState(false);
-    const [newReply, setNewReply] = useState('');
     const [showNewReplyInput, setShowNewReplyInput] = useState(false);
     const [replies, setReplies] = useState<any>();
     const { getReplysByCommentId } = useReply();
+    const {addReply} = useReply();
 
     const toggleLike = () => {
         setLiked(!liked);
@@ -21,8 +22,17 @@ const Comment = ({ username, text, image, comment_id }: any): JSX.Element => {
         setShowReplies(!showReplies);
     };
 
-    const newReplyHandler = (text: any) => {
-        setNewReply(() => text);
+    const sendReplyHandler = async (text: any) => {
+        const reply: ReplyType = {
+            content: text,
+            comment_id: comment_id,
+            user_id: user_id,
+        }
+        const result = await addReply(reply);
+        if(result){
+            setShowNewReplyInput(() => false)
+            loadReplies();
+        }
     }
 
     const addNewReplyHandler = () => {
@@ -75,7 +85,7 @@ const Comment = ({ username, text, image, comment_id }: any): JSX.Element => {
                 </View>
             </View>
             {showNewReplyInput && (
-                <InputReply onReply={newReplyHandler} />
+                <InputReply sendReplyHandler={sendReplyHandler} />
             )}
             {showReplies && replies && replies.length > 0 && (
                 <ListReplies replies={replies} />

@@ -9,6 +9,7 @@ const ListComments = ({ comments }: any): JSX.Element => {
             comment_id={comment.id}
             image={comment.user.img_url}
             username={comment.user.name}
+            user_id={comment.user.id}
             text={comment.content}
             key={Math.random()*(isNaN(parseInt(comment.id)) ? 100 : comment.id)}
         />

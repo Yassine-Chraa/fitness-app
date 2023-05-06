@@ -15,7 +15,7 @@ import {
 } from 'react-native-image-picker';
 import { useUpLoadImage } from '../../context/providers/UpLoadImageContextProvider';
 
-const FAImagePicker = ({ isVisible, setIsVisible, setImageUrl, setImg_url }: any): JSX.Element => {
+const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url }: any): JSX.Element => {
 
     const { uploadImage } = useUpLoadImage()
 
@@ -52,12 +52,9 @@ const FAImagePicker = ({ isVisible, setIsVisible, setImageUrl, setImg_url }: any
     const UpLoad = async (response: any) => {
         if (response.assets && response.assets.length > 0) {
             const uri = response.assets[0].uri
-            setImageUrl(() => uri)
+            setCurrentImageUrl(() => uri)
             const img_url = await uploadImage(response.assets[0]);
             setImg_url(img_url)
-
-            console.log("__img_url__ : "+img_url)
-
         } else if (response.didCancel) {
             console.log('User cancelled image picker');
         } else if (response.errorCode) {

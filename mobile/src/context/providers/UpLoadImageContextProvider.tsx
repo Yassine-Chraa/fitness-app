@@ -1,12 +1,10 @@
 import axios from '../../Helpers/axiosConfig';
 import React, { createContext, useContext } from 'react';
 import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
-import { CLOUDINARY_URL, CLOUDINARY_UPLOAD_PRESET } from '@env'
-import RNFetchBlob from 'rn-fetch-blob';
 import { getUrl } from '../../Helpers/APIConfig';
 
 export type UpLoadImageContextType = {
-    uploadImage: (image: any) => Promise<any>;
+    uploadImage: (image: any) => Promise<string|boolean>;
 };
 
 const UpLoadImageContext = createContext<UpLoadImageContextType | null>(null);
@@ -39,12 +37,13 @@ export const UpLoadImageContextProvider = ({ children }: any) => {
             name: `${generateRandomName()}.${extension}`,
             type: `image/${extension}`,
         });
+        let response = false;
         await axios.post(UploadUrl, formData, {
             headers: {
                 'Content-Type': 'multipart/form-data',
             },
         }).then(data => {
-            return data.data.img_url;
+            response = data.data.img_url
         }).catch(err => {
             setIsCheckStateOk(dispatch,
                 {
@@ -52,8 +51,11 @@ export const UpLoadImageContextProvider = ({ children }: any) => {
                     isSuccess: false,
                     message: "Oooops, Something went wrong !!!"
                 });
-            return false
+            response = false
         })
+
+
+        return response
     };
 
 

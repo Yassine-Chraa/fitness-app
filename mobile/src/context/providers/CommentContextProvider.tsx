@@ -69,11 +69,7 @@ export const CommentContextProvider = ({ children }: any) => {
     };
     const addComment = async (Comment: CommentType) => {
         try {
-            setLoadAnimation(dispatch, true);
-            console.log(Comment) //------------
             const { data } = await axios.post(`${CommentUrl}`, Comment);
-            console.log(data)
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
@@ -84,7 +80,6 @@ export const CommentContextProvider = ({ children }: any) => {
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,

@@ -8,6 +8,7 @@ use App\Http\Controllers\API\FeedbackController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProgramController;
+use App\Http\Controllers\API\ReactionController;
 use App\Http\Controllers\API\ReplyController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\WorkoutController;
@@ -63,6 +64,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('programs', ProgramController::class);
 
     Route::apiResource('posts', PostController::class);
+    Route::apiResource('reactions', ReactionController::class);
+    Route::get('/getReactionByPostUserId/{user_id}/{post_id}', [ReactionController::class, 'getReactionByPostUserId']);
+    Route::delete('/deleteReactionByPostUserId/{user_id}/{post_id}', [ReactionController::class, 'deleteReactionByPostUserId']);
     Route::get('/postsByUserId/{user_id}', [PostController::class, 'getPostByUserId']);
     Route::apiResource('comments', CommentController::class);
     Route::get('/commentsByPostId/{user_id}', [CommentController::class, 'getCommentByPostId']);

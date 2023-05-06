@@ -69,11 +69,7 @@ export const PostContextProvider = ({ children }: any) => {
     };
     const addPost = async (Post: PostType) => {
         try {
-            setLoadAnimation(dispatch, true);
-            console.log(Post) //------------
             const { data } = await axios.post(`${PostUrl}`, Post);
-            console.log(data)
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
@@ -84,7 +80,6 @@ export const PostContextProvider = ({ children }: any) => {
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
