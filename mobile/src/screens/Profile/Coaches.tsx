@@ -1,4 +1,4 @@
-import { useCallback } from 'react';
+import React,{ useCallback } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';

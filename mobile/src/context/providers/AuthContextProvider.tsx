@@ -46,14 +46,14 @@ export const AuthContextProvider = ({ children }: any) => {
   const [currentUser, setCurrentUser] = useState<any>(null);
   const [weights, setWeights] = useState([]);
   const [controller, dispatch] = useUIController();
-  const { loading } = controller
 
-
-
+  //-------------------------------
   const updateState = async () => {
-    setCurrentUser(await getData('current_user'));
+    const userData = await getData('current_user');
+    if(userData){
+      setCurrentUser(() => userData);
+    }
   };
-
 
   //-------------------------------
   const signIn = async (form: SignInObj) => {
@@ -69,22 +69,24 @@ export const AuthContextProvider = ({ children }: any) => {
       setLoadAnimation(dispatch, false);
       setIsCheckStateOk(dispatch,
         {
-            isCheck: true,
-            isSuccess: true,
-            message: "You Have Loged In Successfully, Welcome To FitnessApp !"
+          isCheck: true,
+          isSuccess: true,
+          message: "You Have Loged In Successfully, Welcome To FitnessApp !"
         });
       return '_SUCCESS_';
     } catch (error) {
       setLoadAnimation(dispatch, false);
       setIsCheckStateOk(dispatch,
         {
-            isCheck: true,
-            isSuccess: false,
-            message: "Oooops! somethingg went wrong. Please, try later !"
+          isCheck: true,
+          isSuccess: false,
+          message: "Oooops! somethingg went wrong. Please, try later !"
         });
       return '_FAILURE_';
     }
   };
+
+  //-------------------------------
   const signUp = async (form: SignUpObj) => {
     setLoadAnimation(dispatch, true);
     try {
@@ -98,26 +100,30 @@ export const AuthContextProvider = ({ children }: any) => {
       setLoadAnimation(dispatch, false);
       setIsCheckStateOk(dispatch,
         {
-            isCheck: true,
-            isSuccess: true,
-            message: "You Have Create An Account Successfully, Welcome To FitnessApp !"
+          isCheck: true,
+          isSuccess: true,
+          message: "You Have Create An Account Successfully, Welcome To FitnessApp !"
         });
       return '_SUCCESS_';
     } catch (error) {
       setLoadAnimation(dispatch, false);
       setIsCheckStateOk(dispatch,
         {
-            isCheck: true,
-            isSuccess: false,
-            message: "Oooops! somethingg went wrong. Please, try later !"
+          isCheck: true,
+          isSuccess: false,
+          message: "Oooops! somethingg went wrong. Please, try later !"
         });
       return '_FAILURE_';
     }
   };
+
+  //-------------------------------
   const logout = async () => {
     await AsyncStorage.removeItem('current_user');
     setCurrentUser(null)
   };
+
+  //-------------------------------
   const resetPassword = async (email: string) => {
     try {
       setLoadAnimation(dispatch, true);
@@ -134,6 +140,8 @@ export const AuthContextProvider = ({ children }: any) => {
       return '';
     }
   };
+
+  //-------------------------------
   const deleteAccount = async () => {
     try {
       setLoadAnimation(dispatch, true);
@@ -145,6 +153,8 @@ export const AuthContextProvider = ({ children }: any) => {
       return false;
     }
   };
+
+  //-------------------------------
   const updateCurrentUser = async (user: any) => {
     setLoadAnimation(dispatch, true);
     try {
@@ -161,6 +171,8 @@ export const AuthContextProvider = ({ children }: any) => {
       return false;
     }
   }
+
+  //-------------------------------
   const getUserWeights = async (user_id: number) => {
     try {
       const { data } = await axios.get(`${usersUrl}/weights/${user_id}`);
@@ -169,6 +181,8 @@ export const AuthContextProvider = ({ children }: any) => {
       console.log(error);
     }
   }
+
+  //-------------------------------
   const addUserWeight = async (user_id: number, value: number, date: string) => {
     try {
       const { data } = await axios.post(`${usersUrl}/weights/${user_id}`, { value, date });
@@ -177,6 +191,8 @@ export const AuthContextProvider = ({ children }: any) => {
       console.log(error);
     }
   }
+
+  //-------------------------------
   const editUserWeight = async (user_id: number, value: number, date: string) => {
     try {
       const { data } = await axios.put(`${usersUrl}/weights/${user_id}`, { value, date });
@@ -186,6 +202,8 @@ export const AuthContextProvider = ({ children }: any) => {
       console.log(error);
     }
   }
+
+  //-------------------------------
   const deleteUserWeight = async (user_id: number, date: string) => {
     try {
       const { data } = await axios.delete(`${usersUrl}/weights/${user_id}/${date}`);

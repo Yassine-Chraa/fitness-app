@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from 'react-native';
 import { Button } from '@rneui/base';
 import theme from '../../constants/theme';

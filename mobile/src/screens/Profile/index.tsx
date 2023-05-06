@@ -16,6 +16,7 @@ function Profile(): JSX.Element {
       <View style={styles.container}>
         <UserDesc
           userInfo={{
+            user_id: user?.id,
             profile: user?.profile,
             name: user?.name,
             workout_level: user?.workout_level,

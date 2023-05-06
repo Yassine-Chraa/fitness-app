@@ -1,28 +1,26 @@
 import React from 'react';
-import { View, FlatList, StyleSheet } from 'react-native';
+import { View, ScrollView, StyleSheet } from 'react-native';
 import Comment from './Comment';
 
 const ListComments = ({ comments }: any): JSX.Element => {
 
-    
-
-
-    const renderComment = ({ item }: any) => (
+    const renderComment = (comment: any) => (
         <Comment
-            image={item.image}
-            username={item.username}
-            text={item.text}
-            replies={item.replies}
+            comment_id={comment.id}
+            image={comment.user.img_url}
+            username={comment.user.name}
+            text={comment.content}
+            key={Math.random()*(isNaN(parseInt(comment.id)) ? 100 : comment.id)}
         />
     );
 
+    comments.map((comment: any) => console.log("|==> " + comment.image))
+
     return (
         <View style={style.ListComments}>
-            <FlatList
-                data={comments}
-                renderItem={renderComment}
-                keyExtractor={(item) => item.id.toString()}
-            />
+            <ScrollView>
+                {comments && comments.length > 0 ? comments.map((comment: any) => renderComment(comment)) : null}
+            </ScrollView>
         </View>
     );
 };
@@ -30,10 +28,10 @@ const ListComments = ({ comments }: any): JSX.Element => {
 export default ListComments;
 
 const style = StyleSheet.create({
-    ListComments:{
+    ListComments: {
         flex: 1,
         width: '100%',
         height: '100%',
-        paddingHorizontal:8,
+        paddingHorizontal: 8,
     }
 })

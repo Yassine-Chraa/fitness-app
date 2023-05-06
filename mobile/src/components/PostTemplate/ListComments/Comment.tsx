@@ -1,14 +1,17 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
 import ListReplies from '../ListReplies';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import InputReply from '../ListReplies/InputReply';
+import { useReply } from '../../../context/providers/ReplyContextProvider';
 
-const Comment = ({ username, text, image, replies }: any): JSX.Element => {
+const Comment = ({ username, text, image, comment_id }: any): JSX.Element => {
     const [showReplies, setShowReplies] = useState(false);
     const [liked, setLiked] = useState(false);
     const [newReply, setNewReply] = useState('');
     const [showNewReplyInput, setShowNewReplyInput] = useState(false);
+    const [replies, setReplies] = useState<any>();
+    const { getReplysByCommentId } = useReply();
 
     const toggleLike = () => {
         setLiked(!liked);
@@ -25,6 +28,17 @@ const Comment = ({ username, text, image, replies }: any): JSX.Element => {
     const addNewReplyHandler = () => {
         setShowNewReplyInput((prev: any) => !prev)
     }
+
+    const loadReplies = async () => {
+        const replies = await getReplysByCommentId(comment_id);
+        if (replies) {
+            setReplies(() => replies);
+        }
+    }
+
+    useEffect(() => {
+        loadReplies();
+    }, [])
 
     return (
         <View style={styles.container}>
@@ -50,20 +64,20 @@ const Comment = ({ username, text, image, replies }: any): JSX.Element => {
                             </Text>
                         </TouchableOpacity>
                         <Text>|</Text>
-                        {replies.length > 0 && (
+                        {replies && replies.length > 0 ? (
                             <TouchableOpacity style={styles.commentBtn} onPress={toggleReplies}>
                                 <Text style={styles.showRepliesText}>
                                     {showReplies ? 'Hide Replies' : `View ${replies.length} Replies`}
                                 </Text>
                             </TouchableOpacity>
-                        )}
+                        ):<Text style={styles.noReplies}>0 reply</Text>}
                     </View>
                 </View>
             </View>
             {showNewReplyInput && (
                 <InputReply onReply={newReplyHandler} />
             )}
-            {showReplies && (
+            {showReplies && replies && replies.length > 0 && (
                 <ListReplies replies={replies} />
             )}
         </View>
@@ -127,6 +141,10 @@ const styles = StyleSheet.create({
     commentBtn: {
         margin: 5,
         padding: 5,
+    },
+    noReplies:{
+        color: 'gray',
+        marginLeft: 5,
     }
 });
 

@@ -1,5 +1,5 @@
-import {Image, Input} from '@rneui/themed';
-import {useState} from 'react';
+import { Image, Input } from '@rneui/themed';
+import React, { useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -12,7 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 
-const EditInput = ({label, value}: any) => {
+const EditInput = ({ label, value }: any) => {
   return (
     <View>
       <Input
@@ -21,12 +21,12 @@ const EditInput = ({label, value}: any) => {
         inputMode="numeric"
         label={label}
         labelStyle={styles.label}
-        containerStyle={{height: 60}}
+        containerStyle={{ height: 60 }}
       />
     </View>
   );
 };
-const EditWorkout = ({navigation, route}: any) => {
+const EditWorkout = ({ navigation, route }: any) => {
   const width = Dimensions.get('screen').width;
   const workoutExercices = [
     {
@@ -58,7 +58,7 @@ const EditWorkout = ({navigation, route}: any) => {
         <FlatList
           data={workoutExercices}
           keyExtractor={item => item.id.toString()}
-          renderItem={({item}: any) => {
+          renderItem={({ item }: any) => {
             return (
               <TouchableOpacity
                 key={item.id}
@@ -69,10 +69,10 @@ const EditWorkout = ({navigation, route}: any) => {
                     type: 'workout',
                   })
                 }>
-                <View style={{flexDirection: 'row', alignItems: 'center'}}>
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
                   <Image
                     style={styles.image}
-                    source={{uri: 'https://placehold.jp/60x60.png'}}
+                    source={{ uri: 'https://placehold.jp/60x60.png' }}
                   />
                   <View
                     style={{
@@ -98,7 +98,7 @@ const EditWorkout = ({navigation, route}: any) => {
                           name="times"
                           color={theme.colors.text}
                           size={16}
-                          style={{marginTop: 6}}
+                          style={{ marginTop: 6 }}
                         />
                       </TouchableOpacity>
                     </View>
@@ -106,9 +106,9 @@ const EditWorkout = ({navigation, route}: any) => {
                       style={{
                         flexDirection: 'row',
                       }}>
-                        <EditInput label="Sets" value="3" />
-                        <EditInput label="Reps" value="12" />
-                        <EditInput label="Rest (s)" value="90" />
+                      <EditInput label="Sets" value="3" />
+                      <EditInput label="Reps" value="12" />
+                      <EditInput label="Rest (s)" value="90" />
                     </View>
                   </View>
                 </View>

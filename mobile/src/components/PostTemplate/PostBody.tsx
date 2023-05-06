@@ -3,13 +3,13 @@ import { StyleSheet, Image, ScrollView, View, Text, TouchableOpacity } from 'rea
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FullImageView from '../ImageViews/FullImageView';
 
-const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentInput}:any): JSX.Element => {
+const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
     const [islike, setIsLike] = useState(false);
     const [hasComment, setHasComment] = useState(false);
 
     const toggleReplies = () => {
-        setShowComments((prev:any)  => !prev);
+        setShowComments((prev: any) => !prev);
     };
 
     const likeClickHandler = () => {
@@ -17,7 +17,7 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
     }
 
     const addNewComment = () => {
-        setShowNewCommentInput((prev:any) => !prev);
+        setShowNewCommentInput((prev: any) => !prev);
     }
 
     const handlePress = () => {
@@ -28,15 +28,19 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
         setModalVisible(false);
     };
 
+    // console.log("==============================| post in PostBody|==================================")
+    // console.log(post)
+    // console.log("===================================================================================")
+
     return (
         <View style={styles.postContainer}>
             <View style={styles.postHeader}>
                 <View style={styles.postHeaderImgName}>
                     <TouchableOpacity activeOpacity={0.6}>
-                        <Image style={styles.postHeaderImage} source={require('../../assets/images/gym.jpg')} />
+                        <Image style={styles.postHeaderImage} source={{ uri: post.user.img_url }} />
                     </TouchableOpacity>
                     <View style={styles.postHeaderTitle}>
-                        <Text style={styles.postHeaderTitleName}>Ben alla Ismail</Text>
+                        <Text style={styles.postHeaderTitleName}>{post.user.name}</Text>
                         <Text style={styles.sinceTexxt}>3 days ago</Text>
                     </View>
                 </View>
@@ -46,13 +50,13 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
             </View>
             <View style={styles.postBody}>
                 <Text style={styles.postBodyText}>
-                    something about your post here ...
+                    {post.content}
                 </Text>
                 <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
-                    <Image style={styles.postBodyImage} source={require('../../assets/images/gym.jpg')} />
+                    <Image style={styles.postBodyImage} source={{ uri: post.image_url }}/>
                 </TouchableOpacity>
 
-                {modalVisible && <FullImageView source={require('../../assets/images/gym.jpg')} onClose={handleClose} />}
+                {modalVisible && <FullImageView source={{ uri: post.image_url }} onClose={handleClose} />}
             </View>
             <View style={styles.postFooter}>
                 <View style={styles.postBtns}>
@@ -63,14 +67,14 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
                                     marginEnd: 6,
                                 }} />
                         </TouchableOpacity>
-                        <Text>21</Text>
+                        <Text>{post.nbr_likes}</Text>
                     </View>
                     <View style={styles.postFooterIcon}>
                         <TouchableOpacity activeOpacity={0.6} onPress={addNewComment}>
                             <Icon name={'comment'} size={24} color={hasComment ? '#f00' : 'gray'}
                                 style={{ marginEnd: 6 }} />
                         </TouchableOpacity>
-                        <Text>21</Text>
+                        <Text>{post.nbr_comments}</Text>
                     </View>
                 </View>
                 {nbrComments > 0 ? (
@@ -79,7 +83,7 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
                             {showComments ? 'Hide Comments' : `View ${nbrComments} Comments`}
                         </Text>
                     </TouchableOpacity>
-                ):<Text>{" "}</Text>}
+                ) : <Text>{" "}</Text>}
 
             </View>
         </View>
@@ -150,7 +154,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    postBtns:{
+    postBtns: {
         flex: 1,
         width: '100%',
         display: 'flex',

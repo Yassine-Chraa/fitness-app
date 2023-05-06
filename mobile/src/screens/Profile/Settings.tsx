@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { StyleSheet, ScrollView, View,Text } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';

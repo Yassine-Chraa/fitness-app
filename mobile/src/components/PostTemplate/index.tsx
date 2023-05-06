@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { StyleSheet, View } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import PostBody from './PostBody';
 import ListComments from './ListComments';
 import InputComment from './ListComments/InputComment';
+import { useComment } from '../../context/providers/CommentContextProvider';
 
-const PostTemplate = (): JSX.Element => {
+const PostTemplate = ({post}:any): JSX.Element => {
     const fakeComments = [
         {
             id: 1,
@@ -102,18 +102,32 @@ const PostTemplate = (): JSX.Element => {
     const [showComments, setShowComments] = useState(false);
     const [showNewCommentInput, setShowNewCommentInput] = useState(false);
     const [newComment, setNewComment] = useState('');
+    const [comments, setComments] = useState<any>();
+    const {getCommentsByPostId} = useComment();
+    const [post_id, setPost_id] = useState();
+    
 
     const NewCommentHandler = (text: any) => {
         setNewComment(() => text)
     }
 
-    const togggleShowComments = () => {
-        setShowComments((prev) => !prev);
+    const loadComments = async () => {
+        const comments = await getCommentsByPostId(post_id);
+        if (comments) {
+            setComments(() => comments);
+        }
     }
+
+    useEffect(() => {
+        setPost_id(() => post.id);
+        loadComments();
+    }, [post_id])
 
     return (
         <View style={styles.container}>
-            <PostBody nbrComments={fakeComments.length}
+            <PostBody
+                post={post}
+                nbrComments={fakeComments.length}
                 setShowComments={setShowComments}
                 showComments={showComments}
                 setShowNewCommentInput={setShowNewCommentInput}
@@ -123,7 +137,7 @@ const PostTemplate = (): JSX.Element => {
                 <InputComment onComment={NewCommentHandler} />
             }
             {showComments &&
-                <ListComments comments={fakeComments} />
+                <ListComments comments={comments} />
             }
         </View>
     )

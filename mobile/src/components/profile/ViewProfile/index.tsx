@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import InfoGroup from '../InfoGroup';
 import PostCard from './PostCard';
@@ -7,22 +7,29 @@ import { useNavigation } from '@react-navigation/native';
 import AchievmentsSwipper from './AchievmentsSwipper';
 import ProgressSwipper from './ProgressSwipper';
 import PostTemplate from '../../PostTemplate';
+import { usePost } from '../../../context/providers/PostContextProvider';
+import PostInput from '../../PostTemplate/PostInput';
 
 
 const imageTest = require('../../../assets/images/gym.jpg')
 
-const ViewProfile = (): JSX.Element => {
+const ViewProfile = ({ route }: any): JSX.Element => {
     const navigation: any = useNavigation();
+    const [posts, setPosts] = useState<any>();
+    const { getPostsByUserId } = usePost();
+    const { user_id } = route.params;
+
+
     const badgets = [
-        {title:'Beginner',image:require('../../../assets/images/budges/budge_1.png')},
-        {title:'Novice',image:require('../../../assets/images/budges/budge_2.png')},
-        {title:'Intermediate',image:require('../../../assets/images/budges/budge_3.png')},
-        {title:'Advanced',image:require('../../../assets/images/budges/budge_4.png')},
-        {title:'Expert',image:require('../../../assets/images/budges/budge_5.png')},
-        {title:'Legendary',image:require('../../../assets/images/budges/budge_6.png')},
-        {title:'intermediare',image:require('../../../assets/images/budges/budge_7.png')},
-        {title:'Master',image:require('../../../assets/images/budges/budge_8.png')},
-        {title:'Grandmaster',image:require('../../../assets/images/budges/budge_9.png')},
+        { title: 'Beginner', image: require('../../../assets/images/budges/budge_1.png') },
+        { title: 'Novice', image: require('../../../assets/images/budges/budge_2.png') },
+        { title: 'Intermediate', image: require('../../../assets/images/budges/budge_3.png') },
+        { title: 'Advanced', image: require('../../../assets/images/budges/budge_4.png') },
+        { title: 'Expert', image: require('../../../assets/images/budges/budge_5.png') },
+        { title: 'Legendary', image: require('../../../assets/images/budges/budge_6.png') },
+        { title: 'intermediare', image: require('../../../assets/images/budges/budge_7.png') },
+        { title: 'Master', image: require('../../../assets/images/budges/budge_8.png') },
+        { title: 'Grandmaster', image: require('../../../assets/images/budges/budge_9.png') },
     ];
 
     const images = [
@@ -42,6 +49,22 @@ const ViewProfile = (): JSX.Element => {
 
     const titles = ['150', '0.0', '22.14']
     const values = ['weight LBS', 'Body fat %', 'BMI']
+
+    const loadPosts = async () => {
+        const posts = await getPostsByUserId(user_id);
+        if (posts) {
+            setPosts(() => posts);
+        }
+    }
+
+    useEffect(() => {
+        loadPosts();
+    }, [])
+
+    const addNewPostHandler = (content:any) => {
+        console.log("<<=====(new Post)======>>")
+        console.log(content)
+    }
 
     return (
         <Screen name={"Profile"} backButton allowScroll>
@@ -75,9 +98,11 @@ const ViewProfile = (): JSX.Element => {
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostTemplate />
-            <PostTemplate />
-            <PostTemplate />
+            <PostInput user_id={user_id}/>
+
+            {
+                posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)
+            }
 
         </Screen>
     );

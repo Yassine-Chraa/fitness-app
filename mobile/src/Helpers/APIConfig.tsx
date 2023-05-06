@@ -17,11 +17,15 @@ const endpoints: any = {
   Exercises: '/api/exercises',
   Categories: '/api/categories',
   FeedBacks: '/api/feedbacks',
+  Posts: '/api/posts',
+  PostsByUserId: '/api/postsByUserId',
+  CommentsByPostId: '/api/commentsByPostId',
+  ReplysByCommentId: '/api/repliesByCommentId',
+  UploadUrl: '/api/upload',
   CsrfToken: '/csrf-token',
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  console.log(API_URL)
   return API_URL + endpoints[endpoint];
 }
 

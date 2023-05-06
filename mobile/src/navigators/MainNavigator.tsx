@@ -1,6 +1,6 @@
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React,{ useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../context/providers/AuthContextProvider';
 import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
@@ -20,7 +20,7 @@ import CoachProfile from '../screens/Profile/CoachProfile';
 import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
-import axios from '../Helpers/axiosConfig'
+import axios from '../Helpers/axiosConfig';
 import DailyNutrition from '../screens/Food/DailyNutrition';
 import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
@@ -40,19 +40,17 @@ const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const { currentUser, updateState } = useAuth();
+
   useEffect(() => {
     if (SplashScreen && currentUser == null) {
       updateState().then(() => {
         SplashScreen.hide();
-        axios.defaults.headers.common[
-          "authorization"
-        ] = `Bearer ${currentUser!.token}`;
       })
     } else {
-      axios.defaults.headers.common[
-        "authorization"
-      ] = `Bearer ${currentUser?.token}`;
+      console.log("Token ==> "+currentUser?.token)
+      axios.defaults.headers.common["authorization"] = `Bearer ${currentUser?.token}`;
     }
+
   }, [SplashScreen, currentUser]);
   return (
     <>
@@ -60,6 +58,9 @@ const MainNavigator = () => {
       <LoadingAnimation />
       <CheckStateAlert />
       <ErrorAnimation />
+      {/* ------------------------ */}
+
+
       <Stack.Navigator
         initialRouteName={currentUser ? 'Auth' : 'Tab'}
         screenOptions={{

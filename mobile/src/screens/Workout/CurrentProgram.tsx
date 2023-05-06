@@ -1,24 +1,24 @@
-import {Image} from '@rneui/themed';
-import {useEffect} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {ScrollView} from 'react-native-gesture-handler';
+import { Image } from '@rneui/themed';
+import React, { useEffect } from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { ScrollView } from 'react-native-gesture-handler';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const CurrentProgram = ({navigation}: any) => {
-  const {currentUser} = useAuth()
-  const {getCurrentProgram,currentProgram} = useProgram();
+const CurrentProgram = ({ navigation }: any) => {
+  const { currentUser } = useAuth()
+  const { getCurrentProgram, currentProgram } = useProgram();
 
-  useEffect(()=>{
+  useEffect(() => {
     getCurrentProgram(currentUser!.user!.id);
-  },[currentUser])
+  }, [currentUser])
   return (
-    <View style={{paddingHorizontal: 12, flex: 1}}>
+    <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView>
-        <View style={{marginBottom: 12}}>
+        <View style={{ marginBottom: 12 }}>
           <Image
-            style={{width: '100%', height: 180, borderRadius: 12}}
+            style={{ width: '100%', height: 180, borderRadius: 12 }}
             source={require('../../assets/images/program1.jpg')}
           />
           <View
@@ -29,8 +29,8 @@ const CurrentProgram = ({navigation}: any) => {
               height: '100%',
               justifyContent: 'center',
             }}>
-            <Text style={{fontSize: 18, color: '#fff'}}>Bulking 3 Days</Text>
-            <Text style={{fontSize: 28, color: '#fff', fontWeight: 'bold'}}>
+            <Text style={{ fontSize: 18, color: '#fff' }}>Bulking 3 Days</Text>
+            <Text style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
               Push/Pull/Legs Program
             </Text>
           </View>
@@ -41,14 +41,14 @@ const CurrentProgram = ({navigation}: any) => {
               key={workout.id}
               style={styles.workout}
               onPress={() =>
-                navigation.navigate('WorkoutDetails', {name:workout.title,exercises: workout.exercises})
+                navigation.navigate('WorkoutDetails', { name: workout.title, exercises: workout.exercises })
               }>
-              <View style={{flexDirection: 'row'}}>
+              <View style={{ flexDirection: 'row' }}>
                 <Image
                   style={styles.image}
-                  source={{uri: 'https://placehold.jp/80x80.png'}}
+                  source={{ uri: 'https://placehold.jp/80x80.png' }}
                 />
-                <View style={{justifyContent: 'space-between'}}>
+                <View style={{ justifyContent: 'space-between' }}>
                   <Text
                     style={{
                       fontSize: 18,
@@ -67,7 +67,7 @@ const CurrentProgram = ({navigation}: any) => {
                       textAlign: 'center',
                       borderRadius: 6,
                       paddingVertical: 3,
-                      paddingHorizontal:4
+                      paddingHorizontal: 4
                     }}>
                     {workout.state}
                   </Text>
@@ -78,7 +78,7 @@ const CurrentProgram = ({navigation}: any) => {
         })}
       </ScrollView>
       <TouchableOpacity style={styles.addButton}>
-        <Text style={{color: '#fff', fontSize: 18, fontWeight: 'bold'}}>
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
           Add Day to Program
         </Text>
       </TouchableOpacity>

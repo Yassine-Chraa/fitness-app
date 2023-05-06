@@ -194,16 +194,16 @@ function Home(): JSX.Element {
             <View>
               <LineChart
                 data={{
-                  labels: weights.length != 0 ? weights.map((weight) => {
+                  labels: weights && weights.length > 0 ? weights.map((weight) => {
                     const temp = new Date(weight.date);
                     const date = `${temp.getDay() < 10 ? '0' : ''}${temp.getDate()}/${temp.getMonth() < 9 ? '0' : ''}${temp.getMonth() + 1}`
                     return date;
-                  }) : ['01/01'],
+                  }) : ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9'],
                   datasets: [
                     {
-                      data: weights.length != 0 ? weights.map((weight) => {
+                      data: weights && weights.length > 0 ? weights.map((weight) => {
                         return weight.value;
-                      }) : [70],
+                      }) : [1, 2, 3, 4, 5, 6, 7, 8, 9],
                       strokeWidth: 1.5,
                     },
                   ],
@@ -225,18 +225,18 @@ function Home(): JSX.Element {
           <View style={styles.card}>
             <Text style={styles.subtitle}>Energy expended</Text>
             <View>
-              <BarChart
+              {/* <BarChart
                 yAxisLabel='0'
                 yAxisSuffix='0'
                 data={{
-                  labels: lastNuritions?.map((item:any) => {
+                  labels: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
-                  }),
+                  }) : ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9'],
                   datasets: [
                     {
-                      data: lastNuritions?.map((item) => {
+                      data: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item) => {
                         return item.energy_consumed;
-                      }),
+                      }) : [1, 2, 3, 4, 5, 6, 7, 8, 9],
                     },
                   ],
                 }}
@@ -252,7 +252,7 @@ function Home(): JSX.Element {
                 }}
                 showBarTops={false}
                 withInnerLines={false}
-              />
+              /> */}
             </View>
           </View>
         </Swiper>

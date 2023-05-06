@@ -1,5 +1,5 @@
-import {Image} from '@rneui/themed';
-import {useState} from 'react';
+import { Image } from '@rneui/themed';
+import React, { useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -15,12 +15,12 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 
-const WorkoutDetails = ({navigation, route}: any) => {
+const WorkoutDetails = ({ navigation, route }: any) => {
   const width = Dimensions.get('screen').width;
-  const {name,exercises} = route.params;
+  const { name, exercises } = route.params;
   const [data, setData] = useState(exercises);
 
-  const editWorkout = () => navigation.navigate('EditWorkout', {id: 1});
+  const editWorkout = () => navigation.navigate('EditWorkout', { id: 1 });
   return (
     <Screen
       name={name}
@@ -32,9 +32,9 @@ const WorkoutDetails = ({navigation, route}: any) => {
       <View>
         <DraggableFlatList
           data={data}
-          onDragEnd={({data}) => setData(data)}
-          keyExtractor={item => item.id.toString()}
-          renderItem={({item, drag, isActive}: any) => {
+          onDragEnd={({ data }) => setData(data)}
+          keyExtractor={(item:any) => item.id.toString()}
+          renderItem={({ item, drag, isActive }: any) => {
             const txt = `${item.sets}x${item.reps} reps / rest ${item.rest}`;
             return (
               <ScaleDecorator>
@@ -48,7 +48,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                       type: 'workout',
                     })
                   }>
-                  <View style={{flexDirection: 'row', width: '100%'}}>
+                  <View style={{ flexDirection: 'row', width: '100%' }}>
                     <TouchableWithoutFeedback onPressIn={drag}>
                       <View
                         style={{
@@ -70,7 +70,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                     </TouchableWithoutFeedback>
                     <Image
                       style={styles.image}
-                      source={{uri: item.details.img}}
+                      source={{ uri: item.details.img }}
                     />
                     <View
                       style={{
@@ -92,7 +92,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                           justifyContent: 'space-between',
                         }}>
                         <Text>{item.details.category}</Text>
-                        <Text style={{marginRight: 8}}>{txt}</Text>
+                        <Text style={{ marginRight: 8 }}>{txt}</Text>
                       </View>
                     </View>
                   </View>
@@ -109,7 +109,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                   backgroundColor: '#CFFDE1',
                   opacity: 0.4,
                 }}>
-                <View style={{flexDirection: 'row', width: '100%'}}>
+                <View style={{ flexDirection: 'row', width: '100%' }}>
                   <View
                     style={{
                       flexDirection: 'row',
@@ -147,7 +147,7 @@ const WorkoutDetails = ({navigation, route}: any) => {
                         justifyContent: 'space-between',
                       }}>
                       <Text>Muscles</Text>
-                      <Text style={{marginRight: 8}}>sets x reps / rest </Text>
+                      <Text style={{ marginRight: 8 }}>sets x reps / rest </Text>
                     </View>
                   </View>
                 </View>

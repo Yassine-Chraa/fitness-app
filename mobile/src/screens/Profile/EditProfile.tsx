@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { StyleSheet, View, Text, TouchableOpacity, Alert } from 'react-native';
 import Screen from '../../components/Screen';
 import { Image } from '@rneui/themed';
@@ -13,7 +13,7 @@ const EditProfile = ({ navigation }: any) => {
   const [form, setForm] = useState(currentUser?.user);
   const [open, setOpen] = useState(false);
   const upload = async () => {
-
+    
   }
   const updateProfile = async () => {
     const res = await updateCurrentUser(form)

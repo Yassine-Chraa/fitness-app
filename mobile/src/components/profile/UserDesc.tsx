@@ -15,7 +15,7 @@ function UserDesc({ userInfo }: any): JSX.Element {
     <TouchableOpacity
       style={styles.profile}
       activeOpacity={0.4}
-      onPress={() => navigation.navigate('ViewProfile')}>
+      onPress={() => navigation.navigate('ViewProfile',{user_id: userInfo.user_id})}>
       <View style={styles.avatarName}>
         <Image
           style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 1, borderColor: "#eee" }}
