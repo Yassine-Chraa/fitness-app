@@ -1,7 +1,7 @@
-import Program from "./Program";
+import Program from './Program';
 
 export default interface UserProgram {
-    details: Program;
-    isUsed: Boolean;
-  }
-  
+  id: number;
+  details: Program;
+  isUsed: number;
+}

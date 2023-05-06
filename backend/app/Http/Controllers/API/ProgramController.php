@@ -16,6 +16,15 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::all();
+            foreach ($programs as $i => $program) {
+                $programs[$i]->workouts = $program->workouts;
+                foreach ($program->workouts as $j => $workout) {
+                    $programs[$i]->workouts[$j]->exercises = $workout->exercises;
+                    foreach ($workout->exercises as $k => $exercise) {
+                        $programs[$i]->workouts[$j]->exercises[$k]->details = $exercise->details;
+                    }
+                }
+            }
         return response()->json($programs);
     }
 
@@ -27,14 +36,24 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        $newProgram = new Program([
-            "main_img" => $request->get('main_img'),
-            "title" => $request->get('title'),
-            "description" => $request->get('description'),
-            "difficulty_level" => $request->get('difficulty_level'),
-            'category' => $request->get('category'),
-            "isFree" => $request->get('isFree'),
-        ]);
+        if($request->has('main_img')){
+            $newProgram = new Program([
+                "main_img" => $request->get('main_img'),
+                "title" => $request->get('title'),
+                "description" => $request->get('description'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isFree" => $request->get('isFree'),
+            ]);
+        }else{
+            $newProgram = new Program([
+                "title" => $request->get('title'),
+                "description" => $request->get('description'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isFree" => $request->get('isFree'),
+            ]);
+        }
         $newProgram->save();
         return response()->json(['message' => 'Program created successfully !']);
     }

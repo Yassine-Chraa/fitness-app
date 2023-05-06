@@ -34,6 +34,7 @@ import ViewProfile from '../components/profile/ViewProfile';
 import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
 import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
 import AchievmentsGallery from '../components/profile/ViewProfile/AchievmentsGallery';
+import CoachClients from '../screens/Profile/CoachClients';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -84,6 +85,7 @@ const MainNavigator = () => {
             <Stack.Screen name="EditProfile" component={EditProfile} />
             <Stack.Screen name="ViewProfile" component={ViewProfile} />
             <Stack.Screen name="Coaches" component={Coaches} />
+            <Stack.Screen name="CoachClients" component={CoachClients} />
             <Stack.Screen name="CoachProfile" component={CoachProfile} />
             <Stack.Screen name="GymLocation" component={GymLocation} />
             <Stack.Screen name="Settings" component={Settings} />

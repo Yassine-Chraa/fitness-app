@@ -4,16 +4,23 @@ import { getUrl } from '../../Helpers/APIConfig';
 import Program from '../../types/Program';
 import UserProgram from '../../types/UserProgram';
 
+export type specialType = {
+  title: string,
+  category: 'bulking' | 'maintaining' | 'cutting',
+  difficulty_level: 'beginner' | 'intermediate' | 'advanced'
+}
 export type programContextType = {
   currentProgram: UserProgram;
   userPrograms: Array<UserProgram>;
   programs: Array<Program>;
-  getPrograms: ()=>Promise<void>;
-  getUserPrograms: (userId:number) => Promise<void>;
-  getCurrentProgram: (userId:number) => Promise<void>;
-  addProgram: (program:Program) =>Promise<string | undefined>;
-  updateProgram: (programId:number,program:Program) =>Promise<string | undefined>;
-  deleteProgram: (programId:number) =>Promise<string | undefined>;
+  getPrograms: () => Promise<void>;
+  getUserPrograms: (userId: number) => Promise<void>;
+  getCurrentProgram: (userId: number) => Promise<void>;
+  createProgram: (program: specialType, user_id: number) => Promise<string | undefined>;
+  updateProgram: (programId: number, program: specialType) => Promise<string | undefined>;
+  deleteProgram: (programId: number) => Promise<string | undefined>;
+  useProgramAsCurrent: (programId: number) => Promise<boolean | undefined>;
+  enrollProgram: (userId: number, programId: number) => Promise<string>;
 };
 const programContext = createContext<programContextType | null>(null);
 
@@ -29,7 +36,7 @@ const userProgramsUrl = getUrl('UserPrograms');
 export const ProgramContextProvider = ({ children }: any) => {
   const [programs, setPrograms] = useState([])
   const [userPrograms, setUserPrograms] = useState([])
-  const [currentProgram,setCurrentProgam] = useState(Object)
+  const [currentProgram, setCurrentProgam] = useState(Object)
   const getPrograms = async () => {
     try {
       const { data } = await axios.get(programsUrl);
@@ -38,7 +45,7 @@ export const ProgramContextProvider = ({ children }: any) => {
       console.log(error);
     }
   };
-  const getUserPrograms = async (userId:number) => {
+  const getUserPrograms = async (userId: number) => {
     try {
       const { data } = await axios.get(`${userProgramsUrl}?user_id=${userId}`);
       setUserPrograms(data);
@@ -46,31 +53,31 @@ export const ProgramContextProvider = ({ children }: any) => {
       console.log(error);
     }
   };
-  const getCurrentProgram = async (userId:number) => {
+  const getCurrentProgram = async (userId: number) => {
     try {
       const { data } = await axios.get(`${userProgramsUrl}?user_id=${userId}&isUsed=1`);
-      setCurrentProgam(data[0]);
+      setCurrentProgam(data);
     } catch (error) {
       console.log(error);
     }
   };
-  const addProgram = async (program:Program) => {
+  const createProgram = async (program: specialType, user_id: number) => {
     try {
-      const { data } = await axios.post(userProgramsUrl,program);
+      const { data } = await axios.post(userProgramsUrl, { ...program, user_id });
       return data.message;
     } catch (error) {
       console.log(error);
     }
   };
-  const updateProgram = async (programId:number,program:Program) => {
+  const updateProgram = async (programId: number, program: specialType) => {
     try {
-      const { data } = await axios.put(`${userProgramsUrl}/${programId}`,program);
+      const { data } = await axios.put(`${userProgramsUrl}/${programId}`, program);
       return data.message;
     } catch (error) {
       console.log(error);
     }
   };
-  const deleteProgram = async (programId:number) => {
+  const deleteProgram = async (programId: number) => {
     try {
       const { data } = await axios.delete(`${userProgramsUrl}/${programId}`);
       return data.message;
@@ -78,12 +85,29 @@ export const ProgramContextProvider = ({ children }: any) => {
       console.log(error);
     }
   };
+  const useProgramAsCurrent = async (programId: number) => {
+    try {
+      userPrograms.forEach(async (userProgram: UserProgram) => {
+        if (userProgram.id == programId) {
+          await axios.put(`${userProgramsUrl}/${programId}`, { isUsed: 1 });
+        } else {
+          await axios.put(`${userProgramsUrl}/${userProgram.id}`, { isUsed: 0 });
+        }
+      })
+      return true;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  const enrollProgram = async (userId: number, programId: number) => {
+    try {
+      const { data } = await axios.post(`${userProgramsUrl}/enroll`, { user_id: userId, program_id: programId });
+      return data.message;
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
-  //create Table userPrograms (id,program_id,user_id,isUsed)
-  //setProgramAsCurrent
-  //enrollProgram
-
-  //Add User Programs Screen + create/Update Program Model + create/update Workout Screen (or model)
 
   return (
     <programContext.Provider
@@ -94,9 +118,11 @@ export const ProgramContextProvider = ({ children }: any) => {
         getPrograms,
         getUserPrograms,
         getCurrentProgram,
-        addProgram,
+        createProgram,
         updateProgram,
         deleteProgram,
+        useProgramAsCurrent,
+        enrollProgram
       }}>
       {children}
     </programContext.Provider>

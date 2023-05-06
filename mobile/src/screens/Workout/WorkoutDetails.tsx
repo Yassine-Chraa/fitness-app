@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -14,13 +14,22 @@ import DraggableFlatList, {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
+import { useWorkout } from '../../context/providers/WorkoutContextProvider';
 
 const WorkoutDetails = ({ navigation, route }: any) => {
+  const { workoutExercises, getWorkoutExercises } = useWorkout()
   const width = Dimensions.get('screen').width;
-  const { name, exercises } = route.params;
-  const [data, setData] = useState(exercises);
+  const { workoutId, name } = route.params;
+  const [data, setData] = useState<any>([]);
 
-  const editWorkout = () => navigation.navigate('EditWorkout', { id: 1 });
+  const editWorkout = () => navigation.navigate('EditWorkout', {workoutId});
+
+  useEffect(() => {
+    getWorkoutExercises(workoutId);
+  }, [workoutId])
+  useEffect(() => {
+    setData(workoutExercises);
+  }, [workoutExercises])
   return (
     <Screen
       name={name}
@@ -33,7 +42,7 @@ const WorkoutDetails = ({ navigation, route }: any) => {
         <DraggableFlatList
           data={data}
           onDragEnd={({ data }) => setData(data)}
-          keyExtractor={(item:any) => item.id.toString()}
+          keyExtractor={(item: any) => item.id.toString()}
           renderItem={({ item, drag, isActive }: any) => {
             const txt = `${item.sets}x${item.reps} reps / rest ${item.rest}`;
             return (
@@ -70,7 +79,7 @@ const WorkoutDetails = ({ navigation, route }: any) => {
                     </TouchableWithoutFeedback>
                     <Image
                       style={styles.image}
-                      source={{ uri: item.details.img }}
+                      source={{ uri: item?.details?.img }}
                     />
                     <View
                       style={{
@@ -103,11 +112,11 @@ const WorkoutDetails = ({ navigation, route }: any) => {
           ListFooterComponent={() => {
             return (
               <TouchableOpacity
-                onPress={() => navigation.navigate('AllExercices')}
+                onPress={() => navigation.navigate('AllExercices', { workoutId })}
                 style={{
                   ...styles.exercice,
                   backgroundColor: '#CFFDE1',
-                  opacity: 0.4,
+                  opacity: 0.6,
                 }}>
                 <View style={{ flexDirection: 'row', width: '100%' }}>
                   <View
@@ -119,7 +128,8 @@ const WorkoutDetails = ({ navigation, route }: any) => {
                   <View
                     style={{
                       ...styles.image,
-                      backgroundColor: theme.colors.specialColor1,
+                      backgroundColor: theme.colors.button,
+                      opacity: 0.4,
                       justifyContent: 'center',
                       alignItems: 'center',
                     }}>

@@ -1,19 +1,45 @@
 import { Image } from '@rneui/themed';
-import React, { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from 'react-native';
 import { Button } from '@rneui/base';
 import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Picker } from '@react-native-picker/picker';
+import { specialType, useProgram } from '../../context/providers/ProgramContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
 
+const categories = ['bulking', 'maintaining', 'cutting'];
+const levels = ['beginner', 'intermediate', 'advanced'];
 const MyProgramsDetails = ({ navigation, route }: any) => {
-    const { program } = route.params
-    const weekDays = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'];
+    const { program, programId } = route.params
+    const { title, category, difficulty_level, days } = program
+    const { currentUser } = useAuth()
+    const { getUserPrograms, updateProgram } = useProgram();
+    const [local, setLocal] = useState({
+        title,
+        category
+    })
+    const [form, setForm] = useState<specialType>({
+        title,
+        category,
+        difficulty_level
+    })
+    const [showForm, setShowForm] = useState(false)
+
+    const submit = async () => {
+        await updateProgram(programId, form)
+        setLocal({
+            title: form.title,
+            category: form.category
+        })
+        setShowForm(false)
+        getUserPrograms(currentUser!.user!.id);
+    }
 
     return (
         <View style={{ paddingHorizontal: 12, flex: 1 }}>
             <ScrollView>
-                <View style={{ marginBottom: 12 }}>
+                <View style={{ marginBottom: 12, marginTop: 12 }}>
                     <Image
                         style={{ width: '100%', height: 180, borderRadius: 12 }}
                         source={require('../../assets/images/program1.jpg')}
@@ -26,9 +52,9 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                             height: '100%',
                             justifyContent: 'center',
                         }}>
-                        <Text style={{ fontSize: 18, color: '#fff' }}>Bulking 3 Days</Text>
+                        <Text style={{ fontSize: 18, color: '#fff' }}>{local.category} {days} Days</Text>
                         <Text style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
-                            Push/Pull/Legs Program
+                            {local.title}
                         </Text>
                     </View>
                 </View>
@@ -79,32 +105,48 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-            <TouchableOpacity style={styles.addButton}>
+            <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
                 <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-                    Add Day to Program
+                    Update Program
                 </Text>
             </TouchableOpacity>
             <Modal animationType="slide"
                 transparent={true}
-                visible={true}
+                visible={showForm}
             >
                 <View style={styles.modal}>
-                    <Pressable style={{ position: 'absolute', right: 8, top: 8 }}><Icon name="times" color={theme.colors.text} size={18} /></Pressable>
-                    <Text style={{ fontSize: 20, color: theme.colors.text, fontWeight: 'bold' }}>{true ? "Edit" : "Add"} Weight</Text>
-                    <TextInput placeholder='Name' style={styles.input} inputMode={"text"} />
-                    <TextInput placeholder='Day' style={styles.input} inputMode={"text"} />
+                    <Pressable style={{ position: 'absolute', right: 8, top: 8 }} onPress={() => setShowForm(false)}><Icon name="times" color={theme.colors.text} size={18} /></Pressable>
+                    <Text style={{ fontSize: 20, color: theme.colors.text, fontWeight: 'bold', marginBottom: 8 }}>Update Program</Text>
+                    <TextInput value={form.title} onChangeText={(v: string) => setForm(prev => {
+                        return { ...prev, title: v }
+                    })} placeholder='Name' style={styles.input} inputMode={"text"} />
                     <Picker
-                        onValueChange={(v: string) => console.log(v)}
+                        selectedValue={form.category}
+                        onValueChange={(v: string) => setForm((prev: any) => {
+                            return { ...prev, category: v }
+                        })}
                         style={{ borderWidth: 1 }}>
-                        {weekDays.map((day) => {
+                        {categories.map((category) => {
                             return (
-                                <Picker.Item label={day} value={day.toLowerCase()} />
+                                <Picker.Item label={category.toUpperCase()} value={category} />
                             )
                         })}
+                    </Picker>
+                    <Picker
+                        selectedValue={form.difficulty_level}
+                        onValueChange={(v: string) => setForm((prev: any) => {
+                            return { ...prev, difficulty_level: v }
+                        })}
 
+                        style={{ borderWidth: 1 }}>
+                        {levels.map((category) => {
+                            return (
+                                <Picker.Item label={category.toUpperCase()} value={category} />
+                            )
+                        })}
                     </Picker>
                     <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
-                        <View style={{ width: '60%', marginTop: 8 }}><Button radius={5}>Add</Button></View>
+                        <View style={{ width: '60%', marginTop: 12 }}><Button radius={5} onPress={submit}>Save</Button></View>
                     </View>
                 </View>
             </Modal>
@@ -140,8 +182,8 @@ const styles = StyleSheet.create({
     backButton: {
         marginLeft: 5,
         position: 'absolute',
-        top: 8,
-        left: 8,
+        top: 14,
+        left: 4,
     },
     modal: {
         marginTop: 'auto',

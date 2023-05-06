@@ -49,7 +49,7 @@ const ExerciseForm = ({ type, selectedID }) => {
         else
             setExercice({
                 title: "",
-                img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
+                img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg",
                 description: "",
                 api_id: "",
                 category: "",

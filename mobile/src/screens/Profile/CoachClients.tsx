@@ -1,4 +1,4 @@
-import React,{ useCallback } from 'react';
+import { useCallback } from 'react';
 import { StyleSheet, FlatList } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
@@ -6,7 +6,7 @@ import CoachCard from '../../components/Cards/CoachCard';
 import { useCoach } from '../../context/providers/CoachesContextProvider';
 import { useFocusEffect } from '@react-navigation/native';
 
-const Coaches = () => {
+const CoachClients = () => {
   const { coaches, getCoaches } = useCoach();
 
   const fetchData = async () => await getCoaches()
@@ -57,4 +57,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Coaches;
+export default CoachClients;

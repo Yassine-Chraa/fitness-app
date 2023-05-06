@@ -13,9 +13,18 @@ class WorkoutExerciseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $workOutExercises = WorkOutExercise::all();
+        if ($request->has('workout_id')) {
+            $workOutExercises = WorkOutExercise::where('workout_id', $request->get('workout_id'))->get();
+        } else {
+            $workOutExercises = WorkOutExercise::all();
+        }
+        foreach ($workOutExercises as $i => $exercise) {
+            $workOutExercises[$i]->details = $exercise->details;
+        }
+
+
         return response()->json($workOutExercises);
     }
 
@@ -27,13 +36,27 @@ class WorkoutExerciseController extends Controller
      */
     public function store(Request $request)
     {
-        //still need validation here
-        $newWorkOutExercise = new WorkOutExercise([
-            "workout_id" => $request->get('workout_id'),
-            "exercise_id" => $request->get('exercise_id'),
+        $request->validate([
+            'workout_id' => 'required',
+            'exercise_id' => 'required',
         ]);
-        $newWorkOutExercise->save();
-        return response()->json(['message' => 'WorkOutExercise created successfully !']);
+        if ($request->has('sets')) {
+            $newWorkoutExercise = new WorkOutExercise([
+                "workout_id" => $request->get('workout_id'),
+                "exercise_id" => $request->get('exercise_id'),
+                "sets" => $request->get('sets'),
+                "reps" => $request->get('reps'),
+                "rest" => $request->get('rest')
+            ]);
+        } else {
+            $newWorkoutExercise = new WorkOutExercise([
+                "workout_id" => $request->get('workout_id'),
+                "exercise_id" => $request->get('exercise_id'),
+            ]);
+        }
+
+        $newWorkoutExercise->save();
+        return response()->json(['message' => 'Exercise added to workout !']);
     }
 
     /**
@@ -57,17 +80,13 @@ class WorkoutExerciseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $workOutWorkOutExercise = WorkOutExercise::findOrFail($id);
-        if ($request->get('workout_id')) {
-            $workOutWorkOutExercise->workout_id = $request->get('workout_id');
-        }
+        $workoutExercise = WorkOutExercise::findOrFail($id);
+        $workoutExercise->sets = $request->get('sets');
+        $workoutExercise->reps = $request->get('reps');
+        $workoutExercise->rest = $request->get('rest');
 
-        if ($request->get('exercise_id')) {
-            $workOutWorkOutExercise->workout_id = $request->get('exercise_id');
-        }
-
-        $workOutWorkOutExercise->save();
-        return response()->json(['message' => "WorkOutExercise updated successfully !"]);
+        $workoutExercise->save();
+        return response()->json(['message' => "Workout Exercise updated successfully !"]);
     }
 
     /**
@@ -76,13 +95,10 @@ class WorkoutExerciseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($workout_id, $exercise_id)
+    public function destroy($id)
     {
-        $workOutExercises = WorkOutExercise::all();
-        $workOutExercise = $workOutExercises->filter(function ($item) use($workout_id,$exercise_id) {
-            return $item->workout_id == $workout_id && $item->exercise_id == $exercise_id;
-        })->first();
-        $workOutExercise->delete();
-        return response()->json(['message' => 'WorkOutExercise deleted successfully !']);
+        $workoutExercise = WorkOutExercise::findOrFail($id);
+        $workoutExercise->delete();
+        return response()->json(['message' => 'Workout Exercise deleted successfully !']);
     }
 }

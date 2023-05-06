@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { StyleSheet, Text, View, Dimensions, Modal, TextInput, Pressable } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { BarChart, LineChart, PieChart } from 'react-native-chart-kit';
@@ -11,6 +11,7 @@ import axios from '../Helpers/axiosConfig'
 import { useDailyNutrition } from '../context/providers/DailyNutritionProvider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { setIsCheckStateOk, setIsError, useUIController } from '../context/UIContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 function Home(): JSX.Element {
   const { currentUser, getUserWeights, weights, addUserWeight, editUserWeight, deleteUserWeight } = useAuth();
@@ -59,11 +60,9 @@ function Home(): JSX.Element {
       }
     }
   }
-  const fetchData1 = async () => {
+  const fetchData = async () => {
     await getDailyCalory();
     await getUserWeights(currentUser!.user!.id);
-  }
-  const fetchData2 = async () => {
     await getDailyNutrition(currentUser!.user!.id, now);
     await getLastNutritions(currentUser!.user!.id);
   }
@@ -102,31 +101,20 @@ function Home(): JSX.Element {
     }
   }
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setCurrentDate()
-    fetchData1()
+    fetchData()
   }, [axios.defaults.headers.common[
     "authorization"
-  ]])
+  ]]))
   useEffect(() => {
     const temp = weights?.find(weight => {
       return weight.date === now;
     });
     setEditMode(temp ? true : false);
   }, [weights])
-  useEffect(() => {
-    fetchData2()
-  }, [axios.defaults.headers.common[
-    "authorization"
-  ], forceUpdate])
   return (
     <Screen name="Fitness App" allowScroll>
-
-      {/* this section just for test */}
-      <Tester />
-
-
-
       <View>
         <View style={styles.card}>
           <View>
@@ -192,7 +180,7 @@ function Home(): JSX.Element {
               }}><Icon name={editMode ? "edit" : "plus"} color={theme.colors.text} size={18} /></Pressable>
             </View>
             <View>
-              <LineChart
+            <LineChart
                 data={{
                   labels: weights && weights.length > 0 ? weights.map((weight) => {
                     const temp = new Date(weight.date);
@@ -223,11 +211,11 @@ function Home(): JSX.Element {
             </View>
           </View>
           <View style={styles.card}>
-            <Text style={styles.subtitle}>Energy expended</Text>
+            <Text style={styles.subtitle}>Energy Consumed</Text>
             <View>
-              {/* <BarChart
-                yAxisLabel='0'
-                yAxisSuffix='0'
+            <BarChart
+                yAxisLabel=''
+                yAxisSuffix=''
                 data={{
                   labels: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
@@ -252,7 +240,7 @@ function Home(): JSX.Element {
                 }}
                 showBarTops={false}
                 withInnerLines={false}
-              /> */}
+              />
             </View>
           </View>
         </Swiper>

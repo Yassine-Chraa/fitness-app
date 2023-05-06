@@ -8,13 +8,10 @@ import {
   Dimensions,
 } from 'react-native';
 import Screen from '../../components/Screen';
-import theme from '../../constants/theme';
 import muscles from '../../constants/muscles'
 import MuscleCard from '../../components/Cards/MuscleCard';
 
-const Exercices = ({ navigation }: any) => {
-  const imageWidth = Dimensions.get('screen').width / 3 - 19;
-
+const Exercices = () => {
   return (
     <Screen name="Exercices" allowScroll>
       <View>

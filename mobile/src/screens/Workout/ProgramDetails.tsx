@@ -7,101 +7,23 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
+  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useProgram } from '../../context/providers/ProgramContextProvider';
 
+const allowedUsers = ['client', 'vip', 'admin'];
 const ProgramDetails = ({ navigation, route }: any) => {
+  const { currentUser } = useAuth();
+  const { enrollProgram, useProgramAsCurrent } = useProgram();
   const { program } = route.params;
-  const programWorkouts: any = [
-    {
-      id: 1,
-      name: 'Push Workout',
-      exercicesNumber: 9,
-      duration: 55,
-      exercices: [
-        {
-          id: 1,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 2,
-          name: 'Dumbbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 3,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 4,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-      ],
-    },
-    {
-      id: 2,
-      name: 'Pull Workout',
-      exercicesNumber: 10,
-      duration: 60,
-      exercices: [
-        {
-          id: 1,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 2,
-          name: 'Dumbbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 3,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 4,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-      ],
-    },
-    {
-      id: 3,
-      name: 'Legs Workout',
-      exercicesNumber: 5,
-      duration: 90,
-      exercices: [
-        {
-          id: 1,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 2,
-          name: 'Dumbbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 3,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-        {
-          id: 4,
-          name: 'Barbell Incline Bench Press',
-          target: 'Chest',
-        },
-      ],
-    },
-  ];
+  const width = Dimensions.get('screen').width;
 
   const [show, setShow] = useState(false);
   const [id, setId] = useState();
+
   const showExercices = (new_id: any) => {
     if (id != undefined) {
       if (id == new_id) {
@@ -115,6 +37,24 @@ const ProgramDetails = ({ navigation, route }: any) => {
     setId(new_id);
 
   };
+  const enroll = () => {
+    if (program.isFree == 1) {
+      enrollProgram(currentUser!.user.id, program.id);
+      useProgramAsCurrent(program.id)
+      navigation.navigate('Current')
+      Alert.alert("Program Enrolled !")
+    } else {
+      if (allowedUsers.includes(currentUser!.user.role)) { 
+        enrollProgram(currentUser!.user.id, program.id);
+        useProgramAsCurrent(program.id)
+        navigation.navigate('Current')
+        Alert.alert("Premium Program Enrolled !")
+      }else{
+        Alert.alert("Became Client To Enroll This Program !")
+      }
+    }
+  }
+
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
@@ -152,22 +92,20 @@ const ProgramDetails = ({ navigation, route }: any) => {
         </View>
         <View style={styles.details}>
           <View style={{ marginBottom: 16 }}>
-            <Text style={styles.subtitle}>Program description</Text>
+            <Text style={styles.subtitle}>Program Description</Text>
             <Text style={styles.desc}>
-              This is a three dayn beginner, general fitness plan that can be
-              performed at the gym or in home. The only pieces of equipement
-              youill need is a bench and dumbbells.
+              {program.description}
             </Text>
             <Text style={styles.author}>Created by Yassine Chraa</Text>
           </View>
-          {programWorkouts.map((workout: any) => {
+          {program?.workouts?.map((workout: any) => {
             return (
               <View style={styles.workout} key={workout.id}>
                 <TouchableOpacity
                   key={workout.id}
                   style={styles.workoutHeader}
                   onPress={() => showExercices(workout.id)}>
-                  <Text style={styles.workoutTitle}>Day {workout.id}</Text>
+                  <Text style={styles.workoutTitle}>{workout.day}</Text>
                   <View style={styles.workoutDetails}>
                     <View style={{ justifyContent: 'center' }}>
                       <Text
@@ -176,10 +114,10 @@ const ProgramDetails = ({ navigation, route }: any) => {
                           color: theme.colors.text,
                           marginTop: -4,
                         }}>
-                        {workout.name}
+                        {workout.title}
                       </Text>
                       <Text>
-                        {workout.exercicesNumber} exercices, {workout.duration}{' '}
+                        {workout.duration}{' '}
                         min
                       </Text>
                     </View>
@@ -189,35 +127,45 @@ const ProgramDetails = ({ navigation, route }: any) => {
                   </View>
                 </TouchableOpacity>
                 <View>
-                  {workout.exercices.map((exercice: any) => {
+                  {workout.exercises.map((exercise: any) => {
+                    const { title, img, category } = exercise.details;
+                    const { sets, reps, rest } = exercise;
+                    const txt = `${sets}x${reps} reps / rest ${rest}`;
                     return (
                       <TouchableOpacity
-                        key={exercice.id}
+                        key={exercise.id}
                         style={{
-                          ...styles.exercice,
+                          ...styles.exercise,
                           display: show && workout.id == id ? 'flex' : 'none',
                         }}
                         onPress={() =>
                           navigation.navigate('ExerciceDetails', {
-                            name: exercice.name,
+                            exercise: exercise.details,
                             type: 'workout'
                           })
                         }>
                         <View style={{ flexDirection: 'row' }}>
                           <Image
                             style={styles.image}
-                            source={{ uri: 'https://placehold.jp/60x60.png' }}
+                            source={{ uri: img }}
                           />
-                          <View style={{ gap: 4, justifyContent: 'center' }}>
+                          <View style={{ gap: 4, justifyContent: 'center', width: width - 160, }}>
                             <Text
                               style={{
                                 fontSize: 18,
                                 color: theme.colors.text,
                                 fontWeight: 'bold',
                               }}>
-                              {exercice.name}
+                              {title}
                             </Text>
-                            <Text>{exercice.target}</Text>
+                            <View style={{
+                              flexDirection: 'row',
+                              justifyContent: 'space-between',
+                            }}>
+                              <Text>{category}</Text>
+                              <Text>{txt}</Text>
+                            </View>
+
                           </View>
                         </View>
                       </TouchableOpacity>
@@ -234,9 +182,9 @@ const ProgramDetails = ({ navigation, route }: any) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-      <TouchableOpacity style={styles.addButton}>
+      <TouchableOpacity style={styles.addButton} activeOpacity={0.4} onPress={enroll}>
         <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-          Select As Current Program
+          Enroll Program
         </Text>
       </TouchableOpacity>
     </View>
@@ -300,8 +248,9 @@ const styles = StyleSheet.create({
     fontWeight: '600',
     color: theme.colors.text,
     marginBottom: 16,
+    textTransform: 'capitalize'
   },
-  exercice: {
+  exercise: {
     marginTop: 2,
     paddingVertical: 9,
     paddingHorizontal: 8,

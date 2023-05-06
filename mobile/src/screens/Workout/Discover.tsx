@@ -1,18 +1,35 @@
 import { Image } from '@rneui/themed';
-import React, { useEffect } from 'react';
+import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
+import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
 const Discover = ({ navigation }: any) => {
-  const { getPrograms, programs } = useProgram();
+  const { currentUser } = useAuth();
+  const { getPrograms, getUserPrograms, programs, userPrograms } = useProgram();
+  const [filtredPrograms, setFiltredPrograms] = useState<any>([])
 
-  useEffect(() => {
-    getPrograms();
-  }, [])
+  const fetch = async () => {
+    await getUserPrograms(currentUser!.user.id);
+    await getPrograms();
+    const temp = programs.filter(program => {
+      const map = userPrograms.map((item) => {
+        return item.details.id;
+      })
+
+      return map.includes(program.id) == false;
+    })
+    setFiltredPrograms(temp);
+
+  }
+  useFocusEffect(useCallback(() => {
+    fetch()
+  }, [currentUser]))
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>
@@ -22,7 +39,7 @@ const Discover = ({ navigation }: any) => {
             Tous
           </Text>
         </TouchableOpacity>
-        {programs.map((program: any) => {
+        {filtredPrograms.map((program: any) => {
           return (
             <TouchableHighlight
               key={program.id}
@@ -43,7 +60,7 @@ const Discover = ({ navigation }: any) => {
                     height: '100%',
                     justifyContent: 'center',
                   }}>
-                  {program.isPro ? (
+                  {!program.isFree ? (
                     <Text style={styles.tag}>Pro</Text>
                   ) : (
                     <Text
@@ -59,7 +76,7 @@ const Discover = ({ navigation }: any) => {
                   </Text>
                   <Text
                     style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
-                    {program.name}
+                    {program.title}
                   </Text>
                 </View>
               </View>

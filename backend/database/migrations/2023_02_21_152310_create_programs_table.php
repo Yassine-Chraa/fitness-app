@@ -17,12 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string("main_img")->default("https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg");
             $table->string("title");
-            $table->text("description");
+            $table->text("description")->nullable();
             $table->enum('category', ['maintaining', 'bulking', 'cutting'])->default("maintaining");
             $table->enum('difficulty_level', ['beginner', 'intermediate', 'advanced']);
             $table->boolean("isFree")->default(true);
             $table->string("days")->default(3);
             $table->boolean("isPublic")->default(1);
+            $table->unique(['program_id','user_id'],'unique_key','BTREE');
             $table->timestamps();
         });
     }
