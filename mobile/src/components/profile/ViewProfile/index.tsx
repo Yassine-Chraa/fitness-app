@@ -8,6 +8,7 @@ import ProgressSwipper from './ProgressSwipper';
 import PostTemplate from '../../PostTemplate';
 import { usePost } from '../../../context/providers/PostContextProvider';
 import PostInput from '../../PostTemplate/PostInput';
+import { useAuth } from '../../../context/providers/AuthContextProvider';
 
 
 const imageTest = require('../../../assets/images/gym.jpg')
@@ -16,6 +17,9 @@ const ViewProfile = ({ route }: any): JSX.Element => {
     const navigation: any = useNavigation();
     const [posts, setPosts] = useState<any>();
     const { getPostsByUserId } = usePost();
+    const { currentUser } = useAuth();
+    const user = currentUser?.user;
+
     const { user_id } = route.params;
 
 
@@ -68,7 +72,8 @@ const ViewProfile = ({ route }: any): JSX.Element => {
         <Screen name={"Profile"} backButton allowScroll>
 
             <View style={styles.header}>
-                <Image source={require('../../../assets/images/gym.jpg')} style={styles.headerImage} />
+                <Image source={{ uri: user?.img_url }}
+                    style={styles.headerImage} />
 
                 <View style={styles.follow}>
                     <View style={styles.followItem}>
@@ -96,7 +101,7 @@ const ViewProfile = ({ route }: any): JSX.Element => {
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostInput user_id={user_id} reLoadPosts={reLoadPosts}/>
+            <PostInput currentUserImgUrl={user?.img_url} user_id={user_id} reLoadPosts={reLoadPosts} />
 
             {
                 posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)

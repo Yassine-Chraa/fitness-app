@@ -7,7 +7,7 @@ import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIConte
 import ReactionType from '../../types/ReactionType';
 
 export type ReactionContextType = {
-    getReactionByPostUserId: (reaction:ReactionType) => Promise<Array<any>>;
+    getReactionByPostUserId: (reaction: ReactionType) => Promise<Array<any>>;
     getReactionsByPostId: (user_id: any) => Promise<Array<any>>;
     getReactions: () => Promise<Array<any>>;
     getReaction: (id: number) => Promise<any>;
@@ -33,13 +33,13 @@ export const ReactionContextProvider = ({ children }: any) => {
     const [controller, dispatch] = useUIController();
 
     //----------------------------------------
-    const getReactionByPostUserId = async (reaction:ReactionType) => {
+    const getReactionByPostUserId = async (reaction: ReactionType) => {
         try {
             const { data } = await axios.get(`${GetReactionByPostUserIdUrl}/${reaction.user_id}/${reaction.post_id}`);
             return data;
         } catch (error) {
             console.log(error);
-            console.log("[error]===> "+GetReactionByPostUserIdUrl)
+            console.log("[error]===> " + GetReactionByPostUserIdUrl)
             return false;
         }
     };
@@ -61,14 +61,11 @@ export const ReactionContextProvider = ({ children }: any) => {
     //-----------------------------------------
     const getReactionsByPostId = async (post_id: number) => {
         try {
-            setLoadAnimation(dispatch, true);
             const { data } = await axios.get(`${ReactionUrl}/${post_id}`);
-            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             Alert.alert('Something went wrong');
             console.log(error);
-            setLoadAnimation(dispatch, false);
         }
     };
 

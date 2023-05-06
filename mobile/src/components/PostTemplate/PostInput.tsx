@@ -7,7 +7,7 @@ import PostType from '../../types/PostType';
 import { usePost } from '../../context/providers/PostContextProvider';
 import FAImagePicker from '../FAImageHandlers/FAImagePicker';
 
-const PostInput = ({ user_id,reLoadPosts }: any) => {
+const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
     const [text, setText] = useState('');
     const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [img_url, setImg_url] = useState('')
@@ -25,7 +25,7 @@ const PostInput = ({ user_id,reLoadPosts }: any) => {
             user_id: user_id,
         }
         const result = await addPost(post);
-        if(result){
+        if (result) {
             setImg_url(() => '');
             setCurrentImageUrl(() => '');
             setText(() => '');
@@ -51,7 +51,7 @@ const PostInput = ({ user_id,reLoadPosts }: any) => {
                 </View>
                 <View style={styles.contentAreaContainer}>
                     <TouchableOpacity style={styles.writerImageContainer} onPress={() => console.log('')}>
-                        <Image source={require('../../assets/images/person.jpg')} style={styles.WriterImage} />
+                        <Image source={{ uri: currentUserImgUrl }} style={styles.WriterImage} />
                     </TouchableOpacity>
                     <View style={styles.postArea}>
                         <View style={styles.inputContainer}>

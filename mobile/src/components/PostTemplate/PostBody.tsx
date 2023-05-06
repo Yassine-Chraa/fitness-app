@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import FullImageView from '../FAImageHandlers/FullImageView';
 import { useReaction } from '../../context/providers/ReactionContextProvider';
 import ReactionType from '../../types/ReactionType';
+import ListOfLikers from './ListOfLikers';
+import moment from 'moment';
 
 const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
@@ -12,7 +14,8 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
     const [nbr_comments, setNbr_comments] = useState();
     const [hasComment, setHasComment] = useState(false);
     const [timeOutId, setTimeOutId] = useState<number | any>();
-    const { addReaction, deleteReactionByPostUserId,getReactionByPostUserId } = useReaction();
+    const [isLikersVisible, setIsLikersVisible] = useState(false);
+    const { addReaction, deleteReactionByPostUserId, getReactionByPostUserId } = useReaction();
 
     const toggleReplies = () => {
         setShowComments((prev: any) => !prev);
@@ -77,7 +80,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         const num = await getReactionByPostUserId(reaction);
         if (num) {
             setIsLike(() => true);
-        }else(
+        } else (
             setIsLike(() => false)
         )
     }
@@ -92,6 +95,13 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
 
     return (
         <View style={styles.postContainer}>
+
+            {
+                post && <ListOfLikers isLikersVisible={isLikersVisible}
+                    setIsLikersVisible={setIsLikersVisible}
+                    post_id={post.id} />
+            }
+
             <View style={styles.postHeader}>
                 <View style={styles.postHeaderImgName}>
                     <TouchableOpacity activeOpacity={0.6}>
@@ -99,7 +109,9 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                     </TouchableOpacity>
                     <View style={styles.postHeaderTitle}>
                         <Text style={styles.postHeaderTitleName}>{post.user.name}</Text>
-                        <Text style={styles.sinceTexxt}>3 days ago</Text>
+                        <Text style={styles.sinceTexxt}>{
+                            moment(post.created_at).fromNow()
+                        }</Text>
                     </View>
                 </View>
                 <TouchableOpacity activeOpacity={0.7} style={styles.moreBtn}>
@@ -119,7 +131,9 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
             <View style={styles.postFooter}>
                 <View style={styles.postBtns}>
                     <View style={styles.postFooterIcon}>
-                        <TouchableOpacity activeOpacity={0.6} onPress={likeClickHandler}>
+                        <TouchableOpacity activeOpacity={0.6}
+                            onLongPress={() => setIsLikersVisible(() => true)}
+                            onPress={likeClickHandler}>
                             <Icon name={'heart'} size={24} color={islike ? '#f00' : 'gray'}
                                 style={{
                                     marginEnd: 6,

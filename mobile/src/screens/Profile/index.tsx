@@ -21,6 +21,7 @@ function Profile(): JSX.Element {
             name: user?.name,
             workout_level: user?.workout_level,
             top_goal: user?.top_goal,
+            img_url:user?.img_url,
           }}
         />
         <TopButton />

@@ -6,8 +6,6 @@ import theme from '../../constants/theme';
 import { Image } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 
-const profile_image = require('../../assets/images/person.jpg')
-
 function UserDesc({ userInfo }: any): JSX.Element {
   const navigation: any = useNavigation();
 
@@ -19,8 +17,7 @@ function UserDesc({ userInfo }: any): JSX.Element {
       <View style={styles.avatarName}>
         <Image
           style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 1, borderColor: "#eee" }}
-          // source={{ uri: userInfo.profile }}
-          source={profile_image}
+          source={{ uri: userInfo.img_url }}
         />
         <View style={{ justifyContent: 'center' }}>
           <Text style={styles.name}>{userInfo.name}</Text>
