@@ -12,6 +12,9 @@ import { useDailyNutrition } from '../context/providers/DailyNutritionProvider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { setIsCheckStateOk, setIsError, useUIController } from '../context/UIContext';
 import { useFocusEffect } from '@react-navigation/native';
+import { usePost } from '../context/providers/PostContextProvider';
+import PostInput from '../components/PostTemplate/PostInput';
+import PostTemplate from '../components/PostTemplate';
 
 function Home(): JSX.Element {
   const { currentUser, getUserWeights, weights, addUserWeight, editUserWeight, deleteUserWeight } = useAuth();
@@ -113,9 +116,40 @@ function Home(): JSX.Element {
     });
     setEditMode(temp ? true : false);
   }, [weights])
+
+
+  //----------------------------------------
+
+  const [posts, setPosts] = useState<any>();
+  const { getPosts } = usePost();
+
+  const loadPosts = async () => {
+    const Allposts = await getPosts();
+    if (Allposts) {
+      console.log("=====> num of posts : " + Allposts.length)
+      setPosts(() => Allposts[3]);
+    }
+  }
+
+  useEffect(() => {
+    loadPosts();
+  }, [])
+
+  const reLoadPosts = () => {
+    loadPosts();
+  }
+
+
+
   return (
     <Screen name="Fitness App" allowScroll>
       <View>
+
+        <View style={{ marginBottom: 20, }}>
+          <PostInput currentUserImgUrl={currentUser?.user.img_url} user_id={currentUser?.user.id} reLoadPosts={reLoadPosts} />
+        </View>
+
+
         <View style={styles.card}>
           <View>
             <Text style={styles.subtitle}>Calories (cal)</Text>
@@ -180,7 +214,7 @@ function Home(): JSX.Element {
               }}><Icon name={editMode ? "edit" : "plus"} color={theme.colors.text} size={18} /></Pressable>
             </View>
             <View>
-            <LineChart
+              <LineChart
                 data={{
                   labels: weights && weights.length > 0 ? weights.map((weight) => {
                     const temp = new Date(weight.date);
@@ -210,10 +244,12 @@ function Home(): JSX.Element {
               />
             </View>
           </View>
+
+
           <View style={styles.card}>
             <Text style={styles.subtitle}>Energy Consumed</Text>
             <View>
-            <BarChart
+              <BarChart
                 yAxisLabel=''
                 yAxisSuffix=''
                 data={{
@@ -258,6 +294,13 @@ function Home(): JSX.Element {
             </View>
           </View>
         </Modal>
+        {/* ====================================== */}
+
+        {
+          posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)
+        }
+
+        {/* ========================================= */}
       </View>
     </Screen>
   );
@@ -326,47 +369,3 @@ const styles = StyleSheet.create({
 });
 
 export default Home;
-
-
-//============================================================
-
-const Tester = () => {
-  const [controller, dispatch] = useUIController()
-
-  const pressHandler = () => {
-    setIsCheckStateOk(dispatch,
-      {
-        isCheck: true,
-        isSuccess: true,
-        message: "You have updated your profil successfully !"
-      });
-    // setIsError(dispatch, true);
-  }
-
-  return (
-    <TouchableOpacity activeOpacity={0.6}
-      onPress={pressHandler}
-      style={btnStyle.btnContainer}
-    >
-      <Text style={btnStyle.button}>
-        Test Test
-      </Text>
-    </TouchableOpacity>
-  );
-};
-
-const btnStyle = StyleSheet.create({
-  button: {
-    borderRadius: 10,
-    paddingHorizontal: 60,
-    paddingVertical: 20,
-    color: "white"
-  },
-  btnContainer: {
-    backgroundColor: "blue",
-    margin: 40,
-    borderRadius: 30,
-    borderWidth: 2,
-    borderColor: "red",
-  }
-});

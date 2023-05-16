@@ -23,7 +23,6 @@ return new class extends Migration
             $table->boolean("isFree")->default(true);
             $table->string("days")->default(3);
             $table->boolean("isPublic")->default(1);
-            $table->unique(['program_id','user_id'],'unique_key','BTREE');
             $table->timestamps();
         });
     }

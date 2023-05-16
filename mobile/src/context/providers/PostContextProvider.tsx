@@ -43,13 +43,11 @@ export const PostContextProvider = ({ children }: any) => {
     //----------------------------------------
     const getPosts = async () => {
         try {
-            setLoadAnimation(dispatch, true);
+            console.log(PostUrl)
             const { data } = await axios.get(`${PostUrl}`);
-            setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
             console.log(error);
-            setLoadAnimation(dispatch, false);
             return false;
         }
     };
