@@ -35,6 +35,11 @@ import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
 import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
 import AchievmentsGallery from '../components/profile/ViewProfile/AchievmentsGallery';
 import CoachClients from '../screens/Profile/CoachClients';
+import ImageClassifier from '../components/imageProcessing/ImageClassifier';
+import ChangePassword from '../components/profile/Settings/PrivacySettings/ChangePassword';
+import VerifyEmail from '../components/profile/Settings/PrivacySettings/VerifyEmail';
+import VerifyPassword from '../components/profile/Settings/PrivacySettings/VerifyPassword';
+import ResetPasswordForUpdate from '../components/profile/Settings/PrivacySettings/ResetPasswordForUpdate';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
@@ -94,6 +99,13 @@ const MainNavigator = () => {
             <Stack.Screen name="ImageGallery" component={ImageGallery} />
             <Stack.Screen name="ImageSwipper" component={ImageSwipper} />
             <Stack.Screen name="AchievmentsGallery" component={AchievmentsGallery} />
+
+            <Stack.Screen name="ImageClassifier" component={ImageClassifier} />
+
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+            <Stack.Screen name="VerifyPassword" component={VerifyPassword} />
+            <Stack.Screen name="ResetPasswordForUpdate" component={ResetPasswordForUpdate} />
           </>
         ) : (
           <>

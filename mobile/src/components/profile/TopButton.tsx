@@ -3,12 +3,17 @@ import React from 'react';
 import {StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
+import { useNavigation } from '@react-navigation/native';
 
 function TopButton(): JSX.Element {
+
+  const navigation: any  = useNavigation();
+
   return (
     <TouchableOpacity activeOpacity={0.8} style={styles.CustomBtnContainer}>
       <Icon name={'gem'} color={'white'} size={18} solid />
-      <Text style={{color: 'white', marginLeft: 16, fontSize: 18,letterSpacing: 2}}>
+      <Text style={{color: 'white', marginLeft: 16, fontSize: 18,letterSpacing: 2}}
+      onPress={() => navigation.navigate('ImageClassifier')}>
         Upgrade
       </Text>
     </TouchableOpacity>

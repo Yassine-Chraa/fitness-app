@@ -8,12 +8,16 @@ import SignUpObj from '../../types/SignUpObj';
 import UserInfo from '../../types/UserInfo';
 import getData from '../../Helpers/Storage/getData';
 import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
+import UserType from '../../types/UserType';
+import UserPasswordType from '../../types/UserPasswordType';
 
 export type AuthContextType = {
   currentUser: UserInfo | null;
   updateState: () => Promise<void>;
-  signIn: (form: any) => Promise<string>;
-  signUp: (form: any) => Promise<string>;
+  signIn: (form: SignInObj) => Promise<string>;
+  testSignIn: (form: SignInObj) => Promise<string>;
+  updateUserPassword: (form: UserPasswordType) => Promise<string>;
+  signUp: (form: SignUpObj) => Promise<string>;
   logout: () => void;
   resetPassword: (email: string) => Promise<string>;
   deleteAccount: () => Promise<any>;
@@ -50,7 +54,7 @@ export const AuthContextProvider = ({ children }: any) => {
   //-------------------------------
   const updateState = async () => {
     const userData = await getData('current_user');
-    if(userData){
+    if (userData) {
       setCurrentUser(() => userData);
     }
   };
@@ -83,6 +87,19 @@ export const AuthContextProvider = ({ children }: any) => {
           message: "Oooops! somethingg went wrong. Please, try later !"
         });
       return '_FAILURE_';
+    }
+  };
+
+  //====================================================
+  const testSignIn = async (form: SignInObj) => {
+    setLoadAnimation(dispatch, true);
+    try {
+      const { data } = await axios.post(`${signInUrl}`, form);
+      setLoadAnimation(dispatch, false);
+      return data;
+    } catch (error) {
+      setLoadAnimation(dispatch, false);
+      return false;
     }
   };
 
@@ -155,10 +172,12 @@ export const AuthContextProvider = ({ children }: any) => {
   };
 
   //-------------------------------
-  const updateCurrentUser = async (user: any) => {
+  const updateCurrentUser = async (user: UserType) => {
     setLoadAnimation(dispatch, true);
     try {
-      const { data } = await axios.put(`${usersUrl}/${currentUser?.user?.id}`, user);
+      console.log("[update user url] ==> " + `${usersUrl}/${user?.id}`)
+      const { data } = await axios.put(`${usersUrl}/${user?.id}`, user);
+      console.log("[is User saved] ==> " + data)
       const current_user: UserInfo | null = currentUser;
       setCurrentUser((prev: any) => {
         return { ...prev, user: data }
@@ -166,6 +185,19 @@ export const AuthContextProvider = ({ children }: any) => {
       await storeData('current_user', { ...current_user!, user: data });
       setLoadAnimation(dispatch, false);
       return true;
+    } catch (error) {
+      setLoadAnimation(dispatch, false);
+      return false;
+    }
+  }
+
+  //-------------------------------
+  const updateUserPassword = async (user: UserPasswordType) => {
+    setLoadAnimation(dispatch, true);
+    try {
+      const { data } = await axios.put(`${usersUrl}/${user.id}`, user);
+      setLoadAnimation(dispatch, false);
+      return data;
     } catch (error) {
       setLoadAnimation(dispatch, false);
       return false;
@@ -220,6 +252,8 @@ export const AuthContextProvider = ({ children }: any) => {
         currentUser,
         updateState,
         signIn,
+        testSignIn,
+        updateUserPassword,
         signUp,
         logout,
         resetPassword,

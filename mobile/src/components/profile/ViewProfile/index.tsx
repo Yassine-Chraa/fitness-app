@@ -35,21 +35,6 @@ const ViewProfile = ({ route }: any): JSX.Element => {
         { title: 'Grandmaster', image: require('../../../assets/images/budges/budge_9.png') },
     ];
 
-    const images = [
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
-    ];
-
     const titles = ['150', '0.0', '22.14']
     const values = ['weight LBS', 'Body fat %', 'BMI']
 
@@ -97,7 +82,9 @@ const ViewProfile = ({ route }: any): JSX.Element => {
             </View>
 
             <AchievmentsSwipper title={'Achievements'} badgets={badgets} imageStyle={{ width: 70, height: 70, borderRadius: 35 }} />
-            <ProgressSwipper title={'Progress Photos'} images={images} imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
+
+            <ProgressSwipper user_id={user_id} title={'Progress Photos'}
+                imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
 
             <InfoGroup titles={titles} values={values} />
 
@@ -122,11 +109,14 @@ const styles = StyleSheet.create({
         marginBottom: 14
     },
     headerImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        marginTop: 10,
-        marginBottom: 14
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginTop: 6,
+        marginBottom: 14,
+        borderWidth: 1,
+        borderColor: "#0006",
+        backgroundColor: "#eee"
     },
     follow: {
         width: '100%',

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
     Modal,
     StyleSheet,
@@ -14,8 +14,12 @@ import {
     launchCamera, ImageLibraryOptions, launchImageLibrary, CameraOptions
 } from 'react-native-image-picker';
 import { useUpLoadImage } from '../../context/providers/UpLoadImageContextProvider';
+import FAconfimrCancelImage from './FAConfirmCancelImage';
 
 const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url }: any): JSX.Element => {
+
+    const [isOkYesImageOpen, setIsOkYesImageOpen] = useState(false);
+    const [img, setImg] = useState<any>();
 
     const { uploadImage } = useUpLoadImage()
 
@@ -45,6 +49,7 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
         };
 
         launchCamera(options, async (response) => {
+            console.log("[[URL']] |===> {hello hello}")
             UpLoad(response)
         });
     };
@@ -52,9 +57,9 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
     const UpLoad = async (response: any) => {
         if (response.assets && response.assets.length > 0) {
             const uri = response.assets[0].uri
-            setCurrentImageUrl(() => uri)
-            const img_url = await uploadImage(response.assets[0]);
-            setImg_url(img_url)
+            setCurrentImageUrl(() => uri);
+            setImg(() => response.assets[0]);
+            setIsOkYesImageOpen(() => true)
         } else if (response.didCancel) {
             console.log('User cancelled image picker');
         } else if (response.errorCode) {
@@ -62,61 +67,79 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
         }
     }
 
+    const YesUpload = async () => {
+        const img_url = await uploadImage(img);
+        setImg_url(img_url)
+        setIsOkYesImageOpen(() => false)
+    }
+
+    const NoUpload = () => {
+        setIsOkYesImageOpen(() => false)
+        setIsVisible(() => true);
+    }
+
     return (
-        <Modal animationType="slide" transparent={true} visible={isVisible}>
-            <View style={styles.modalContainer}>
-                <View style={styles.modalContent}>
+        <>
+            {img && <FAconfimrCancelImage isOkYesImageOpen={isOkYesImageOpen}
+                YesUpload={YesUpload}
+                NoUpload={NoUpload}
+                image={img} />}
 
-                    <TouchableOpacity
-                        style={styles.modalButtonCancel}
-                        onPress={() => setIsVisible(() => false)}>
-                        <Icon style={styles.modalButtonCancelText} name={'times'} size={18} solid color={'#000d'} />
-                    </TouchableOpacity>
-
-                    <Text style={styles.modalTitle}>Select Image</Text>
-                    <View style={styles.btnContainer}>
-                        <TouchableOpacity
-                            style={styles.modalButton}
-                            onPress={handleCameraSelect}>
-                            <AnimatedLottieView
-                                source={CameraAnimation}
-                                autoPlay
-                                loop
-                                speed={1.5}
-                                resizeMode="contain"
-                                style={{
-                                    width: 60,
-                                    height: 60,
-                                    backgroundColor: 'transparent',
-                                }}
-                            />
-                            <Text style={styles.modalButtonText}>Camera</Text>
-                        </TouchableOpacity>
-
+            <Modal animationType="slide" transparent={true} visible={isVisible}>
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
 
                         <TouchableOpacity
-                            style={styles.modalButton}
-                            onPress={handleImageSelect}>
-                            <AnimatedLottieView
-                                source={GalleryAnimation}
-                                autoPlay
-                                loop
-                                speed={1.5}
-                                resizeMode="contain"
-                                style={{
-                                    width: 60,
-                                    height: 60,
-                                    backgroundColor: 'transparent',
-                                }}
-                            />
-                            <Text style={styles.modalButtonText}>Gallery</Text>
+                            style={styles.modalButtonCancel}
+                            onPress={() => setIsVisible(() => false)}>
+                            <Icon style={styles.modalButtonCancelText} name={'times'} size={18} solid color={'#000d'} />
                         </TouchableOpacity>
+
+                        <Text style={styles.modalTitle}>Select Image</Text>
+                        <View style={styles.btnContainer}>
+                            <TouchableOpacity
+                                style={styles.modalButton}
+                                onPress={handleCameraSelect}>
+                                <AnimatedLottieView
+                                    source={CameraAnimation}
+                                    autoPlay
+                                    loop
+                                    speed={1.5}
+                                    resizeMode="contain"
+                                    style={{
+                                        width: 60,
+                                        height: 60,
+                                        backgroundColor: 'transparent',
+                                    }}
+                                />
+                                <Text style={styles.modalButtonText}>Camera</Text>
+                            </TouchableOpacity>
+
+
+                            <TouchableOpacity
+                                style={styles.modalButton}
+                                onPress={handleImageSelect}>
+                                <AnimatedLottieView
+                                    source={GalleryAnimation}
+                                    autoPlay
+                                    loop
+                                    speed={1.5}
+                                    resizeMode="contain"
+                                    style={{
+                                        width: 60,
+                                        height: 60,
+                                        backgroundColor: 'transparent',
+                                    }}
+                                />
+                                <Text style={styles.modalButtonText}>Gallery</Text>
+                            </TouchableOpacity>
+                        </View>
+
+
                     </View>
-
-
                 </View>
-            </View>
-        </Modal>
+            </Modal>
+        </>
     );
 };
 

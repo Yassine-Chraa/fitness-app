@@ -48,7 +48,7 @@ class ImageController extends Controller
      */
     public function show($user_id)
     {
-        $images = Image::where('user_id', '=', $user_id)->orderBy('created_at', 'desc')->get();
+        $images = Image::where('user_id', '=', $user_id)->orderBy('created_at', 'asc')->get();
         if(count($images)){
             return response()->json($images);
         }

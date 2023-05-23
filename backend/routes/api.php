@@ -5,6 +5,7 @@ use App\Http\Controllers\API\CategorieController;
 use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ExerciseController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\ImageController;
 use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProgramController;
@@ -62,6 +63,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
+
+    Route::apiResource('images', ImageController::class);
 
     Route::apiResource('posts', PostController::class);
     Route::apiResource('reactions', ReactionController::class);

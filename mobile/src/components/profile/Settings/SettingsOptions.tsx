@@ -3,8 +3,12 @@ import { StyleSheet, View } from 'react-native';
 import Option from '../Option';
 import theme from '../../../constants/theme';
 import SettingSwitch from './SettingSwitch';
+import { useNavigation } from '@react-navigation/native';
 
 const SettingsOptions = (): any => {
+    const navigation: any = useNavigation();
+    
+
     return (
         <View style={styles.container}>
             <Option
@@ -23,7 +27,7 @@ const SettingsOptions = (): any => {
                 title="Privacy Settings"
                 iconName="wrench"
                 BadgeColor={theme.colors.text}
-                link={'Settings'}
+                link={'VerifyEmail'}
             />
             <SettingSwitch
                 title="Connect to Google Fit"

@@ -18,6 +18,7 @@ const endpoints: any = {
   Categories: '/api/categories',
   FeedBacks: '/api/feedbacks',
   Posts: '/api/posts',
+  Images: '/api/images',
   Comments: '/api/comments',
   Replies: '/api/replies',
   Reactions: '/api/reactions',
