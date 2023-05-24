@@ -1,30 +1,29 @@
 import React from 'react';
-import { View, Text, FlatList, StyleSheet } from 'react-native';
+import { View, Text, ScrollView, StyleSheet } from 'react-native';
 import Reply from './Reply';
 
 const ListReplies = ({ replies }: any) => {
-    const renderReply = ({ item }: any) => (
-        <Reply username={item.username}
-            text={item.text}
-            image={item.image} />
-    )
 
-    const keyExtractor = (item: any) => item.id.toString();
+    const renderReply = (reply: any) => (
+        <Reply
+            username={reply.user.name}
+            text={reply.content}
+            image={reply.user.img_url}
+            key={Math.random()*(isNaN(parseInt(reply.id)) ? 100 : reply.id)} />
+    )
 
     return (
         <View style={styles.container}>
-            <FlatList
-                data={replies}
-                renderItem={renderReply}
-                keyExtractor={keyExtractor}
-            />
+            <ScrollView>
+                {replies && replies.length > 0 ? replies.map((reply: any) => renderReply(reply)) : null}
+            </ScrollView>
         </View>
     );
 };
 
 const styles = StyleSheet.create({
-    container:{
-        flex: 1, 
+    container: {
+        flex: 1,
         marginStart: 45,
     }
 });

@@ -17,12 +17,22 @@ const endpoints: any = {
   Exercises: '/api/exercises',
   Categories: '/api/categories',
   FeedBacks: '/api/feedbacks',
+  Posts: '/api/posts',
+  Images: '/api/images',
+  Comments: '/api/comments',
+  Replies: '/api/replies',
+  Reactions: '/api/reactions',
+  PostsByUserId: '/api/postsByUserId',
+  CommentsByPostId: '/api/commentsByPostId',
+  ReplysByCommentId: '/api/repliesByCommentId',
+  DeleteReactionByPostUserId: '/api/deleteReactionByPostUserId',
+  GetReactionByPostUserId:'/api/getReactionByPostUserId',
+  UploadUrl: '/api/upload',
   CsrfToken: '/csrf-token',
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  console.log(API_URL)
-  return '192.168.0.106' + endpoints[endpoint];
+  return API_URL + endpoints[endpoint];
 }
 
 export default endpoints;

@@ -23,7 +23,7 @@ const reducer = (state: any, action: any) => {
 };
 
 
-const _CHECK_STATE_:CheckStateType = {
+const _CHECK_STATE_: CheckStateType = {
     isCheck: false,
     isSuccess: false,
     message: '',

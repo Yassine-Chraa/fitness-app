@@ -1,6 +1,7 @@
-import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
+import React from 'react';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import Discover from './Discover';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import CurrentProgram from './CurrentProgram';
 import theme from '../../constants/theme';
 import MyPrograms from './MyPrograms';
@@ -11,7 +12,7 @@ const Workout = () => {
   return (
     <Tab.Navigator
       initialRouteName="Current"
-      tabBar={({state, navigation, position}) => (
+      tabBar={({ state, navigation, position }) => (
         <View
           style={{
             flexDirection: 'row',

@@ -1,23 +1,43 @@
-import React, { useState } from 'react'
-import { StyleSheet, Image, ScrollView, View, Text, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react'
+import { StyleSheet, Image, View, Text, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
-import FullImageView from '../ImageViews/FullImageView';
+import FullImageView from '../FAImageHandlers/FullImageView';
+import { useReaction } from '../../context/providers/ReactionContextProvider';
+import ReactionType from '../../types/ReactionType';
+import ListOfLikers from './ListOfLikers';
+import moment from 'moment';
 
-const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentInput}:any): JSX.Element => {
+const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
     const [islike, setIsLike] = useState(false);
+    const [nbr_likes, setNbr_likes] = useState<number | any>();
+    const [nbr_comments, setNbr_comments] = useState();
     const [hasComment, setHasComment] = useState(false);
+    const [timeOutId, setTimeOutId] = useState<number | any>();
+    const [isLikersVisible, setIsLikersVisible] = useState(false);
+    const { addReaction, deleteReactionByPostUserId, getReactionByPostUserId } = useReaction();
 
     const toggleReplies = () => {
-        setShowComments((prev:any)  => !prev);
+        setShowComments((prev: any) => !prev);
     };
 
     const likeClickHandler = () => {
+        console.log("(islike.before)====> " + islike)
         setIsLike((prev) => !prev)
+        console.log("(islike.after)====> " + islike)
+        clearTimeout(timeOutId);
+        const newTimeOutId = setTimeout(() => {
+            if (!islike) {
+                addNewReaction();
+            } else {
+                deleteReaction();
+            }
+        }, 1000);
+        setTimeOutId(() => newTimeOutId)
     }
 
     const addNewComment = () => {
-        setShowNewCommentInput((prev:any) => !prev);
+        setShowNewCommentInput((prev: any) => !prev);
     }
 
     const handlePress = () => {
@@ -28,16 +48,70 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
         setModalVisible(false);
     };
 
+    const addNewReaction = async () => {
+        const reaction: ReactionType = {
+            user_id: post.user.id,
+            post_id: post.id,
+        }
+        const num = await addReaction(reaction);
+        if (num) {
+            console.log("[add]-------------> nbr_likes : " + num)
+            setNbr_likes(() => num);
+        }
+    }
+
+    const deleteReaction = async () => {
+        const reaction: ReactionType = {
+            user_id: post.user.id,
+            post_id: post.id,
+        }
+        const num = await deleteReactionByPostUserId(reaction);
+        if (num) {
+            console.log("[delete]-------------> nbr_likes : " + num)
+            setNbr_likes(() => num);
+        }
+    }
+
+    const checkIsCurrentUserLoves = async () => {
+        const reaction: ReactionType = {
+            user_id: post.user.id,
+            post_id: post.id,
+        }
+        const num = await getReactionByPostUserId(reaction);
+        if (num) {
+            setIsLike(() => true);
+        } else (
+            setIsLike(() => false)
+        )
+    }
+
+    useEffect(() => {
+        setNbr_likes(() => post.nbr_likes)
+        setNbr_comments(() => post.nbr_comments)
+        checkIsCurrentUserLoves()
+    }, []);
+
+
+
     return (
         <View style={styles.postContainer}>
+
+            {
+                post && <ListOfLikers isLikersVisible={isLikersVisible}
+                    setIsLikersVisible={setIsLikersVisible}
+                    post_id={post.id} />
+            }
+
             <View style={styles.postHeader}>
                 <View style={styles.postHeaderImgName}>
                     <TouchableOpacity activeOpacity={0.6}>
-                        <Image style={styles.postHeaderImage} source={require('../../assets/images/gym.jpg')} />
+                        <Image style={styles.postHeaderImage} source={{ uri: post.user.img_url }} />
                     </TouchableOpacity>
                     <View style={styles.postHeaderTitle}>
-                        <Text style={styles.postHeaderTitleName}>Ben alla Ismail</Text>
-                        <Text style={styles.sinceTexxt}>3 days ago</Text>
+                        <Text style={styles.postHeaderTitleName}>{post.user.name}</Text>
+                        <Text style={styles.sinceTexxt}>{
+                            moment(post.created_at).fromNow()
+                        }</Text>
                     </View>
                 </View>
                 <TouchableOpacity activeOpacity={0.7} style={styles.moreBtn}>
@@ -46,31 +120,33 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
             </View>
             <View style={styles.postBody}>
                 <Text style={styles.postBodyText}>
-                    something about your post here ...
+                    {post.content}
                 </Text>
                 <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
-                    <Image style={styles.postBodyImage} source={require('../../assets/images/gym.jpg')} />
+                    <Image style={styles.postBodyImage} source={{ uri: post.image_url }} />
                 </TouchableOpacity>
 
-                {modalVisible && <FullImageView source={require('../../assets/images/gym.jpg')} onClose={handleClose} />}
+                {modalVisible && <FullImageView source={{ uri: post.image_url }} onClose={handleClose} />}
             </View>
             <View style={styles.postFooter}>
                 <View style={styles.postBtns}>
                     <View style={styles.postFooterIcon}>
-                        <TouchableOpacity activeOpacity={0.6} onPress={likeClickHandler}>
+                        <TouchableOpacity activeOpacity={0.6}
+                            onLongPress={() => setIsLikersVisible(() => true)}
+                            onPress={likeClickHandler}>
                             <Icon name={'heart'} size={24} color={islike ? '#f00' : 'gray'}
                                 style={{
                                     marginEnd: 6,
                                 }} />
                         </TouchableOpacity>
-                        <Text>21</Text>
+                        <Text>{nbr_likes}</Text>
                     </View>
                     <View style={styles.postFooterIcon}>
                         <TouchableOpacity activeOpacity={0.6} onPress={addNewComment}>
                             <Icon name={'comment'} size={24} color={hasComment ? '#f00' : 'gray'}
                                 style={{ marginEnd: 6 }} />
                         </TouchableOpacity>
-                        <Text>21</Text>
+                        <Text>{nbr_comments}</Text>
                     </View>
                 </View>
                 {nbrComments > 0 ? (
@@ -79,7 +155,7 @@ const PostBody = ({nbrComments, setShowComments,showComments,setShowNewCommentIn
                             {showComments ? 'Hide Comments' : `View ${nbrComments} Comments`}
                         </Text>
                     </TouchableOpacity>
-                ):<Text>{" "}</Text>}
+                ) : <Text>{" "}</Text>}
 
             </View>
         </View>
@@ -150,7 +226,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
     },
-    postBtns:{
+    postBtns: {
         flex: 1,
         width: '100%',
         display: 'flex',

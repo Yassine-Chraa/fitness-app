@@ -20,7 +20,6 @@ const ResetPassword = () => {
         setMessage(res);
       });
     }
-    // redirect to sign in screen screen
   };
 
   useFocusEffect(

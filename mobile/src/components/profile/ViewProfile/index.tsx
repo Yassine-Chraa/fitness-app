@@ -1,53 +1,63 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, Image, Button } from 'react-native';
 import InfoGroup from '../InfoGroup';
-import PostCard from './PostCard';
 import Screen from '../../Screen';
 import { useNavigation } from '@react-navigation/native';
 import AchievmentsSwipper from './AchievmentsSwipper';
 import ProgressSwipper from './ProgressSwipper';
 import PostTemplate from '../../PostTemplate';
+import { usePost } from '../../../context/providers/PostContextProvider';
+import PostInput from '../../PostTemplate/PostInput';
+import { useAuth } from '../../../context/providers/AuthContextProvider';
 
 
 const imageTest = require('../../../assets/images/gym.jpg')
 
-const ViewProfile = (): JSX.Element => {
+const ViewProfile = ({ route }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const badgets = [
-        {title:'Beginner',image:require('../../../assets/images/budges/budge_1.png')},
-        {title:'Novice',image:require('../../../assets/images/budges/budge_2.png')},
-        {title:'Intermediate',image:require('../../../assets/images/budges/budge_3.png')},
-        {title:'Advanced',image:require('../../../assets/images/budges/budge_4.png')},
-        {title:'Expert',image:require('../../../assets/images/budges/budge_5.png')},
-        {title:'Legendary',image:require('../../../assets/images/budges/budge_6.png')},
-        {title:'intermediare',image:require('../../../assets/images/budges/budge_7.png')},
-        {title:'Master',image:require('../../../assets/images/budges/budge_8.png')},
-        {title:'Grandmaster',image:require('../../../assets/images/budges/budge_9.png')},
-    ];
+    const [posts, setPosts] = useState<any>();
+    const { getPostsByUserId } = usePost();
+    const { currentUser } = useAuth();
+    const user = currentUser?.user;
 
-    const images = [
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
-        require('../../../assets/images/slider/image1.png'),
-        require('../../../assets/images/slider/image2.png'),
-        require('../../../assets/images/slider/image3.png'),
-        require('../../../assets/images/slider/image4.png'),
+    const { user_id } = route.params;
+
+    const badgets = [
+        { title: 'Beginner', image: require('../../../assets/images/budges/budge_1.png') },
+        { title: 'Novice', image: require('../../../assets/images/budges/budge_2.png') },
+        { title: 'Intermediate', image: require('../../../assets/images/budges/budge_3.png') },
+        { title: 'Advanced', image: require('../../../assets/images/budges/budge_4.png') },
+        { title: 'Expert', image: require('../../../assets/images/budges/budge_5.png') },
+        { title: 'Legendary', image: require('../../../assets/images/budges/budge_6.png') },
+        { title: 'intermediare', image: require('../../../assets/images/budges/budge_7.png') },
+        { title: 'Master', image: require('../../../assets/images/budges/budge_8.png') },
+        { title: 'Grandmaster', image: require('../../../assets/images/budges/budge_9.png') },
     ];
 
     const titles = ['150', '0.0', '22.14']
     const values = ['weight LBS', 'Body fat %', 'BMI']
 
+    const loadPosts = async () => {
+        const posts = await getPostsByUserId(user_id);
+        if (posts) {
+            setPosts(() => posts);
+        }
+    }
+
+    useEffect(() => {
+        loadPosts();
+    }, [])
+
+    const reLoadPosts = () => {
+        loadPosts();
+    }
+
     return (
         <Screen name={"Profile"} backButton allowScroll>
 
             <View style={styles.header}>
-                <Image source={require('../../../assets/images/gym.jpg')} style={styles.headerImage} />
+                <Image source={{ uri: user?.img_url }}
+                    style={styles.headerImage} />
 
                 <View style={styles.follow}>
                     <View style={styles.followItem}>
@@ -71,13 +81,17 @@ const ViewProfile = (): JSX.Element => {
             </View>
 
             <AchievmentsSwipper title={'Achievements'} badgets={badgets} imageStyle={{ width: 70, height: 70, borderRadius: 35 }} />
-            <ProgressSwipper title={'Progress Photos'} images={images} imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
+
+            <ProgressSwipper user_id={user_id} title={'Progress Photos'}
+                imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostTemplate />
-            <PostTemplate />
-            <PostTemplate />
+            <PostInput currentUserImgUrl={user?.img_url} user_id={user_id} reLoadPosts={reLoadPosts} />
+
+            {
+                posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)
+            }
 
         </Screen>
     );
@@ -94,11 +108,14 @@ const styles = StyleSheet.create({
         marginBottom: 14
     },
     headerImage: {
-        width: 70,
-        height: 70,
-        borderRadius: 35,
-        marginTop: 10,
-        marginBottom: 14
+        width: 80,
+        height: 80,
+        borderRadius: 40,
+        marginTop: 6,
+        marginBottom: 14,
+        borderWidth: 1,
+        borderColor: "#0006",
+        backgroundColor: "#eee"
     },
     follow: {
         width: '100%',

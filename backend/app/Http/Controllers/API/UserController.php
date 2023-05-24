@@ -94,6 +94,7 @@ class UserController extends Controller
     {
 
         $user = User::findOrFail($id);
+
         if ($request->get('type') == "passwordForm") {
             $request->validate([
                 'password' => 'required|min:8',
@@ -117,7 +118,7 @@ class UserController extends Controller
             $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
             $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->profile = $request->get('profile');
+            $user->img_url = $request->get('img_url');
             $user->role = $request->get('role');
             $user->BMI = $BMI;
             $user->body_fat = $request->get('body_fat');

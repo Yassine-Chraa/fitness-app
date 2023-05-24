@@ -136,6 +136,8 @@ class ProductController extends Controller
         return response()->json(['message' => 'Product deleted']);
     }
 
+
+
     public function addReview(Request $request)
     {
 

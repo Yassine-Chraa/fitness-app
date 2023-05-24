@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import { useState, useCallback } from 'react';
+import React,{ useState, useCallback } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, ScrollView, Dimensions, Modal, Pressable, TextInput } from 'react-native';
 import { Picker } from '@react-native-picker/picker';
 import Icon from 'react-native-vector-icons/FontAwesome5';
@@ -79,7 +79,7 @@ const CurrentProgram = ({ navigation }: any) => {
         {currentProgram?.details?.workouts?.map((workout: any,index) => {
           return (
             <TouchableOpacity
-              key={index}
+              key={workout.id}
               style={styles.workout}
               onPress={() =>
                 navigation.navigate('WorkoutDetails', { workoutId: workout.id, name: workout.title, exercises: workout.exercises })
@@ -179,9 +179,9 @@ const CurrentProgram = ({ navigation }: any) => {
               return { ...prev, day: v }
             })}
             style={{ borderWidth: 1 }}>
-            {days.map((day) => {
+            {days.map((day, index) => {
               return (
-                <Picker.Item label={day} value={day.toLowerCase()} />
+                <Picker.Item key={index+day+index} label={day} value={day.toLowerCase()} />
               )
             })}
           </Picker>

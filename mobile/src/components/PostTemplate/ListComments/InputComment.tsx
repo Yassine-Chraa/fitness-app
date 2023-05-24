@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const InputComment = ({ onComment }: any): JSX.Element => {
+const InputComment = ({ sendCommentHandler }: any): JSX.Element => {
     const [comment, setComment] = useState('');
 
     const handleComment = () => {
         if (comment) {
-            onComment(comment);
+            sendCommentHandler(comment);
             setComment('');
         }
     };

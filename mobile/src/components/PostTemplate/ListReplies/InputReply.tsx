@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
-const InputReply = ({ onReply }: any) => {
+const InputReply = ({ sendReplyHandler }: any) => {
     const [text, setText] = useState('');
 
     const handleTextChange = (value: any) => {
@@ -11,7 +11,7 @@ const InputReply = ({ onReply }: any) => {
 
     const handleSubmit = () => {
         if (text) {
-            onReply(text);
+            sendReplyHandler(text);
             setText('');
         }
     };

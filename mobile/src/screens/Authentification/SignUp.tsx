@@ -11,7 +11,8 @@ import SignUpObj from '../../types/SignUpObj';
 import { passwordConfirmValidator } from '../../Helpers/passwordConfirmValidator';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 
-const SignUp = ({ navigation }: any) => {
+
+const SignUp = ({navigation}:any) => {
   const [name, setName] = useState({ value: '', error: '' });
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
@@ -50,19 +51,12 @@ const SignUp = ({ navigation }: any) => {
         password_confirmation: password_confirmation.value,
       };
 
-      let signUpResult = await signUp(signUpData);
+      const result = await signUp(signUpData);
 
-      switch (signUpResult) {
-        case '_STORAGE_ERROR_':
-          Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            { text: 'Close', onPress: () => console.log('') },
-          ]);
-          break;
-        case '_FAILURE_':
-          Alert.alert('ERROR', 'Ooops! something went wrong !', [
-            { text: 'Close', onPress: () => console.log('') },
-          ]);
-          break;
+      if (result) {
+        navigation.navigate('SignIn');
+      }else{
+        setPassword(prev => ({ ...prev, error: "Email address already in use" }));
       }
     }
   };
@@ -110,7 +104,7 @@ const SignUp = ({ navigation }: any) => {
 
       <View style={styles.row}>
         <Text>Already have an account? </Text>
-        <TouchableOpacity onPress={() => navigation.navigate('signIn')}>
+        <TouchableOpacity onPress={() => navigation.navigate('SignIn')}>
           <Text style={styles.link}>Sign in</Text>
         </TouchableOpacity>
       </View>

@@ -1,6 +1,6 @@
 import { enableScreens } from 'react-native-screens';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React,{ useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useAuth } from '../context/providers/AuthContextProvider';
 import ResetPassword from '../screens/Authentification/ResetPassword';
 import SignIn from '../screens/Authentification/SignIn';
@@ -20,13 +20,12 @@ import CoachProfile from '../screens/Profile/CoachProfile';
 import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
-import axios from '../Helpers/axiosConfig'
+import axios from '../Helpers/axiosConfig';
 import DailyNutrition from '../screens/Food/DailyNutrition';
 import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
 import FeedBack from '../screens/Profile/FeedBack';
 import LoadingAnimation from '../components/Animations/LoadingAnimation';
-import { useUIController } from '../context/UIContext';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
 import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
@@ -35,32 +34,39 @@ import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
 import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
 import AchievmentsGallery from '../components/profile/ViewProfile/AchievmentsGallery';
 import CoachClients from '../screens/Profile/CoachClients';
+import ImageClassifier from '../components/imageProcessing/ImageClassifier';
+import ChangePassword from '../components/profile/Settings/PrivacySettings/ChangePassword';
+import VerifyEmail from '../components/profile/Settings/PrivacySettings/VerifyEmail';
+import VerifyPassword from '../components/profile/Settings/PrivacySettings/VerifyPassword';
+import ResetPasswordForUpdate from '../components/profile/Settings/PrivacySettings/ResetPasswordForUpdate';
 
 enableScreens();
 const Stack = createNativeStackNavigator();
 
 const MainNavigator = () => {
   const { currentUser, updateState } = useAuth();
+
   useEffect(() => {
     if (SplashScreen && currentUser == null) {
       updateState().then(() => {
         SplashScreen.hide();
-        axios.defaults.headers.common[
-          "authorization"
-        ] = `Bearer ${currentUser!.token}`;
       })
     } else {
-      axios.defaults.headers.common[
-        "authorization"
-      ] = `Bearer ${currentUser?.token}`;
+      console.log("[Token] ==> " + currentUser?.token)
+      axios.defaults.headers.common["authorization"] = `Bearer ${currentUser?.token}`;
     }
+
   }, [SplashScreen, currentUser]);
+
+
   return (
     <>
       {/* Animation and alerts here */}
       <LoadingAnimation />
       <CheckStateAlert />
       <ErrorAnimation />
+      {/* ------------------------ */}
+
       <Stack.Navigator
         initialRouteName={currentUser ? 'Auth' : 'Tab'}
         screenOptions={{
@@ -93,12 +99,19 @@ const MainNavigator = () => {
             <Stack.Screen name="ImageGallery" component={ImageGallery} />
             <Stack.Screen name="ImageSwipper" component={ImageSwipper} />
             <Stack.Screen name="AchievmentsGallery" component={AchievmentsGallery} />
+
+            <Stack.Screen name="ImageClassifier" component={ImageClassifier} />
+
+            <Stack.Screen name="ChangePassword" component={ChangePassword} />
+            <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
+            <Stack.Screen name="VerifyPassword" component={VerifyPassword} />
+            <Stack.Screen name="ResetPasswordForUpdate" component={ResetPasswordForUpdate} />
           </>
         ) : (
           <>
-            <Stack.Screen name="signIn" component={SignIn} />
-            <Stack.Screen name="signUp" component={SignUp} />
-            <Stack.Screen name="resetPassword" component={ResetPassword} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ResetPassword" component={ResetPassword} />
           </>
         )}
       </Stack.Navigator>

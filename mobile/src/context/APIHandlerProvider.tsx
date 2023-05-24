@@ -8,7 +8,14 @@ import { CoachContextProvider } from './providers/CoachesContextProvider'
 import { ExerciseContextProvider } from './providers/ExerciseContextProvider';
 import { ProgramContextProvider } from './providers/ProgramContextProvider';
 import { feedBackContextProvider } from './providers/FeedBackContextProvider';
+import { PostContextProvider } from './providers/PostContextProvider';
+import { CommentContextProvider } from './providers/CommentContextProvider';
+import { ReplyContextProvider } from './providers/ReplyContextProvider';
+import { UpLoadImageContextProvider } from './providers/UpLoadImageContextProvider';
+
 import { WorkoutContextProvider } from './providers/WorkoutContextProvider';
+import { ReactionContextProvider } from './providers/ReactionContextProvider';
+import { ImagesContextProvider } from './providers/ImagesContextProvider';
 const providers: any = [
   ProductContextProvider,
   AuthContextProvider,
@@ -19,7 +26,13 @@ const providers: any = [
   ProgramContextProvider,
   ExerciseContextProvider,
   feedBackContextProvider,
-  WorkoutContextProvider
+  PostContextProvider,
+  CommentContextProvider,
+  ReplyContextProvider,
+  UpLoadImageContextProvider,
+  ReactionContextProvider,
+  WorkoutContextProvider,
+  ImagesContextProvider,
 ];
 
 const APIHandlerProvider = Composer(...providers);
