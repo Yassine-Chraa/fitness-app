@@ -1,3 +1,4 @@
+import React from 'react';
 import { Image } from '@rneui/themed';
 import { useState, useEffect } from 'react';
 import {

@@ -2,13 +2,21 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\CategorieController;
+use App\Http\Controllers\API\CommentController;
 use App\Http\Controllers\API\ExerciseController;
 use App\Http\Controllers\API\FeedbackController;
+use App\Http\Controllers\API\ImageController;
+use App\Http\Controllers\API\PostController;
 use App\Http\Controllers\API\ProductController;
 use App\Http\Controllers\API\ProgramController;
+use App\Http\Controllers\API\ReactionController;
+use App\Http\Controllers\API\ReplyController;
 use App\Http\Controllers\API\UserController;
 use App\Http\Controllers\API\WorkoutController;
 use App\Http\Controllers\API\WorkoutExerciseController;
+use App\Models\Comment;
+use App\Models\Post;
+use App\Models\Reply;
 use Illuminate\Support\Facades\Route;
 use CloudinaryLabs\CloudinaryLaravel\Facades\Cloudinary;
 use Illuminate\Http\Request;
@@ -55,6 +63,20 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
     Route::apiResource('programs', ProgramController::class);
+
+    Route::apiResource('images', ImageController::class);
+
+    Route::apiResource('posts', PostController::class);
+    Route::apiResource('reactions', ReactionController::class);
+    Route::get('/getReactionByPostUserId/{user_id}/{post_id}', [ReactionController::class, 'getReactionByPostUserId']);
+    Route::delete('/deleteReactionByPostUserId/{user_id}/{post_id}', [ReactionController::class, 'deleteReactionByPostUserId']);
+    Route::get('/postsByUserId/{user_id}', [PostController::class, 'getPostByUserId']);
+    Route::apiResource('comments', CommentController::class);
+    Route::get('/commentsByPostId/{user_id}', [CommentController::class, 'getCommentByPostId']);
+    Route::apiResource('replies', ReplyController::class);
+    Route::get('/repliesByCommentId/{user_id}', [ReplyController::class, 'getReplyByCommentId']);
+
+    Route::post('/workouts/exercises/{workout_id}', [WorkoutController::class, 'addExercise'])->name('workouts.exercises.store');
     Route::apiResource('workouts', WorkoutController::class);
     Route::apiResource('workoutexercises', WorkoutExerciseController::class);
     Route::apiResource('exercises', ExerciseController::class);

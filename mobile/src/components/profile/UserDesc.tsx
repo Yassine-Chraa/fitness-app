@@ -6,21 +6,19 @@ import theme from '../../constants/theme';
 import { Image } from '@rneui/themed';
 import { useNavigation } from '@react-navigation/native';
 
-const profile_image = require('../../assets/images/person.jpg')
-
 function UserDesc({ userInfo }: any): JSX.Element {
   const navigation: any = useNavigation();
+  // onPress={() => navigation.navigate('ViewProfile',{user_id: userInfo.user_id})}
 
   return (
     <TouchableOpacity
       style={styles.profile}
       activeOpacity={0.4}
-      onPress={() => navigation.navigate('ViewProfile')}>
+      onPress={() => navigation.navigate('ViewProfile',{user_id: userInfo.user_id})}>
       <View style={styles.avatarName}>
         <Image
           style={{ width: 70, height: 70, borderRadius: 35, borderWidth: 1, borderColor: "#eee" }}
-          // source={{ uri: userInfo.profile }}
-          source={profile_image}
+          source={{ uri: userInfo.img_url ? userInfo.img_url : 'https://github.com/Yassine-Chraa/fitness-app/assets/89405673/18093430-09c2-45fa-93a0-d610ac4de056'}}
         />
         <View style={{ justifyContent: 'center' }}>
           <Text style={styles.name}>{userInfo.name}</Text>

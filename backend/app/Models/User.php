@@ -21,7 +21,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
-        'profile',
+        'img_url',
         'birth_date',
         'BMI',
         'body_fat',
