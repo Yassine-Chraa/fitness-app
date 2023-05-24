@@ -12,7 +12,7 @@ import UserType from '../../types/UserType';
 import UserPasswordType from '../../types/UserPasswordType';
 
 export type AuthContextType = {
-  currentUser: UserInfo | null;
+  currentUser: UserInfo | any;
   updateState: () => Promise<void>;
   signIn: (form: SignInObj) => Promise<string>;
   testSignIn: (form: SignInObj) => Promise<string>;
@@ -47,7 +47,7 @@ const usersUrl = getUrl('Users');
 
 
 export const AuthContextProvider = ({ children }: any) => {
-  const [currentUser, setCurrentUser] = useState<any>(null);
+  const [currentUser, setCurrentUser] = useState<UserInfo | null>();
   const [weights, setWeights] = useState([]);
   const [controller, dispatch] = useUIController();
 
@@ -108,29 +108,11 @@ export const AuthContextProvider = ({ children }: any) => {
     setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signUpUrl}`, form);
-      setCurrentUser(data)
-      await storeData('current_user', data);
-      axios.defaults.headers.common[
-        "authorization"
-      ] = `Bearer ${data.token}`;
-      await AsyncStorage.setItem('isLogged', 'true');
       setLoadAnimation(dispatch, false);
-      setIsCheckStateOk(dispatch,
-        {
-          isCheck: true,
-          isSuccess: true,
-          message: "You Have Create An Account Successfully, Welcome To FitnessApp !"
-        });
-      return '_SUCCESS_';
+      return data;
     } catch (error) {
       setLoadAnimation(dispatch, false);
-      setIsCheckStateOk(dispatch,
-        {
-          isCheck: true,
-          isSuccess: false,
-          message: "Oooops! somethingg went wrong. Please, try later !"
-        });
-      return '_FAILURE_';
+      return false;
     }
   };
 
@@ -175,10 +157,8 @@ export const AuthContextProvider = ({ children }: any) => {
   const updateCurrentUser = async (user: UserType) => {
     setLoadAnimation(dispatch, true);
     try {
-      console.log("[update user url] ==> " + `${usersUrl}/${user?.id}`)
       const { data } = await axios.put(`${usersUrl}/${user?.id}`, user);
-      console.log("[is User saved] ==> " + data)
-      const current_user: UserInfo | null = currentUser;
+      const current_user = currentUser;
       setCurrentUser((prev: any) => {
         return { ...prev, user: data }
       })

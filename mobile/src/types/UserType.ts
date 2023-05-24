@@ -1,6 +1,6 @@
 export default interface UserType {
     id: number;
-    role: 'admin' | 'vip' | 'client' | 'normal_user' | 'coach';
+    role: 'admin' | 'vip' | 'client' | 'coach' | 'user';
     name: string;
     email: string;
     gender: 'male' | 'female';
@@ -13,7 +13,6 @@ export default interface UserType {
     BMI: number;
     email_verified_at: string | null;
     img_url: string,
-    profile: string | null;
     created_at: string;
     updated_at: string;
 }

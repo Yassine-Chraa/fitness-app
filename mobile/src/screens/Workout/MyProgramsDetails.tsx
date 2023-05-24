@@ -1,3 +1,4 @@
+import React from 'react';
 import { Image } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableOpacity, View, Modal, Pressable, TextInput, ScrollView } from 'react-native';
@@ -139,9 +140,9 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                         })}
 
                         style={{ borderWidth: 1 }}>
-                        {levels.map((category) => {
+                        {levels.map((category,index) => {
                             return (
-                                <Picker.Item label={category.toUpperCase()} value={category} />
+                                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
                             )
                         })}
                     </Picker>

@@ -1,3 +1,4 @@
+import React from 'react'
 import { Image } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View, Modal, TouchableOpacity, ScrollView, SafeAreaView, Pressable, TextInput } from 'react-native';
@@ -46,11 +47,11 @@ const MyPrograms = ({ navigation }: any) => {
             Tous
           </Text>
         </TouchableOpacity>
-        {userPrograms?.map((program: any) => {
+        {userPrograms?.map((program: any, index: number) => {
           const { id, category, days, title } = program.details;
           return (
             <TouchableHighlight
-              key={id}
+              key={id+11*index}
               style={styles.program}
               onPress={() =>
                 navigation.navigate('MyProgramsDetails', { programId: program.id, program: program.details })
@@ -123,9 +124,9 @@ const MyPrograms = ({ navigation }: any) => {
               return { ...prev, category: v }
             })}
             style={{ borderWidth: 1 }}>
-            {categories.map((category) => {
+            {categories.map((category, index) => {
               return (
-                <Picker.Item label={category.toUpperCase()} value={category} />
+                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
               )
             })}
           </Picker>
@@ -136,9 +137,9 @@ const MyPrograms = ({ navigation }: any) => {
             })}
 
             style={{ borderWidth: 1 }}>
-            {levels.map((category) => {
+            {levels.map((category,index) => {
               return (
-                <Picker.Item label={category.toUpperCase()} value={category} />
+                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
               )
             })}
           </Picker>

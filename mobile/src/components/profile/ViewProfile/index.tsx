@@ -22,7 +22,6 @@ const ViewProfile = ({ route }: any): JSX.Element => {
 
     const { user_id } = route.params;
 
-
     const badgets = [
         { title: 'Beginner', image: require('../../../assets/images/budges/budge_1.png') },
         { title: 'Novice', image: require('../../../assets/images/budges/budge_2.png') },

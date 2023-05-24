@@ -60,7 +60,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
             position: 'absolute',
             bottom: 4,
             right: -6,
-            backgroundColor: theme.colors.customCard,
+            backgroundColor: theme.colors.buttonBackground,
             padding: 6,
             borderRadius: 18,
             borderWidth: 2,
@@ -71,7 +71,9 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
           <Icon name="camera" size={16} color="#fff" />
         </TouchableOpacity>
       </View>
-      <View style={{ marginTop: 8, rowGap: 10 }}>
+
+      <View style={{ marginTop: 8, marginBottom: 16, rowGap: 10 }}>
+
         <View style={{ marginBottom: -12 }}>
           <Text style={styles.subTitle}>Name</Text>
           <CustomTextInput
@@ -89,6 +91,23 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
 
         {/* =============================================================================== */}
 
+        <View style={{ marginBottom: -12 }}>
+          <Text style={styles.subTitle}>Email Address</Text>
+          <CustomTextInput
+            customStyle={{
+              fontSize: 16,
+              backgroundColor: theme.colors.statusBar,
+            }}
+            placeholder="Email"
+            value={user ? user.email : ''}
+            onChangeText={(val: string) => setUser((prev: any) => {
+              return { ...prev, email: val }
+            })}
+          />
+        </View>
+
+        {/* =============================================================================== */}
+
         <Text style={styles.subTitle}>Gender</Text>
         <View style={styles.section}>
           {['male', 'female'].map((gender: string, index: number) => {
@@ -96,7 +115,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
               activeOpacity={0.4}
               style={{
                 ...styles.sectionButton,
-                backgroundColor: user?.gender === gender ? theme.colors.button : theme.colors.background,
+                backgroundColor: user?.gender === gender ? theme.colors.buttonBackground : theme.colors.background,
 
               }} onPress={() => setUser((prev: UserType) => {
                 return { ...prev, gender: gender }
@@ -145,7 +164,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
               activeOpacity={0.4}
               style={{
                 ...styles.sectionButton,
-                backgroundColor: user?.workout_level === level ? theme.colors.button : theme.colors.background,
+                backgroundColor: user?.workout_level === level ? theme.colors.buttonBackground : theme.colors.background,
 
               }} onPress={() => setUser((prev: UserType) => {
                 return { ...prev, workout_level: level }
@@ -164,7 +183,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
               activeOpacity={0.4}
               style={{
                 ...styles.sectionButton,
-                backgroundColor: user?.top_goal === top_goal ? theme.colors.button : theme.colors.background,
+                backgroundColor: user?.top_goal === top_goal ? theme.colors.buttonBackground : theme.colors.background,
 
               }} onPress={() => setUser((prev: UserType) => {
                 return { ...prev, top_goal: top_goal }
@@ -172,6 +191,24 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
               <Text style={{ ...styles.sectionText, color: user?.top_goal === top_goal ? '#fff' : theme.colors.text }}>{top_goal.toUpperCase()}</Text>
             </TouchableOpacity>)
           })}
+        </View>
+
+        {/* =============================================================================== */}
+
+        <View style={{ marginBottom: -12 }}>
+          <Text style={styles.subTitle}>About You</Text>
+          <CustomTextInput
+            multiline={true}
+            customStyle={{
+              fontSize: 16,
+              backgroundColor: theme.colors.statusBar,
+            }}
+            placeholder="write a short description about yourself..."
+            value={user ? user.bio : ''}
+            onChangeText={(val: string) => setUser((prev: any) => {
+              return { ...prev, bio: val }
+            })}
+          />
         </View>
 
       </View>
@@ -217,7 +254,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 12,
     borderWidth: 1,
-    borderColor: theme.colors.textInput,
+    borderColor: '#0006',
     borderRadius: 8,
   },
   sectionText: {

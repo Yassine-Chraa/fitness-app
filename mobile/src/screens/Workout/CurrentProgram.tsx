@@ -179,9 +179,9 @@ const CurrentProgram = ({ navigation }: any) => {
               return { ...prev, day: v }
             })}
             style={{ borderWidth: 1 }}>
-            {days.map((day) => {
+            {days.map((day, index) => {
               return (
-                <Picker.Item label={day} value={day.toLowerCase()} />
+                <Picker.Item key={index+day+index} label={day} value={day.toLowerCase()} />
               )
             })}
           </Picker>

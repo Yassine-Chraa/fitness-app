@@ -9,8 +9,9 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 
 function Profile(): JSX.Element {
   const { currentUser } = useAuth();
+  const [user, setUser] = useState(currentUser?.user)
   const values = ['weight (Kg)', 'Body fat (%)', 'BMI'];
-  const user = currentUser?.user;
+  console.log(user)
   return (
     <Screen name="Profile" allowScroll>
       <View style={styles.container}>

@@ -78,6 +78,11 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
         setIsVisible(() => true);
     }
 
+    const cancelAction = () => {
+        setIsVisible(() => false);
+        setCurrentImageUrl(() => '');
+    }
+
     return (
         <>
             {img && <FAconfimrCancelImage isOkYesImageOpen={isOkYesImageOpen}
@@ -91,7 +96,7 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
 
                         <TouchableOpacity
                             style={styles.modalButtonCancel}
-                            onPress={() => setIsVisible(() => false)}>
+                            onPress={cancelAction}>
                             <Icon style={styles.modalButtonCancelText} name={'times'} size={18} solid color={'#000d'} />
                         </TouchableOpacity>
 

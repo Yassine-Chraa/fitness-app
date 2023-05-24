@@ -26,7 +26,6 @@ import Settings from '../screens/Profile/Settings';
 import ManageWorkOutReminder from '../components/profile/Settings/ManageWorkoutReminder';
 import FeedBack from '../screens/Profile/FeedBack';
 import LoadingAnimation from '../components/Animations/LoadingAnimation';
-import { useUIController } from '../context/UIContext';
 import ErrorAnimation from '../components/Animations/ErrorAnimation';
 import CheckStateAlert from '../components/Animations/CheckStateAlert';
 import MyProgramsDetails from '../screens/Workout/MyProgramsDetails';
@@ -53,11 +52,13 @@ const MainNavigator = () => {
         SplashScreen.hide();
       })
     } else {
-      console.log("Token ==> "+currentUser?.token)
+      console.log("[Token] ==> " + currentUser?.token)
       axios.defaults.headers.common["authorization"] = `Bearer ${currentUser?.token}`;
     }
 
   }, [SplashScreen, currentUser]);
+
+
   return (
     <>
       {/* Animation and alerts here */}
@@ -65,7 +66,6 @@ const MainNavigator = () => {
       <CheckStateAlert />
       <ErrorAnimation />
       {/* ------------------------ */}
-
 
       <Stack.Navigator
         initialRouteName={currentUser ? 'Auth' : 'Tab'}
@@ -109,9 +109,9 @@ const MainNavigator = () => {
           </>
         ) : (
           <>
-            <Stack.Screen name="signIn" component={SignIn} />
-            <Stack.Screen name="signUp" component={SignUp} />
-            <Stack.Screen name="resetPassword" component={ResetPassword} />
+            <Stack.Screen name="SignIn" component={SignIn} />
+            <Stack.Screen name="SignUp" component={SignUp} />
+            <Stack.Screen name="ResetPassword" component={ResetPassword} />
           </>
         )}
       </Stack.Navigator>

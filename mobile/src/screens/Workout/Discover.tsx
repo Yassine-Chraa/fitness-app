@@ -1,3 +1,4 @@
+import React from 'react';
 import { Image } from '@rneui/themed';
 import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
