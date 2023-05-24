@@ -33,13 +33,13 @@ const UserForm = ({ type, selectedID }) => {
     const [user, setUser] = useState({});
 
     const fetchData = async () => {
-
         if (selectedID != 0)
             await getUser(selectedID).then((res) => setUser(res));
         else {
             setUser({
                 id: 0,
-                profile: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
+                profile:
+                    "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
                 name: "",
                 email: "",
                 password: "fitnessapp",
@@ -111,6 +111,22 @@ const UserForm = ({ type, selectedID }) => {
 
         if (result) {
             setOpenFormHandler(dispatch, false);
+            setUser({
+                id: 0,
+                profile:
+                    "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
+                name: "",
+                email: "",
+                password: "fitnessapp",
+                password_confirmation: "fitnessapp",
+                role: "user",
+                gender: "male",
+                workout_level: "beginner",
+                top_goal: "bulking",
+                height: 1.75,
+                weight: 70,
+                birth_date: "2000-01-01",
+            });
         }
     };
     const cancel = () => {

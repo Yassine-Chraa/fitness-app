@@ -22,7 +22,7 @@ const endpoints: any = {
 
 export function getUrl(endpoint: PropertyKey) {
   console.log(API_URL)
-  return API_URL + endpoints[endpoint];
+  return '192.168.0.106' + endpoints[endpoint];
 }
 
 export default endpoints;

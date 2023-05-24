@@ -26,7 +26,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
     const location = useLocation();
     const collapseName = location.pathname.replace("/", "");
 
-    let textColor = "primary";
+    let textColor = "white";
 
     if (transparentSidenav || (whiteSidenav && !darkMode)) {
         textColor = "dark";
