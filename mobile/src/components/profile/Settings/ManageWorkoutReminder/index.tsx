@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../../../../context/providers/AuthContextProvider';
 import Devider from '../../../tinyCompo/Devider';
@@ -9,10 +9,6 @@ import MWRitem from './MWRitem';
 
 const ManageWorkOutReminder = ({ route, navigation }: any) => {
 
-    const { currentUser } = useAuth();
-    const user = currentUser?.user;
-
-    const [open, setOpen] = useState(false);
     const updateProfile = () => {
         navigation.goBack();
     };

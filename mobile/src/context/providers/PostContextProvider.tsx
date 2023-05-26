@@ -44,9 +44,6 @@ export const PostContextProvider = ({ children }: any) => {
     const getPosts = async () => {
         try {
             const { data } = await axios.get(`${PostUrl}`);
-            console.log("####################################################");
-            console.log(data)
-            console.log("####################################################");
             return data;
         } catch (error) {
             console.log("[getPosts] => "+error);

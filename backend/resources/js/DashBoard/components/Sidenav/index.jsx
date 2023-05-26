@@ -231,7 +231,7 @@ function Sidenav({ color, brand, brandName, routes, ...rest }) {
                                 variant="subtitle1"
                                 color={textColor}
                             >
-                                {localStorage.getItem("user_role")}
+                                {localStorage.getItem("user_role").toUpperCase()}
                             </MDTypography>
                         </MDBox>
                     </>

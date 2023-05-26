@@ -3,10 +3,8 @@ import { StyleSheet, View } from 'react-native';
 import Option from '../Option';
 import theme from '../../../constants/theme';
 import SettingSwitch from './SettingSwitch';
-import { useNavigation } from '@react-navigation/native';
 
 const SettingsOptions = (): any => {
-    const navigation: any = useNavigation();
     
 
     return (

@@ -127,7 +127,7 @@ const EditProgram = () => {
 
                 <Grid container spacing={3} justifyContent={"center"}>
 
-                    <Grid item xs={12} sm={12} md={4} lg={4} xl={4}>
+                    <Grid item xs={12} md={5}>
                         {/* =======================( header )======================= */}
                         <Card style={{ padding: '1rem', marginBottom: '0.5rem' }}>
                             <MDTypography style={{
@@ -235,13 +235,9 @@ const EditProgram = () => {
 
                     {/* =======================( statistics and list of activities )======================= */}
 
-                    <Grid item xs={12} sm={12} md={8} lg={8} xl={8}>
+                    <Grid item xs={12} md={7}>
                         <Grid container spacing={1} mb={4} >
-
-                            <ProgramStatistics firstChart={firstChart} secondChart={secondChart} />
-
                             <ListOfActivities ProID={programID} />
-
                         </Grid>
                     </Grid>
                 </Grid>

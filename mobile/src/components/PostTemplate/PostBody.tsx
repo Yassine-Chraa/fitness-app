@@ -91,8 +91,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         checkIsCurrentUserLoves()
     }, []);
 
-
-
     return (
         <View style={styles.postContainer}>
 

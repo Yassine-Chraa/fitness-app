@@ -49,7 +49,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
         };
 
         launchCamera(options, async (response) => {
-            console.log("[[URL']] |===> {hello hello}")
             UpLoad(response)
         });
     };
