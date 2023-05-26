@@ -30,7 +30,7 @@ const Discover = ({ navigation }: any) => {
   }
   useFocusEffect(useCallback(() => {
     fetch()
-  }, [currentUser]))
+  }, []))
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>

@@ -37,7 +37,7 @@ const MyPrograms = ({ navigation }: any) => {
 
   useEffect(() => {
     getUserPrograms(currentUser!.user!.id);
-  }, [currentUser])
+  }, [])
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>

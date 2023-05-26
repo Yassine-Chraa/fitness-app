@@ -1,11 +1,10 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
-import { useState } from 'react';
+import React,{ useState } from 'react';
 // import DateTimePickerModal from "react-native-modal-datetime-picker";
 const MWRitem = ({
     day,
-}: any): JSX.Element => {
+}: any) => {
     const navigation: any = useNavigation();
     const [isDay, setIsDay] = useState(true);
     const [isAM, setIsAM] = useState(true)

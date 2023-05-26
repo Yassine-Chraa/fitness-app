@@ -14,7 +14,7 @@ import UserPasswordType from '../../types/UserPasswordType';
 export type AuthContextType = {
   currentUser: UserInfo | any;
   updateState: () => Promise<void>;
-  signIn: (form: SignInObj) => Promise<string>;
+  signIn: (form: SignInObj) => Promise<boolean>;
   testSignIn: (form: SignInObj) => Promise<string>;
   updateUserPassword: (form: UserPasswordType) => Promise<string>;
   signUp: (form: SignUpObj) => Promise<string>;
@@ -77,16 +77,17 @@ export const AuthContextProvider = ({ children }: any) => {
           isSuccess: true,
           message: "You Have Loged In Successfully, Welcome To FitnessApp !"
         });
-      return '_SUCCESS_';
+      return true;
     } catch (error) {
-      setLoadAnimation(dispatch, false);
+      //setLoadAnimation(dispatch, false);
+      console.log('ok')
       setIsCheckStateOk(dispatch,
         {
           isCheck: true,
           isSuccess: false,
           message: "Oooops! somethingg went wrong. Please, try later !"
         });
-      return '_FAILURE_';
+      return false;
     }
   };
 

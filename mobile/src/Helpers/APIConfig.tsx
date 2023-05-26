@@ -32,7 +32,7 @@ const endpoints: any = {
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return API_URL + endpoints[endpoint];
+  return 'http://192.168.1.5:8000' + endpoints[endpoint];
 }
 
 export default endpoints;

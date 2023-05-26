@@ -12,7 +12,7 @@ import HomeDivider from '../../components/tinyCompo/HomeDivider';
 
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
-  const [user, setUser] = useState<UserType>(currentUser?.user)
+  const user = currentUser?.user;
   const [posts, setPosts] = useState<Array<any>>([]);
   const { getPosts } = usePost();
   const { updateState } = useAuth();
@@ -24,19 +24,8 @@ function Home(): JSX.Element {
       setPosts(() => Allposts);
     }
   }
-
   useEffect(() => {
     loadPosts();
-  }, [])
-
-  const reLoadPosts = () => {
-    loadPosts();
-  }
-
-  useEffect(() => {
-    if (currentUser?.user) {
-      setUser(() => currentUser?.user);
-    }
   }, [])
 
   return (
@@ -44,7 +33,7 @@ function Home(): JSX.Element {
       <View style={styles.homeContainer}>
 
         {user && <View style={{ marginBottom: 20, }}>
-          <PostInput currentUserImgUrl={user.img_url} user_id={user.id} reLoadPosts={reLoadPosts} />
+          <PostInput currentUserImgUrl={user.img_url} user_id={user.id} reLoadPosts={loadPosts} />
         </View>}
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}

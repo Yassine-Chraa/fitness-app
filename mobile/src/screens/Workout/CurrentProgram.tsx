@@ -53,7 +53,7 @@ const CurrentProgram = ({ navigation }: any) => {
 
   useFocusEffect(useCallback(() => {
     getCurrentProgram(currentUser!.user.id);
-  }, [currentUser, userPrograms]))
+  }, [userPrograms]))
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView>

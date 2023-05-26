@@ -250,17 +250,10 @@ const Programs = () => {
                                 <MDTypography variant="h6" color="white">
                                     Programs Table
                                 </MDTypography>
-                                <MDBox ml={"auto"}>
-                                    <Tooltip title="Filter list">
-                                        <IconButton color="white">
-                                            <Icon>filter_list</Icon>
-                                        </IconButton>
-                                    </Tooltip>
-                                </MDBox>
                             </MDBox>
-                            <MDBox pt={3} >
+                            <MDBox pt={2} >
                                 <DataTable
-                                    canSearch={true}
+                                    canSearch={false}
                                     table={{ columns: dataLabels, rows: data, }}
                                 />
                                 <MDBox sx={{

@@ -52,13 +52,10 @@ const MainNavigator = () => {
         SplashScreen.hide();
       })
     } else {
-      console.log("[Token] ==> " + currentUser?.token)
       axios.defaults.headers.common["authorization"] = `Bearer ${currentUser?.token}`;
     }
 
   }, [SplashScreen, currentUser]);
-
-
   return (
     <>
       {/* Animation and alerts here */}
@@ -99,8 +96,6 @@ const MainNavigator = () => {
             <Stack.Screen name="ImageGallery" component={ImageGallery} />
             <Stack.Screen name="ImageSwipper" component={ImageSwipper} />
             <Stack.Screen name="AchievmentsGallery" component={AchievmentsGallery} />
-
-            <Stack.Screen name="ImageClassifier" component={ImageClassifier} />
 
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
             <Stack.Screen name="VerifyEmail" component={VerifyEmail} />

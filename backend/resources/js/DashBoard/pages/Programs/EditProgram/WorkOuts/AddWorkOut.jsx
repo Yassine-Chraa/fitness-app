@@ -59,7 +59,7 @@ const AddWorkOutModal = ({ ProgramID }) => {
         >
             <Card sx={{
                 padding: 2,
-                width: '50%', height: '50%',
+                width: '50%', height: '35%',
                 borderRadius: '10px',
                 boxShadow: '#000e 1px 1px 10px',
             }}>
@@ -78,7 +78,7 @@ const AddWorkOutModal = ({ ProgramID }) => {
                         Add New WorkOut
                     </MDTypography>
                 </MDBox>
-                <Grid container spacing={3} mt={2} >
+                <Grid container spacing={1} mt={2} >
 
                     <Grid item xs={12} sm={12} md={6} lg={6} xl={6} style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexDirection: 'row' }}>
                         <MDBox component="form" role="form" style={{ flex: 1 }}>

@@ -1,15 +1,14 @@
+import React from 'react';
 import { Text, StyleSheet, View } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../../constants/theme';
-import { useNavigation } from '@react-navigation/native';
 import { Switch } from '@rneui/base';
 import { useState } from 'react';
 const SettingSwitch = ({
     title,
     type,
     BadgeColor,
-}: any): JSX.Element => {
-    const navigation: any = useNavigation();
+}: any) => {
     const [isSet, setIsSet] = useState(false);
     const modeChanger = () => {
         setIsSet((prev) => !prev);

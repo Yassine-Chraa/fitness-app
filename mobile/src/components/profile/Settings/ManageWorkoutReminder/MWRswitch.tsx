@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Switch } from '@rneui/base';
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import theme from '../../../../constants/theme';
 const MWRswitch = ({
     title,

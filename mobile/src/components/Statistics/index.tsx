@@ -28,7 +28,6 @@ const Statistics = ({ user }: any):JSX.Element => {
         setNow(date);
     }
 
-    //------------------------------------------------------------------------
     const getDailyCalory = async () => {
         if (typeof user?.birth_date == 'string') {
             var dob = new Date(user?.birth_date)
@@ -42,7 +41,7 @@ const Statistics = ({ user }: any):JSX.Element => {
                 params: {
                     age,
                     gender: 'male',
-                    height: '180',
+                    height: '175',
                     weight: '70',
                     activitylevel: 'level_1'
                 },
@@ -108,7 +107,6 @@ const Statistics = ({ user }: any):JSX.Element => {
             console.log(e)
         }
     }
-
     //------------------------------------------------------------------------
     useFocusEffect(useCallback(() => {
         setCurrentDate()
@@ -122,7 +120,6 @@ const Statistics = ({ user }: any):JSX.Element => {
         });
         setEditMode(temp ? true : false);
     }, [weights])
-
 
     return (
         <View style={styles.StatisticsContainer}>
