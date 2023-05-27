@@ -23,10 +23,10 @@ const MWRitem = ({ day, dayID }: any): JSX.Element => {
             const d = date;
             d.setHours(isAM ? d.getHours() : d.getHours() + 12);
             (async () => await AsyncStorage.setItem(`is${day}`, "true"))();
-            setReminder(d, day, dayID, false);
+            setReminder(d, dayID, false);
         } else {
             (async () => await AsyncStorage.removeItem(`is${day}`))();
-            setReminder(date, day, dayID, true);
+            setReminder(date, dayID, true);
         }
     }
 
@@ -72,7 +72,7 @@ const MWRitem = ({ day, dayID }: any): JSX.Element => {
         setDate(() => currentDate);
         (async () => await AsyncStorage.setItem(`${day}`,
             `${hour}:${currentDate.getMinutes()}:${currentIsAM ? 'AM' : 'PM'}`))();
-        setReminder(currentDate, day, dayID, false);
+        setReminder(currentDate, dayID, false);
     }
 
     return (

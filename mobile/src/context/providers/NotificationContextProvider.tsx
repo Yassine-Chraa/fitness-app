@@ -4,7 +4,7 @@ import { Platform } from 'react-native';
 
 export type NotificationContextType = {
     generateSimpleNotification: (NotificationProps: any) => any;
-    setReminder: (date: Date, day: string, dayId: string, isStop: boolean) => void;
+    setReminder: (date: Date, dayId: string, isStop: boolean) => void;
 
 };
 
@@ -87,10 +87,10 @@ export const NotificationContextProvider = ({ children }: any) => {
         });
     }
 
-    const setReminder = (date: Date, day: string, dayId: string, isStop: boolean) => (isStop ? PushNotification.cancelLocalNotification(day) : reminderTemplate(date, day, dayId));
+    const setReminder = (date: Date, dayId: string, isStop: boolean) => (isStop ? PushNotification.cancelLocalNotification(dayId) : reminderTemplate(date, dayId));
 
-    const reminderTemplate = async (date: Date, day: string, dayId: string) => {
-        PushNotification.cancelLocalNotification(day)
+    const reminderTemplate = async (date: Date, dayId: string) => {
+        PushNotification.cancelLocalNotification(dayId)
         const reminderTime = new Date();
         reminderTime.setHours(date.getHours());
         reminderTime.setMinutes(date.getMinutes());
