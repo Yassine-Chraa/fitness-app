@@ -41,13 +41,15 @@ class UserController extends Controller
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'role'=> 'required'
         ]);
         $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
         $newUser = new User([
             'name' => $request->get('name'),
             'email' => $request->get('email'),
             'password' => Hash::make($request->get('password')),
-            'img_url' => $request->get('img_url'),
+            'role' => $request->get('role'),
+            'profile' => $request->get('profile'),
             'birth_date' => $request->get('birth_date'),
             'BMI' => $BMI,
             'body_fat' => $request->get('body_fat') || 20.0,
