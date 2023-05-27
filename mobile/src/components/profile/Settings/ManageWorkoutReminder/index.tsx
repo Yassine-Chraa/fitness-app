@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../../../../context/providers/AuthContextProvider';
 import Devider from '../../../tinyCompo/Devider';
@@ -29,13 +29,13 @@ const ManageWorkOutReminder = ({ route, navigation }: any) => {
 
                 <Devider />
                 
-                <MWRitem day="Monday"/>
-                <MWRitem day="Tuesday"/>
-                <MWRitem day="Wednesday"/>
-                <MWRitem day="Thursday"/>
-                <MWRitem day="Friday"/>
-                <MWRitem day="Saturday"/>
-                <MWRitem day="Sunday"/>
+                <MWRitem day="Monday" dayID={1}/>
+                <MWRitem day="Tuesday" dayID={2}/>
+                <MWRitem day="Wednesday" dayID={3}/>
+                <MWRitem day="Thursday" dayID={4}/>
+                <MWRitem day="Friday" dayID={5}/>
+                <MWRitem day="Saturday" dayID={6}/>
+                <MWRitem day="Sunday" dayID={0}/>
             </ScrollView>
         </Screen>
     );

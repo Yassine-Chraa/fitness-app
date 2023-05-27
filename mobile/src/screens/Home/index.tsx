@@ -9,6 +9,7 @@ import PostTemplate from '../../components/PostTemplate';
 import UserType from '../../types/UserType';
 import Statistics from '../../components/Statistics';
 import HomeDivider from '../../components/tinyCompo/HomeDivider';
+import PushNotification from 'react-native-push-notification';
 
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
@@ -37,6 +38,18 @@ function Home(): JSX.Element {
     if (currentUser?.user) {
       setUser(() => currentUser?.user);
     }
+  }, [])
+
+
+  useEffect(() => {
+    PushNotification.localNotificationSchedule({
+      title: "My notification title",
+      message: "My notification message",
+      date: new Date(Date.now() + 10 * 1000), // first trigger in 10 secs
+      channelId: 'DemoAppID',
+      repeatType: 'week',
+      repeatTime: 1 // repeats every week
+    });
   }, [])
 
   return (

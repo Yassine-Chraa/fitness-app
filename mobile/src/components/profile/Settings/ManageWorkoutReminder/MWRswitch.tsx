@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Switch } from '@rneui/base';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import theme from '../../../../constants/theme';
 const MWRswitch = ({
     title,
@@ -21,11 +21,11 @@ const MWRswitch = ({
             <View style={{ ...styles.row, gap: 12 }}>
                 <Text style={styles.text}>{title}</Text>
             </View>
-            <Switch 
-            trackColor={{true: '#1A73E8', false: 'grey'}} 
-            thumbColor={(isSet ?'#1A73ff':'grey')}
-            value={isSet} 
-            onChange={modeChanger} />
+            <Switch
+                trackColor={{ true: '#1A73E8', false: 'grey' }}
+                thumbColor={(isSet ? '#1A73ff' : 'grey')}
+                value={isSet}
+                onChange={modeChanger} />
         </TouchableOpacity>
     );
 };
