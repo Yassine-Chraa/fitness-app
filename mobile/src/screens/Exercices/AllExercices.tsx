@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import CheckBox from '@react-native-community/checkbox';
 import { StyleSheet, Text, View, TouchableOpacity, ScrollView } from 'react-native';
 import Screen from '../../components/Screen';
@@ -13,13 +13,13 @@ const AllExercices = ({ route }: any) => {
   const navigation: any = useNavigation()
   const { workoutId } = route.params;
   const { exercises, getExercises } = useExercise()
-  const { addExerciseToWorkout,getWorkoutExercises } = useWorkout()
+  const { addExerciseToWorkout, getWorkoutExercises } = useWorkout()
 
   const [checked, setChecked] = useState([]);
 
   const confirm = async () => {
     checked.forEach(ele => {
-      addExerciseToWorkout(workoutId, ele)
+      addExerciseToWorkout(workoutId, ele, undefined)
     });
     getWorkoutExercises(workoutId)
     navigation.goBack('WorkoutDetails')
@@ -86,7 +86,7 @@ const Exercice = ({ exercise, setChecked }: any) => {
         value={toggleCheckBox}
         onValueChange={(newValue) => {
           setToggleCheckBox(newValue);
-          setChecked(prev => [...prev, exercise.id])
+          setChecked((prev: any) => [...prev, exercise.id])
         }}
       />
     </View>

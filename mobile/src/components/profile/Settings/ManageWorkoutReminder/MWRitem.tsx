@@ -9,10 +9,10 @@ import { useNotification } from '../../../../context/providers/NotificationConte
 
 const REF_DATE = new Date()
 
-const MWRitem = ({ day, dayID }: any): JSX.Element => {
+const MWRitem = ({ day, dayID, isNotification, isDialy }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const [isDay, setIsDay] = useState(false);
-    const [isAM, setIsAM] = useState(true)
+    const [isDay, setIsDay] = useState<boolean>(false);
+    const [isAM, setIsAM] = useState<boolean>(true)
     const [date, setDate] = useState<Date>(new Date(REF_DATE.getFullYear(), REF_DATE.getMonth(), REF_DATE.getDate(), 0, 0, 0))
     const [open, setOpen] = useState<boolean>(false);
     const { setReminder } = useNotification();
@@ -20,22 +20,12 @@ const MWRitem = ({ day, dayID }: any): JSX.Element => {
     const dayActivcationHandler = () => {
         setIsDay((prev) => !prev);
         if (!isDay) {
-            const d = date;
-            d.setHours(isAM ? d.getHours() : d.getHours() + 12);
             (async () => await AsyncStorage.setItem(`is${day}`, "true"))();
-            setReminder(d, dayID, false);
+            setReminder(date, dayID, false);
         } else {
             (async () => await AsyncStorage.removeItem(`is${day}`))();
             setReminder(date, dayID, true);
         }
-    }
-
-    const AMActivcationHandler = () => {
-        setIsAM((prev) => true);
-    }
-
-    const PMActivcationHandler = () => {
-        setIsAM((prev) => false);
     }
 
     useEffect(() => {
@@ -57,22 +47,51 @@ const MWRitem = ({ day, dayID }: any): JSX.Element => {
         )();
     }, [])
 
-    const getFormattedDate = () => {
-        const newDate = new Date(date);
-        newDate.setHours(!isAM ? date.getHours() + 12 : date.getHours())
-        return newDate;
-    }
+    useEffect(() => {
+        if (!isNotification) {
+            (async () => await AsyncStorage.setItem(`${day}`, `${0}:${0}:${'PM'}`))();
+            (async () => await AsyncStorage.removeItem(`is${day}`))();
+            setIsDay(() => false);
+            setDate(() => new Date(2029, 2, dayID, 0, 0, 0))
+            setReminder(new Date(2029, 2, dayID, 0, 0, 0), dayID, true);
+        }
+    }, [isNotification])
+
+    useEffect(() => {
+        if (isDialy) {
+            (async () => await AsyncStorage.setItem(`${day}`, `${8}:${0}:${'AM'}`))();
+            (async () => await AsyncStorage.setItem(`is${day}`, 'true'))();
+            setIsDay(() => true);
+            setIsAM(() => true);
+            setDate(() => new Date(2029, 2, dayID, 8, 0, 0))
+            setReminder(new Date(2029, 2, dayID, 8, 0, 0), dayID, false);
+        }
+    }, [isDialy])
 
     const ondatePickerAction = (currentDate: Date) => {
-        const currentIsAM = currentDate.getHours() >= 0 && currentDate.getHours() < 12;
-        const hour = currentIsAM ? currentDate.getHours() : (currentDate.getHours() - 12);
-        currentDate.setHours(hour);
+        const currentIsAM = currentDate.getHours() <= 12 && currentDate.getHours() > 0;
         setIsAM(() => currentIsAM);
         setOpen(false);
-        setDate(() => currentDate);
+        setDate(() => new Date(currentDate));
         (async () => await AsyncStorage.setItem(`${day}`,
-            `${hour}:${currentDate.getMinutes()}:${currentIsAM ? 'AM' : 'PM'}`))();
+            `${currentDate.getHours()}:${currentDate.getMinutes()}:${currentIsAM ? 'AM' : 'PM'}`))();
         setReminder(currentDate, dayID, false);
+    }
+
+    const onAmOrPmAction = (currentIsAm:boolean) => {
+        if(currentIsAm && !isAM){
+            const currentDate = new Date(date);
+            const hour = date.getHours() + 12;
+            currentDate.setHours(hour);
+            ondatePickerAction(currentDate)
+        }
+        if(!currentIsAm && isAM){
+            const currentDate = new Date(date);
+            const hour = date.getHours() - 12;
+            currentDate.setHours(hour);
+            ondatePickerAction(currentDate)
+        }
+        setIsAM(() => currentIsAm);
     }
 
     return (
@@ -103,17 +122,17 @@ const MWRitem = ({ day, dayID }: any): JSX.Element => {
 
                     <DatePicker
                         modal locale="en" mode="time" open={open}
-                        date={new Date(getFormattedDate())}
+                        date={new Date(date)}
                         onConfirm={currentDate => ondatePickerAction(currentDate)}
                         onCancel={() => {
                             setOpen(false);
                         }} />
                 </TouchableOpacity>
                 <View style={{ ...styles.container, ...styles.baseBG }}>
-                    <TouchableOpacity onPress={() => AMActivcationHandler()} activeOpacity={0.6} style={isAM && isDay ? styles.AMPMColor : null}>
+                    <TouchableOpacity onPress={() => onAmOrPmAction(true)} activeOpacity={0.6} style={isAM && isDay ? styles.AMPMColor : null}>
                         <Text style={styles.AMPMtext}>AM</Text>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => PMActivcationHandler()} activeOpacity={0.6} style={!isAM && isDay ? styles.AMPMColor : null}>
+                    <TouchableOpacity onPress={() => onAmOrPmAction(false)} activeOpacity={0.6} style={!isAM && isDay ? styles.AMPMColor : null}>
                         <Text style={styles.AMPMtext}>PM</Text>
                     </TouchableOpacity>
                 </View>

@@ -119,7 +119,7 @@ const Notifications = () => {
                 message: 'i am the main message of your notification',
                 bigText: "i am the very very big text or content of your notification my friend !"
             })}>
-                <Text>20 Seconds</Text>
+                <Text>Notification</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.primaryButton} onPress={() => { setRepeatingNotification("30s") }}>

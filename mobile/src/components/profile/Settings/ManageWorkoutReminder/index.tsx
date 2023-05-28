@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../../../../context/providers/AuthContextProvider';
 import Devider from '../../../tinyCompo/Devider';
@@ -6,16 +6,44 @@ import Screen from '../../../Screen';
 import theme from '../../../../constants/theme';
 import MWRswitch from './MWRswitch';
 import MWRitem from './MWRitem';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const ManageWorkOutReminder = ({ route, navigation }: any) => {
-
     const { currentUser } = useAuth();
     const user = currentUser?.user;
+    const [isNotification, setIsNotification] = useState<boolean>(false);
+    const [isDaily, setIsDaily] = useState<boolean>(false);
+    const [isReminderMe, setIsReminderMe] = useState<boolean>(false);
 
-    const [open, setOpen] = useState(false);
     const updateProfile = () => {
         navigation.goBack();
     };
+
+
+    useEffect(() => {
+        (async () => await AsyncStorage.getItem('isNotification').then(isNotify => { setIsNotification(() => isNotify == `${true}`); }))();
+        (async () => await AsyncStorage.getItem('isDaily').then(data => { setIsDaily(() => data == `${true}`); }))();
+        (async () => await AsyncStorage.getItem('isReminder').then(data => { setIsReminderMe(() => data == `${true}`); }))();
+    }, [])
+
+    const onActivateNotifications = () => {
+        setIsNotification(() => !isNotification);
+        (async () => await AsyncStorage.setItem('isNotification', `${!isNotification}`))();
+        if (isNotification) {
+            setIsDaily(() => false);
+            setIsReminderMe(() => false);
+        }
+    }
+    const onActivateDaily = () => {
+        setIsDaily(() => !isDaily);
+        (async () => await AsyncStorage.setItem('isDaily', `${!isDaily}`))();
+    }
+    const onActivateRemindeMe = () => {
+        setIsReminderMe(() => !isReminderMe);
+        (async () => await AsyncStorage.setItem('isReminder', `${!isReminderMe}`))();
+    }
+
+
     return (
         <Screen
             name={'WorkOut Reminder'}
@@ -23,19 +51,19 @@ const ManageWorkOutReminder = ({ route, navigation }: any) => {
             action="save"
             actionFunction={updateProfile}>
             <ScrollView>
-                <MWRswitch title="Push Notifications"/>
-                <MWRswitch title="Remind me if inactive for weeks"/>
-                <MWRswitch title="Daiy Workout Reminder"/>
+                <MWRswitch title="Push Notifications" isAllowed={true} isActive={isNotification} onAction={onActivateNotifications} />
+                <MWRswitch title="Remind me if inactive for weeks" isAllowed={isNotification} isActive={isReminderMe} onAction={onActivateRemindeMe} />
+                <MWRswitch title="Daiy Workout Reminder" isAllowed={isNotification} isActive={isDaily} onAction={onActivateDaily} />
 
                 <Devider />
-                
-                <MWRitem day="Monday" dayID={1}/>
-                <MWRitem day="Tuesday" dayID={2}/>
-                <MWRitem day="Wednesday" dayID={3}/>
-                <MWRitem day="Thursday" dayID={4}/>
-                <MWRitem day="Friday" dayID={5}/>
-                <MWRitem day="Saturday" dayID={6}/>
-                <MWRitem day="Sunday" dayID={0}/>
+
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Monday" dayID={1} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Tuesday" dayID={2} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Wednesday" dayID={3} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Thursday" dayID={4} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Friday" dayID={5} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Saturday" dayID={6} />
+                <MWRitem isNotification={isNotification} isDialy={isDaily} day="Sunday" dayID={0} />
             </ScrollView>
         </Screen>
     );

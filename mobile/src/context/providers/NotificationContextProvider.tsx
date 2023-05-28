@@ -5,8 +5,9 @@ import { Platform } from 'react-native';
 export type NotificationContextType = {
     generateSimpleNotification: (NotificationProps: any) => any;
     setReminder: (date: Date, dayId: string, isStop: boolean) => void;
-
 };
+
+const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
 const NotificationContext = createContext<NotificationContextType | null>(null);
 
@@ -43,10 +44,21 @@ PushNotification.createChannel(
         channelName: 'FitnessApp',
         importance: Importance.HIGH,
         vibrate: true,
-        // soundName: '',
         channelDescription: 'Channel description bla bla bla...'
     },
     created => console.log(`createChannel returned '${created}'`),
+);
+
+PushNotification.createChannel(
+    {
+        channelId: "FitnessAppID-sound-channel",
+        channelName: `Sound channel`,
+        channelDescription: "A sound channel",
+        soundName: "gratfull_notification.mp3",
+        importance: 4,
+        vibrate: true,
+    },
+    (created) => console.log(`createChannel 'FitnessAppID-sound-channel' returned '${created}'`)
 );
 
 
@@ -91,19 +103,44 @@ export const NotificationContextProvider = ({ children }: any) => {
 
     const reminderTemplate = async (date: Date, dayId: string) => {
         PushNotification.cancelLocalNotification(dayId)
-        const reminderTime = new Date();
-        reminderTime.setHours(date.getHours());
-        reminderTime.setMinutes(date.getMinutes());
-        reminderTime.setSeconds(0);
+        if (date < new Date()) { date.setDate(date.getDate() + 7); }
+        const reminderTime = new Date(date);
+        const currentDayOfWeek = reminderTime.getDay();
+        const daysToAdd = parseInt(dayId) - currentDayOfWeek;
+        reminderTime.setDate(reminderTime.getDate() + daysToAdd);
+
+        console.log("[date inside reminder] |===> [" + reminderTime + "]");
 
         PushNotification.localNotificationSchedule({
             id: dayId,
-            title: "Your workout Reminder",
-            message: `It's ${reminderTime.getHours()}:${reminderTime.getMinutes()}! Time to get moving! Take a break from your busy day and prioritize your health and fitness. Engage in a workout session now and make progress towards your goals. Remember, consistency is key. Stay motivated and keep pushing yourself!`,
+            title: `Remember, It is ${daysOfWeek[reminderTime.getDay()]} ${reminderTime.getHours()}:${reminderTime.getMinutes()} workout Reminder`,
+            message: "Maintain your momentum and stay committed, my friend!",
             date: reminderTime,
-            channelId: 'FitnessAppID',
-            repeatType: 'time',
-            repeatTime: 3000,
+            channelId: 'FitnessAppID-sound-channel',
+            repeatType: 'week',
+            repeatTime: 7 * 24 * 60 * 60 * 1000,
+            largeIcon: "fitness_app_logo",
+            smallIcon: "ic_notification",
+            bigText: `Stay on track with your fitness goals! Don't let today's
+                opportunity slip away. Remember to prioritize your well-being 
+                and carve out time for exercise. Whether it's a workout at the gym, a refreshing jog, or a 
+                yoga session, make a commitment to your health. You've come so far, and this is your chance to keep the momentum going. 
+                Let's continue this journey together and achieve greatness!`,
+            subText: "FitnessApp Reminder",
+            bigLargeIcon: "fitness_app_logo",
+            color: "blue",
+            vibrate: true,
+            vibration: 1000,
+            tag: "some_tag",
+            group: "group",
+            groupSummary: false,
+            ongoing: false,
+            priority: "high",
+            visibility: "private",
+            ignoreInForeground: false,
+            shortcutId: "shortcut-id",
+            onlyAlertOnce: false,
+            playSound: true,
         });
     }
 
