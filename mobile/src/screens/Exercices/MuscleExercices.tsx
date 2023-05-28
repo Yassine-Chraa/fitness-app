@@ -6,7 +6,6 @@ import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useExercise } from '../../context/providers/ExerciseContextProvider';
 import AnimatedLottieView from 'lottie-react-native';
-import testAnimation from '../../assets/gym-exercises/squat-kick.json'
 
 const MuscleExercices = ({ navigation, route }: any) => {
   const { exercises, getMuscleExercises } = useExercise();
