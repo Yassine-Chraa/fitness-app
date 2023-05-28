@@ -110,7 +110,7 @@ const Notifications = () => {
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.primaryButton}
-                onPress={() => setReminder(new Date(Date.now() +  1000),'day',"1",false)}>
+                onPress={() => setReminder(new Date(Date.now() +  1000),"1",false)}>
                 <Text>My notification</Text>
             </TouchableOpacity>
 
