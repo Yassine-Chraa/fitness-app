@@ -8,29 +8,28 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 import { Button } from '@rneui/base';
 import axios from '../../Helpers/axiosConfig'
 import { useDailyNutrition } from '../../context/providers/DailyNutritionProvider';
-import { useFocusEffect } from '@react-navigation/native';
 
 
-const Statistics = ({ user }: any):JSX.Element => {
+const Statistics = ({ user }: any): JSX.Element => {
     const { getUserWeights, weights, addUserWeight, editUserWeight, deleteUserWeight } = useAuth();
     const { getLastNutritions, getDailyNutrition, lastNuritions, dailyNutrition, forceUpdate } = useDailyNutrition();
     const cardWidth = Dimensions.get('window').width - 56;
 
+
     const [BMR, setBMR] = useState(0);
     const [showModal, setShowModal] = useState(false)
-    const [weight, setWeight] = useState<number>(0)
-    const [now, setNow] = useState<string | null>(null)
+    const [weight, setWeight] = useState('')
+    const [now, setNow] = useState('')
     const [editMode, setEditMode] = useState(false)
 
     const setCurrentDate = () => {
         const now = new Date();
-        const date = `${now.getFullYear()}-${now?.getMonth() < 9 ? '0' : ''}${now?.getMonth() + 1}-${now?.getDate() < 10 ? '0' : ''}${now?.getDate()}`;
+        const date = `${now.getFullYear()}-${now.getMonth() < 9 ? '0' : ''}${now.getMonth() + 1}-${now.getDate() < 10 ? '0' : ''}${now.getDate()}`;
         setNow(date);
     }
-
     const getDailyCalory = async () => {
-        if (typeof user?.birth_date == 'string') {
-            var dob = new Date(user?.birth_date)
+        if (typeof user.birth_date == 'string') {
+            var dob = new Date(user.birth_date)
             var month_diff = Date.now() - dob.getTime();
             var age_dt = new Date(month_diff);
             var year = age_dt.getUTCFullYear();
@@ -41,8 +40,8 @@ const Statistics = ({ user }: any):JSX.Element => {
                 params: {
                     age,
                     gender: 'male',
-                    height: '175',
-                    weight: '70',
+                    height: user.height*100,
+                    weight: user.weight,
                     activitylevel: 'level_1'
                 },
                 headers: {
@@ -59,21 +58,17 @@ const Statistics = ({ user }: any):JSX.Element => {
             }
         }
     }
-
-    //------------------------------------------------------------------------
     const fetchData = async () => {
         await getDailyCalory();
+        await getDailyNutrition(user.id, now);
         await getUserWeights(user.id);
-        await getDailyNutrition(user.id, now ? now : '');
         await getLastNutritions(user.id);
     }
-
-    //------------------------------------------------------------------------
     const addWeight = async () => {
         if (user) {
             try {
-                await addUserWeight(user.id, Number(weight), now ? now : '');
-                setWeight(0)
+                await addUserWeight(user.id, Number(weight), now);
+                setWeight('')
                 setShowModal(false);
                 await getUserWeights(user.id);
             } catch (e) {
@@ -81,13 +76,11 @@ const Statistics = ({ user }: any):JSX.Element => {
             }
         }
     }
-
-    //------------------------------------------------------------------------
     const editWeight = async () => {
         if (user) {
             try {
-                await editUserWeight(user.id, Number(weight), now ? now : '');
-                setWeight(0)
+                await editUserWeight(user.id, Number(weight), now);
+                setWeight('')
                 setShowModal(false);
                 await getUserWeights(user.id);
             } catch (e) {
@@ -95,25 +88,28 @@ const Statistics = ({ user }: any):JSX.Element => {
             }
         }
     }
-
-    //------------------------------------------------------------------------
     const deleteWeight = async () => {
         try {
-            await deleteUserWeight(user.id, now ? now : '');
-            setWeight(0)
+            await deleteUserWeight(user.id, now);
+            setWeight('')
             setShowModal(false);
             await getUserWeights(user.id);
         } catch (e) {
             console.log(e)
         }
     }
-    //------------------------------------------------------------------------
-    useFocusEffect(useCallback(() => {
+    const firstWeight = () => {
+        const temp = new Date(user.created_at);
+        const ret = `${temp.getDate() < 10 ? '0' : ''}${temp.getDate()}/${temp.getMonth() < 9 ? '0' : ''}${temp.getMonth() + 1}`
+        return ret;
+    }
+
+    useEffect(() => {
         setCurrentDate()
         fetchData()
     }, [axios.defaults.headers.common[
         "authorization"
-    ]]))
+    ]])
     useEffect(() => {
         const temp = weights?.find(weight => {
             return weight.date === now;
@@ -190,16 +186,16 @@ const Statistics = ({ user }: any):JSX.Element => {
                     <View>
                         <LineChart
                             data={{
-                                labels: weights && weights.length > 0 ? weights.map((weight) => {
+                                labels: weights.length != 0 ? [...weights, { value: user.weight, date: user.created_at }].map((weight) => {
                                     const temp = new Date(weight.date);
-                                    const date = `${temp.getDay() < 10 ? '0' : ''}${temp.getDate()}/${temp.getMonth() < 9 ? '0' : ''}${temp.getMonth() + 1}`
+                                    const date = `${temp.getDate() < 10 ? '0' : ''}${temp.getDate()}/${temp.getMonth() < 9 ? '0' : ''}${temp.getMonth() + 1}`
                                     return date;
-                                }) : ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9'],
+                                }) : [firstWeight()],
                                 datasets: [
                                     {
-                                        data: weights && weights.length > 0 ? weights.map((weight) => {
+                                        data: weights.length != 0 ? [...weights, { value: user.weight, date: user.created_at }].map((weight) => {
                                             return weight.value;
-                                        }) : [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                        }) : [user.weight],
                                         strokeWidth: 1.5,
                                     },
                                 ],
@@ -227,14 +223,14 @@ const Statistics = ({ user }: any):JSX.Element => {
                             yAxisLabel=''
                             yAxisSuffix=''
                             data={{
-                                labels: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
+                                labels: !lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
                                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
-                                }) : ['x1', 'x2', 'x3', 'x4', 'x5', 'x6', 'x7', 'x8', 'x9'],
+                                }) : ['20/05','21/05','22/05','23/05','24/05','25/05','26/05'],
                                 datasets: [
                                     {
-                                        data: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item) => {
+                                        data: !lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item) => {
                                             return item.energy_consumed;
-                                        }) : [1, 2, 3, 4, 5, 6, 7, 8, 9],
+                                        }) : [1800,1600,2000,1700,2200,1500,1900],
                                     },
                                 ],
                             }}
@@ -264,9 +260,9 @@ const Statistics = ({ user }: any):JSX.Element => {
                     <TextInput keyboardType="numeric"
                         placeholder='weight (kg)'
                         style={styles.input}
-                        value={weight+""}
+                        value={weight + ""}
                         inputMode={"numeric"}
-                        onChangeText={(val:any) => setWeight(() => val)} />
+                        onChangeText={(val: any) => setWeight(() => val)} />
                     <View style={{ flexDirection: 'row', gap: 8, justifyContent: 'center' }}>
                         <View style={{ width: editMode ? '40%' : '100%' }}><Button radius={5} onPress={() => editMode ? editWeight() : addWeight()}>{editMode ? "Edit" : "Add"}</Button></View>
                         {editMode ? (<View style={{ width: '40%' }}><Button radius={5} onPress={deleteWeight}>Delete</Button></View>) : null}
@@ -280,7 +276,7 @@ const Statistics = ({ user }: any):JSX.Element => {
 export default Statistics
 
 const styles = StyleSheet.create({
-    StatisticsContainer:{
+    StatisticsContainer: {
         borderColor: '#0003',
         borderWidth: 1,
         borderRadius: 8,

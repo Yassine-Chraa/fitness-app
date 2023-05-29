@@ -1,19 +1,20 @@
 import axios from '../../Helpers/axiosConfig';
-import  React,
+import React,
 
 { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Food from '../../types/Food';
 import DailyNutrition from '../../types/DailyNutrition'
+import Toast from 'react-native-toast-message';
 
 export type DailyNutritionContextType = {
     lastNuritions: Array<DailyNutrition>;
     dailyNutrition: DailyNutrition;
     forceUpdate: boolean;
     getDailyNutrition: (user_id: number, date: string) => Promise<void>;
-    getLastNutritions: (user_id:number) => Promise<void>;
-    addFood: (user_id:number,date:string,food: Food) => Promise<string>;
-    updateFood: (daily_nutrition_id:number,food_id:string,poid:number)=>Promise<string>
+    getLastNutritions: (user_id: number) => Promise<void>;
+    addFood: (user_id: number, date: string, food: Food) => Promise<string>;
+    updateFood: (daily_nutrition_id: number, food_id: string, poid: number) => Promise<string>
     deleteFood: (daily_nutrition_id: number, food_id: number) => Promise<string>;
 };
 const DailyNutritionContext = createContext<DailyNutritionContextType | null>(null);
@@ -48,18 +49,26 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
             console.log(e);
         }
     };
-    const addFood = async (user_id:number,date:string,food: Food) => {
+    const addFood = async (user_id: number, date: string, food: Food) => {
         try {
             const { data } = await axios.post(`${DailyNutritionUrl}/item/${user_id}/${date}`, food);
+            Toast.show({
+                type: 'success',
+                text1: data.message,
+            });
             return data.message;
         } catch (e) {
             console.log(e);
         }
     };
-    const updateFood = async (daily_nutrition_id:number,food_id:string,poid:number) => {
+    const updateFood = async (daily_nutrition_id: number, food_id: string, poid: number) => {
         try {
-            const { data } = await axios.put(`${DailyNutritionUrl}/item/${daily_nutrition_id}/${food_id}`, {poid});
+            const { data } = await axios.put(`${DailyNutritionUrl}/item/${daily_nutrition_id}/${food_id}`, { poid });
             setForceUpdate(prev => !prev);
+            Toast.show({
+                type: 'success',
+                text1: data.message,
+            });
             return data.message;
         } catch (e) {
             console.log(e);
@@ -78,7 +87,10 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
                 return temp;
             })
             setForceUpdate(prev => !prev);
-
+            Toast.show({
+                type: 'success',
+                text1: data.message,
+            });
             return data.message;
         } catch (e) {
             console.log(e);

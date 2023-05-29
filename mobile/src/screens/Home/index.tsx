@@ -6,7 +6,6 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 import { usePost } from '../../context/providers/PostContextProvider';
 import PostInput from '../../components/PostTemplate/PostInput';
 import PostTemplate from '../../components/PostTemplate';
-import UserType from '../../types/UserType';
 import Statistics from '../../components/Statistics';
 import HomeDivider from '../../components/tinyCompo/HomeDivider';
 
@@ -33,7 +32,7 @@ function Home(): JSX.Element {
       <View style={styles.homeContainer}>
 
         {user && <View style={{ marginBottom: 20, }}>
-          <PostInput currentUserImgUrl={user.img_url} user_id={user.id} reLoadPosts={loadPosts} />
+          <PostInput currentUserImgUrl={user?.profile} user_id={user?.id} reLoadPosts={loadPosts} />
         </View>}
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}

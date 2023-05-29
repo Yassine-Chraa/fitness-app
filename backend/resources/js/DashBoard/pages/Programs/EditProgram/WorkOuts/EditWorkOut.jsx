@@ -31,7 +31,7 @@ const days = [
     "saturday",
 ];
 const categories = ["all", "checked", "a", "b", "c", "d", "e", "f"];
-const states = ["progress", "unstarted", "finished"];
+const states = [ "unstarted","progress", "finished"];
 
 const ActionMenu = ({ id, setType, setSelectedID }) => {
     const { deleteExercise } = useExercise();

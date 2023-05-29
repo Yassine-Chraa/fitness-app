@@ -7,7 +7,6 @@ import Gainers from './Gainers';
 import { useProduct } from '../../context/providers/ProductContextProvider';
 import { useCategory } from '../../context/providers/CategoryConextProvider';
 import { useFocusEffect } from '@react-navigation/native';
-import { useAuth } from '../../context/providers/AuthContextProvider';
 
 const Tab = createMaterialTopTabNavigator();
 

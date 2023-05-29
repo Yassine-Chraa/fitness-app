@@ -14,7 +14,7 @@ import { async } from 'regenerator-runtime';
 import { useWorkOut } from '../../../../context/APIContext/providers/WorkOutContextProvider';
 
 const days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-const states = ['progress', 'unstarted', 'finished'];
+const states = ['unstarted','progress', 'finished'];
 
 
 const AddWorkOutModal = ({ ProgramID }) => {
