@@ -55,7 +55,7 @@ const AddProgramModal = () => {
             </MenuItem>
         ));
 
-    const upLoadImageHandler = (event) => {
+    const uploadImage = (event) => {
         var file = event.target.files[0];
         if (!file.type.match(imgRegex)) {
             alert("image format is not valid !!");
@@ -88,7 +88,7 @@ const AddProgramModal = () => {
             setLocaldiffLevel(diff_levels[0]);
             setLocalTitle("");
             setLocalDesc("");
-            setLocalImgUrl(null)
+            setLocalImgUrl(null);
         }
     };
 
@@ -111,8 +111,8 @@ const AddProgramModal = () => {
             <Card
                 sx={{
                     padding: 2,
-                    width: "80%",
-                    height: "80%",
+                    width: "50%",
+                    height: "62%",
                     borderRadius: "10px",
                     boxShadow: "#000e 1px 1px 10px",
                 }}
@@ -147,55 +147,63 @@ const AddProgramModal = () => {
                             flexDirection: "row",
                         }}
                     >
-                        <MDBox
+                         <MDBox
+                            component="form"
+                            role="form"
                             style={{
-                                margin: "0.5rem",
-                                flex: 1,
                                 display: "flex",
                                 justifyContent: "center",
                                 alignItems: "center",
                                 flexDirection: "column",
                             }}
                         >
-                            <img
-                                onClick={() => ImageRef.current.click()}
+                            <MDAvatar
+                                variant="gradient"
                                 src={
                                     localImgUrl == null
                                         ? "https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg"
                                         : localImgUrl
                                 }
-                                alt={"main image that describes the program"}
-                                loading="lazy"
-                                style={{
-                                    cursor: "pointer",
-                                    width: "180px",
-                                    height: "120px",
-                                    borderRadius: "5px",
-                                }}
+                                size="xl"
+                                style={{ cursor: "pointer" }}
                             />
-                            <MDTypography
-                                style={{ width: "100%", textAlign: "center" }}
-                                variant="subtitle2"
-                                fontWeight="medium"
-                                mx={1}
+                            <MDButton
+                                onClick={() => ImageRef.current.click()}
+                                variant="gradient"
+                                color="info"
+                                style={{
+                                    minWidth: "9rem",
+                                    maxWidth: "12rem",
+                                    marginTop: 4,
+                                    flex: 1,
+                                }}
                             >
-                                Desc Image
-                            </MDTypography>
-                            <input
-                                ref={ImageRef}
-                                onChange={upLoadImageHandler}
-                                hidden
-                                accept="image/*"
-                                multiple
-                                type="file"
-                                onClick={() =>
-                                    console.log("upload is invoked !")
+                                Upload Image
+                                <input
+                                    ref={ImageRef}
+                                    onChange={uploadImage}
+                                    hidden
+                                    accept="image/*"
+                                    multiple
+                                    type="file"
+                                />
+                            </MDButton>
+                        </MDBox>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <MDBox mb={1}>
+                            <MDInput
+                                value={localTitle}
+                                onChange={(val) =>
+                                    setLocalTitle(val.target.value)
                                 }
+                                type="text"
+                                label="Title"
+                                fullWidth
                             />
                         </MDBox>
-
-                        <MDBox component="form" role="form" style={{ flex: 1 }}>
-                            <MDBox m={1}>
+                        <Grid container columnSpacing={1}>
+                            <Grid item sm={12} md={6} mb={1}>
                                 <FormControl fullWidth>
                                     <InputLabel id="select-role-label">
                                         Select State
@@ -216,8 +224,8 @@ const AddProgramModal = () => {
                                         {diff_levels_options()}
                                     </Select>
                                 </FormControl>
-                            </MDBox>
-                            <MDBox m={1}>
+                            </Grid>
+                            <Grid item sm={12} md={6} mb={1}>
                                 <FormControl fullWidth>
                                     <InputLabel id="select-gender-label">
                                         Select Category
@@ -236,44 +244,21 @@ const AddProgramModal = () => {
                                         {categories_options()}
                                     </Select>
                                 </FormControl>
-                            </MDBox>
-                        </MDBox>
-                    </Grid>
-
-                    {/* ---------( dropdown lists )----------- */}
-                    <Grid item xs={12} sm={12} md={12} lg={12} xl={12}>
-                        <MDBox
-                            style={{
-                                margin: "0rem",
-                                flex: 1,
-                                display: "flex",
-                                justifyContent: "center",
-                                flexDirection: "column",
-                            }}
-                        >
-                            <MDBox mb={1}>
-                                <MDInput
-                                    value={localTitle}
-                                    onChange={(val) =>
-                                        setLocalTitle(val.target.value)
-                                    }
-                                    type="text"
-                                    label="Title"
-                                />
-                            </MDBox>
-                            <MDBox mb={1}>
-                                <MDInput
-                                    multiline
-                                    rows={4}
-                                    value={localDesc}
-                                    onChange={(val) =>
-                                        setLocalDesc(val.target.value)
-                                    }
-                                    type="text"
-                                    label="Description"
-                                    fullWidth
-                                />
-                            </MDBox>
+                            </Grid>
+                        </Grid>
+                        <MDBox mb={1}>
+                            <MDInput
+                                spellcheck="false"
+                                multiline
+                                rows={4}
+                                value={localDesc}
+                                onChange={(val) =>
+                                    setLocalDesc(val.target.value)
+                                }
+                                type="text"
+                                label="Description"
+                                fullWidth
+                            />
                         </MDBox>
                     </Grid>
                 </Grid>

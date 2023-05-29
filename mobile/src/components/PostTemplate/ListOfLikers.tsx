@@ -21,8 +21,6 @@ const ListOfLikers = ({ post_id, setIsLikersVisible, isLikersVisible }: any) => 
         fetchReactions();
     }, []);
 
-
-
     return (
         <Modal visible={isLikersVisible}
             animationType="slide"

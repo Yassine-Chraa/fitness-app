@@ -87,6 +87,16 @@ const ExerciseForm = ({ type, selectedID }) => {
                     : await updateExercise(selectedID, exercice, imageFile);
             if (result) {
                 setOpenFormHandler(dispatch, false);
+                if(type == "Add"){
+                    setImageFile("")
+                    setExercice({
+                        title: "",
+                        img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg",
+                        description: "",
+                        api_id: "",
+                        category: "",
+                    });
+                }
             }
         } catch (e) {
             console.log(e);
@@ -238,6 +248,7 @@ const ExerciseForm = ({ type, selectedID }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <MDInput
+                            spellcheck="false"
                             value={exercice.description}
                             onChange={(e) =>
                                 setExercice((prev) => {

@@ -91,8 +91,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         checkIsCurrentUserLoves()
     }, []);
 
-
-
     return (
         <View style={styles.postContainer}>
 
@@ -105,7 +103,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
             <View style={styles.postHeader}>
                 <View style={styles.postHeaderImgName}>
                     <TouchableOpacity activeOpacity={0.6}>
-                        <Image style={styles.postHeaderImage} source={{ uri: post.user.img_url }} />
+                        <Image style={styles.postHeaderImage} source={{ uri: post.user.profile }} />
                     </TouchableOpacity>
                     <View style={styles.postHeaderTitle}>
                         <Text style={styles.postHeaderTitleName}>{post.user.name}</Text>
@@ -114,9 +112,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                         }</Text>
                     </View>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={styles.moreBtn}>
-                    <Icon name={'ellipsis-v'} size={14} color={'#000'} />
-                </TouchableOpacity>
             </View>
             <View style={styles.postBody}>
                 <Text style={styles.postBodyText}>
@@ -146,7 +141,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                             <Icon name={'comment'} size={24} color={hasComment ? '#f00' : 'gray'}
                                 style={{ marginEnd: 6 }} />
                         </TouchableOpacity>
-                        <Text>{nbr_comments}</Text>
+                        <Text>{2}</Text>
                     </View>
                 </View>
                 {nbrComments > 0 ? (
@@ -211,7 +206,8 @@ const styles = StyleSheet.create({
         fontSize: 13,
     },
     postBodyText: {
-        paddingBottom: 12,
+        marginTop: 4,
+        marginBottom: 10,
         color: "#000d",
     },
     postBodyImage: {

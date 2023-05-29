@@ -11,7 +11,6 @@ import PostInput from '../../PostTemplate/PostInput';
 import { useAuth } from '../../../context/providers/AuthContextProvider';
 
 
-const imageTest = require('../../../assets/images/gym.jpg')
 
 const ViewProfile = ({ route }: any): JSX.Element => {
     const navigation: any = useNavigation();
@@ -43,14 +42,9 @@ const ViewProfile = ({ route }: any): JSX.Element => {
             setPosts(() => posts);
         }
     }
-
     useEffect(() => {
         loadPosts();
     }, [])
-
-    const reLoadPosts = () => {
-        loadPosts();
-    }
 
     return (
         <Screen name={"Profile"} backButton allowScroll>
@@ -87,7 +81,7 @@ const ViewProfile = ({ route }: any): JSX.Element => {
 
             <InfoGroup titles={titles} values={values} />
 
-            <PostInput currentUserImgUrl={user?.img_url} user_id={user_id} reLoadPosts={reLoadPosts} />
+            <PostInput currentUserImgUrl={user?.img_url} user_id={user_id} reLoadPosts={loadPosts} />
 
             {
                 posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)

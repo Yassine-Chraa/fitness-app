@@ -8,7 +8,7 @@ const ListReplies = ({ replies }: any) => {
         <Reply
             username={reply.user.name}
             text={reply.content}
-            image={reply.user.img_url}
+            image={reply.user.profile}
             key={Math.random()*(isNaN(parseInt(reply.id)) ? 100 : reply.id)} />
     )
 

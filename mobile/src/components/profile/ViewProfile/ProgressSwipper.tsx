@@ -10,24 +10,19 @@ import FAImagePicker from '../../FAImageHandlers/FAImagePicker';
 
 const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const { getImages, addImage } = useImages();
-    const [images, setImages] = useState<Array<any>>([])
+    const { images,getImages, addImage } = useImages();
     const [img_url, setImg_url] = useState<string>('');
     const [isVisible, setIsVisible] = useState(false);
     const [currentImageUrl, setCurrentImageUrl] = useState<string>('')
 
     const loadImages = async () => {
-        const imgs = await getImages()
-        if (imgs) {
-            setImages(() => imgs)
-        }
+        await getImages()
     }
-
     const addNewImage = async (img_url: string) => {
         const NewIMG: ImageType = { user_id: 1, img_url: img_url }
         const result = await addImage(NewIMG)
         if (result) {
-            setImages(prev => [currentImageUrl, ...prev]);
+            getImages()
         }
     }
 
@@ -37,7 +32,7 @@ const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
 
     useEffect(() => {
         loadImages();
-    }, [images])
+    }, [])
 
     useEffect(() => {
         if(img_url != ''){

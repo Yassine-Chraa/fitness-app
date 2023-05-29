@@ -1,8 +1,7 @@
 import axios from '../../Helpers/axiosConfig';
 import React, { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
-import Product from '../../types/Product';
-
+import Toast from 'react-native-toast-message';
 export type CartContextType = {
     cart: Array<object>;
     getCart: (id: number | undefined) => Promise<void>;
@@ -38,6 +37,10 @@ export const CartContextProvider = ({ children }: any) => {
             setCart((prev) => {
                 return [...prev, data];
             })
+            Toast.show({
+                type: 'success',
+                text1: 'Product added to your cart',
+            })
         } catch (e) {
             console.log(e);
         }
@@ -49,6 +52,10 @@ export const CartContextProvider = ({ children }: any) => {
                 return prev.filter((item: any) => {
                     return item.product_id != product_id
                 })
+            })
+            Toast.show({
+                type: 'success',
+                text1: 'Product deleted from your cart',
             })
 
             return data.message;

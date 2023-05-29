@@ -9,24 +9,22 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 
 function Profile(): JSX.Element {
   const { currentUser } = useAuth();
-  const [user, setUser] = useState(currentUser?.user)
+  const { id, profile, name, workout_level, top_goal, weight, body_fat, BMI } = currentUser?.user;
   const values = ['weight (Kg)', 'Body fat (%)', 'BMI'];
-  console.log(user)
   return (
     <Screen name="Profile" allowScroll>
       <View style={styles.container}>
         <UserDesc
           userInfo={{
-            user_id: user?.id,
-            profile: user?.profile,
-            name: user?.name,
-            workout_level: user?.workout_level,
-            top_goal: user?.top_goal,
-            img_url:user?.img_url,
+            user_id: id,
+            profile,
+            name,
+            workout_level,
+            top_goal,
           }}
         />
         <TopButton />
-        <InfoGroup titles={[user?.weight, user?.body_fat, user?.BMI.toFixed(2)]} values={values} />
+        <InfoGroup titles={[weight, body_fat, BMI.toFixed(2)]} values={values} />
         <Options />
       </View>
     </Screen>

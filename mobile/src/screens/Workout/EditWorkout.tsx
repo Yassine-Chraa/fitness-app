@@ -1,5 +1,5 @@
 import { Image, Input } from '@rneui/themed';
-import { useState } from 'react';
+import React,{ useState } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -12,6 +12,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import { exeriseParmType, useWorkout } from '../../context/providers/WorkoutContextProvider';
+import Toast from 'react-native-toast-message';
 
 const EditInput = ({ label, value, onChangeText }: any) => {
   return (
@@ -45,6 +46,10 @@ const EditWorkout = ({ navigation, route }: any) => {
       await deleteWorkoutExercise(workoutExercises[index].id);
     })
     await getWorkoutExercises(workoutId);
+    Toast.show({
+      type: 'success',
+      text1: 'Workout Exercices Updated',
+    });
     navigation.goBack('WorkoutDetails')
   }
   const deleteExercise = async (exerciseID: number, index: number) => {

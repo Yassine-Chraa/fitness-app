@@ -34,13 +34,13 @@ import ImageGallery from '../components/profile/ViewProfile/ImageGallery';
 import ImageSwipper from '../components/profile/ViewProfile/ImageSwipper';
 import AchievmentsGallery from '../components/profile/ViewProfile/AchievmentsGallery';
 import CoachClients from '../screens/Profile/CoachClients';
-import ImageClassifier from '../components/imageProcessing/ImageClassifier';
 import ChangePassword from '../components/profile/Settings/PrivacySettings/ChangePassword';
 import VerifyEmail from '../components/profile/Settings/PrivacySettings/VerifyEmail';
 import VerifyPassword from '../components/profile/Settings/PrivacySettings/VerifyPassword';
 import ResetPasswordForUpdate from '../components/profile/Settings/PrivacySettings/ResetPasswordForUpdate';
-import Notifications from '../components/profile/Notifications';
 
+import Toast from 'react-native-toast-message';
+import Notifications from '../components/profile/Notifications';
 enableScreens();
 const Stack = createNativeStackNavigator();
 
@@ -53,13 +53,10 @@ const MainNavigator = () => {
         SplashScreen.hide();
       })
     } else {
-      console.log("[Token] ==> " + currentUser?.token)
       axios.defaults.headers.common["authorization"] = `Bearer ${currentUser?.token}`;
     }
 
   }, [SplashScreen, currentUser]);
-
-
   return (
     <>
       {/* Animation and alerts here */}
@@ -102,8 +99,6 @@ const MainNavigator = () => {
             <Stack.Screen name="ImageSwipper" component={ImageSwipper} />
             <Stack.Screen name="AchievmentsGallery" component={AchievmentsGallery} />
 
-            <Stack.Screen name="ImageClassifier" component={ImageClassifier} />
-
             <Stack.Screen name="ChangePassword" component={ChangePassword} />
             <Stack.Screen name="VerifyEmail" component={VerifyEmail} />
             <Stack.Screen name="VerifyPassword" component={VerifyPassword} />
@@ -117,6 +112,7 @@ const MainNavigator = () => {
           </>
         )}
       </Stack.Navigator>
+      <Toast />
     </>
   );
 };

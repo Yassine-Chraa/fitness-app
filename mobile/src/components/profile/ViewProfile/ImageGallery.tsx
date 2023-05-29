@@ -8,8 +8,6 @@ const ImageGallery = ({route}:any) => {
     const {images} = route.params;
     const batchSize = 4;
 
-    console.log(images)
-
     const renderImage = ({ item, index }: any) => (
         <TouchableOpacity style={{
             ...styles.imageContainer,

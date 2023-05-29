@@ -3,7 +3,7 @@ export default interface Product {
   name: string;
   category: 'gym_cloths' | 'mass_gainers';
   description: string;
-  image: string;
+  product_img: string;
   stock: string;
   price: string;
   rating: number;

@@ -7,7 +7,7 @@ const ListComments = ({ comments }: any): JSX.Element => {
     const renderComment = (comment: any) => (
         <Comment
             comment_id={comment.id}
-            image={comment.user.img_url}
+            image={comment.user.profile}
             username={comment.user.name}
             user_id={comment.user.id}
             text={comment.content}

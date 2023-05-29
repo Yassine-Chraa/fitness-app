@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('duration');
             $table->enum('day', ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']);
             $table->enum('state', ['progress', 'unstarted', 'finished'])->default("unstarted");
+            $table->unique(['program_id','day'],algorithm:'BTREE').
             $table->timestamps();
         });
     }

@@ -59,13 +59,13 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                         </Text>
                     </View>
                 </View>
-                {program?.workouts?.map((workout: any) => {
+                {program?.workouts?.map((workout: any,index:number) => {
                     return (
                         <TouchableOpacity
-                            key={workout.id}
+                            key={index}
                             style={styles.workout}
                             onPress={() =>
-                                navigation.navigate('WorkoutDetails', { name: workout.title, exercises: workout.exercises })
+                                navigation.navigate('WorkoutDetails', { name: workout.title, workoutId: workout.id })
                             }>
                             <View style={{ flexDirection: 'row' }}>
                                 <Image

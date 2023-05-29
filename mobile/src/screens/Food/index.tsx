@@ -26,7 +26,6 @@ const Food = ({ navigation }: any): JSX.Element => {
 
   const search = () => {
     if (keyword) {
-      console.log(`${Food_API_URL}?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${keyword}`)
       axios
         .get(
           `${Food_API_URL}?app_id=${APP_ID}&app_key=${APP_KEY}&ingr=${keyword}`

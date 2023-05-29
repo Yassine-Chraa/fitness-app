@@ -37,14 +37,13 @@ const MyCartCard = ({ item, setTotal }: any) => {
       <View
         style={{
           flexDirection: 'row',
-          columnGap: 12,
         }}>
         <Image
           source={{ uri: item.product_img || 'https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png' }}
-          style={{ height: 75, width: 75, borderRadius: 5 }}
+          style={{ height: 75, width: 75, borderRadius: 5,marginRight: 12 }}
           PlaceholderContent={<ActivityIndicator />}
         />
-        <View style={{ height: 75, justifyContent: 'space-between' }}>
+        <View style={{ height: 75,width:'65%', justifyContent: 'space-between' }}>
           <View>
             <Text
               style={{

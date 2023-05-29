@@ -1,12 +1,13 @@
 import axios from '../../Helpers/axiosConfig';
-import React, { createContext, useContext } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { Alert } from 'react-native';
 import { getUrl } from '../../Helpers/APIConfig';
 import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
 import ImageType from '../../types/ImageType';
 
 export type ImagesContextType = {
-    getImages: () => Promise<Array<ImageType>>;
+    images: Array<ImageType>
+    getImages: () => Promise<void>;
     getImage: (id: number) => Promise<ImageType>;
     addImage: (Image: ImageType) => Promise<{ message: string }>;
     updateImage: (id: number, Images: ImageType) => Promise<{ message: string }>;
@@ -25,16 +26,15 @@ const ImagesUrl = getUrl('Images');
 
 export const ImagesContextProvider = ({ children }: any) => {
     const [controller, dispatch] = useUIController();
+    const [images, setImages] = useState([]);
 
     //----------------------------------------
     const getImages = async () => {
         try {
-            console.log(ImagesUrl)
             const { data } = await axios.get(`${ImagesUrl}`);
-            return data;
+            setImages(data)
         } catch (error) {
             console.log(error);
-            return false;
         }
     };
 
@@ -126,6 +126,7 @@ export const ImagesContextProvider = ({ children }: any) => {
     return (
         <ImagesContext.Provider
             value={{
+                images,
                 getImages,
                 getImage,
                 addImage,

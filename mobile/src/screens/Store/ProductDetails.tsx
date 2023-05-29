@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import React,{ useState, useEffect } from 'react'
 import { Image } from '@rneui/themed';
 import {
   ActivityIndicator,
@@ -37,7 +37,7 @@ const ProductDetails = ({ navigation, route }: any) => {
       <ScrollView>
         <View>
           <Image
-            source={{ uri: 'https://placehold.jp/400x500.png' }}
+            source={{ uri: product?.product_img }}
             style={{
               height: 400,
             }}
