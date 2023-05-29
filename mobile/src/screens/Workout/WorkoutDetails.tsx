@@ -1,6 +1,6 @@
 import React from 'react';
 import { Image } from '@rneui/themed';
-import { useState, useEffect } from 'react';
+import { useState, useEffect,useCallback } from 'react';
 import {
   Dimensions,
   StyleSheet,
@@ -16,6 +16,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
 import { useWorkout } from '../../context/providers/WorkoutContextProvider';
+import { useFocusEffect } from '@react-navigation/native';
 
 const WorkoutDetails = ({ navigation, route }: any) => {
   const { workoutExercises, getWorkoutExercises } = useWorkout()
@@ -28,17 +29,15 @@ const WorkoutDetails = ({ navigation, route }: any) => {
   useEffect(() => {
     getWorkoutExercises(workoutId);
   }, [workoutId])
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     setData(workoutExercises);
-  }, [workoutExercises])
+  }, [workoutExercises]))
   return (
     <Screen
       name={name}
       action="edit"
       actionFunction={editWorkout}
-      backButton
-      actionButton
-      actionButtonType="Start Workout">
+      backButton>
       <View>
         <DraggableFlatList
           data={data}

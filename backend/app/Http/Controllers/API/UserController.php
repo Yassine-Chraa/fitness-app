@@ -409,7 +409,7 @@ class UserController extends Controller
 
         UserWeight::where('user_id', '=', $user_id)
             ->where('date', '=', $date)->delete();
-        return response()->json(['Message' => 'Weight Deleted']);
+        return response()->json(['message' => 'Weight Deleted']);
     }
 
     /**

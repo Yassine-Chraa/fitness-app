@@ -15,7 +15,7 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
 import theme from '../../constants/theme';
-import { useState, useEffect } from 'react';
+import React,{ useState, useEffect } from 'react';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useWorkout } from '../../context/providers/WorkoutContextProvider';
@@ -35,7 +35,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
     rest: 60
   })
 
-  const addToProgram = async (workoutID: number) => {
+  const addToProgram = async (workoutID: number,workoutName: string) => {
     const { sets, reps, rest } = form;
     const msg = await addExerciseToWorkout(workoutID, id, { sets, reps, rest })
     if (msg) {
@@ -46,7 +46,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
         rest: 60
       })
       setShowForm(false);
-      Alert.alert(msg);
+      Alert.alert(`Exercise added to ${workoutName} Workout`);
     }
   }
 
@@ -63,11 +63,11 @@ const ExerciceDetails = ({ navigation, route }: any) => {
             zIndex: 1,
           }}
           PlaceholderContent={<ActivityIndicator />}
-          resizeMode={'cover'}
+          resizeMode={'contain'}
         />
 
         <View style={styles.details}>
-          <TouchableWithoutFeedback>
+          <TouchableWithoutFeedback >
             <View style={styles.playButton}>
               <Icon name="play" size={20} color={'#fff'} />
             </View>
@@ -126,7 +126,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
       </View>
       <View style={styles.backButton}>
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={22} color={'#fff'} />
+          <Icon name="arrow-left" size={22} color={'#000'} />
         </TouchableOpacity>
       </View>
       <Modal animationType="slide"
@@ -143,7 +143,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
               return (
                 <TouchableOpacity key={workout.id} style={{ paddingHorizontal: 24, paddingVertical: 6, marginBottom: 4 }}
                   activeOpacity={0.6}
-                  onPress={() => addToProgram(workout.id)}>
+                  onPress={() => addToProgram(workout.id,workout.title)}>
                   <Text style={styles.workout}>{workout.title}</Text></TouchableOpacity>
               )
             })
@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   backButton: {
     marginLeft: 5,
     position: 'absolute',
-    top: 8,
+    top: 12,
     left: 8,
   },
   details: {

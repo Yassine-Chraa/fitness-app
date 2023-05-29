@@ -3,6 +3,7 @@ import  React,{ createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Workout from '../../types/Workout';
 import WorkoutExercise from '../../types/WorkoutExercise';
+import Toast from 'react-native-toast-message';
 
 export type exeriseParmType = {
   id: number,
@@ -36,6 +37,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
   const addWorkout = async (workout: any) => {
     try {
       const { data } = await axios.post(WorkoutUrl, workout);
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message
     } catch (error) {
       console.log(error);
@@ -44,6 +49,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
   const updateWorkout = async (workoutId: number, workout: any) => {
     try {
       const { data } = await axios.put(`${WorkoutUrl}/${workoutId}`, workout);
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message
     } catch (error) {
       console.log(error);
@@ -52,6 +61,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
   const deleteWorkout = async (workoutId: number) => {
     try {
       const { data } = await axios.delete(`${WorkoutUrl}/${workoutId}`);
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message
     } catch (error) {
       console.log(error);
@@ -73,6 +86,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
       } else {
         res = await axios.post(workoutExercisesUrl, { workout_id, exercise_id });
       }
+      Toast.show({
+        type: 'success',
+        text1: res.data.message,
+      });
       return res.data.message
     } catch (error) {
       console.log(error);
@@ -82,6 +99,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
     try {
       const { id, sets, reps, rest } = exercise
       const { data } = await axios.put(`${workoutExercisesUrl}/${id}`, { sets, reps, rest });
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message
     } catch (error) {
       console.log(error);
@@ -90,6 +111,10 @@ export const WorkoutContextProvider = ({ children }: any) => {
   const deleteWorkoutExercise = async (exerciseId: number) => {
     try {
       const { data } = await axios.delete(`${workoutExercisesUrl}/${exerciseId}`);
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message
     } catch (error) {
       console.log(error);

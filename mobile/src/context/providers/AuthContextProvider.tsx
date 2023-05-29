@@ -10,6 +10,7 @@ import getData from '../../Helpers/Storage/getData';
 import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
 import UserType from '../../types/UserType';
 import UserPasswordType from '../../types/UserPasswordType';
+import Toast from 'react-native-toast-message';
 
 export type AuthContextType = {
   currentUser: UserInfo | any;
@@ -199,6 +200,10 @@ export const AuthContextProvider = ({ children }: any) => {
   const addUserWeight = async (user_id: number, value: number, date: string) => {
     try {
       const { data } = await axios.post(`${usersUrl}/weights/${user_id}`, { value, date });
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message;
     } catch (error) {
       console.log(error);
@@ -209,7 +214,10 @@ export const AuthContextProvider = ({ children }: any) => {
   const editUserWeight = async (user_id: number, value: number, date: string) => {
     try {
       const { data } = await axios.put(`${usersUrl}/weights/${user_id}`, { value, date });
-      console.log(data)
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message;
     } catch (error) {
       console.log(error);
@@ -220,7 +228,10 @@ export const AuthContextProvider = ({ children }: any) => {
   const deleteUserWeight = async (user_id: number, date: string) => {
     try {
       const { data } = await axios.delete(`${usersUrl}/weights/${user_id}/${date}`);
-      console.log(data)
+      Toast.show({
+        type: 'success',
+        text1: data.message,
+      });
       return data.message;
     } catch (error) {
       console.log(error);
