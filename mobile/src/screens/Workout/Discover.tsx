@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Image } from '@rneui/themed';
 import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
@@ -16,17 +16,15 @@ const Discover = ({ navigation }: any) => {
   const [filtredPrograms, setFiltredPrograms] = useState<any>([])
 
   const fetch = async () => {
-    await getUserPrograms(currentUser!.user.id);
     await getPrograms();
+    await getUserPrograms(currentUser!.user.id);
     const temp = programs.filter(program => {
       const map = userPrograms.map((item) => {
         return item.details.id;
       })
-
       return map.includes(program.id) == false;
     })
     setFiltredPrograms(temp);
-
   }
   useFocusEffect(useCallback(() => {
     fetch()
@@ -34,12 +32,6 @@ const Discover = ({ navigation }: any) => {
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>
-        <TouchableOpacity style={styles.filterButton}>
-          <Icon name="filter" color={'#fff'} size={15} />
-          <Text style={{ color: '#fff', fontSize: 15, fontWeight: 'bold' }}>
-            Tous
-          </Text>
-        </TouchableOpacity>
         {filtredPrograms.map((program: any) => {
           return (
             <TouchableHighlight
@@ -51,7 +43,7 @@ const Discover = ({ navigation }: any) => {
               <View>
                 <Image
                   style={{ width: '100%', height: 180, borderRadius: 8 }}
-                  source={require('../../assets/images/program1.jpg')}
+                  source={{uri:program.main_img}}
                 />
                 <View
                   style={{

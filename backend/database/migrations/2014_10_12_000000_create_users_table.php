@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string("img_url")->default("https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png");
             $table->rememberToken();
-            $table->string("bio")->default("there is no autobiography !");
+            $table->text("bio")->default("there is no autobiography !");
             $table->float('weight', places: 1)->default(70.0);
             $table->float('height', places: 2)->default(1,75);
             $table->float('body_fat', places: 1)->default(20);

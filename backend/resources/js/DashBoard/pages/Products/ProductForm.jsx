@@ -24,7 +24,7 @@ const sizes = ["S", "M", "L", "XL"];
 
 const ProductForm = ({ type, selectedID }) => {
     const { getProduct, updateProduct, addProduct } = useProduct();
-    const {getCategories,categories} = useCategory();
+    const { getCategories, categories } = useCategory();
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
     const [imageFile, setImageFile] = useState("");
@@ -38,7 +38,8 @@ const ProductForm = ({ type, selectedID }) => {
             getProduct(selectedID).then((res) => setProduct(res));
         else
             setProduct({
-                product_img: "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
+                product_img:
+                    "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
                 name: "",
                 category_id: "",
                 description: "",
@@ -79,6 +80,19 @@ const ProductForm = ({ type, selectedID }) => {
                     : await updateProduct(selectedID, product, imageFile);
             if (result) {
                 setOpenFormHandler(dispatch, false);
+                setImageFile("")
+                if(type == "Add"){
+                    setProduct({
+                        product_img:
+                            "https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png",
+                        name: "",
+                        category_id: "",
+                        description: "",
+                        company: "",
+                        price: "",
+                        stock: 0,
+                    });
+                }
             }
         } catch (e) {
             console.log(e);
@@ -264,6 +278,7 @@ const ProductForm = ({ type, selectedID }) => {
                     </Grid>
                     <Grid item xs={12}>
                         <MDInput
+                            spellcheck="false"
                             value={product.description}
                             onChange={(e) =>
                                 setProduct((prev) => {

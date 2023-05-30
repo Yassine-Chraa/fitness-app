@@ -15,12 +15,11 @@ import UserPasswordType from '../../../../types/UserPasswordType';
 const ChangePassword = ({ route }: any): JSX.Element => {
     const navigation: any = useNavigation();
     const { currentUser } = useAuth();
-    const [user, setUser] = useState<UserType | any>(currentUser?.user)
+    const user = currentUser?.user;
     const [password, setPassword] = useState({ value: '', error: '' });
     const [password_confirmation, setPassword_confirmation] = useState({ value: '', error: '' });
     const { oldPassword } = route.params;
     const { testSignIn, updateUserPassword } = useAuth();
-
 
     const updatePasswordHandler = async () => {
         const passwordError = passwordValidator(password.value);
@@ -50,7 +49,6 @@ const ChangePassword = ({ route }: any): JSX.Element => {
             }
         }
     };
-
     return (
         <Screen
             name={'Privacy Settings'}

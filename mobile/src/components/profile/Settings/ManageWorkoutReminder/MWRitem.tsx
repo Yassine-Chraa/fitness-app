@@ -1,5 +1,4 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share } from 'react-native';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useNavigation } from '@react-navigation/native';
 import React, { useEffect, useState } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';

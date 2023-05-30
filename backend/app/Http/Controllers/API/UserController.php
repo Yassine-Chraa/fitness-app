@@ -118,7 +118,7 @@ class UserController extends Controller
             $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
             $user->name = $request->get('name');
             $user->email = $request->get('email');
-            $user->img_url = $request->get('img_url');
+            $user->profile = $request->get('profile');
             $user->role = $request->get('role');
             $user->BMI = $BMI;
             $user->body_fat = $request->get('body_fat');
@@ -409,7 +409,7 @@ class UserController extends Controller
 
         UserWeight::where('user_id', '=', $user_id)
             ->where('date', '=', $date)->delete();
-        return response()->json(['Message' => 'Weight Deleted']);
+        return response()->json(['message' => 'Weight Deleted']);
     }
 
     /**

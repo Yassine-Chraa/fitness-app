@@ -111,22 +111,25 @@ const UserForm = ({ type, selectedID }) => {
 
         if (result) {
             setOpenFormHandler(dispatch, false);
-            setUser({
-                id: 0,
-                profile:
-                    "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
-                name: "",
-                email: "",
-                password: "fitnessapp",
-                password_confirmation: "fitnessapp",
-                role: "user",
-                gender: "male",
-                workout_level: "beginner",
-                top_goal: "bulking",
-                height: 1.75,
-                weight: 70,
-                birth_date: "2000-01-01",
-            });
+            setImageFile("");
+            if (type == "Add") {
+                setUser({
+                    id: 0,
+                    profile:
+                        "https://res.cloudinary.com/dtveiunmn/image/upload/v1677458808/profile_w8hn3z.png",
+                    name: "",
+                    email: "",
+                    password: "fitnessapp",
+                    password_confirmation: "fitnessapp",
+                    role: "user",
+                    gender: "male",
+                    workout_level: "beginner",
+                    top_goal: "bulking",
+                    height: 1.75,
+                    weight: 70,
+                    birth_date: "2000-01-01",
+                });
+            }
         }
     };
     const cancel = () => {

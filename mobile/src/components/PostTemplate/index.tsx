@@ -41,7 +41,7 @@ const PostTemplate = ({ post }: any): JSX.Element => {
         setPost_id(() => post.id);
         setUser_id(() => post.user.id)
         loadComments();
-    }, [post_id])
+    }, [post.id,post.user.id])
 
     return (
         <View style={styles.container}>

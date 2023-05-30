@@ -10,6 +10,7 @@ import Button from '../../components/authentification/Button';
 import CustomTextInput from '../../components/authentification/CustomTextInput';
 
 const SignIn = ({ navigation }: any) => {
+  
   const [email, setEmail] = useState({ value: '', error: '' });
   const [password, setPassword] = useState({ value: '', error: '' });
   const { signIn } = useAuth();
@@ -27,9 +28,7 @@ const SignIn = ({ navigation }: any) => {
         password: password.value,
       };
       const result = await signIn(sentData);
-      if (result) {
-
-      } else {
+      if (!result) {
         setEmail({ ...email, error: "Email or Password not Correct !" });
       }
     }

@@ -22,6 +22,7 @@ const CheckStateAlert = (): JSX.Element => {
             }, 3000)
         }
     }, [checkState])
+    
 
     return (
         <>

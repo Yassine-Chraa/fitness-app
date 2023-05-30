@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string("name");
             $table->string("product_img")->default('https://res.cloudinary.com/dtveiunmn/image/upload/v1677544795/product-placeholder_vevz7n.png');
             $table->enum("category", ["gym_cloths", "gym_nutrition"]);
-            $table->string("description");
+            $table->text("description");
             $table->string("company")->nullable();
             $table->float("rating",places:1)->nullable();
             $table->integer("reviews")->default(0);

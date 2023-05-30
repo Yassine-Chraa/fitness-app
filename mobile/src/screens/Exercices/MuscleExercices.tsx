@@ -19,12 +19,6 @@ const MuscleExercices = ({ navigation, route }: any) => {
 
   return (
     <Screen name={muscle} noAction backButton allowScroll>
-      <TouchableOpacity style={styles.filterButton}>
-        <Icon name="filter" color={'#fff'} size={16} />
-        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-          Tous
-        </Text>
-      </TouchableOpacity>
       {exercises.map((exercise: any) => {
         return (
           <TouchableOpacity

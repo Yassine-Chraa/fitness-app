@@ -313,18 +313,13 @@ const Users = () => {
                                 <MDTypography variant="h6" color="white">
                                     Users Table
                                 </MDTypography>
-                                <MDBox ml={"auto"}>
-                                    <Tooltip title="Filter list">
-                                        <IconButton color="white">
-                                            <Icon>filter_list</Icon>
-                                        </IconButton>
-                                    </Tooltip>
-                                </MDBox>
                             </MDBox>
-                            <MDBox pt={3}>
+                            <MDBox pt={2}>
                                 <DataTable
-                                    canSearch={true}
+                                    canSearch={false}
                                     table={{ columns: dataLabels, rows: data }}
+                                    entriesPerPage={{defaultValue:4}}
+
                                 />
                                 <MDBox
                                     sx={{

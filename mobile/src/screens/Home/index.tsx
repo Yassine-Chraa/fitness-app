@@ -6,14 +6,13 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 import { usePost } from '../../context/providers/PostContextProvider';
 import PostInput from '../../components/PostTemplate/PostInput';
 import PostTemplate from '../../components/PostTemplate';
-import UserType from '../../types/UserType';
 import Statistics from '../../components/Statistics';
 import HomeDivider from '../../components/tinyCompo/HomeDivider';
 import PushNotification from 'react-native-push-notification';
 
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
-  const [user, setUser] = useState<UserType>(currentUser?.user)
+  const user = currentUser?.user;
   const [posts, setPosts] = useState<Array<any>>([]);
   const { getPosts } = usePost();
   const { updateState } = useAuth();
@@ -25,7 +24,6 @@ function Home(): JSX.Element {
       setPosts(() => Allposts);
     }
   }
-
   useEffect(() => {
     loadPosts();
   }, [])
@@ -57,7 +55,7 @@ function Home(): JSX.Element {
       <View style={styles.homeContainer}>
 
         {user && <View style={{ marginBottom: 20, }}>
-          <PostInput currentUserImgUrl={user.img_url} user_id={user.id} reLoadPosts={reLoadPosts} />
+          <PostInput currentUserImgUrl={user?.profile} user_id={user?.id} reLoadPosts={loadPosts} />
         </View>}
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}

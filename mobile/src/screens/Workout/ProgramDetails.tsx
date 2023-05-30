@@ -7,12 +7,13 @@ import {
   ScrollView,
   Dimensions,
   TouchableOpacity,
-  Alert
 } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
+import Toast from 'react-native-toast-message';
+
 
 const allowedUsers = ['client', 'vip', 'admin'];
 const ProgramDetails = ({ navigation, route }: any) => {
@@ -42,15 +43,21 @@ const ProgramDetails = ({ navigation, route }: any) => {
       enrollProgram(currentUser!.user.id, program.id);
       useProgramAsCurrent(program.id)
       navigation.navigate('Current')
-      Alert.alert("Program Enrolled !")
     } else {
       if (allowedUsers.includes(currentUser!.user.role)) { 
         enrollProgram(currentUser!.user.id, program.id);
         useProgramAsCurrent(program.id)
+        
+        Toast.show({
+          type: 'success',
+          text1: 'Premium Program Enrolled !',
+        });
         navigation.navigate('Current')
-        Alert.alert("Premium Program Enrolled !")
       }else{
-        Alert.alert("Became Client To Enroll This Program !")
+        Toast.show({
+          type: 'error',
+          text1: 'Became Client To Enroll This Program ! !',
+        });
       }
     }
   }

@@ -271,17 +271,11 @@ const Exercises = () => {
                                 <MDTypography variant="h6" color="white">
                                     Exercises Table
                                 </MDTypography>
-                                <MDBox ml={"auto"}>
-                                    <Tooltip title="Filter list">
-                                        <IconButton color="white">
-                                            <Icon>filter_list</Icon>
-                                        </IconButton>
-                                    </Tooltip>
-                                </MDBox>
                             </MDBox>
-                            <MDBox pt={3}>
+                            <MDBox pt={2}>
                                 <DataTable
-                                    canSearch={true}
+                                    canSearch={false}
+                                    entriesPerPage={{defaultValue: 5}}
                                     table={{
                                         columns: dataLabels,
                                         rows: data,

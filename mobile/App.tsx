@@ -9,7 +9,6 @@ import { NavigationContainer } from '@react-navigation/native';
 import theme from './src/constants/theme';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import { UIControllerProvider } from './src/context/UIContext';
-
 function App() {
   if (Platform.OS === 'android') {
     UIManager.setLayoutAnimationEnabledExperimental &&
@@ -21,6 +20,7 @@ function App() {
     backgroundColor: isDarkMode ? Colors.darker : theme.colors.statusBar,
   };
   return (
+
     <UIControllerProvider>
       <APIHandlerProvider>
         <GestureHandlerRootView style={{ flex: 1 }}>
