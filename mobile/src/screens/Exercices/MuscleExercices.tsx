@@ -6,6 +6,7 @@ import theme from '../../constants/theme';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useExercise } from '../../context/providers/ExerciseContextProvider';
 import AnimatedLottieView from 'lottie-react-native';
+import animations from '../../constants/animations'
 
 const MuscleExercices = ({ navigation, route }: any) => {
   const { exercises, getMuscleExercises } = useExercise();
@@ -13,6 +14,7 @@ const MuscleExercices = ({ navigation, route }: any) => {
 
   useEffect(() => {
     getMuscleExercises(muscle)
+    console.log(muscle)
   }, [muscle])
 
   return (
@@ -28,14 +30,14 @@ const MuscleExercices = ({ navigation, route }: any) => {
             <View style={styles.MainContainer}>
               <View style={styles.animation}>
                 <AnimatedLottieView
-                  source={require('../../assets/gym-exercises/frog-press.json')}
+                  source={animations[exercise.subcategory]}
                   autoPlay
                   loop
                   speed={1.5}
                   resizeMode="contain"
                   style={{
-                    width: 50,
-                    height: 50,
+                    width: 43,
+                    height: 43,
                     backgroundColor: 'transparent',
                   }}
                 />
@@ -50,7 +52,7 @@ const MuscleExercices = ({ navigation, route }: any) => {
                   }}>
                   {exercise.title}
                 </Text>
-                <Text>{exercise.category}</Text>
+                <Text>{exercise.subcategory}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -63,11 +65,11 @@ const MuscleExercices = ({ navigation, route }: any) => {
 const styles = StyleSheet.create({
   exercice: {
     flexDirection: 'row',
-    marginTop: 12,
+    marginTop: 6,
     paddingVertical: 12,
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    backgroundColor: '#0001',
+    backgroundColor: '#00000008',
     borderRadius: 4,
     borderColor: '#0003',
     borderWidth: 1,
@@ -89,13 +91,17 @@ const styles = StyleSheet.create({
     gap: 10,
     backgroundColor: theme.colors.customCard,
   },
-  animation:{
-    elevation:6,
+  animation: {
     borderColor: '#0001',
     borderWidth: 1,
+    width: 55,
+    height: 55,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  MainContainer:{
-    flex:1, 
+  MainContainer: {
+    flex: 1,
     display: 'flex',
     justifyContent: 'flex-start',
     gap: 10,

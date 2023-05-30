@@ -19,7 +19,8 @@ return new class extends Migration
             $table->string('img')->default('https://res.cloudinary.com/dtveiunmn/image/upload/v1681261019/default_ma6o6z.jpg');
             $table->text('description');
             $table->string('api_id')->nullable();
-            $table->enum('category',["Triceps","Chest","Shoulder","Biceps","Core","Back","Forearms","Upper Legs","Glutes","Calves","Cardio"]);
+            $table->enum('category', ["Triceps", "Chest", "Shoulder", "Biceps", "Core", "Back", "Forearms", "Upper Legs", "Glutes", "Calves", "Cardio"]);
+            $table->string('subcategory');
             $table->timestamps();
         });
     }

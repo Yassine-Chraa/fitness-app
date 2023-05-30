@@ -2,14 +2,12 @@ import { Image } from '@rneui/themed';
 import React from 'react';
 import {
   StyleSheet,
-  Text,
-  View,
-  ActivityIndicator,
-  Dimensions,
+  View
 } from 'react-native';
 import Screen from '../../components/Screen';
 import muscles from '../../constants/muscles'
 import MuscleCard from '../../components/Cards/MuscleCard';
+import Devider from '../../components/tinyCompo/Divider';
 
 const Exercices = () => {
   return (
@@ -17,7 +15,10 @@ const Exercices = () => {
       <View>
         {muscles.map((muscle: any, index: number) => {
           return (
-            <MuscleCard item={muscle} key={index}/>
+            <View style={{ flex: 1 }} key={index + Math.random()}>
+              <MuscleCard item={muscle} />
+              <Devider />
+            </View>
           );
         })}
       </View>

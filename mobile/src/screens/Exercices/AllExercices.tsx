@@ -28,6 +28,8 @@ const AllExercices = ({ route }: any) => {
   useEffect(() => {
     getExercises();
   }, [])
+
+  
   return (
     <Screen
       action="search"

@@ -6,7 +6,7 @@ import UserDesc from '../../components/profile/UserDesc';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import SettingsOptions from '../../components/profile/Settings/SettingsOptions';
 import FullDropDownList from '../../components/profile/Settings/FullDropDownList';
-import Devider from '../../components/tinyCompo/Devider';
+import Devider from '../../components/tinyCompo/Divider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import UserType from '../../types/UserType';
 

@@ -1,39 +1,16 @@
-const muscles: any = [
-  {
-    name: 'Triceps',
-  },
-  {
-    name: 'Chest',
-  },
-  {
-    name: 'Shoulder',
-  },
-  {
-    name: 'Biceps',
-  },
-  {
-    name: 'Core',
-  },
-  {
-    name: 'Back',
-  },
-  {
-    name: 'Forearms',
-  },
-  {
-    name: 'Upper Legs',
-  },
-  {
-    name: 'Glutes',
-  },
-  {
-    name: 'Cardio',
-  },
-  {
-    name: 'Calves',
-  },
-  {
-    name: 'Show All',
-  },
+const muscles: string[] = [
+  'Triceps',
+  'Chest',
+  'Shoulder',
+  'Biceps',
+  'Core',
+  'Back',
+  'Forearms',
+  'Upper Legs',
+  'Glutes',
+  'Cardio',
+  'Calves',
+  'Show All',
 ];
+
 export default muscles;

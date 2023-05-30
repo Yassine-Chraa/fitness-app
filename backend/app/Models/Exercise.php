@@ -19,5 +19,6 @@ class Exercise extends Model
         "description",
         "api_id",
         "category",
+        "subcategory"
     ];
 }

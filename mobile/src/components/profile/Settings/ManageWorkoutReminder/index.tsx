@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, ScrollView } from 'react-native';
 import { useAuth } from '../../../../context/providers/AuthContextProvider';
-import Devider from '../../../tinyCompo/Devider';
+import Devider from '../../../tinyCompo/Divider';
 import Screen from '../../../Screen';
 import theme from '../../../../constants/theme';
 import MWRswitch from './MWRswitch';

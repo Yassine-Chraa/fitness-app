@@ -5,11 +5,9 @@ import {
   StyleSheet,
   Text,
   View,
-  ScrollView,
   Dimensions,
   TouchableOpacity,
   Modal,
-  TouchableWithoutFeedback,
   Alert,
   Pressable
 } from 'react-native';
@@ -22,6 +20,7 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useWorkout } from '../../context/providers/WorkoutContextProvider';
 import AnimatedLottieView from 'lottie-react-native';
 import Screen from '../../components/Screen';
+import animations from '../../constants/animations';
 
 
 const ExerciceDetails = ({ navigation, route }: any) => {
@@ -30,7 +29,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
   const { addExerciseToWorkout } = useWorkout()
   const width = Dimensions.get('screen').width - 24;
   const { type } = route.params;
-  const { id, title, category, description, img } = route.params.exercise;
+  const { id, title, category, description, img, subcategory } = route.params.exercise;
 
   const [showForm, setShowForm] = useState(false);
   const [form, setForm] = useState({
@@ -64,7 +63,7 @@ const ExerciceDetails = ({ navigation, route }: any) => {
         <View style={styles.animationContainer}>
           <View style={styles.animation}>
             <AnimatedLottieView
-              source={require('../../assets/gym-exercises/boy-doing-bench-press.json')}
+              source={animations[subcategory]}
               autoPlay
               loop
               speed={1}
@@ -140,6 +139,9 @@ const ExerciceDetails = ({ navigation, route }: any) => {
           </View>
         </View>
       </View>
+
+
+      {/* ==================(modal)=================== */}
       <Modal animationType="slide"
         transparent={true}
         visible={showForm}
