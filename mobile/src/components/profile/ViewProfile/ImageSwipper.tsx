@@ -7,11 +7,14 @@ const ImageSwipper = ({ route }:any) => {
     return (
         <View style={styles.container}>
             <Swiper index={index} loop={false}>
-                {images.map((image:any, i:any) => (
-                    <View style={styles.imageContainer} key={i}>
-                        <Image style={styles.image} source={image} />
-                    </View>
-                ))}
+                {images.map((image:any, i:any) => {
+                    console.log(image)
+                    return (
+                        <View style={styles.imageContainer} key={i}>
+                            <Image style={styles.image} source={image.img_url} />
+                        </View>
+                    )
+                })}
             </Swiper>
         </View>
     );

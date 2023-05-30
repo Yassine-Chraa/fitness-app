@@ -16,7 +16,7 @@ import {
 import { useUpLoadImage } from '../../context/providers/UpLoadImageContextProvider';
 import FAconfimrCancelImage from './FAConfirmCancelImage';
 
-const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url }: any): JSX.Element => {
+const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setProfile }: any): JSX.Element => {
 
     const [isOkYesImageOpen, setIsOkYesImageOpen] = useState(false);
     const [img, setImg] = useState<any>();
@@ -68,7 +68,7 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
 
     const YesUpload = async () => {
         const img_url = await uploadImage(img);
-        setImg_url(img_url)
+        setProfile(img_url)
         setIsOkYesImageOpen(() => false)
     }
 
@@ -138,8 +138,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImg_url
                                 <Text style={styles.modalButtonText}>Gallery</Text>
                             </TouchableOpacity>
                         </View>
-
-
                     </View>
                 </View>
             </Modal>

@@ -19,7 +19,6 @@ export const useExercise = () => {
 const exercisesUrl = getUrl('Exercises');
 
 export const ExerciseContextProvider = ({ children }: any) => {
-  const [loading, setLoading] = useState(false);
   const [exercises, setExercises] = useState([])
   const getExercises = async () => {
     try {
