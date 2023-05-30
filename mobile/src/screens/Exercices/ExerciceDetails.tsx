@@ -1,5 +1,4 @@
 import { Image } from '@rneui/themed';
-import React from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
