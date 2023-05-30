@@ -1,5 +1,5 @@
 import { Image } from '@rneui/themed';
-import React from 'react';
+import React, { useState } from 'react';
 import {
     Text,
     View,
@@ -10,16 +10,17 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useNavigation } from '@react-navigation/native';
+import images from '../../constants/Images';
 
 const MuscleCard = ({ item }: any) => {
     const navigation: any = useNavigation();
     return (
         <TouchableOpacity
-            style={styles.card}
+            style={styles.itemContainer}
             activeOpacity={0.5}
             onPress={() =>
                 navigation.navigate('MuscleExercices', {
-                    muscle: item.name,
+                    muscle: item,
                 })
             }>
             <View
@@ -29,8 +30,10 @@ const MuscleCard = ({ item }: any) => {
                     alignItems: 'center'
                 }}>
                 <Image
-                    source={{ uri: 'https://placehold.jp/115x115.png' }}
-                    style={{ height: 50, width: 50, borderRadius: 25 }}
+                    source={images[item]}
+                    style={styles.image}
+                    resizeMode='contain'
+                    resizeMethod='auto'
                     PlaceholderContent={<ActivityIndicator />}
                 />
                 <Text
@@ -38,8 +41,9 @@ const MuscleCard = ({ item }: any) => {
                         color: theme.colors.text,
                         fontSize: 20,
                         fontWeight: 'bold',
+                        textTransform: 'capitalize'
                     }}>
-                    {item.name}
+                    {item}
                 </Text>
             </View>
             <TouchableOpacity style={{ alignSelf: 'center' }} activeOpacity={0.4}>
@@ -50,21 +54,17 @@ const MuscleCard = ({ item }: any) => {
 };
 
 const styles = StyleSheet.create({
-    card: {
-        paddingVertical: 16,
-        paddingHorizontal: 12,
+    itemContainer: {
+        paddingHorizontal: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
-        marginHorizontal: 4,
-        marginVertical: 8,
-        borderBottomWidth: 0.6,
-        borderBottomColor: '#0000003d'
+        marginHorizontal: 2,
     },
-    tag: {
-        borderRadius: 4,
-        paddingHorizontal: 6,
-        paddingVertical: 2,
-        backgroundColor: theme.colors.statusBar,
-    },
+    image: {
+        height: 54, width: 54, borderRadius: 27,
+        borderWidth: 1,
+        borderColor: '#0002',
+        margin: 2,
+    }
 });
 export default MuscleCard;

@@ -42,6 +42,7 @@ class ExerciseController extends Controller
             "description" => $request->get('description'),
             "api_id" => $request->get('api_id'),
             'category' => $request->get('category'),
+            'subcategory' => $request->get('subcategory'),
         ]);
         $newExercise->save();
         return response()->json(['message' => 'Exercise created successfully !']);
@@ -79,6 +80,7 @@ class ExerciseController extends Controller
         $exercise->title = $request->get('title');
         $exercise->description = $request->get('description');
         $exercise->category = $request->get('category');
+        $exercise->subcategory = $request->get('subcategory');
         $exercise->api_id = $request->get('api_id');
         $exercise->save();
 
