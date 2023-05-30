@@ -1,4 +1,5 @@
-import React,{ Image } from '@rneui/themed';
+import { Image } from '@rneui/themed';
+import React,{useEffect} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -12,27 +13,40 @@ import {
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useAuth } from '../../context/providers/AuthContextProvider';
+import { useImages } from '../../context/providers/ImagesContextProvider';
+import Toast from 'react-native-toast-message';
 
 const allowedUsers = ['vip', 'admin'];
 const CoachProfile = ({ navigation, route }: any) => {
-  const {currentUser} = useAuth()
+  const { currentUser } = useAuth()
+  const { getCoachImages,images } = useImages()
   const { item } = route.params;
 
-  const connect = async ()=>{
-    if (allowedUsers.includes(currentUser!.user.role)){
-      //Connect To Coach
-      //table coachClient
-      //addClient(clientId,coachId)
-    }else{
+  const connect = async () => {
+    if (allowedUsers.includes(currentUser!.user.role)) {
+      Toast.show({
+        type: 'success',
+        text1: 'You are successfully connected to the coach',
+    })
+    } else {
       Alert.alert('You must become a Vip User')
     }
   }
+
+  const loadImages = async () => {
+    await getCoachImages(currentUser.user.id);
+  }
+
+
+  useEffect(() => {
+    loadImages();
+  }, [])
   return (
     <View style={{ flex: 1 }}>
       <ScrollView>
         <View>
           <Image
-            source={{ uri: 'https://placehold.jp/400x500.png' }}
+            source={{ uri: 'https://img.freepik.com/premium-photo/gym-equipments-fitness-club_23-2147949744.jpg' }}
             style={{
               height: 250,
             }}
@@ -85,12 +99,12 @@ const CoachProfile = ({ navigation, route }: any) => {
                 <View
                   style={{ flexDirection: 'row', columnGap: 10, marginTop: 4 }}>
                   <FlatList
-                    data={[1, 2, 3]}
+                    data={images}
                     renderItem={({ item }) => {
                       return (
-                        <View key={item} style={{ marginRight: 8 }}>
+                        <View key={item.img_url} style={{ marginRight: 8 }}>
                           <Image
-                            source={{ uri: 'https://placehold.jp/180x260.png' }}
+                            source={{ uri: item.img_url }}
                             style={{
                               height: 80,
                               width: 80,
@@ -113,14 +127,14 @@ const CoachProfile = ({ navigation, route }: any) => {
           </View>
         </View>
         <TouchableOpacity activeOpacity={0.4} style={styles.backButton} onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={22} color={theme.colors.text} />
+          <Icon name="arrow-left" size={22} color={'#fff'} />
         </TouchableOpacity>
       </ScrollView>
       <TouchableOpacity style={styles.addButton} onPress={connect}>
-          <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-            Connect
-          </Text>
-        </TouchableOpacity>
+        <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+          Connect
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 };
