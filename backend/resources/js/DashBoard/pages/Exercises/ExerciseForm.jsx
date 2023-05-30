@@ -1,5 +1,5 @@
-import { Card, Grid, MenuList, Modal, Paper } from "@mui/material";
-import React, { useEffect, productef, useState, useRef } from "react";
+import { Card, Grid, Modal, Paper } from "@mui/material";
+import React, { useEffect, useState, useRef } from "react";
 import MDAvatar from "../../components/MDAvatar";
 import MDBox from "../../components/MDBox";
 import MDButton from "../../components/MDButton";
@@ -9,43 +9,35 @@ import {
     useMaterialUIController,
     setOpenFormHandler,
 } from "../../context/UIContext";
-
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useCategory } from "../../context/APIContext/providers/CategoryContextProvider";
 import { useExercise } from "../../context/APIContext/providers/ExerciseContextProvider";
+import SUBCATEGORIES from "../../components/constant/SubCategories";
+import CATEGORIES from "../../components/constant/Categories"
 
 const imgRegex = /image\/(png|jpg|JPG|jpeg|JPEG|jfif|webp)$/i;
-const categories = [
-    "Triceps",
-    "Chest",
-    "Shoulder",
-    "Biceps",
-    "Core",
-    "Back",
-    "Forearms",
-    "Upper Legs",
-    "Glutes",
-    "Calves",
-    "Cardio",
-];
 
 const ExerciseForm = ({ type, selectedID }) => {
     const { getExercise, addExercise, updateExercise } = useExercise();
     const { getCategories } = useCategory();
+    const [subCategories, setSubCategories] = useState(SUBCATEGORIES["Back"]);
     const [controller, dispatch] = useMaterialUIController();
     const { openFormHandler } = controller;
     const [imageFile, setImageFile] = useState("");
     const ImageRef = useRef();
-
     const [exercice, setExercice] = useState({});
 
     const fetchData = async () => {
         await getCategories();
         if (selectedID != 0)
-            getExercise(selectedID).then((res) => setExercice(res));
+            getExercise(selectedID).then((exe) => {
+                setExercice(() => exe)
+                console.log(exe)
+                setSubCategories(() => SUBCATEGORIES[exe.category ? exe.category : "Back"]);
+            });
         else
             setExercice({
                 title: "",
@@ -53,6 +45,7 @@ const ExerciseForm = ({ type, selectedID }) => {
                 description: "",
                 api_id: "",
                 category: "",
+                subcategory: "",
             });
     };
     useEffect(() => {
@@ -95,6 +88,12 @@ const ExerciseForm = ({ type, selectedID }) => {
     const cancel = () => {
         setOpenFormHandler(dispatch, false);
     };
+
+
+    useEffect(() => {
+        setSubCategories(() => SUBCATEGORIES[exercice.category ? exercice.category : "Back"]);
+        setExercice((prev) => ({ ...prev, subcategory: "" }))
+    }, [exercice.category])
 
     return (
         <Modal
@@ -173,7 +172,7 @@ const ExerciseForm = ({ type, selectedID }) => {
                     </MDBox>
                 </MDBox>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={4} sm={4}>
                         <MDInput
                             value={exercice.title}
                             onChange={(e) =>
@@ -190,7 +189,7 @@ const ExerciseForm = ({ type, selectedID }) => {
                             fullWidth
                         />
                     </Grid>
-                    <Grid item xs={6}>
+                    <Grid item xs={4} sm={4}>
                         <FormControl fullWidth>
                             <InputLabel id="select-role-label">
                                 Select Category
@@ -211,11 +210,41 @@ const ExerciseForm = ({ type, selectedID }) => {
                                     padding: "0.75rem !important",
                                 }}
                             >
-                                {categories.map((item, index) => (
+                                {CATEGORIES.map((item, index) => (
                                     <MenuItem key={index} value={item}>
                                         {item}
                                     </MenuItem>
                                 ))}
+                            </Select>
+                        </FormControl>
+                    </Grid>
+                    <Grid item xs={4} sm={4}>
+                        <FormControl fullWidth>
+                            <InputLabel id="select-role-label">
+                                Select SubCategory
+                            </InputLabel>
+                            <Select
+                                variant="outlined"
+                                label="Select SubCategory"
+                                value={exercice.subcategory}
+                                onChange={(e) =>
+                                    setExercice((prev) => {
+                                        return {
+                                            ...prev,
+                                            subcategory: e.target.value,
+                                        };
+                                    })
+                                }
+                                sx={{
+                                    padding: "0.75rem !important",
+                                }}
+                            >
+                                {subCategories && subCategories.length > 0 &&
+                                    subCategories.map((subCategory, index) => (
+                                        <MenuItem key={subCategory + index} value={subCategory}>
+                                            {subCategory}
+                                        </MenuItem>
+                                    ))}
                             </Select>
                         </FormControl>
                     </Grid>

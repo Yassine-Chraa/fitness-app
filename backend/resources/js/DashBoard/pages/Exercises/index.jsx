@@ -170,6 +170,11 @@ const Exercises = () => {
             accessor: "title",
         },
         {
+            Header: "SubCategory",
+            accessor: "subcategory",
+            align: "center",
+        },
+        {
             Header: "Category",
             accessor: "category",
             align: "center",
@@ -184,7 +189,7 @@ const Exercises = () => {
     ];
     const configData = () => {
         const res = exercises?.map((ele) => {
-            const { id,title, category } = ele;
+            const { id, title, category,subcategory } = ele;
             return {
                 id: (
                     <MDTypography
@@ -206,7 +211,16 @@ const Exercises = () => {
                         {title}
                     </MDTypography>
                 ),
-
+                subcategory: (
+                    <MDTypography
+                        component="p"
+                        variant="caption"
+                        color="text"
+                        fontWeight="medium"
+                    >
+                        {subcategory}
+                    </MDTypography>
+                ),
                 category: (
                     <MDTypography
                         component="p"
@@ -255,7 +269,7 @@ const Exercises = () => {
                                 coloredShadow="info"
                             >
                                 <MDTypography variant="h6" color="white">
-                                    Products Table
+                                    Exercises Table
                                 </MDTypography>
                                 <MDBox ml={"auto"}>
                                     <Tooltip title="Filter list">
