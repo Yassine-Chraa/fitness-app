@@ -1,4 +1,5 @@
 import { Image } from '@rneui/themed';
+import React from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -19,6 +20,9 @@ import React,{ useState, useEffect } from 'react';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
 import { useWorkout } from '../../context/providers/WorkoutContextProvider';
+import AnimatedLottieView from 'lottie-react-native';
+import Screen from '../../components/Screen';
+
 
 const ExerciceDetails = ({ navigation, route }: any) => {
   const { currentUser } = useAuth();
@@ -54,24 +58,31 @@ const ExerciceDetails = ({ navigation, route }: any) => {
     getCurrentProgram(currentUser!.user.id)
   }, [currentUser])
   return (
-    <ScrollView style={{ flex: 1 }}>
-      <View>
-        <Image
-          source={{ uri: img }}
-          style={{
-            height: 300,
-            zIndex: 1,
-          }}
-          PlaceholderContent={<ActivityIndicator />}
-          resizeMode={'contain'}
-        />
+    <Screen name={category} noAction backButton allowScroll>
+      <View style={{ flex: 1 }}>
+
+        <View style={styles.animationContainer}>
+          <View style={styles.animation}>
+            <AnimatedLottieView
+              source={require('../../assets/gym-exercises/boy-doing-bench-press.json')}
+              autoPlay
+              loop
+              speed={1}
+              resizeMode="cover"
+              style={{
+                width: 240,
+                height: 240,
+                backgroundColor: 'transparent',
+              }}
+            />
+          </View>
+        </View>
+
 
         <View style={styles.details}>
-          <TouchableWithoutFeedback >
-            <View style={styles.playButton}>
-              <Icon name="play" size={20} color={'#fff'} />
-            </View>
-          </TouchableWithoutFeedback>
+          <TouchableOpacity activeOpacity={0.5} style={styles.playButton}>
+            <Icon name={true ? "play" : "pause"} size={20} color={'#f00e'} />
+          </TouchableOpacity>
           <View style={styles.heading}>
             <Text style={styles.title}>{title}</Text>
           </View>
@@ -80,40 +91,45 @@ const ExerciceDetails = ({ navigation, route }: any) => {
               <Text>{category}</Text>
             </View>
           </View>
+
+
           {type !== 'workout' ? (
-            <View style={{ ...styles.row, marginBottom: 24 }}>
-              <View style={{ width: width / 3 - 1 }}>
-                <CustomTextInput
-                  value={form.sets.toString()}
-                  onChangeText={(v: number) => setForm(prev => {
-                    return { ...prev, sets: v }
-                  })}
-                  placeholder="Sets"
-                  keyboardType="numeric"
-                />
+            <View style={styles.inputAddContainer}>
+
+              <View style={styles.inputItemContainer}>
+                <View style={styles.inputItem}>
+                  <CustomTextInput
+                    value={form.sets.toString()}
+                    onChangeText={(v: number) => setForm(prev => {
+                      return { ...prev, sets: v }
+                    })}
+                    placeholder="Sets"
+                    keyboardType="numeric"
+                  />
+                </View>
+                <View style={styles.inputItem}>
+                  <CustomTextInput placeholder="Reps" keyboardType="numeric"
+                    value={form.reps.toString()}
+                    onChangeText={(v: number) => setForm(prev => {
+                      return { ...prev, reps: v }
+                    })} />
+                </View>
+                <View style={styles.inputItem}>
+                  <CustomTextInput placeholder="Rest" keyboardType="numeric"
+                    value={form.rest.toString()}
+                    onChangeText={(v: number) => setForm(prev => {
+                      return { ...prev, rest: v }
+                    })} />
+                </View>
               </View>
-              <View style={{ width: width / 3 - 10 }}>
-                <CustomTextInput placeholder="Reps" keyboardType="numeric"
-                  value={form.reps.toString()}
-                  onChangeText={(v: number) => setForm(prev => {
-                    return { ...prev, reps: v }
-                  })} />
-              </View>
-              <View style={{ width: width / 3 - 10 }}>
-                <CustomTextInput placeholder="Rest" keyboardType="numeric"
-                  value={form.rest.toString()}
-                  onChangeText={(v: number) => setForm(prev => {
-                    return { ...prev, rest: v }
-                  })} />
-              </View>
-              <View style={{ width: width, justifyContent: 'center' }}>
-                <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
-                  <Text
-                    style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
-                    ADD TO PROGRAM
-                  </Text>
-                </TouchableOpacity>
-              </View>
+
+              <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
+                <Text
+                  style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
+                  ADD TO PROGRAM
+                </Text>
+              </TouchableOpacity>
+
             </View>
           ) : null}
           <View>
@@ -123,11 +139,6 @@ const ExerciceDetails = ({ navigation, route }: any) => {
             </Text>
           </View>
         </View>
-      </View>
-      <View style={styles.backButton}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Icon name="arrow-left" size={22} color={'#000'} />
-        </TouchableOpacity>
       </View>
       <Modal animationType="slide"
         transparent={true}
@@ -150,7 +161,8 @@ const ExerciceDetails = ({ navigation, route }: any) => {
           }
         </View>
       </Modal>
-    </ScrollView>
+      {/* ============================================= */}
+    </Screen>
   );
 };
 
@@ -202,14 +214,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 10,
     backgroundColor: theme.colors.button,
+    marginBottom: 20,
   },
   playButton: {
     position: 'absolute',
     zIndex: 2,
     right: 0,
-    top: -30,
+    top: -27,
     borderRadius: 10,
-    backgroundColor: 'red',
+    backgroundColor: '#ddd',
+    borderColor: '#f00',
+    borderWidth: 1,
     justifyContent: 'center',
     paddingVertical: 12,
     paddingHorizontal: 16,
@@ -224,6 +239,7 @@ const styles = StyleSheet.create({
     elevation: 4,
     width: "80%",
     borderRadius: 6,
+    zIndex: 3,
   },
   modelTitle: {
     color: theme.colors.text,
@@ -236,6 +252,43 @@ const styles = StyleSheet.create({
     color: theme.colors.text,
     fontWeight: "500",
     fontSize: 17,
+  },
+  animationContainer: {
+    flex: 1,
+    width: '100%',
+    display: 'flex',
+    height: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
+
+  },
+  animation: {
+    flex: 1,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#0003',
+    borderRadius: 4,
+    margin: 2,
+  },
+  inputItem: {
+    flex: 1,
+  },
+  inputItemContainer: {
+    flex: 1,
+    width: '100%',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    gap: 7,
+  },
+  inputAddContainer: {
+    flex: 1,
+    width: '100%',
+    display: 'flex',
   }
 });
 export default ExerciceDetails;

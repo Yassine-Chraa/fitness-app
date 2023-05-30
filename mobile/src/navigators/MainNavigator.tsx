@@ -38,8 +38,9 @@ import ChangePassword from '../components/profile/Settings/PrivacySettings/Chang
 import VerifyEmail from '../components/profile/Settings/PrivacySettings/VerifyEmail';
 import VerifyPassword from '../components/profile/Settings/PrivacySettings/VerifyPassword';
 import ResetPasswordForUpdate from '../components/profile/Settings/PrivacySettings/ResetPasswordForUpdate';
-import Toast from 'react-native-toast-message';
 
+import Toast from 'react-native-toast-message';
+import Notifications from '../components/profile/Notifications';
 enableScreens();
 const Stack = createNativeStackNavigator();
 
@@ -62,7 +63,7 @@ const MainNavigator = () => {
       <LoadingAnimation />
       <CheckStateAlert />
       <ErrorAnimation />
-
+      {/* <Notifications/> */}
       {/* ------------------------ */}
 
       <Stack.Navigator

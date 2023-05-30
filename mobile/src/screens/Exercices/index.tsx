@@ -13,7 +13,7 @@ import MuscleCard from '../../components/Cards/MuscleCard';
 
 const Exercices = () => {
   return (
-    <Screen name="Exercices" allowScroll>
+    <Screen name="Exercices" noAction allowScroll>
       <View>
         {muscles.map((muscle: any, index: number) => {
           return (

@@ -16,6 +16,7 @@ import { UpLoadImageContextProvider } from './providers/UpLoadImageContextProvid
 import { WorkoutContextProvider } from './providers/WorkoutContextProvider';
 import { ReactionContextProvider } from './providers/ReactionContextProvider';
 import { ImagesContextProvider } from './providers/ImagesContextProvider';
+import { NotificationContextProvider } from './providers/NotificationContextProvider';
 const providers: any = [
   ProductContextProvider,
   AuthContextProvider,
@@ -33,6 +34,7 @@ const providers: any = [
   ReactionContextProvider,
   WorkoutContextProvider,
   ImagesContextProvider,
+  NotificationContextProvider,
 ];
 
 const APIHandlerProvider = Composer(...providers);

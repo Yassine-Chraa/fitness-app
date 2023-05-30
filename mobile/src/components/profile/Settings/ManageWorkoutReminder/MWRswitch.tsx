@@ -1,31 +1,28 @@
 import { TouchableOpacity, Text, StyleSheet, View, Share, ToastAndroid } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { Switch } from '@rneui/base';
-import React,{ useState } from 'react';
+import React from 'react';
 import theme from '../../../../constants/theme';
 const MWRswitch = ({
-    title,
+    title, isActive, onAction, isAllowed
 }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const [isSet, setIsSet] = useState(false);
     const modeChanger = () => {
-        setIsSet((prev) => !prev);
+        onAction()
     }
 
-
-
     return (
-        <TouchableOpacity activeOpacity={0.8} onPress={modeChanger}
+        <TouchableOpacity activeOpacity={0.8} onPress={modeChanger} disabled={!isAllowed}
             style={{ ...styles.row, ...styles.container }}
         >
             <View style={{ ...styles.row, gap: 12 }}>
                 <Text style={styles.text}>{title}</Text>
             </View>
-            <Switch 
-            trackColor={{true: '#1A73E8', false: 'grey'}} 
-            thumbColor={(isSet ?'#1A73ff':'grey')}
-            value={isSet} 
-            onChange={modeChanger} />
+            <Switch
+                trackColor={{ true: '#1A73E8', false: 'grey' }}
+                thumbColor={(isActive ? '#1A73ff' : 'grey')}
+                value={isActive}
+                onChange={modeChanger} disabled={!isAllowed} />
         </TouchableOpacity>
     );
 };

@@ -16,7 +16,7 @@ const MuscleCard = ({ item }: any) => {
     return (
         <TouchableOpacity
             style={styles.card}
-            activeOpacity={0.4}
+            activeOpacity={0.5}
             onPress={() =>
                 navigation.navigate('MuscleExercices', {
                     muscle: item.name,
