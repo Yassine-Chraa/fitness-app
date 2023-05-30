@@ -91,7 +91,6 @@ const MainNavigator = () => {
             <Stack.Screen name="Coaches" component={Coaches} />
             <Stack.Screen name="CoachClients" component={CoachClients} />
             <Stack.Screen name="CoachProfile" component={CoachProfile} />
-            <Stack.Screen name="GymLocation" component={GymLocation} />
             <Stack.Screen name="Settings" component={Settings} />
             <Stack.Screen name="ManageWorkOutReminder" component={ManageWorkOutReminder} />
             <Stack.Screen name="FeedBack" component={FeedBack} />

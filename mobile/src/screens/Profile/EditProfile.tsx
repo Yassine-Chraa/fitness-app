@@ -16,8 +16,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
   const [user, setUser] = useState<UserType | any>(currentUser?.user);
   const [isVisible, setIsVisible] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState('');
-  const [img_Url, setImg_Url] = useState('');
-
+  const [profile, setProfile] = useState('');
 
   const updateProfile = async () => {
     const res = await updateCurrentUser(user)
@@ -28,10 +27,10 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
   };
 
   useEffect(() => {
-    if (img_Url != '') {
-      setUser((prev: UserType) => ({ ...prev, img_url: img_Url }))
+    if (profile != '') {
+      setUser((prev: UserType) => ({ ...prev, profile }))
     }
-  }, [img_Url])
+  }, [profile])
 
 
   return (
@@ -45,11 +44,11 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
       <FAImagePicker setIsVisible={setIsVisible}
         isVisible={isVisible}
         setCurrentImageUrl={setCurrentImageUrl}
-        setImg_url={setImg_Url} />
+        setProfile={setProfile} />
 
       <View style={styles.heading}>
         <Image
-          source={{ uri: user ? user.img_url : 'https://github.com/Yassine-Chraa/fitness-app/assets/89405673/18093430-09c2-45fa-93a0-d610ac4de056' }}
+          source={{ uri: user.profile }}
           style={styles.profileImage}
           resizeMode={'cover'}
         />
