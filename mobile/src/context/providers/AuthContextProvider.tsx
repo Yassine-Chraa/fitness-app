@@ -80,7 +80,7 @@ export const AuthContextProvider = ({ children }: any) => {
         });
       return true;
     } catch (error) {
-      //setLoadAnimation(dispatch, false);
+      setLoadAnimation(dispatch, false);
       console.log('ok')
       setIsCheckStateOk(dispatch,
         {

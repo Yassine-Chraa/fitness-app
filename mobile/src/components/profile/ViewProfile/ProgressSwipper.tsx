@@ -11,7 +11,7 @@ import FAImagePicker from '../../FAImageHandlers/FAImagePicker';
 const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
     const navigation: any = useNavigation();
     const { images,getImages, addImage } = useImages();
-    const [img_url, setImg_url] = useState<string>('');
+    const [img_url, setImageURL] = useState<string>('');
     const [isVisible, setIsVisible] = useState(false);
     const [currentImageUrl, setCurrentImageUrl] = useState<string>('')
 
@@ -37,7 +37,7 @@ const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
     useEffect(() => {
         if(img_url != ''){
             addNewImage(img_url)
-            setImg_url(() => '')
+            setImageURL(() => '')
         }
     }, [img_url])
 
@@ -46,7 +46,7 @@ const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
             <FAImagePicker isVisible={isVisible}
                 setCurrentImageUrl={setCurrentImageUrl}
                 setIsVisible={setIsVisible}
-                setImg_url={setImg_url} />
+                setImageURL={setImageURL} />
 
             <View style={styles.littleSwipperContainer}>
                 <TouchableOpacity activeOpacity={0.5}
