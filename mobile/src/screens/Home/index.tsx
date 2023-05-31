@@ -8,12 +8,10 @@ import PostInput from '../../components/PostTemplate/PostInput';
 import PostTemplate from '../../components/PostTemplate';
 import Statistics from '../../components/Statistics';
 import HomeDivider from '../../components/tinyCompo/HomeDivider';
-import PushNotification from 'react-native-push-notification';
 
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
   const user = currentUser?.user;
-  // const [user , setUser] = useState();
   const [posts, setPosts] = useState<Array<any>>([]);
   const { getPosts } = usePost();
   const { updateState } = useAuth();
@@ -27,18 +25,6 @@ function Home(): JSX.Element {
   }
   useEffect(() => {
     loadPosts();
-  }, [])
-
-
-  useEffect(() => {
-    PushNotification.localNotificationSchedule({
-      title: "My notification title",
-      message: "My notification message",
-      date: new Date(Date.now() + 10 * 1000), // first trigger in 10 secs
-      channelId: 'DemoAppID',
-      repeatType: 'week',
-      repeatTime: 1 // repeats every week
-    });
   }, [])
 
   return (
