@@ -23,6 +23,7 @@ function Home(): JSX.Element {
       setPosts(() => Allposts);
     }
   }
+  
   useEffect(() => {
     loadPosts();
   }, [])
@@ -49,38 +50,8 @@ const styles = StyleSheet.create({
   homeContainer: {
     flex: 1,
     marginBottom: 30,
+    backgroundColor: theme.colors.background,
   },
-  heading: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: 8,
-  },
-  title: {
-    fontSize: 18,
-    color: theme.colors.text,
-    fontWeight: '500',
-  },
-  textMore: {
-    fontSize: 16,
-    fontWeight: '500',
-    color: theme.colors.text,
-  },
-  subtitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: theme.colors.text,
-  },
-  input: {
-    backgroundColor: theme.colors.statusBar,
-    paddingHorizontal: 8,
-    borderRadius: 4,
-    marginTop: 24,
-    marginBottom: 12,
-    paddingVertical: 6,
-    marginVertical: 8,
-    fontSize: 15
-  }
 });
 
 export default Home;

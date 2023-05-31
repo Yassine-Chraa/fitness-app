@@ -22,14 +22,6 @@ return new class extends Migration
             $table->enum('f2', ['1', '2', '3','4'])->default("1");
             $table->enum('f3', ['1', '2', '3','4'])->default("1");
             $table->enum('f4', ['1', '2', '3','4'])->default("1");
-            $table->enum('f5', ['1', '2', '3','4'])->default("1");
-            $table->enum('f6', ['1', '2', '3','4'])->default("1");
-            $table->enum('f7', ['1', '2', '3','4'])->default("1");
-            $table->enum('f8', ['1', '2', '3','4'])->default("1");
-            $table->enum('f9', ['1', '2', '3','4'])->default("1");
-            $table->enum('f10', ['1', '2', '3','4'])->default("1");
-            $table->enum('f11', ['1', '2', '3','4'])->default("1");
-            $table->enum('f12', ['1', '2', '3','4'])->default("1");
             $table->timestamps();
         });
     }

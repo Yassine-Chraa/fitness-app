@@ -1,4 +1,4 @@
-import { API_URL } from '@env';
+// import { API_URL } from '@env';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -32,7 +32,7 @@ const endpoints: any = {
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return API_URL + endpoints[endpoint];
+  return "http://192.168.100.193:8080" + endpoints[endpoint];
 }
 
 export default endpoints;

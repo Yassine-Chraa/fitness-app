@@ -69,8 +69,8 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
 
     const YesUpload = async () => {
         const img_url = await uploadImage(img);
-        if(!img_url){
-            generateSimpleNotification({ subText: "Dev-Notifications", message: "picking image from gallery", bigText: img_url })
+        if (!img_url) {
+            generateSimpleNotification({ subText: "Dev-Notifications", message: "something went wrong while you are picking an image. Please, try again.", bigText: img_url })
         }
         setImageURL(img_url)
         setIsOkYesImageOpen(() => false)
