@@ -15,7 +15,6 @@ const Settings = ({ navigation }: any) => {
     const { currentUser } = useAuth();
     const [user, setUser] = useState<UserType | any>(currentUser?.user)
 
-    const [open, setOpen] = useState(false);
     const updateProfile = () => {
         navigation.goBack();
     };
@@ -30,7 +29,7 @@ const Settings = ({ navigation }: any) => {
             <ScrollView>
                 <UserDesc
                     userInfo={{
-                        img_url: user?.img_url,
+                        profile: user?.profile,
                         name: user?.name,
                         workout_level: user?.workout_level,
                         top_goal: user?.top_goal,

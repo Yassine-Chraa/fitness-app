@@ -20,12 +20,6 @@ const Options = () => {
         link={'Coaches'}
       />)}
       <Option
-        title="Gym Location"
-        iconName="dumbbell"
-        BadgeColor={theme.colors.secondary}
-        link={'GymLocation'}
-      />
-      <Option
         title="Settings"
         iconName="wrench"
         BadgeColor={theme.colors.text}

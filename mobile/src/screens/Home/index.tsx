@@ -29,16 +29,6 @@ function Home(): JSX.Element {
     loadPosts();
   }, [])
 
-  const reLoadPosts = () => {
-    loadPosts();
-  }
-
-  // useEffect(() => {
-  //   if (currentUser?.user) {
-  //     setUser(() => currentUser?.user);
-  //   }
-  // }, [])
-
 
   useEffect(() => {
     PushNotification.localNotificationSchedule({

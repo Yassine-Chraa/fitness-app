@@ -16,7 +16,7 @@ const Coaches = () => {
     }, [])
   )
   return (
-    <Screen name={'Coaches'} noAction backButton actionButton actionButtonType='Become a coach'>
+    <Screen name={'Coaches'} noAction backButton>
       <FlatList
         contentContainerStyle={{ rowGap: 12, paddingBottom: 8, paddingTop: 8 }}
         horizontal={false}

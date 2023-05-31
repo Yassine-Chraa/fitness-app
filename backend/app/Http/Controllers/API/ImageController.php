@@ -13,9 +13,14 @@ class ImageController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $images = Image::all();
+        if($request->has('id')){
+            $images = Image::where('user_id',$request->get('id'))->get();
+        }else{
+            $images = Image::all();
+        }
+
         return response()->json($images);
     }
 
