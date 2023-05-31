@@ -13,6 +13,7 @@ import PushNotification from 'react-native-push-notification';
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
   const user = currentUser?.user;
+  // const [user , setUser] = useState();
   const [posts, setPosts] = useState<Array<any>>([]);
   const { getPosts } = usePost();
   const { updateState } = useAuth();
@@ -32,11 +33,11 @@ function Home(): JSX.Element {
     loadPosts();
   }
 
-  useEffect(() => {
-    if (currentUser?.user) {
-      setUser(() => currentUser?.user);
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (currentUser?.user) {
+  //     setUser(() => currentUser?.user);
+  //   }
+  // }, [])
 
 
   useEffect(() => {
