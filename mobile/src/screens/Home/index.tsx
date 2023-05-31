@@ -32,7 +32,7 @@ function Home(): JSX.Element {
       <View style={styles.homeContainer}>
 
         {user && <View style={{ marginBottom: 20, }}>
-          <PostInput currentUserImgUrl={user?.img_url} user_id={user?.id} reLoadPosts={loadPosts} />
+          <PostInput currentUserImgUrl={user?.profile} user_id={user?.id} reLoadPosts={loadPosts} />
         </View>}
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}
