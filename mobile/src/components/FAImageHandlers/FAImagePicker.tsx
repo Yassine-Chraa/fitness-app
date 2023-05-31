@@ -36,7 +36,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
 
         launchImageLibrary(options, (response) => {
             UpLoad(response)
-            generateSimpleNotification({ subText: "Dev-Notifications", message: "picking image from gallery", bigText: response })
         });
     };
 
@@ -52,7 +51,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
 
         launchCamera(options, async (response) => {
             UpLoad(response)
-            generateSimpleNotification({ subText: "Dev-Notifications", message: "picking image from camera", bigText: response })
         });
     };
 
@@ -71,7 +69,9 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
 
     const YesUpload = async () => {
         const img_url = await uploadImage(img);
-        generateSimpleNotification({ subText: "Dev-Notifications", message: "picking image from gallery", bigText: img_url })
+        if(!img_url){
+            generateSimpleNotification({ subText: "Dev-Notifications", message: "picking image from gallery", bigText: img_url })
+        }
         setImageURL(img_url)
         setIsOkYesImageOpen(() => false)
     }
