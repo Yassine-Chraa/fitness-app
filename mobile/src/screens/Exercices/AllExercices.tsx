@@ -62,6 +62,7 @@ const Exercice = ({ exercise, setChecked }: any) => {
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (<TouchableOpacity
+  key={exercise.id}
     style={styles.exercice}
     onPress={() =>
       navigation.navigate('ExerciceDetails', { type: 'workout', exercise })

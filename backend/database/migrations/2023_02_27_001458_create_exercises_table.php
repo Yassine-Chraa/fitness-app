@@ -20,7 +20,6 @@ return new class extends Migration
             $table->text('description');
             $table->string('api_id')->nullable();
             $table->enum('category', ["Triceps", "Chest", "Shoulder", "Biceps", "Core", "Back", "Forearms", "Upper Legs", "Glutes", "Calves", "Cardio"]);
-            $table->string('subcategory');
             $table->timestamps();
         });
     }

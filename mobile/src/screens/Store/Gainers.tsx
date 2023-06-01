@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, FlatList, TouchableOpacity, Text } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -10,12 +10,16 @@ import { useProduct } from '../../context/providers/ProductContextProvider';
 import { useCategory } from '../../context/providers/CategoryConextProvider';
 
 const Gainers = ({ navigation }: any): JSX.Element => {
-  const { products, searchProduct } = useProduct();
+  const { products, keyword,getProducts, setKeyword } = useProduct();
   const { categories } = useCategory();
 
-  const [keyword, setKeyword] = useState('');
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
-
+  const search = async() => {
+    await getProducts()
+  }
+  useEffect(()=>{
+    setKeyword('')
+  },[])
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <View style={{ flexDirection: 'row', marginBottom: 12 }}>
@@ -27,7 +31,7 @@ const Gainers = ({ navigation }: any): JSX.Element => {
             onChangeText={setKeyword}
           />
         </View>
-        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={() => searchProduct(keyword)}>
+        <TouchableOpacity style={styles.sortBtn} activeOpacity={0.4} onPress={search}>
           <Icon name="search" color={'#fff'} size={28} />
         </TouchableOpacity>
       </View>

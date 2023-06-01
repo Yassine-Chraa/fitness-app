@@ -4,77 +4,73 @@ import { useCallback, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View } from 'react-native';
 import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import theme from '../../constants/theme';
 import { useProgram } from '../../context/providers/ProgramContextProvider';
 import { useAuth } from '../../context/providers/AuthContextProvider';
-import { useFocusEffect } from '@react-navigation/native';
 
 const Discover = ({ navigation }: any) => {
   const { currentUser } = useAuth();
   const { getPrograms, getUserPrograms, programs, userPrograms } = useProgram();
-  const [filtredPrograms, setFiltredPrograms] = useState<any>([])
 
   const fetch = async () => {
     await getPrograms();
     await getUserPrograms(currentUser!.user.id);
-    const temp = programs.filter(program => {
-      const map = userPrograms.map((item) => {
-        return item.details.id;
-      })
-      return map.includes(program.id) == false;
-    })
-    setFiltredPrograms(temp);
   }
-  useFocusEffect(useCallback(() => {
+  useEffect(() => {
     fetch()
-  }, [currentUser]))
+  }, [currentUser])
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>
-        {filtredPrograms.map((program: any) => {
-          return (
-            <TouchableHighlight
-              key={program.id}
-              style={styles.program}
-              onPress={() =>
-                navigation.navigate('ProgramDetails', { program: program })
-              }>
-              <View>
-                <Image
-                  style={{ width: '100%', height: 180, borderRadius: 8 }}
-                  source={{uri:program.main_img}}
-                />
-                <View
-                  style={{
-                    position: 'absolute',
-                    left: 20,
-                    width: '70%',
-                    height: '100%',
-                    justifyContent: 'center',
-                  }}>
-                  {!program.isFree ? (
-                    <Text style={styles.tag}>Pro</Text>
-                  ) : (
-                    <Text
-                      style={{
-                        ...styles.tag,
-                        backgroundColor: '#7D8F69',
-                      }}>
-                      Free
+        {programs.map((program: any) => {
+          const map = userPrograms.map((item) => {
+            return item.details.id;
+          })
+          if (map.includes(program.id) == false) {
+            return (
+              <TouchableHighlight
+                key={program.id}
+                style={styles.program}
+                onPress={() =>
+                  navigation.navigate('ProgramDetails', { program: program })
+                }>
+                <View>
+                  <Image
+                    style={{ width: '100%', height: 180, borderRadius: 8 }}
+                    source={{ uri: program.main_img }}
+                  />
+                  <View
+                    style={{
+                      position: 'absolute',
+                      left: 20,
+                      width: '70%',
+                      height: '100%',
+                      justifyContent: 'center',
+                    }}>
+                    {!program.isFree ? (
+                      <Text style={styles.tag}>Pro</Text>
+                    ) : (
+                      <Text
+                        style={{
+                          ...styles.tag,
+                          backgroundColor: '#7D8F69',
+                        }}>
+                        Free
+                      </Text>
+                    )}
+                    <Text style={{ fontSize: 18, color: '#fff' }}>
+                      {program.type} {program.days} Days
                     </Text>
-                  )}
-                  <Text style={{ fontSize: 18, color: '#fff' }}>
-                    {program.type} {program.days} Days
-                  </Text>
-                  <Text
-                    style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
-                    {program.title}
-                  </Text>
+                    <Text
+                      style={{ fontSize: 28, color: '#fff', fontWeight: 'bold' }}>
+                      {program.title}
+                    </Text>
+                  </View>
                 </View>
-              </View>
-            </TouchableHighlight>
-          );
+              </TouchableHighlight>
+            );
+          }
+
         })}
       </ScrollView>
     </SafeAreaView>

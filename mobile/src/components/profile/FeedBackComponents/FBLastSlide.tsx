@@ -6,22 +6,16 @@ import { useFeedBack } from '../../../context/providers/FeedBackContextProvider'
 import UserInfo from '../../../types/UserInfo';
 import getData from '../../../Helpers/Storage/getData';
 import { useNavigation } from '@react-navigation/native';
+import { useAuth } from '../../../context/providers/AuthContextProvider';
 
 
 const FBLastSlide = ({ goNext, question, currentIndex, feedback, setFeedback }: any): JSX.Element => {
 
-    const [checkedIndex, setCheckedIndex] = useState(feedback["f" + (currentIndex + 1)]);
+    const { currentUser } = useAuth()
     const [text, setText] = useState('');
     const { addFeedBack } = useFeedBack();
     const navigation: any = useNavigation();
 
-    const checkReactionHandler = (index: number) => {
-        if (index != checkedIndex) {
-            setCheckedIndex(() => index);
-            feedback["f" + (currentIndex + 1)] = index;
-            setFeedback(() => feedback);
-        }
-    }
 
     const updateFeedBack = () => {
         feedback["message"] = text;
@@ -36,13 +30,8 @@ const FBLastSlide = ({ goNext, question, currentIndex, feedback, setFeedback }: 
     }
 
     useEffect(() => {
-        getData("current_user").
-            then((user: UserInfo) => {
-                if (user.user) {
-                    feedback.id = user.user.id
-                    setFeedback(() => feedback);
-                }
-            })
+        feedback.id = currentUser?.user?.id
+        setFeedback(() => feedback);
     }, [])
 
     return (

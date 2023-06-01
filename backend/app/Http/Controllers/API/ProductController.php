@@ -16,11 +16,14 @@ class ProductController extends Controller
      */
     public function index(Request $request)
     {
-        $keyword = $request->has('keyword') ? $request->get('keyword') : '';
-        if ($request->has('category_id')) {
-            $products = Product::where('category_id', $request->get('category_id'))->where('name', 'LIKE', $keyword . '%')->get();
+        if ($request->has('category_id') and $request->get('category_id') != 0) {
+            $products = Product::where('category_id', $request->get('category_id'))->where('name', 'LIKE', $request->get('keyword') . '%')->get();
         } else {
-            $products = Product::where('name', 'LIKE', $keyword . '%')->get();
+            if($request->has('keyword')){
+                $products = Product::where('name', 'LIKE', $request->get('keyword') . '%')->get();
+            }else{
+                $products = Product::all();
+            }
         }
 
         foreach ($products as $i => $product) {

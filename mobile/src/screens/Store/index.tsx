@@ -1,4 +1,4 @@
-import { useCallback } from 'react'
+import React, { useCallback } from 'react'
 import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import theme from '../../constants/theme';
@@ -11,16 +11,17 @@ import { useFocusEffect } from '@react-navigation/native';
 const Tab = createMaterialTopTabNavigator();
 
 const Store = () => {
-  const { getProducts } = useProduct();
+  const { getProducts, categoryId } = useProduct();
   const { getCategories } = useCategory();
-  const updateState = () => {
-    getCategories();
-    getProducts();
-  }
   useFocusEffect(
     useCallback(() => {
-      updateState();
+      getCategories();
     }, [])
+  )
+  useFocusEffect(
+    useCallback(() => {
+      getProducts();
+    }, [categoryId])
   )
   return (
     <Tab.Navigator

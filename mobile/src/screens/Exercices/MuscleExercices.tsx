@@ -3,7 +3,6 @@ import React, { useEffect } from 'react';
 import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import Screen from '../../components/Screen';
 import theme from '../../constants/theme';
-import Icon from 'react-native-vector-icons/FontAwesome5';
 import { useExercise } from '../../context/providers/ExerciseContextProvider';
 import AnimatedLottieView from 'lottie-react-native';
 import animations from '../../constants/animations'
@@ -27,22 +26,11 @@ const MuscleExercices = ({ navigation, route }: any) => {
             onPress={() =>
               navigation.navigate('ExerciceDetails', { exercise })
             }>
-            <View style={styles.MainContainer}>
-              <View style={styles.animation}>
-                <AnimatedLottieView
-                  source={animations[exercise.subcategory]}
-                  autoPlay
-                  loop
-                  speed={1.5}
-                  resizeMode="contain"
-                  style={{
-                    width: 43,
-                    height: 43,
-                    backgroundColor: 'transparent',
-                  }}
-                />
-              </View>
-
+            <View style={{ flexDirection: 'row' }}>
+              <Image
+                style={styles.image}
+                source={{ uri: exercise.img }}
+              />
               <View style={{ gap: 4, justifyContent: 'center' }}>
                 <Text
                   style={{
@@ -52,7 +40,7 @@ const MuscleExercices = ({ navigation, route }: any) => {
                   }}>
                   {exercise.title}
                 </Text>
-                <Text>{exercise.subcategory}</Text>
+                <Text>{exercise.category}</Text>
               </View>
             </View>
           </TouchableOpacity>
@@ -63,16 +51,14 @@ const MuscleExercices = ({ navigation, route }: any) => {
 };
 
 const styles = StyleSheet.create({
-  exercice: {
+exercice: {
     flexDirection: 'row',
-    marginTop: 6,
+    marginTop: 12,
     paddingVertical: 12,
     paddingHorizontal: 8,
     justifyContent: 'space-between',
-    backgroundColor: '#00000008',
-    borderRadius: 4,
-    borderColor: '#0003',
-    borderWidth: 1,
+    backgroundColor: theme.colors.statusBar,
+    borderRadius: 16,
   },
   image: {
     height: 60,
@@ -91,22 +77,6 @@ const styles = StyleSheet.create({
     gap: 10,
     backgroundColor: theme.colors.customCard,
   },
-  animation: {
-    borderColor: '#0001',
-    borderWidth: 1,
-    width: 55,
-    height: 55,
-    display: 'flex',
-    justifyContent: 'center',
-    alignItems: 'center'
-  },
-  MainContainer: {
-    flex: 1,
-    display: 'flex',
-    justifyContent: 'flex-start',
-    gap: 10,
-    flexDirection: 'row',
-  }
 });
 
 export default MuscleExercices;

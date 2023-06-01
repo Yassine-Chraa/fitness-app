@@ -9,10 +9,3 @@ export const gainersCategories = [
   {id: '1', name: 'Creatine'},
   {id: '2', name: 'Boosters'},
 ];
-export const foodCategories = [
-  {id: '0', name: 'Protein Foods'},
-  {id: '1', name: 'Fruits'},
-  {id: '2', name: 'Vegetables'},
-  {id: '3', name: 'Grains'},
-  {id: '4', name: 'Dairy'},
-];
