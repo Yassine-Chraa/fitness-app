@@ -16,7 +16,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
   const [user, setUser] = useState<UserType | any>(currentUser?.user);
   const [isVisible, setIsVisible] = useState(false);
   const [currentImageUrl, setCurrentImageUrl] = useState('');
-  const [profile, setProfile] = useState('');
+  const [profile, setImageURL] = useState('');
 
   const updateProfile = async () => {
     const res = await updateCurrentUser(user)
@@ -44,7 +44,7 @@ const EditProfile = ({ navigation }: any): JSX.Element => {
       <FAImagePicker setIsVisible={setIsVisible}
         isVisible={isVisible}
         setCurrentImageUrl={setCurrentImageUrl}
-        setProfile={setProfile} />
+        setImageURL={setImageURL} />
 
       <View style={styles.heading}>
         <Image

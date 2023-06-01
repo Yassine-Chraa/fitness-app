@@ -7,6 +7,8 @@ import ReactionType from '../../types/ReactionType';
 import ListOfLikers from './ListOfLikers';
 import moment from 'moment';
 
+
+
 const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
     const [islike, setIsLike] = useState(false);
@@ -112,6 +114,9 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                         }</Text>
                     </View>
                 </View>
+                <TouchableOpacity activeOpacity={0.7} style={styles.moreBtn}>
+                    <Icon name={'ellipsis-v'} size={14} color={'#000'} />
+                </TouchableOpacity>
             </View>
             <View style={styles.postBody}>
                 <Text style={styles.postBodyText}>
@@ -141,7 +146,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                             <Icon name={'comment'} size={24} color={hasComment ? '#f00' : 'gray'}
                                 style={{ marginEnd: 6 }} />
                         </TouchableOpacity>
-                        <Text>{2}</Text>
+                        <Text>{nbr_comments}</Text>
                     </View>
                 </View>
                 {nbrComments > 0 ? (
@@ -206,8 +211,7 @@ const styles = StyleSheet.create({
         fontSize: 13,
     },
     postBodyText: {
-        marginTop: 4,
-        marginBottom: 10,
+        paddingBottom: 12,
         color: "#000d",
     },
     postBodyImage: {

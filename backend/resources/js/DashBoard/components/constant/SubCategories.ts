@@ -111,16 +111,3 @@ const SubCategories = {
     ]
 };
 export default SubCategories;
-
-
-
-// {
-// api_id,
-// category,
-// created_at,
-// description,
-// id,
-// img,
-// subcategory,
-// title,
-// updated_at}

@@ -10,7 +10,7 @@ import FAImagePicker from '../FAImageHandlers/FAImagePicker';
 const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
     const [text, setText] = useState('');
     const [currentImageUrl, setCurrentImageUrl] = useState('');
-    const [img_url, setImg_url] = useState('')
+    const [img_url, setImageURL] = useState('')
     const [isVisible, setIsVisible] = useState(false);
     const { addPost } = usePost();
 
@@ -26,7 +26,7 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
         }
         const result = await addPost(post);
         if (result) {
-            setImg_url(() => '');
+            setImageURL(() => '');
             setCurrentImageUrl(() => '');
             setText(() => '');
             reLoadPosts();
@@ -42,7 +42,7 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
             <FAImagePicker setIsVisible={setIsVisible}
                 isVisible={isVisible}
                 setCurrentImageUrl={setCurrentImageUrl}
-                setImg_url={setImg_url}
+                setImageURL={setImageURL}
             />
 
             <View style={styles.container}>

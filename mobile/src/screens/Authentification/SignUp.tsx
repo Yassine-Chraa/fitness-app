@@ -56,7 +56,7 @@ const SignUp = ({navigation}:any) => {
       if (result) {
         navigation.navigate('SignIn');
       }else{
-        setPassword(prev => ({ ...prev, error: "Email address already in use" }));
+        setEmail(prev => ({ ...prev, error: "Email address already in use" }));
       }
     }
   };
@@ -83,6 +83,7 @@ const SignUp = ({navigation}:any) => {
         placeholder="Password"
         value={password.value}
         onChangeText={(val: string) => setPassword({ value: val, error: '' })}
+        error={!!password.error}
         errorText={password.error}
         secureTextEntry
       />
