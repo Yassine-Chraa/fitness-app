@@ -152,12 +152,24 @@ export const ProductContextProvider = ({ children }) => {
         });
 
     };
-
+    const getTotalProducts = async () => {
+        try {
+            setLoadingAnimation(dispatch, true);
+            const { data } = await axios.get(`${ProductUrl}/total`);
+            setLoadingAnimation(dispatch, false);
+            return data.total;
+        } catch (error) {
+            console.log(error);
+            setLoadingAnimation(dispatch, false);
+            return false;
+        }
+    };
     return (
         <productContext.Provider
             value={{
                 products,
                 getProducts,
+                getTotalProducts,
                 getProduct,
                 addProduct,
                 updateProduct,

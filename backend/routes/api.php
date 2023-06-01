@@ -59,9 +59,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::apiResource('users', UserController::class);
 
     Route::post('/products/rating', [ProductController::class, 'addReview'])->name('users.rating.store');
+    Route::get('/products/total', [ProductController::class, 'getTotal'])->name('products.total');
     Route::apiResource('products', ProductController::class);
     Route::apiResource('categories', CategorieController::class);
     Route::apiResource('feedbacks', FeedbackController::class);
+    Route::get('/programs/total', [ProgramController::class, 'getTotal'])->name('programs.total');
     Route::apiResource('programs', ProgramController::class);
 
     Route::apiResource('images', ImageController::class);
@@ -79,6 +81,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/workouts/exercises/{workout_id}', [WorkoutController::class, 'addExercise'])->name('workouts.exercises.store');
     Route::apiResource('workouts', WorkoutController::class);
     Route::apiResource('workoutexercises', WorkoutExerciseController::class);
+
+    Route::get('/exercises/total', [ExerciseController::class, 'getTotal'])->name('exercises.total');
     Route::apiResource('exercises', ExerciseController::class);
     Route::get('/logout', [AuthController::class, 'logout']);
     Route::get('/deleteAccount', [AuthController::class, 'deleteAccount']);

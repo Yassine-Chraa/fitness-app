@@ -39,6 +39,16 @@ class ProductController extends Controller
     }
 
     /**
+     * Get total of products: api/products/total
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTotal()
+    {
+        $count = count(Product::all());
+        return response()->json(['total' => $count]);
+    }
+    /**
      * POST: api/products
      *
      * @param  \Illuminate\Http\Request  $request
