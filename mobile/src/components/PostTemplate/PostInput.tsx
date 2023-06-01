@@ -9,7 +9,6 @@ import FAImagePicker from '../FAImageHandlers/FAImagePicker';
 
 const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
     const [text, setText] = useState('');
-    const [currentImageUrl, setCurrentImageUrl] = useState('');
     const [img_url, setImageURL] = useState('')
     const [isVisible, setIsVisible] = useState(false);
     const { addPost } = usePost();
@@ -20,6 +19,7 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
 
     const handlePost = async () => {
         const post: PostType = {
+            id: 0,
             content: text,
             image_url: img_url,
             user_id: user_id,
@@ -27,7 +27,6 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
         const result = await addPost(post);
         if (result) {
             setImageURL(() => '');
-            setCurrentImageUrl(() => '');
             setText(() => '');
             reLoadPosts();
         }
@@ -41,16 +40,15 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
         <>
             <FAImagePicker setIsVisible={setIsVisible}
                 isVisible={isVisible}
-                setCurrentImageUrl={setCurrentImageUrl}
                 setImageURL={setImageURL}
             />
 
             <View style={styles.container}>
-                <View style={{ ...styles.showImage, borderWidth: currentImageUrl ? 1 : 0 }}>
-                    {currentImageUrl && <Image source={{ uri: currentImageUrl }} style={styles.selectedImage} />}
+                <View style={{ ...styles.showImage, borderWidth: img_url ? 1 : 0 }}>
+                    {img_url && <Image source={{ uri: img_url }} style={styles.selectedImage} />}
                 </View>
                 <View style={styles.contentAreaContainer}>
-                    <TouchableOpacity style={styles.writerImageContainer} onPress={() => console.log('')}>
+                    <TouchableOpacity style={styles.writerImageContainer} onPress={() => setIsVisible(() => true)}>
                         <Image source={{ uri: currentUserImgUrl }} style={styles.WriterImage} />
                     </TouchableOpacity>
                     <View style={styles.postArea}>
@@ -70,7 +68,7 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
                                 <Icon name={'image'} size={18} solid color={'#000d'} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.postButton} activeOpacity={0.5}
-                                onPress={handlePost} disabled={!text && !currentImageUrl}>
+                                onPress={handlePost} disabled={!text && !img_url}>
                                 <Text style={styles.postButtonText}>Post</Text>
                             </TouchableOpacity>
                         </View>
@@ -176,14 +174,16 @@ const styles = StyleSheet.create({
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
+        alignSelf: 'flex-end',
         flex: 1,
         borderColor: '#0006',
         borderRadius: 6,
+        marginRight: 6,
     },
     selectedImage: {
         margin: 4,
-        height: 200,
-        width: 200,
+        height: 250,
+        width: 306,
         borderRadius: 4,
     }
 });

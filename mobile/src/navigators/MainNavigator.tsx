@@ -17,7 +17,7 @@ import FoodDetails from '../screens/Food/FoodDetails';
 import MyCart from '../screens/Store/MyCart';
 import Coaches from '../screens/Profile/Coaches';
 import CoachProfile from '../screens/Profile/CoachProfile';
-import GymLocation from '../screens/Profile/GymLocation';
+// import GymLocation from '../screens/Profile/GymLocation';
 import EditProfile from '../screens/Profile/EditProfile';
 import SplashScreen from 'react-native-splash-screen';
 import axios from '../Helpers/axiosConfig';

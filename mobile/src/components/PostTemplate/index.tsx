@@ -6,7 +6,7 @@ import InputComment from './ListComments/InputComment';
 import { useComment } from '../../context/providers/CommentContextProvider';
 import CommentType from '../../types/CommentType';
 
-const PostTemplate = ({ post }: any): JSX.Element => {
+const PostTemplate = ({ post,reLoadPosts }: any): JSX.Element => {
 
     const [showComments, setShowComments] = useState(false);
     const [showNewCommentInput, setShowNewCommentInput] = useState(false);
@@ -46,6 +46,7 @@ const PostTemplate = ({ post }: any): JSX.Element => {
     return (
         <View style={styles.container}>
             <PostBody
+            reLoadPosts={reLoadPosts}
                 post={post}
                 nbrComments={comments && comments.length}
                 setShowComments={setShowComments}

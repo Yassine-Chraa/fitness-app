@@ -22,39 +22,41 @@ const CheckStateAlert = (): JSX.Element => {
             }, 3000)
         }
     }, [checkState])
-    
+
 
     return (
         <>
             {
                 checkState.isCheck ?
                     <View style={style.container}>
-                        <LottieView
-                            source={checkState.isSuccess ?
-                                SuccessAnimation : FailureAnimation
-                            }
-                            autoPlay
-                            loop={false}
-                            speed={1}
-                            resizeMode={checkState.isSuccess ?
-                                "center" : "contain"
-                            }
-                            style={{
-                                width: 180,
-                                height: 180,
-                                backgroundColor: 'transparent',
-                            }}
-                        />
+
                         <View style={{
-                            ...style.messageContainer,
+                            ...style.alertContainer,
                             borderColor: checkState.isSuccess ? '#05ff07' : 'red'
                         }}>
-                            <Text style={{
-                                ...style.message,
-                                color: checkState.isSuccess ? '#05ff07' : 'red'
-                            }}>
-                                {checkState.message}
-                            </Text>
+                            <View style={style.messageContainer}>
+                                <Text style={{
+                                    ...style.message,
+                                }}>
+                                    {checkState.message}
+                                </Text>
+                            </View>
+
+                            <View style={style.animationContainer}>
+                                <LottieView
+                                    source={checkState.isSuccess ?
+                                        SuccessAnimation : FailureAnimation
+                                    }
+                                    autoPlay={true}
+                                    autoSize={true}
+                                    loop={false}
+                                    speed={0.77}
+                                    resizeMode={checkState.isSuccess ?
+                                        "contain" : "contain"
+                                    }
+                                    style={checkState.isSuccess ? style.animationSuccess : style.animationFailure}
+                                />
+                            </View>
                         </View>
                     </View> : null
             }
@@ -67,29 +69,56 @@ export default CheckStateAlert;
 const style = StyleSheet.create({
     container: {
         width: '100%',
-        height: '100%',
-        backgroundColor: '#00000044',
         flex: 1,
         position: 'absolute',
-        zIndex: 2,
+        zIndex: 12,
         top: 0,
         left: 0,
-        flexDirection: 'column',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        padding: 10,
+    },
+    alertContainer: {
+        padding: 10,
+        borderRadius: 16,
+        borderWidth: 1,
+        borderLeftWidth: 10,
+        width: '100%',
+        backgroundColor: '#000d',
+        flexDirection: 'row',
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+    },
+    animationContainer: {
+        flex: 1,
+        width: '25%', height: 70,
         display: 'flex',
         justifyContent: 'center',
         alignItems: 'center',
     },
-    messageContainer: {
-        padding: 13,
-        marginHorizontal: 34,
-        borderRadius: 14,
-        borderWidth: 2,
-        backgroundColor: "#201D0469",
-    },
+
     message: {
         fontWeight: '800',
         fontFamily: "sans-serif",
-        fontSize: 24,
+        color: '#eee',
+        fontSize: 14,
         textAlign: 'center',
+        textTransform: 'capitalize'
+    },
+    messageContainer: {
+        marginRight: 12,
+        width: '75%',
+    },
+    animationSuccess: {
+        width: 180,
+        height: 180,
+        backgroundColor: 'transparent',
+    },
+    animationFailure: {
+        width: 90,
+        height: 90,
+        backgroundColor: 'transparent',
     }
 })
