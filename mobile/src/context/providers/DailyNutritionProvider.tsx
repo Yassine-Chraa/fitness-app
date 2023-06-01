@@ -35,6 +35,9 @@ export const DailyNutritionContextProvider = ({ children }: any) => {
     const getLastNutritions = async (user_id: number) => {
         try {
             const { data } = await axios.get(`${DailyNutritionUrl}/${user_id}`);
+            console.log("------------------------------------------------")
+            console.log(data)
+            console.log("------------------------------------------------")
             setLastNuritions(data)
             setForceUpdate(prev => !prev);
         } catch (e) {

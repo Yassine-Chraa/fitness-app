@@ -28,14 +28,6 @@ class FeedbackController extends Controller
                 'f2' => $feedback->f1,
                 'f3' => $feedback->f1,
                 'f4' => $feedback->f1,
-                'f5' => $feedback->f1,
-                'f6' => $feedback->f1,
-                'f7' => $feedback->f1,
-                'f8' => $feedback->f1,
-                'f9' => $feedback->f1,
-                'f10' => $feedback->f1,
-                'f11' => $feedback->f1,
-                'f12' => $feedback->f1,
             ];
         }
         return response()->json($feedbacks);
@@ -65,14 +57,6 @@ class FeedbackController extends Controller
                 'f2' =>  $request->get('f2'),
                 'f3' =>  $request->get('f3'),
                 'f4' =>  $request->get('f4'),
-                'f5' =>  $request->get('f5'),
-                'f6' =>  $request->get('f6'),
-                'f7' =>  $request->get('f7'),
-                'f8' =>  $request->get('f8'),
-                'f9' =>  $request->get('f9'),
-                'f10' =>  $request->get('f10'),
-                'f11' =>  $request->get('f11'),
-                'f12' =>  $request->get('f12'),
             ]);
             $newFeedback->save();
         } else {
@@ -94,32 +78,6 @@ class FeedbackController extends Controller
             if ($request->get('f4')) {
                 $feedback->f4 = $request->get('f4');
             }
-            if ($request->get('f5')) {
-                $feedback->f5 = $request->get('f5');
-            }
-            if ($request->get('f6')) {
-                $feedback->f6 = $request->get('f6');
-            }
-            if ($request->get('f7')) {
-                $feedback->f7 = $request->get('f7');
-            }
-            if ($request->get('f8')) {
-                $feedback->f8 = $request->get('f8');
-            }
-            if ($request->get('f9')) {
-                $feedback->f9 = $request->get('f9');
-            }
-            if ($request->get('f10')) {
-                $feedback->f10 = $request->get('f10');
-            }
-            if ($request->get('f11')) {
-                $feedback->f11 = $request->get('f11');
-            }
-            if ($request->get('f12')) {
-                $feedback->f12 = $request->get('f12');
-            }
-
-            // return response()->json(['test' => $feedback]);
 
             $feedback->save();
 
@@ -146,14 +104,6 @@ class FeedbackController extends Controller
             'f2' => $feedback->f2,
             'f3' => $feedback->f3,
             'f4' => $feedback->f4,
-            'f5' => $feedback->f5,
-            'f6' => $feedback->f6,
-            'f7' => $feedback->f7,
-            'f8' => $feedback->f8,
-            'f9' => $feedback->f9,
-            'f10' => $feedback->f10,
-            'f11' => $feedback->f11,
-            'f12' => $feedback->f12,
         ];
         return response()->json($feedback);
     }
@@ -188,30 +138,6 @@ class FeedbackController extends Controller
         }
         if ($request->get('f4')) {
             $feedback->f4 = $request->get('f4');
-        }
-        if ($request->get('f5')) {
-            $feedback->f5 = $request->get('f5');
-        }
-        if ($request->get('f6')) {
-            $feedback->f6 = $request->get('f6');
-        }
-        if ($request->get('f7')) {
-            $feedback->f7 = $request->get('f7');
-        }
-        if ($request->get('f8')) {
-            $feedback->f8 = $request->get('f8');
-        }
-        if ($request->get('f9')) {
-            $feedback->f9 = $request->get('f9');
-        }
-        if ($request->get('f10')) {
-            $feedback->f10 = $request->get('f10');
-        }
-        if ($request->get('f11')) {
-            $feedback->f11 = $request->get('f11');
-        }
-        if ($request->get('f12')) {
-            $feedback->f12 = $request->get('f12');
         }
 
         $feedback->save();

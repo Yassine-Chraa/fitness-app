@@ -12,7 +12,7 @@ export default interface UserType {
     body_fat: number;
     BMI: number;
     email_verified_at: string | null;
-    img_url: string,
+    profile: string,
     created_at: string;
     updated_at: string;
 }
