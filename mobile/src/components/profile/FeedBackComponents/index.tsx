@@ -15,14 +15,6 @@ const questions = [
     "How effective do you find the workout challenges provided by the app?",
     "How easy is it for you to navigate through the app menus and features?",
     "How satisfied are you with the variety of exercises offered by the app?",
-    "How helpful was the information provided in the app?",
-    "How much did you enjoy using the app?",
-    "How satisfied were you with the progress you made while using the app?",
-    "How likely are you to recommend this app to a friend?",
-    "How likely are you to recommend this app to a friend? fake question 11",
-    "How likely are you to recommend this app to a friend? fake question 22",
-    "How likely are you to recommend this app to a friend? fake question 33",
-    "How likely are you to recommend this app to a friend? fake question 44",
     "Please consider leaving a comment down below to let us know your thoughts.",
 ];
 
@@ -31,17 +23,9 @@ const __FEEDBACK__: FeedBack = {
     user_id: 1,
     message: "No message !",
     f1: 1,
-    f2: 2,
-    f3: 3,
-    f4: 4,
-    f5: 1,
-    f6: 1,
-    f7: 1,
-    f8: 1,
-    f9: 1,
-    f10: 1,
-    f11: 1,
-    f12: 1,
+    f2: 1,
+    f3: 1,
+    f4: 1,
 }
 
 const FeedBackComponents = (): JSX.Element => {

@@ -1,4 +1,4 @@
-import {API_URL} from '@env';
+// import { API_URL } from '@env';
 
 const endpoints: any = {
   SignIn: '/api/signIn',
@@ -26,13 +26,13 @@ const endpoints: any = {
   CommentsByPostId: '/api/commentsByPostId',
   ReplysByCommentId: '/api/repliesByCommentId',
   DeleteReactionByPostUserId: '/api/deleteReactionByPostUserId',
-  GetReactionByPostUserId:'/api/getReactionByPostUserId',
+  GetReactionByPostUserId: '/api/getReactionByPostUserId',
   UploadUrl: '/api/upload',
   CsrfToken: '/csrf-token',
 };
 
 export function getUrl(endpoint: PropertyKey) {
-  return 'http://192.168.1.5:8000' + endpoints[endpoint];
+  return "http://192.168.100.193:8080" + endpoints[endpoint];
 }
 
 export default endpoints;

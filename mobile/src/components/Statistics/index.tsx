@@ -110,6 +110,7 @@ const Statistics = ({ user }: any): JSX.Element => {
     }, [axios.defaults.headers.common[
         "authorization"
     ]])
+
     useEffect(() => {
         const temp = weights?.find(weight => {
             return weight.date === now;
@@ -223,12 +224,12 @@ const Statistics = ({ user }: any): JSX.Element => {
                             yAxisLabel=''
                             yAxisSuffix=''
                             data={{
-                                labels: !lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
+                                labels: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item: any) => {
                                     return `${item.date.substring(8, 10)}/${item.date.substring(5, 7)}`;
                                 }) : ['20/05','21/05','22/05','23/05','24/05','25/05','26/05'],
                                 datasets: [
                                     {
-                                        data: !lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item) => {
+                                        data: lastNuritions && lastNuritions.length > 0 ? lastNuritions.map((item) => {
                                             return item.energy_consumed;
                                         }) : [1800,1600,2000,1700,2200,1500,1900],
                                     },

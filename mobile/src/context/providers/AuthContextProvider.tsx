@@ -62,6 +62,7 @@ export const AuthContextProvider = ({ children }: any) => {
 
   //-------------------------------
   const signIn = async (form: SignInObj) => {
+    console.log("[from sign in] => url : "+signInUrl)
     setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signInUrl}`, form);
@@ -80,7 +81,7 @@ export const AuthContextProvider = ({ children }: any) => {
         });
       return true;
     } catch (error) {
-      //setLoadAnimation(dispatch, false);
+      setLoadAnimation(dispatch, false);
       console.log('ok')
       setIsCheckStateOk(dispatch,
         {
@@ -107,9 +108,11 @@ export const AuthContextProvider = ({ children }: any) => {
 
   //-------------------------------
   const signUp = async (form: SignUpObj) => {
+    console.log("[from sign up] => url : "+signUpUrl)
     setLoadAnimation(dispatch, true);
     try {
       const { data } = await axios.post(`${signUpUrl}`, form);
+      console.log(data)
       setLoadAnimation(dispatch, false);
       return data;
     } catch (error) {

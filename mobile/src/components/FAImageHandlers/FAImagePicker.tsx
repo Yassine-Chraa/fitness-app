@@ -15,13 +15,14 @@ import {
 } from 'react-native-image-picker';
 import { useUpLoadImage } from '../../context/providers/UpLoadImageContextProvider';
 import FAconfimrCancelImage from './FAConfirmCancelImage';
+import { useNotification } from '../../context/providers/NotificationContextProvider';
 
-const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setProfile }: any): JSX.Element => {
+const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageURL }: any): JSX.Element => {
 
     const [isOkYesImageOpen, setIsOkYesImageOpen] = useState(false);
     const [img, setImg] = useState<any>();
-
-    const { uploadImage } = useUpLoadImage()
+    const { uploadImage } = useUpLoadImage();
+    const { generateSimpleNotification } = useNotification()
 
     const handleImageSelect = () => {
         setIsVisible(() => false);
@@ -68,7 +69,10 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setProfile
 
     const YesUpload = async () => {
         const img_url = await uploadImage(img);
-        setProfile(img_url)
+        if (!img_url) {
+            generateSimpleNotification({ subText: "Dev-Notifications", message: "something went wrong while you are picking an image. Please, try again.", bigText: img_url })
+        }
+        setImageURL(img_url)
         setIsOkYesImageOpen(() => false)
     }
 

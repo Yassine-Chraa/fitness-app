@@ -38,7 +38,7 @@ const ViewProfile = ({ route }: any): JSX.Element => {
             <View style={styles.header}>
                 <Image source={{ uri: user?.profile }}
                     style={styles.headerImage} />
-                <Text style={{ fontSize: 24, color: '#000', fontWeight: '600', textAlign: 'center' }}>Yassine Chraa</Text>
+                <Text style={{ fontSize: 24, color: '#000',textTransform: 'uppercase', fontWeight: '600', textAlign: 'center' }}>{user.name}</Text>
                 <InfoGroup titles={titles} values={values} />
             </View>
 
@@ -51,7 +51,7 @@ const ViewProfile = ({ route }: any): JSX.Element => {
                 imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
 
 
-            <PostInput currentUserImgUrl={user?.img_url} user_id={user_id} reLoadPosts={loadPosts} />
+            <PostInput currentUserImgUrl={user?.profile} user_id={user_id} reLoadPosts={loadPosts} />
 
             {
                 posts && posts.length >= 1 && posts.map((p: any) => <PostTemplate post={p} key={p.id + p.image_url} />)
