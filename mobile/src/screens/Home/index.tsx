@@ -29,6 +29,7 @@ function Home(): JSX.Element {
 
   useEffect(() => {
     loadPosts();
+    console.log("[token] ==> "+currentUser?.token)
   }, [])
 
 

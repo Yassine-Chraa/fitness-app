@@ -48,7 +48,7 @@ const PostInput = ({ user_id, reLoadPosts, currentUserImgUrl }: any) => {
                     {img_url && <Image source={{ uri: img_url }} style={styles.selectedImage} />}
                 </View>
                 <View style={styles.contentAreaContainer}>
-                    <TouchableOpacity style={styles.writerImageContainer} onPress={() => setIsVisible(() => true)}>
+                    <TouchableOpacity style={styles.writerImageContainer} >
                         <Image source={{ uri: currentUserImgUrl }} style={styles.WriterImage} />
                     </TouchableOpacity>
                     <View style={styles.postArea}>

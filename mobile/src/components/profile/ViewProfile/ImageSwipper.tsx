@@ -8,10 +8,9 @@ const ImageSwipper = ({ route }:any) => {
         <View style={styles.container}>
             <Swiper index={index} loop={false}>
                 {images.map((image:any, i:any) => {
-                    console.log(image)
                     return (
                         <View style={styles.imageContainer} key={i}>
-                            <Image style={styles.image} source={image.img_url} />
+                            <Image style={styles.image} source={{ uri: image.img_url }} />
                         </View>
                     )
                 })}

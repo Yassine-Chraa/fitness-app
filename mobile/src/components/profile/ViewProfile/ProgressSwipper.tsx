@@ -8,21 +8,26 @@ import { useImages } from '../../../context/providers/ImagesContextProvider';
 import ImageType from '../../../types/ImageType';
 import FAImagePicker from '../../FAImageHandlers/FAImagePicker';
 
-const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
+const ProgressSwipper = ({ imageStyle, title, user_id }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const { images,getImages, addImage } = useImages();
+    const [images, setImages] = useState<Array<ImageType>>([]);
+    const { getImages, addImage } = useImages();
     const [img_url, setImageURL] = useState<string>('');
     const [isVisible, setIsVisible] = useState(false);
     const [currentImageUrl, setCurrentImageUrl] = useState<string>('')
 
     const loadImages = async () => {
-        await getImages()
+        const data = await getImages(user_id);
+        if (data) {
+            setImages(() => data)
+        }
     }
+
     const addNewImage = async (img_url: string) => {
-        const NewIMG: ImageType = { user_id: 1, img_url: img_url }
+        const NewIMG: ImageType = { id: 1, user_id: user_id, img_url: img_url }
         const result = await addImage(NewIMG)
         if (result) {
-            getImages()
+            loadImages()
         }
     }
 
@@ -35,7 +40,7 @@ const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
     }, [])
 
     useEffect(() => {
-        if(img_url != ''){
+        if (img_url != '') {
             addNewImage(img_url)
             setImageURL(() => '')
         }
@@ -81,7 +86,7 @@ const ProgressSwipper = ({ imageStyle, title }: any): JSX.Element => {
                             return (
                                 <TouchableOpacity activeOpacity={0.6} key={index}
                                     onPress={() => navigation.navigate("ImageSwipper", { images: images, index: index })}>
-                                    <Image source={{ uri:image.img_url }} style={{ ...styles.ScrollImage, ...imageStyle }} />
+                                    <Image source={{ uri: image.img_url }} style={{ ...styles.ScrollImage, ...imageStyle }} />
                                 </TouchableOpacity>
                             )
                         })}
