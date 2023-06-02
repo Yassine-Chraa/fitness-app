@@ -11,7 +11,7 @@ import MDTypography from "../../MDTypography";
 import configs from "../LineCharts/configs";
 
 
-const SimpleLineChart = ({ color, title, description, date, chart }) => {
+const SimpleLineChart = ({ color, title, description, chart }) => {
     const { data, options } = configs(chart.labels || [], chart.datasets || {});
 
     return (

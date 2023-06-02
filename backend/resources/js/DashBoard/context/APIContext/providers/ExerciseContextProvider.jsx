@@ -148,11 +148,25 @@ export const ExerciseContextProvider = ({ children }) => {
         });
     };
 
+    const getTotalExercises = async () => {
+        try {
+            setLoadingAnimation(dispatch, true);
+            const { data } = await axios.get(`${ExerciseUrl}/total`);
+            setLoadingAnimation(dispatch, false);
+            return data.total;
+        } catch (error) {
+            console.log(error);
+            setLoadingAnimation(dispatch, false);
+            return false;
+        }
+    };
+
     return (
         <exerciseContext.Provider
             value={{
                 exercises,
                 getExercises,
+                getTotalExercises,
                 getExercise,
                 addExercise,
                 updateExercise,

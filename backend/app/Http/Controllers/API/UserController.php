@@ -12,6 +12,7 @@ use App\Models\User;
 use App\Models\UserProgram;
 use App\Models\UserWeight;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
@@ -23,8 +24,12 @@ class UserController extends Controller
      */
     public function index(Request $request)
     {
-        if ($request->has('role')) $data = User::where('role', $request->get('role'))->get();
-        else $data = User::all();
+        if ($request->has('week')) {
+            $data = DB::table('users')->selectRaw('MONTH(created_at) as month, Day(created_at) as day, COUNT(id) as count')->whereRaw("WEEK(created_at) = {$request->get('week')}")->orderBy('day')->groupBy('day','month')->get();
+        } else {
+            if ($request->has('role')) $data = User::where('role', $request->get('role'))->get();
+            else $data = User::all();
+        }
         return response()->json($data);
     }
 
@@ -41,7 +46,7 @@ class UserController extends Controller
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
-            'role'=> 'required'
+            'role' => 'required'
         ]);
         $BMI =  $request->get('weight') / ($request->get('height') * $request->get('height'));
         $newUser = new User([
@@ -151,15 +156,16 @@ class UserController extends Controller
     }
 
     /**
-     * Get total users: api/users/total
+     * Get total of users: api/users/total
      *
      * @return \Illuminate\Http\Response
      */
     public function getTotal()
     {
-        $count = count((array)User::all());
+        $count = count(User::all());
         return response()->json(['total' => $count]);
     }
+
     /**
      * Get User Cart Product: api/users/cart/{id}
      *
