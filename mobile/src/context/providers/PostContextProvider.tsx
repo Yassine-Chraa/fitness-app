@@ -7,11 +7,11 @@ import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIConte
 import PostType from '../../types/PostType';
 
 export type PostContextType = {
-    getPostsByUserId: (user_id:any) => Promise<Array<any>>;
+    getPostsByUserId: (user_id: any) => Promise<Array<any>>;
     getPosts: () => Promise<Array<any>>;
     getPost: (id: number) => Promise<any>;
     addPost: (Post: Post) => Promise<{ message: string }>;
-    updatePost: (id: number, Post: Post) => Promise<{ message: string }>;
+    updatePost: (Post: Post) => Promise<{ message: string }>;
     deletePost: (id: number) => Promise<{ message: string }>;
 };
 
@@ -30,12 +30,17 @@ export const PostContextProvider = ({ children }: any) => {
     const [controller, dispatch] = useUIController();
 
     //----------------------------------------
-    const getPostsByUserId = async (user_id:any) => {
+    const getPostsByUserId = async (user_id: any) => {
         try {
             const { data } = await axios.get(`${PostsByUserId}/${user_id}`);
             return data;
         } catch (error) {
-            console.log(error);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your post 😪"
+                });
             return false;
         }
     };
@@ -46,7 +51,12 @@ export const PostContextProvider = ({ children }: any) => {
             const { data } = await axios.get(`${PostUrl}`);
             return data;
         } catch (error) {
-            console.log("[getPosts] => "+error);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your posts 😪"
+                });
             return false;
         }
     };
@@ -59,7 +69,12 @@ export const PostContextProvider = ({ children }: any) => {
             setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your post 😪"
+                });
             console.log(error);
             setLoadAnimation(dispatch, false);
         }
@@ -71,41 +86,38 @@ export const PostContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Your Recent Post was Posted successfully !"
+                    message: "You have add your post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "Something went wrong, please try again !"
+                    message: "Unfortunatly !\nwe could not add this post 😪"
                 });
         }
     };
-    const updatePost = async (id: number, Post: PostType) => {
+    const updatePost = async (post: PostType) => {
         try {
             setLoadAnimation(dispatch, true);
-            const { data } = await axios.put(`${PostUrl}`, Post);
+            const { data } = await axios.put(`${PostUrl}/${post.id}`, post);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Post successfully !"
+                    message: "You have updated the post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
-            console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Post successfully !"
+                    message: "Unfortunatly !\n we could not update your post 😪"
                 });
             return false;
         }
@@ -113,24 +125,22 @@ export const PostContextProvider = ({ children }: any) => {
     const deletePost = async (id: number) => {
         try {
             setLoadAnimation(dispatch, true);
-            const { data } = await axios.get(`${PostUrl}`);
+            const { data } = await axios.delete(`${PostUrl}/${id}`);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Post successfully !"
+                    message: "You have delete the post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
-            console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Post successfully !"
+                    message: "Unfortunatly !\nwe could not delete your post 😪"
                 });
             return false;
         }

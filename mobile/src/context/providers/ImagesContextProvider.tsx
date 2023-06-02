@@ -7,8 +7,8 @@ import ImageType from '../../types/ImageType';
 
 export type ImagesContextType = {
     images: Array<ImageType>
-    getImages: () => Promise<void>;
-    getCoachImages: (id:number) => Promise<void>;
+    getImages: (id: number) => Promise<Array<ImageType>>;
+    getCoachImages: (id: number) => Promise<void>;
     getImage: (id: number) => Promise<ImageType>;
     addImage: (Image: ImageType) => Promise<{ message: string }>;
     updateImage: (id: number, Images: ImageType) => Promise<{ message: string }>;
@@ -30,15 +30,15 @@ export const ImagesContextProvider = ({ children }: any) => {
     const [images, setImages] = useState([]);
 
     //----------------------------------------
-    const getImages = async () => {
+    const getImages = async (id: number) => {
         try {
-            const { data } = await axios.get(`${ImagesUrl}`);
-            setImages(data)
+            const { data } = await axios.get(`${ImagesUrl}?id=${id}`);
+            return data;
         } catch (error) {
             console.log(error);
         }
     };
-    const getCoachImages = async (id:number) => {
+    const getCoachImages = async (id: number) => {
         try {
             const { data } = await axios.get(`${ImagesUrl}?id=${id}`);
             setImages(data)
@@ -67,7 +67,7 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Your Recent Images was Imagesed successfully !"
+                    message: "Your Recent Images was added successfully !"
                 });
             return data;
         } catch (error) {
@@ -90,18 +90,17 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Images successfully !"
+                    message: "You have updated the Image successfully !"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Images successfully !"
+                    message: "Something went wrong, please try again !"
                 });
             return false;
         }
@@ -115,18 +114,17 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Images successfully !"
+                    message: "You have deleted the Image successfully !"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Images successfully !"
+                    message: "Something went wrong, please try again !"
                 });
             return false;
         }

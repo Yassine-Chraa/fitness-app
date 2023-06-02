@@ -1,11 +1,11 @@
 import React from 'react';
 import { Image, Modal, StyleSheet, TouchableOpacity } from 'react-native';
 
-const FullImageView = ({ source, onClose }: any): JSX.Element => {
+const FullImageView = ({ img_url, onClose }: any): JSX.Element => {
   return (
     <Modal visible={true} transparent={true}>
       <TouchableOpacity onPress={onClose} style={styles.modalBackground}>
-        <Image source={source} resizeMode="contain" style={styles.image} />
+        <Image source={{ uri:img_url }} resizeMode="contain" style={styles.image} />
       </TouchableOpacity>
     </Modal>
   );

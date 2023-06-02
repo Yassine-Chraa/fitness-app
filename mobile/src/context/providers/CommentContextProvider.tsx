@@ -62,8 +62,12 @@ export const CommentContextProvider = ({ children }: any) => {
             setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
-            console.log(error);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your comment 😪"
+                });
             setLoadAnimation(dispatch, false);
         }
     };
@@ -74,7 +78,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Comment successfully !"
+                    message: "You have added the Comment successfully 😊"
                 });
             return data;
         } catch (error) {
@@ -84,7 +88,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Comment successfully !"
+                    message: "Unfortunatly !\nwe could not add your comment 😪"
                 });
         }
     };
@@ -97,7 +101,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Comment successfully !"
+                    message: "You have updated the Comment successfully 😊"
                 });
             return data;
         } catch (error) {
@@ -108,7 +112,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Comment successfully !"
+                    message: "Unfortunatly !\nwe could not update your comment 😪"
                 });
             return false;
         }
@@ -122,7 +126,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Comment successfully !"
+                    message: "You have deleted the Comment successfully 😊"
                 });
             return data;
         } catch (error) {
@@ -133,7 +137,7 @@ export const CommentContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Comment successfully !"
+                    message: "Unfortunatly !\nwe could not delete your comment 😪"
                 });
             return false;
         }

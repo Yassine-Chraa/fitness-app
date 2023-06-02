@@ -77,7 +77,7 @@ export const AuthContextProvider = ({ children }: any) => {
         {
           isCheck: true,
           isSuccess: true,
-          message: "You Have Loged In Successfully, Welcome To FitnessApp !"
+          message: "You Have Loged In Successfully 😉\n Welcome To FitnessApp 🤗"
         });
       return true;
     } catch (error) {
@@ -87,7 +87,7 @@ export const AuthContextProvider = ({ children }: any) => {
         {
           isCheck: true,
           isSuccess: false,
-          message: "Oooops! somethingg went wrong. Please, try later !"
+          message: "Oooops 🤔, somethingg went wrong. \n Please, try later 😪"
         });
       return false;
     }
