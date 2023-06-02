@@ -5,7 +5,7 @@ import Icon from 'react-native-vector-icons/FontAwesome5';
 
 
 const FullDropDown = ({
-    title,
+    title, items
 }: any): JSX.Element => {
 
     const [isOpen, setIsOpen] = useState(false);
@@ -25,22 +25,15 @@ const FullDropDown = ({
                 <Icon name={isOpen ? 'chevron-up' : 'chevron-down'} size={20} color={theme.colors.text} />
             </TouchableOpacity>
             <View style={{ display: isOpen ? 'flex' : 'none', ...styles.hiddenList }}>
-                <DropDownItem
-                    label={"Unit System"}
-                    value={"cm/kg"}
-                    needInfo={true}
-                    textInfo={"bla bla bla"}
-                />
-                <DropDownItem
-                    label={"Unit System"}
-                    value={"cm/kg"}
-                    needInfo={true}
-                    textInfo={"bla bla bla"}
-                />
-                <DropDownItem
-                    label={"Unit System"}
-                    value={"cm/kg"}
-                />
+                {items.map((item: any, index: number) => (
+                    <DropDownItem
+                        key={index}
+                        label={item.key}
+                        value={item.value}
+                        needInfo={true}
+                        textInfo={"bla bla bla bla bla bla bla bla bla"}
+                    />
+                ))}
             </View>
         </View>
     );

@@ -29,7 +29,7 @@ function Home(): JSX.Element {
 
   useEffect(() => {
     loadPosts();
-    console.log("[token] ==> "+currentUser?.token)
+    console.log("[token] ==> " + currentUser?.token)
   }, [])
 
 
@@ -42,7 +42,8 @@ function Home(): JSX.Element {
         </View>}
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}
-        <HomeDivider title={"Posts of today"} />
+
+        {posts && posts.length > 0 && <HomeDivider title={"Posts of today"} />}
         {posts && posts.length > 0 && posts.map((post: any) => <PostTemplate post={post} key={post.id} reLoadPosts={loadPosts} />)}
 
       </View>
