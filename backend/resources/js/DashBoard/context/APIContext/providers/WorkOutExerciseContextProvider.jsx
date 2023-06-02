@@ -1,5 +1,5 @@
 import { createContext, useContext, useState } from "react";
-import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
+import { useMaterialUIController, setLoadingAnimation, setMessageObject } from "../../UIContext";
 import { getUrl } from "../Helper";
 
 const workoutContext = createContext();
@@ -30,22 +30,27 @@ export const WorkOutExerciseContextProvider = ({ children }) => {
             setLoadingAnimation(dispatch, false);
         }
     };
-    const addWorkOutExercise = async (WorkOutExercise) => {
+
+    const addExerciseToWorkout = async (workout_id, exercise_id) => {
         try {
-            setLoadingAnimation(dispatch, true);
-            console.log(WorkOutExercise);
-            const { data } = await axios.post(
-                `${WorkoutExerciseUrl}`,
-                WorkOutExercise,
-                config
-            );
-            console.log(JSON.stringify(data));
-            setLoadingAnimation(dispatch, false);
-            return data;
+            const { data } = await axios.post(WorkoutExerciseUrl, {
+                workout_id,
+                exercise_id,
+            });
+            setMessageObject(dispatch, {
+                type: "success",
+                message: data.message,
+                state: "mount",
+            });
+            return true;
         } catch (error) {
             console.log(error);
-            alert(error);
-            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
+            return false;
         }
     };
     const updateWorkOutExercise = async (WorkOutExercise) => {
@@ -86,7 +91,7 @@ export const WorkOutExerciseContextProvider = ({ children }) => {
             value={{
                 workoutExercises,
                 getWorkOutExercises,
-                addWorkOutExercise,
+                addExerciseToWorkout,
                 updateWorkOutExercise,
                 deleteWorkOutExercise,
             }}

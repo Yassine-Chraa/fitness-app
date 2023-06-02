@@ -60,7 +60,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Your feedback send successfully"
+                    message: "Your feedback get successfully"
                 });
             return data;
         } catch (error) {
@@ -86,7 +86,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback added successfully !"
                 });
             return data;
         } catch (error) {
@@ -110,7 +110,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback updated successfully"
                 });
             return data;
         } catch (error) {
@@ -134,7 +134,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback deleted successfully"
                 });
             return data;
         } catch (error) {

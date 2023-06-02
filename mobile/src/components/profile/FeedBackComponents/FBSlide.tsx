@@ -4,6 +4,8 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 import FBReaction from './FBReaction';
 import FBLastSlide from './FBLastSlide';
+import theme from '../../../constants/theme';
+import { useNavigation } from '@react-navigation/native';
 
 
 const FBSlide = ({ goNext,
@@ -14,6 +16,7 @@ const FBSlide = ({ goNext,
     isEnd
 }: any): JSX.Element => {
 
+    const navigation:any  = useNavigation();
     const [checkedIndex, setCheckedIndex] = useState(feedback["f" + (currentIndex + 1)]);
 
     const checkReactionHandler = (index: number) => {
@@ -67,13 +70,21 @@ const FBSlide = ({ goNext,
                         </View>
 
                         <View style={SlideStyle.navigation}>
-                            <TouchableOpacity
+                            {currentIndex > 0 ? (<TouchableOpacity
                                 onPress={() => goNext(currentIndex - 1)}
                                 activeOpacity={0.6}
                                 style={SlideStyle.BtnContainer}>
                                 <Icon name="chevron-circle-left" color={'#fff'} size={16} style={SlideStyle.icon} />
                                 <Text style={SlideStyle.btn}>Back</Text>
-                            </TouchableOpacity>
+                            </TouchableOpacity>) : (
+                                <TouchableOpacity
+                                    onPress={() => navigation.goBack()}
+                                    activeOpacity={0.6}
+                                    style={{...SlideStyle.BtnContainer,backgroundColor: theme.colors.danger}}>
+                                    <Icon name="chevron-circle-left" color={'#fff'} size={16} style={SlideStyle.icon} />
+                                    <Text style={SlideStyle.btn}>Exit</Text>
+                                </TouchableOpacity>
+                            )}
 
                             <TouchableOpacity
                                 onPress={() => goNext(currentIndex + 1)}

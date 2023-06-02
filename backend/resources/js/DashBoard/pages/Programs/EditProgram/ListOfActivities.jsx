@@ -299,6 +299,7 @@ export const ActionMenu = ({ WorkOutID, ProID, setWorkoutID }) => {
                 <Link
                     onClick={(e) => (!WorkOutID ? e.preventDefault() : null)}
                     to={`/dashboard/programs/${ProID}/workout/${WorkOutID}`}
+
                 >
                     <IconButton
                         size="small" disableRipple color="warning" variant="outlined"
