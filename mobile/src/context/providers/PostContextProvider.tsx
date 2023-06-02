@@ -35,7 +35,12 @@ export const PostContextProvider = ({ children }: any) => {
             const { data } = await axios.get(`${PostsByUserId}/${user_id}`);
             return data;
         } catch (error) {
-            console.log(error);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your post 😪"
+                });
             return false;
         }
     };
@@ -46,7 +51,12 @@ export const PostContextProvider = ({ children }: any) => {
             const { data } = await axios.get(`${PostUrl}`);
             return data;
         } catch (error) {
-            console.log("[getPosts] => " + error);
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your posts 😪"
+                });
             return false;
         }
     };
@@ -59,7 +69,12 @@ export const PostContextProvider = ({ children }: any) => {
             setLoadAnimation(dispatch, false);
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
+            setIsCheckStateOk(dispatch,
+                {
+                    isCheck: true,
+                    isSuccess: false,
+                    message: "Unfortunatly !\nwe could not get your post 😪"
+                });
             console.log(error);
             setLoadAnimation(dispatch, false);
         }
@@ -71,25 +86,20 @@ export const PostContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Your Recent Post was Posted successfully !"
+                    message: "You have add your post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "Something went wrong, please try again !"
+                    message: "Unfortunatly !\nwe could not add this post 😪"
                 });
         }
     };
     const updatePost = async (post: PostType) => {
-        console.log("[in UpdatePost] (Url) ===> " + PostUrl);
-        console.log("####################################");
-        console.log(post)
-        console.log("####################################");
         try {
             setLoadAnimation(dispatch, true);
             const { data } = await axios.put(`${PostUrl}/${post.id}`, post);
@@ -98,17 +108,16 @@ export const PostContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have updated the Post successfully !"
+                    message: "You have updated the post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "Ooops, something went wrong !"
+                    message: "Unfortunatly !\n we could not update your post 😪"
                 });
             return false;
         }
@@ -122,18 +131,16 @@ export const PostContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have delete the post successfuylly !"
+                    message: "You have delete the post successfuylly 😊"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
-            console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "Ooops, something went wrong !"
+                    message: "Unfortunatly !\nwe could not delete your post 😪"
                 });
             return false;
         }

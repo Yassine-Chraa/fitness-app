@@ -67,7 +67,7 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Your Recent Images was Imagesed successfully !"
+                    message: "Your Recent Images was added successfully !"
                 });
             return data;
         } catch (error) {
@@ -90,18 +90,17 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Images successfully !"
+                    message: "You have updated the Image successfully !"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Images successfully !"
+                    message: "Something went wrong, please try again !"
                 });
             return false;
         }
@@ -115,18 +114,17 @@ export const ImagesContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "You have got the Images successfully !"
+                    message: "You have deleted the Image successfully !"
                 });
             return data;
         } catch (error) {
-            Alert.alert('Something went wrong');
             console.log(error);
             setLoadAnimation(dispatch, false);
             setIsCheckStateOk(dispatch,
                 {
                     isCheck: true,
                     isSuccess: false,
-                    message: "You have got the Images successfully !"
+                    message: "Something went wrong, please try again !"
                 });
             return false;
         }
