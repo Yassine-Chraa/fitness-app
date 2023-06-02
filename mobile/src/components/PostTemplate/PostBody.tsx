@@ -6,10 +6,11 @@ import { useReaction } from '../../context/providers/ReactionContextProvider';
 import ReactionType from '../../types/ReactionType';
 import ListOfLikers from './ListOfLikers';
 import moment from 'moment';
+import OptionModal from './PostModals/OptionModal';
+import EditPost from './PostModals/EditPost';
 
 
-
-const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
+const PostBody = ({ reLoadPosts,nbrComments, setShowComments, showComments, setShowNewCommentInput, post }: any): JSX.Element => {
     const [modalVisible, setModalVisible] = useState(false);
     const [islike, setIsLike] = useState(false);
     const [nbr_likes, setNbr_likes] = useState<number | any>();
@@ -17,6 +18,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
     const [hasComment, setHasComment] = useState(false);
     const [timeOutId, setTimeOutId] = useState<number | any>();
     const [isLikersVisible, setIsLikersVisible] = useState(false);
+    const [isOption, setIsOption] = useState(false);
     const { addReaction, deleteReactionByPostUserId, getReactionByPostUserId } = useReaction();
 
     const toggleReplies = () => {
@@ -24,9 +26,8 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
     };
 
     const likeClickHandler = () => {
-        console.log("(islike.before)====> " + islike)
         setIsLike((prev) => !prev)
-        console.log("(islike.after)====> " + islike)
+        setNbr_likes((prev_num: number) => islike ? prev_num - 1 : prev_num + 1)
         clearTimeout(timeOutId);
         const newTimeOutId = setTimeout(() => {
             if (!islike) {
@@ -34,7 +35,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
             } else {
                 deleteReaction();
             }
-        }, 1000);
+        }, 2000);
         setTimeOutId(() => newTimeOutId)
     }
 
@@ -57,7 +58,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         }
         const num = await addReaction(reaction);
         if (num) {
-            console.log("[add]-------------> nbr_likes : " + num)
             setNbr_likes(() => num);
         }
     }
@@ -69,7 +69,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         }
         const num = await deleteReactionByPostUserId(reaction);
         if (num) {
-            console.log("[delete]-------------> nbr_likes : " + num)
             setNbr_likes(() => num);
         }
     }
@@ -93,6 +92,7 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
         checkIsCurrentUserLoves()
     }, []);
 
+
     return (
         <View style={styles.postContainer}>
 
@@ -114,9 +114,13 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                         }</Text>
                     </View>
                 </View>
-                <TouchableOpacity activeOpacity={0.7} style={styles.moreBtn}>
+                <TouchableOpacity activeOpacity={0.7}
+                    style={styles.moreBtn}
+                    onPress={() => setIsOption(() => true)}>
                     <Icon name={'ellipsis-v'} size={14} color={'#000'} />
                 </TouchableOpacity>
+                {/* --------------------(edit options)------------------- */}
+                {post && <OptionModal reLoadPosts={reLoadPosts} isOption={isOption} setIsOption={setIsOption} post={post} />}
             </View>
             <View style={styles.postBody}>
                 <Text style={styles.postBodyText}>
@@ -125,7 +129,6 @@ const PostBody = ({ nbrComments, setShowComments, showComments, setShowNewCommen
                 <TouchableOpacity activeOpacity={0.6} onPress={handlePress}>
                     <Image style={styles.postBodyImage} source={{ uri: post.image_url }} />
                 </TouchableOpacity>
-
                 {modalVisible && <FullImageView source={{ uri: post.image_url }} onClose={handleClose} />}
             </View>
             <View style={styles.postFooter}>

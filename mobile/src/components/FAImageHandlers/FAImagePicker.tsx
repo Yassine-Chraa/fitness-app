@@ -17,7 +17,7 @@ import { useUpLoadImage } from '../../context/providers/UpLoadImageContextProvid
 import FAconfimrCancelImage from './FAConfirmCancelImage';
 import { useNotification } from '../../context/providers/NotificationContextProvider';
 
-const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageURL }: any): JSX.Element => {
+const FAImagePicker = ({ isVisible, setIsVisible, setImageURL }: any): JSX.Element => {
 
     const [isOkYesImageOpen, setIsOkYesImageOpen] = useState(false);
     const [img, setImg] = useState<any>();
@@ -57,7 +57,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
     const UpLoad = async (response: any) => {
         if (response.assets && response.assets.length > 0) {
             const uri = response.assets[0].uri
-            setCurrentImageUrl(() => uri);
             setImg(() => response.assets[0]);
             setIsOkYesImageOpen(() => true)
         } else if (response.didCancel) {
@@ -83,7 +82,6 @@ const FAImagePicker = ({ isVisible, setIsVisible, setCurrentImageUrl, setImageUR
 
     const cancelAction = () => {
         setIsVisible(() => false);
-        setCurrentImageUrl(() => '');
     }
 
     return (

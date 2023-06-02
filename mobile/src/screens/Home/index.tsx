@@ -8,6 +8,8 @@ import PostInput from '../../components/PostTemplate/PostInput';
 import PostTemplate from '../../components/PostTemplate';
 import Statistics from '../../components/Statistics';
 import HomeDivider from '../../components/tinyCompo/HomeDivider';
+import { useUIController } from '../../context/UIContext';
+
 
 function Home(): JSX.Element {
   const { currentUser } = useAuth();
@@ -15,6 +17,7 @@ function Home(): JSX.Element {
   const [posts, setPosts] = useState<Array<any>>([]);
   const { getPosts } = usePost();
   const { updateState } = useAuth();
+  const [controller, dispatch] = useUIController();
 
   const loadPosts = async () => {
     await updateState();
@@ -23,10 +26,12 @@ function Home(): JSX.Element {
       setPosts(() => Allposts);
     }
   }
-  
+
   useEffect(() => {
     loadPosts();
+    console.log("[token] ==> "+currentUser?.token)
   }, [])
+
 
   return (
     <Screen name="Fitness App" allowScroll>
@@ -38,7 +43,7 @@ function Home(): JSX.Element {
         <HomeDivider title={"Statistics of today"} />
         {user && <Statistics user={user} />}
         <HomeDivider title={"Posts of today"} />
-        {posts && posts.length > 0 && posts.map((post: any) => <PostTemplate post={post} key={post.id} />)}
+        {posts && posts.length > 0 && posts.map((post: any) => <PostTemplate post={post} key={post.id} reLoadPosts={loadPosts} />)}
 
       </View>
     </Screen>
