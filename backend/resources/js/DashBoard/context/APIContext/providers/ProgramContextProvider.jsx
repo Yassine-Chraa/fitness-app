@@ -89,11 +89,24 @@ export const ProgramContextProvider = ({ children }) => {
             setLoadingAnimation(dispatch, false);
         }
     };
+    const getTotalPrograms = async () => {
+        try {
+            setLoadingAnimation(dispatch, true);
+            const { data } = await axios.get(`${ProgramUrl}/total`);
+            setLoadingAnimation(dispatch, false);
+            return data.total;
+        } catch (error) {
+            console.log(error);
+            setLoadingAnimation(dispatch, false);
+            return false;
+        }
+    };
 
     return (
         <programContext.Provider
             value={{
                 getPrograms,
+                getTotalPrograms,
                 getProgram,
                 addProgram,
                 updateProgram,

@@ -163,7 +163,7 @@ export const UserContextProvider = ({ children }) => {
             }
         });
     };
-    const getTotal = async () => {
+    const getTotalUsers = async () => {
         try {
             setLoadingAnimation(dispatch, true);
             const { data } = await axios.get(`${UserUrl}/total`);
@@ -176,16 +176,33 @@ export const UserContextProvider = ({ children }) => {
         }
     };
 
+    const getLastRegistredUsers = async (week) => {
+        try {
+            setLoadingAnimation(dispatch, true);
+            const { data } = await axios.get(`${UserUrl}?week=${week}`);
+            setLoadingAnimation(dispatch, false);
+            return data;
+        } catch (error) {
+            console.log(error);
+            setLoadingAnimation(dispatch, false);
+            setMessageObject(dispatch, {
+                type: "error",
+                message: "Something Went wrong !",
+                state: "mount",
+            });
+        }
+    };
     return (
         <userContext.Provider
             value={{
                 users,
                 getUsers,
+                getLastRegistredUsers,
                 getUser,
                 addUser,
                 updateUser,
                 deleteUser,
-                getTotal,
+                getTotalUsers,
             }}
         >
             {children}

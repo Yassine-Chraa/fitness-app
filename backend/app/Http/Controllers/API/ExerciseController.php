@@ -15,12 +15,23 @@ class ExerciseController extends Controller
      */
     public function index(Request $request)
     {
-        if($request->has('category')){
-            $exercises = Exercise::where('category',$request->get('category'))->get();
-        }else{
+        if ($request->has('category')) {
+            $exercises = Exercise::where('category', $request->get('category'))->get();
+        } else {
             $exercises = Exercise::all();
         }
         return response()->json($exercises);
+    }
+
+    /**
+     * Get total of exercises: api/exercises/total
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTotal()
+    {
+        $count = count(Exercise::all());
+        return response()->json(['total' => $count]);
     }
 
     /**

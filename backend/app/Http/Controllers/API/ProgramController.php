@@ -16,16 +16,27 @@ class ProgramController extends Controller
     public function index()
     {
         $programs = Program::all();
-            foreach ($programs as $i => $program) {
-                $programs[$i]->workouts = $program->workouts;
-                foreach ($program->workouts as $j => $workout) {
-                    $programs[$i]->workouts[$j]->exercises = $workout->exercises;
-                    foreach ($workout->exercises as $k => $exercise) {
-                        $programs[$i]->workouts[$j]->exercises[$k]->details = $exercise->details;
-                    }
+        foreach ($programs as $i => $program) {
+            $programs[$i]->workouts = $program->workouts;
+            foreach ($program->workouts as $j => $workout) {
+                $programs[$i]->workouts[$j]->exercises = $workout->exercises;
+                foreach ($workout->exercises as $k => $exercise) {
+                    $programs[$i]->workouts[$j]->exercises[$k]->details = $exercise->details;
                 }
             }
+        }
         return response()->json($programs);
+    }
+
+    /**
+     * Get total of programs: api/prgrams/total
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function getTotal()
+    {
+        $count = count(Program::all());
+        return response()->json(['total' => $count]);
     }
 
     /**
@@ -36,7 +47,7 @@ class ProgramController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->has('main_img')){
+        if ($request->has('main_img')) {
             $newProgram = new Program([
                 "main_img" => $request->get('main_img'),
                 "title" => $request->get('title'),
@@ -45,7 +56,7 @@ class ProgramController extends Controller
                 'category' => $request->get('category'),
                 "isFree" => $request->get('isFree'),
             ]);
-        }else{
+        } else {
             $newProgram = new Program([
                 "title" => $request->get('title'),
                 "description" => $request->get('description'),
