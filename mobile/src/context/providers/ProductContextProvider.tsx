@@ -1,5 +1,5 @@
 import axios from '../../Helpers/axiosConfig';
-import  React,{ createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Product from '../../types/Product';
 import getData from '../../Helpers/Storage/getData';
@@ -9,10 +9,12 @@ import { useUIController, setLoadAnimation } from '../UIContext';
 
 export type ProductContextType = {
   products: Array<Product>;
+  categoryId: number;
+  keyword: string;
   getProducts: () => Promise<void>;
   addReview: (review: { user_id: number | undefined, product_id: number | undefined, rating: number }) => Promise<{ rating: number }>;
-  searchProduct: (keyword: string) => Promise<void>;
-  changeCategory: (id: number) => Promise<void>;
+  setCategoryId: (id: number) => any;
+  setKeyword: (v: string) => any;
 };
 const productContext = createContext<ProductContextType | null>(null);
 
@@ -26,13 +28,20 @@ const productUrl = getUrl('Products');
 
 export const ProductContextProvider = ({ children }: any) => {
   const [controller, dispatch] = useUIController();
-  const {isLoading} = controller;
   const [products, setProducts] = useState([])
+  const [categoryId, setCategoryId] = useState(0)
+  const [keyword, setKeyword] = useState('');
+
   const getProducts = async () => {
     try {
-      const { data } = await axios.get(productUrl);
+      setLoadAnimation(dispatch, true);
+      console.log(keyword)
+      console.log(categoryId)
+      const {data} = await axios.get(`${productUrl}?category_id=${categoryId}&keyword=${keyword}`);
       setProducts(data);
+      setLoadAnimation(dispatch, false);
     } catch (error) {
+      setLoadAnimation(dispatch, false);
       console.log(error);
     }
   };
@@ -48,35 +57,13 @@ export const ProductContextProvider = ({ children }: any) => {
 
       if (i >= 0) current_user.ratings[i].rating = review.rating;
       else {
-        if(user_id && product_id){
+        if (user_id && product_id) {
           current_user.ratings.push({ user_id, product_id, rating })
         }
       }
       await storeData('current_user', current_user);
       setLoadAnimation(dispatch, false);
       return data;
-    } catch (e) {
-      setLoadAnimation(dispatch, false);
-      console.log(e)
-    }
-  }
-  const searchProduct = async (keyword: string) => {
-    setLoadAnimation(dispatch, true);
-    try {
-      const { data } = await axios.get(`${productUrl}?keyword=${keyword}`);
-      setProducts(data);
-      setLoadAnimation(dispatch, false);
-    } catch (e) {
-      setLoadAnimation(dispatch, false);
-      console.log(e)
-    }
-  }
-  const changeCategory = async (id: number) => {
-    setLoadAnimation(dispatch, true);
-    try {
-      const { data } = await axios.get(`${productUrl}?category_id=${id}`);
-      setProducts(data);
-      setLoadAnimation(dispatch, false);
     } catch (e) {
       setLoadAnimation(dispatch, false);
       console.log(e)
@@ -89,8 +76,10 @@ export const ProductContextProvider = ({ children }: any) => {
         products,
         getProducts,
         addReview,
-        searchProduct,
-        changeCategory
+        setKeyword,
+        setCategoryId,
+        categoryId,
+        keyword
       }}>
       {children}
     </productContext.Provider>

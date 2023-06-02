@@ -31,8 +31,6 @@ const __FEEDBACK__: FeedBack = {
 const FeedBackComponents = (): JSX.Element => {
     const [swiperIndex, setSwiperIndex] = useState(0);
     const [feedback, setFeedback] = useState<FeedBack>(__FEEDBACK__);
-    const [user, setUser] = useState<UserInfo>();
-    const { addFeedBack } = useFeedBack();
 
     const goNext = (newIndex: number) => {
         if (0 <= newIndex && newIndex < questions.length) {

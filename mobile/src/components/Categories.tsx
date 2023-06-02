@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import React from 'react';
 import {
   StyleSheet,
   ScrollView,
@@ -6,19 +6,15 @@ import {
   View,
   Image,
   Text,
+  Pressable
 } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 import theme from '../constants/theme';
 import { useProduct } from '../context/providers/ProductContextProvider';
 
-const Categories = ({ selectedCategoryIndex, setSelectedCategoryIndex,categories }: any) => {
-  const { changeCategory } = useProduct();
+const Categories = ({ categories }: any) => {
+  const { setCategoryId, categoryId } = useProduct();
 
-  const change = async (id: number) => {
-    //To Do : select category of search result
-    setSelectedCategoryIndex(id)
-    changeCategory(id)
-  }
   return (
     <ScrollView
       horizontal
@@ -28,15 +24,40 @@ const Categories = ({ selectedCategoryIndex, setSelectedCategoryIndex,categories
         marginBottom: 32,
         alignItems: 'center',
       }}>
+      <TouchableOpacity
+        activeOpacity={0.8}
+        onPress={() => setCategoryId(0)}>
+        <View
+          style={{
+            backgroundColor:
+              categoryId == 0 ? theme.colors.secondary : theme.colors.primary,
+            ...styles.categoryBtn,
+          }}>
+          <View style={styles.image}>
+            <Image
+              source={{ uri: 'https://placehold.jp/40x40.png' }}
+              style={{ height: 40, width: 40, borderRadius: 20, resizeMode: 'cover' }}
+            />
+          </View>
+          <Text
+            style={{
+              fontSize: 15,
+              fontWeight: 'bold',
+              marginLeft: 10,
+              color: Colors.white,
+            }}>
+            All Products
+          </Text>
+        </View>
+      </TouchableOpacity>
       {categories.map((category: any) => (
-        <TouchableOpacity
+        <Pressable
           key={category.id}
-          activeOpacity={0.8}
-          onPress={() => change(category.id)}>
+          onPress={() => setCategoryId(category.id)}>
           <View
             style={{
               backgroundColor:
-                selectedCategoryIndex == category.id ? theme.colors.secondary : theme.colors.primary,
+                categoryId == category.id ? theme.colors.secondary : theme.colors.primary,
               ...styles.categoryBtn,
             }}>
             <View style={styles.image}>
@@ -55,7 +76,7 @@ const Categories = ({ selectedCategoryIndex, setSelectedCategoryIndex,categories
               {category.name}
             </Text>
           </View>
-        </TouchableOpacity>
+        </Pressable>
       ))}
     </ScrollView>
   );
@@ -67,7 +88,7 @@ const styles = StyleSheet.create({
     paddingVertical: 5,
     marginRight: 8,
     alignItems: 'center',
-    borderRadius: 24,
+    borderRadius: 20,
     paddingHorizontal: 12,
   },
   image: {

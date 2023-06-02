@@ -3,8 +3,6 @@ import  React,{ createContext, useContext } from 'react';
 import { Alert } from 'react-native';
 import { getUrl } from '../../Helpers/APIConfig';
 import FeedBack from '../../types/FeedBack';
-import getData from '../../Helpers/Storage/getData';
-import UserInfo from '../../types/UserInfo';
 import { useUIController, setLoadAnimation, setIsCheckStateOk } from '../UIContext';
 
 export type feedBackContextType = {
@@ -27,7 +25,6 @@ const FeedBackUrl = getUrl('FeedBacks');
 
 export const feedBackContextProvider = ({ children }: any) => {
     const [controller, dispatch] = useUIController();
-    const { isLoading } = controller;
 
 
     const getFeedBacks = async () => {
@@ -63,7 +60,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback get successfully"
                 });
             return data;
         } catch (error) {
@@ -89,7 +86,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback added successfully !"
                 });
             return data;
         } catch (error) {
@@ -113,7 +110,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback updated successfully"
                 });
             return data;
         } catch (error) {
@@ -137,7 +134,7 @@ export const feedBackContextProvider = ({ children }: any) => {
                 {
                     isCheck: true,
                     isSuccess: true,
-                    message: "Ooops, Something went Wrong !"
+                    message: "Your feedback deleted successfully"
                 });
             return data;
         } catch (error) {

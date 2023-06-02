@@ -6,6 +6,920 @@ endpoints:
   -
     httpMethods:
       - GET
+    uri: api/users/total
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get total of users: api/users/total'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer h1PfDdk43Zc568EvV6aebga'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/users/cart/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get User Cart Product: api/users/cart/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the cart.'
+        required: true
+        example: deleniti
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: deleniti
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer E14Pe3Z5aVDdfcbahv66g8k'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/users/cart
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add Product to User Cart: api/users/cart'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: dolorem
+        type: string
+        custom: []
+      product_id:
+        name: product_id
+        description: ''
+        required: true
+        example: enim
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: dolorem
+      product_id: enim
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 4ZD5dPEh6vaa36fek18Vbcg'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/users/cart/{user_id}/{product_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete Product from User Cart: api/users/cart/{user_id}/{product_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: distinctio
+        type: string
+        custom: []
+      product_id:
+        name: product_id
+        description: 'The ID of the product.'
+        required: true
+        example: et
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: distinctio
+      product_id: et
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer DVf1d3vae84c5kEPgZ6bha6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/users/dailyNutrition/{user_id}/{date}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get Daily Nutrition: api/users/dailyNutrition/{user_id}/{date}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+      date:
+        name: date
+        description: ''
+        required: true
+        example: deleniti
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: 1
+      date: deleniti
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer kVfe638gb1Pv65cDZ4daaEh'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/users/dailyNutrition/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get Last  7 day Nutrition: api/users/dailyNutrition/{user_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      user_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zag38eDVP645b1v6fdackEh'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/users/dailyNutrition/item/{user_id}/{date}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Post Daily Nutrition item: api/users/dailyNutrition/item/{user_id}/{date}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: et
+        type: string
+        custom: []
+      date:
+        name: date
+        description: ''
+        required: true
+        example: quae
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: et
+      date: quae
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      name:
+        name: name
+        description: ''
+        required: true
+        example: inventore
+        type: string
+        custom: []
+      api_id:
+        name: api_id
+        description: ''
+        required: true
+        example: recusandae
+        type: string
+        custom: []
+      poid:
+        name: poid
+        description: ''
+        required: true
+        example: qui
+        type: string
+        custom: []
+    cleanBodyParameters:
+      name: inventore
+      api_id: recusandae
+      poid: qui
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer c853Pbdeva1EZk4Vh66agDf'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update Daily Nutrition item: api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      daily_nutrition_id:
+        name: daily_nutrition_id
+        description: 'The ID of the daily nutrition.'
+        required: true
+        example: quia
+        type: string
+        custom: []
+      food_id:
+        name: food_id
+        description: 'The ID of the food.'
+        required: true
+        example: labore
+        type: string
+        custom: []
+    cleanUrlParameters:
+      daily_nutrition_id: quia
+      food_id: labore
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 51686kv4a3ZghPedbVEDfac'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete Daily Nutrition item: api/users/dailyNutrition/item/{daily_nutrition_id}/{food_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      daily_nutrition_id:
+        name: daily_nutrition_id
+        description: 'The ID of the daily nutrition.'
+        required: true
+        example: tenetur
+        type: string
+        custom: []
+      food_id:
+        name: food_id
+        description: 'The ID of the food.'
+        required: true
+        example: quae
+        type: string
+        custom: []
+    cleanUrlParameters:
+      daily_nutrition_id: tenetur
+      food_id: quae
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 841hv3eaP6Vc5gfZEDakbd6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/users/weights/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get User Weights: api/users/weights/{user_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: voluptatem
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: voluptatem
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 653bgZdcv168aVa4EfkDheP'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/users/weights/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add Weight : api/users/weights/{user_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: ipsa
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: ipsa
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      value:
+        name: value
+        description: 'Must be at least 0.'
+        required: true
+        example: 76
+        type: number
+        custom: []
+      date:
+        name: date
+        description: ''
+        required: true
+        example: fugit
+        type: string
+        custom: []
+    cleanBodyParameters:
+      value: 76
+      date: fugit
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6ZaE5h3VePkDbc4a8df61gv'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/users/weights/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update Weight : api/users/weights/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: voluptatem
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: voluptatem
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer DEZac6g4v516kPfe8a3Vbhd'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/users/weights/{user_id}/{date}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete Weight : api/users/weights/{user_id}/{date}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: eos
+        type: string
+        custom: []
+      date:
+        name: date
+        description: ''
+        required: true
+        example: porro
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: eos
+      date: porro
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer d643gea8f6VkZhc1aPDbv5E'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/users/programs
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get User Programs: api/users/programs'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: aut
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: aut
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer haEg5D3f18ZkaVedv6Pcb46'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/users/programs
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/users/programs'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: omnis
+        type: string
+        custom: []
+      title:
+        name: title
+        description: 'Must be at least 3 characters. Must not be greater than 255 characters.'
+        required: true
+        example: kidedoayd
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: omnis
+      title: kidedoayd
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer c5Ead8ZbPDh6gk3ve4a1Vf6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+    uri: 'api/users/programs/{program_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'PUT: api/user/programs/{program_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      program_id:
+        name: program_id
+        description: 'The ID of the program.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      program_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zdgc4b5f1DEVa3P6evha68k'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/users/programs/{program_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Delete: api/user/programs/{program_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      program_id:
+        name: program_id
+        description: 'The ID of the program.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      program_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6bv5fD6Eac8dPVgekZ3h1a4'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/users/programs/enroll
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Post: api/user/programs/enroll'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      program_id:
+        name: program_id
+        description: ''
+        required: true
+        example: mollitia
+        type: string
+        custom: []
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: labore
+        type: string
+        custom: []
+    cleanBodyParameters:
+      program_id: mollitia
+      user_id: labore
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ac3kDa6dPheV6EZ4b51fvg8'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
     uri: api/users
     metadata:
       groupName: Endpoints
@@ -41,7 +955,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer cZbeD8dhf65kg1Pva4aEV63'
+      - 'Bearer 4vZk6Ef1e6aba5DPdVg83hc'
     controller: null
     method: null
     route: null
@@ -70,36 +984,44 @@ endpoints:
     bodyParameters:
       name:
         name: name
-        description: 'Must not be greater than 255 characters.'
+        description: 'Must be at least 3 characters. Must not be greater than 255 characters.'
         required: true
-        example: orved
+        example: ra
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: terence.fahey@example.com
+        example: pvolkman@example.net
         type: string
         custom: []
       password:
         name: password
         description: 'Must be at least 8 characters.'
         required: true
-        example: 'P<4V$w|64i7p*A<h[8'
+        example: 'bIjw|6-C[K2s#C(~>&~'
+        type: string
+        custom: []
+      role:
+        name: role
+        description: ''
+        required: true
+        example: natus
         type: string
         custom: []
     cleanBodyParameters:
-      name: orved
-      email: terence.fahey@example.com
-      password: 'P<4V$w|64i7p*A<h[8'
+      name: ra
+      email: pvolkman@example.net
+      password: 'bIjw|6-C[K2s#C(~>&~'
+      role: natus
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer Vv6PeEdakb4cZ563fg8Dh1a'
+      - 'Bearer 6a85gE1fDv4PZVab6ehkc3d'
     controller: null
     method: null
     route: null
@@ -150,7 +1072,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer P6acheDa1k38V4dZ56fgbvE'
+      - 'Bearer v68DZ1E4Vka3fdeg6cbaPh5'
     controller: null
     method: null
     route: null
@@ -193,7 +1115,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer bkg6V86PeZ3vh1c5dEaf4aD'
+      - 'Bearer fdc6kP4a6aE8gV31bDeh5vZ'
     controller: null
     method: null
     route: null
@@ -235,50 +1157,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1bE66vcVaZ4k5Df83ehgPda'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/equipments
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'GET: api/equipments'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer g61e6avdfa5VkhPbE8c3DZ4'
+      - 'Bearer 3EcP6fZadv8V146a5ghekbD'
     controller: null
     method: null
     route: null
@@ -286,13 +1165,13 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/equipments
+    uri: api/products/rating
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'POST: api/equipments'
+      title: ''
       description: ''
       authenticated: true
       custom: []
@@ -305,38 +1184,38 @@ endpoints:
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: cnipbuhqvgnsupwcwfzpeaejvxjejqvox
-        type: string
-        custom: []
-      category:
-        name: category
+      user_id:
+        name: user_id
         description: ''
         required: true
-        example: eaque
+        example: ut
         type: string
         custom: []
-      description:
-        name: description
+      product_id:
+        name: product_id
         description: ''
         required: true
-        example: alias
+        example: dolores
+        type: string
+        custom: []
+      rating:
+        name: rating
+        description: ''
+        required: true
+        example: rem
         type: string
         custom: []
     cleanBodyParameters:
-      name: cnipbuhqvgnsupwcwfzpeaejvxjejqvox
-      category: eaque
-      description: alias
+      user_id: ut
+      product_id: dolores
+      rating: rem
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer bP3e4fEDck661ad8agv5ZhV'
+      - 'Bearer 16Ebefv6hcPZak853VDa4dg'
     controller: null
     method: null
     route: null
@@ -344,13 +1223,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/equipments/{id}'
+    uri: api/products/total
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'GET: api/equipments/{id}'
+      title: 'Get total of products: api/products/total'
       description: ''
       authenticated: true
       custom: []
@@ -358,16 +1237,8 @@ endpoints:
       Authorization: 'Bearer {YOUR_AUTH_KEY}'
       Content-Type: application/json
       Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the equipment.'
-        required: true
-        example: velit
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: velit
+    urlParameters: []
+    cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -387,116 +1258,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 6eb4gkfh6D3a1dVcPvZEa85'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/equipments/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'PUT/PATCH: api/equipments/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the equipment.'
-        required: true
-        example: nulla
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: nulla
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: nijxvjjuapxcbgxqfpdbowrmrrccjvpsdotzjsgegmlxarnkwoxeztbgdwwkirraapluiaudooaybfiev
-        type: string
-        custom: []
-      category:
-        name: category
-        description: ''
-        required: true
-        example: soluta
-        type: string
-        custom: []
-      description:
-        name: description
-        description: ''
-        required: true
-        example: qui
-        type: string
-        custom: []
-    cleanBodyParameters:
-      name: nijxvjjuapxcbgxqfpdbowrmrrccjvpsdotzjsgegmlxarnkwoxeztbgdwwkirraapluiaudooaybfiev
-      category: soluta
-      description: qui
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 5hDgVcP1Zvb46keaf36d8Ea'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/equipments/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'DELETE: api/equipments/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the equipment.'
-        required: true
-        example: cupiditate
-        type: string
-        custom: []
-    cleanUrlParameters:
-      id: cupiditate
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer Degab4fad1E5P3Z68cvVhk6'
+      - 'Bearer 61DPbafVeh5dc4Za86Ekg3v'
     controller: null
     method: null
     route: null
@@ -539,7 +1301,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 4bVcZahDP6aE38edv651gkf'
+      - 'Bearer hPd4agve68Dk3a6f5EZ1cbV'
     controller: null
     method: null
     route: null
@@ -570,50 +1332,58 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: fpgwerjopfvlbvzqulgfflttxgpfzbyajlc
+        example: csxjqmjcrtlubzceyfbxkzmcblvauwjpdgylvvffqpukcvrdgcv
         type: string
         custom: []
-      category:
-        name: category
+      category_id:
+        name: category_id
         description: ''
         required: true
-        example: sit
+        example: quia
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: et
+        example: quidem
         type: string
         custom: []
-      prix:
-        name: prix
+      price:
+        name: price
         description: 'Must be at least 0.'
         required: true
-        example: 68
+        example: 59
         type: number
         custom: []
       stock:
         name: stock
         description: 'Must be at least 0.'
         required: true
-        example: 24
+        example: 73
         type: integer
         custom: []
+      company:
+        name: company
+        description: ''
+        required: true
+        example: omnis
+        type: string
+        custom: []
     cleanBodyParameters:
-      name: fpgwerjopfvlbvzqulgfflttxgpfzbyajlc
-      category: sit
-      description: et
-      prix: 68
-      stock: 24
+      name: csxjqmjcrtlubzceyfbxkzmcblvauwjpdgylvvffqpukcvrdgcv
+      category_id: quia
+      description: quidem
+      price: 59
+      stock: 73
+      company: omnis
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 4hVbPeak81D65E6Zvgfdc3a'
+      - 'Bearer 1ghE3b8vZc6kdaefDPa5V46'
     controller: null
     method: null
     route: null
@@ -640,11 +1410,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 3
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 3
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -664,7 +1434,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer v4aa536dEbgk6D1PcfheZV8'
+      - 'Bearer avPkg561bDfe8Edh3VcZ64a'
     controller: null
     method: null
     route: null
@@ -692,11 +1462,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 18
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 18
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -704,50 +1474,58 @@ endpoints:
         name: name
         description: 'Must be at least 4 characters.'
         required: true
-        example: luhhgvshqhnxxcmjzx
+        example: harpwpmbswdantkeiezipzjnmjqkzaegyiaizquwmuqrnaftocaxymfsztttctkaufoporaidqmboihsffqd
         type: string
         custom: []
-      category:
-        name: category
+      category_id:
+        name: category_id
         description: ''
         required: true
-        example: quasi
+        example: sed
         type: string
         custom: []
       description:
         name: description
         description: ''
         required: true
-        example: blanditiis
+        example: voluptates
         type: string
         custom: []
-      prix:
-        name: prix
+      price:
+        name: price
         description: 'Must be at least 0.'
         required: true
-        example: 47
+        example: 82
         type: number
         custom: []
       stock:
         name: stock
         description: 'Must be at least 0.'
         required: true
-        example: 56
+        example: 16
         type: integer
         custom: []
+      company:
+        name: company
+        description: ''
+        required: true
+        example: dolorum
+        type: string
+        custom: []
     cleanBodyParameters:
-      name: luhhgvshqhnxxcmjzx
-      category: quasi
-      description: blanditiis
-      prix: 47
-      stock: 56
+      name: harpwpmbswdantkeiezipzjnmjqkzaegyiaizquwmuqrnaftocaxymfsztttctkaufoporaidqmboihsffqd
+      category_id: sed
+      description: voluptates
+      price: 82
+      stock: 16
+      company: dolorum
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer ZP5Df8aEec6av16kg3Vbd4h'
+      - 'Bearer vd1hZV63E48ePbfaakg56cD'
     controller: null
     method: null
     route: null
@@ -774,11 +1552,11 @@ endpoints:
         name: id
         description: 'The ID of the product.'
         required: true
-        example: 10
+        example: 1
         type: integer
         custom: []
     cleanUrlParameters:
-      id: 10
+      id: 1
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -789,7 +1567,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer d15h3ke6g8V6PvEbafc4aDZ'
+      - 'Bearer dP5ZEDc6b13k6hVva8a4efg'
     controller: null
     method: null
     route: null
@@ -797,13 +1575,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: api/meals
+    uri: api/categories
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'GET: api/meals'
+      title: 'Display a listing of the resource.'
       description: ''
       authenticated: true
       custom: []
@@ -832,7 +1610,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer bV8dD34Paavkf615Z6eghcE'
+      - 'Bearer cv1aP68gkedDZ54hbf3VE6a'
     controller: null
     method: null
     route: null
@@ -840,13 +1618,13 @@ endpoints:
   -
     httpMethods:
       - POST
-    uri: api/meals
+    uri: api/categories
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'POST: api/meals'
+      title: 'Store a newly created resource in storage.'
       description: ''
       authenticated: true
       custom: []
@@ -858,55 +1636,15 @@ endpoints:
     cleanUrlParameters: []
     queryParameters: []
     cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: pulsfjttksxrmtthxbdpvkztznylywfrwood
-        type: string
-        custom: []
-      category:
-        name: category
-        description: ''
-        required: true
-        example: porro
-        type: string
-        custom: []
-      description:
-        name: description
-        description: ''
-        required: true
-        example: est
-        type: string
-        custom: []
-      weight:
-        name: weight
-        description: ''
-        required: true
-        example: aspernatur
-        type: string
-        custom: []
-      isVegan:
-        name: isVegan
-        description: ''
-        required: true
-        example: sit
-        type: string
-        custom: []
-    cleanBodyParameters:
-      name: pulsfjttksxrmtthxbdpvkztznylywfrwood
-      category: porro
-      description: est
-      weight: aspernatur
-      isVegan: sit
+    bodyParameters: []
+    cleanBodyParameters: []
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer D6f4V8Ped1Ev6a3ab5kZchg'
+      - 'Bearer hbv348aEZVfkaeDdc1P656g'
     controller: null
     method: null
     route: null
@@ -914,13 +1652,13 @@ endpoints:
   -
     httpMethods:
       - GET
-    uri: 'api/meals/{id}'
+    uri: 'api/categories/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'GET: api/meals/{id}'
+      title: 'Display the specified resource.'
       description: ''
       authenticated: true
       custom: []
@@ -931,181 +1669,13 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the meal.'
-        required: true
-        example: 13
-        type: integer
-        custom: []
-    cleanUrlParameters:
-      id: 13
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer dca68Ehk1fa5P64bD3ZegVv'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - PUT
-      - PATCH
-    uri: 'api/meals/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'PUT/PATCH: api/meals/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the meal.'
-        required: true
-        example: 9
-        type: integer
-        custom: []
-    cleanUrlParameters:
-      id: 9
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: aiitczvuhklpwdmcdllzloowmhyqvhxfmmezqz
-        type: string
-        custom: []
-      category:
-        name: category
-        description: ''
-        required: true
-        example: et
-        type: string
-        custom: []
-      description:
-        name: description
-        description: ''
-        required: true
-        example: aperiam
-        type: string
-        custom: []
-      weight:
-        name: weight
-        description: ''
+        description: 'The ID of the category.'
         required: true
         example: temporibus
         type: string
         custom: []
-      isVegan:
-        name: isVegan
-        description: ''
-        required: true
-        example: quam
-        type: string
-        custom: []
-    cleanBodyParameters:
-      name: aiitczvuhklpwdmcdllzloowmhyqvhxfmmezqz
-      category: et
-      description: aperiam
-      weight: temporibus
-      isVegan: quam
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 6khgaP1Z53d4DEvcef6Vb8a'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/meals/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'DELETE: api/meals/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the meal.'
-        required: true
-        example: 13
-        type: integer
-        custom: []
     cleanUrlParameters:
-      id: 13
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer Vk1ZfchaPa86E5b43Dgd6ve'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: api/activities
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'GET: api/activities'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
+      id: temporibus
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1125,116 +1695,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer beDhva46aPcZdE1g8536kVf'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - POST
-    uri: api/activities
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'POST: api/activities'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters: []
-    cleanUrlParameters: []
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: adskgkngizzciwqirheroiouifxcvghphstrybsyoazjqyfwyynjmheirnvj
-        type: string
-        custom: []
-      category:
-        name: category
-        description: ''
-        required: true
-        example: necessitatibus
-        type: string
-        custom: []
-      description:
-        name: description
-        description: ''
-        required: true
-        example: sed
-        type: string
-        custom: []
-    cleanBodyParameters:
-      name: adskgkngizzciwqirheroiouifxcvghphstrybsyoazjqyfwyynjmheirnvj
-      category: necessitatibus
-      description: sed
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 5ehdgZ6Dfava8ckb4EP613V'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - GET
-    uri: 'api/activities/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'GET: api/activities/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the activity.'
-        required: true
-        example: 1
-        type: integer
-        custom: []
-    cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters: []
-    cleanBodyParameters: []
-    fileParameters: []
-    responses:
-      -
-        status: 401
-        content: '{"message":"Unauthenticated."}'
-        headers:
-          cache-control: 'no-cache, private'
-          content-type: application/json
-          access-control-allow-origin: '*'
-        description: null
-        custom: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer eP8d654fZaE63vba1VkgDch'
+      - 'Bearer vh6cgaP51V3kfebaD4d86EZ'
     controller: null
     method: null
     route: null
@@ -1243,13 +1704,13 @@ endpoints:
     httpMethods:
       - PUT
       - PATCH
-    uri: 'api/activities/{id}'
+    uri: 'api/categories/{id}'
     metadata:
       groupName: Endpoints
       groupDescription: ''
       subgroup: ''
       subgroupDescription: ''
-      title: 'PUT/PATCH: api/activities/{id}'
+      title: 'Update the specified resource in storage.'
       description: ''
       authenticated: true
       custom: []
@@ -1260,79 +1721,13 @@ endpoints:
     urlParameters:
       id:
         name: id
-        description: 'The ID of the activity.'
+        description: 'The ID of the category.'
         required: true
-        example: 1
-        type: integer
+        example: in
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 1
-    queryParameters: []
-    cleanQueryParameters: []
-    bodyParameters:
-      name:
-        name: name
-        description: 'Must be at least 4 characters.'
-        required: true
-        example: lmpnahumacwwvywhhhfhi
-        type: string
-        custom: []
-      category:
-        name: category
-        description: ''
-        required: true
-        example: magnam
-        type: string
-        custom: []
-      description:
-        name: description
-        description: ''
-        required: true
-        example: blanditiis
-        type: string
-        custom: []
-    cleanBodyParameters:
-      name: lmpnahumacwwvywhhhfhi
-      category: magnam
-      description: blanditiis
-    fileParameters: []
-    responses: []
-    responseFields: []
-    auth:
-      - headers
-      - Authorization
-      - 'Bearer 5Z41kdfE3vbPeD8h6cg6aaV'
-    controller: null
-    method: null
-    route: null
-    custom: []
-  -
-    httpMethods:
-      - DELETE
-    uri: 'api/activities/{id}'
-    metadata:
-      groupName: Endpoints
-      groupDescription: ''
-      subgroup: ''
-      subgroupDescription: ''
-      title: 'DELETE: api/activities/{id}'
-      description: ''
-      authenticated: true
-      custom: []
-    headers:
-      Authorization: 'Bearer {YOUR_AUTH_KEY}'
-      Content-Type: application/json
-      Accept: application/json
-    urlParameters:
-      id:
-        name: id
-        description: 'The ID of the activity.'
-        required: true
-        example: 1
-        type: integer
-        custom: []
-    cleanUrlParameters:
-      id: 1
+      id: in
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1343,7 +1738,49 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 8ba3kD1ha6dfEZe5cV6vg4P'
+      - 'Bearer b1V5kh63aad8eg4Z6DEPcfv'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/categories/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the category.'
+        required: true
+        example: ut
+        type: string
+        custom: []
+    cleanUrlParameters:
+      id: ut
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer bVP34865v1haZgkdEfc6Dea'
     controller: null
     method: null
     route: null
@@ -1386,7 +1823,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer f86d5a1Zvgb46aPh3DeVcEk'
+      - 'Bearer k38dvaP4Z6gchaDbfV16eE5'
     controller: null
     method: null
     route: null
@@ -1417,26 +1854,18 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: eveniet
-        type: string
-        custom: []
-      message:
-        name: message
-        description: ''
-        required: true
-        example: a
+        example: nemo
         type: string
         custom: []
     cleanBodyParameters:
-      user_id: eveniet
-      message: a
+      user_id: nemo
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer ekabZc36vhdaVED48P561gf'
+      - 'Bearer 3h8aEcZ461eaV6D5bPkvfgd'
     controller: null
     method: null
     route: null
@@ -1463,11 +1892,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 15
-        type: integer
+        example: aliquam
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 15
+      id: aliquam
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1487,7 +1916,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 3aP5E6da8vDV16fcZ4gbekh'
+      - 'Bearer cebkh46v6g51fDPaV8a3ZEd'
     controller: null
     method: null
     route: null
@@ -1515,11 +1944,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 3
-        type: integer
+        example: iste
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 3
+      id: iste
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters:
@@ -1527,26 +1956,18 @@ endpoints:
         name: user_id
         description: ''
         required: true
-        example: voluptatem
-        type: string
-        custom: []
-      message:
-        name: message
-        description: ''
-        required: true
-        example: qui
+        example: enim
         type: string
         custom: []
     cleanBodyParameters:
-      user_id: voluptatem
-      message: qui
+      user_id: enim
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer 64gf1VZeacd36kvahb85PED'
+      - 'Bearer 4vg1Vh8c6bfePZa5d3DkE6a'
     controller: null
     method: null
     route: null
@@ -1573,11 +1994,11 @@ endpoints:
         name: id
         description: 'The ID of the feedback.'
         required: true
-        example: 8
-        type: integer
+        example: repellat
+        type: string
         custom: []
     cleanUrlParameters:
-      id: 8
+      id: repellat
     queryParameters: []
     cleanQueryParameters: []
     bodyParameters: []
@@ -1588,7 +2009,2551 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer D1Vvk3cZfEPa6e65gbd8a4h'
+      - 'Bearer 6eDvg14bEd6hZ3akc5Paf8V'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/programs/total
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get total of programs: api/prgrams/total'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 1gc4EVh83dDeZ5f6akaPvb6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/programs
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6hvkgb5f318c6ZVPadeDEa4'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/programs
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 4V6b6df8Dh1ZP3kg5avceaE'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/programs/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the program.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer EabZD63gkd5fVPa8416ecvh'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/programs/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the program.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer dPhgae6bE6vfDa8k4VZ315c'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/programs/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the program.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ZPvVbfEDa1ad8kc3h4665ge'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/images
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/images'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer dPv8bVkaaD64Z5f1Ecg3he6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/images
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/images'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: totam
+        type: string
+        custom: []
+      img_url:
+        name: img_url
+        description: ''
+        required: true
+        example: 'http://www.oconner.org/'
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: totam
+      img_url: 'http://www.oconner.org/'
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 381fVagvP5cEa6e4hDd6bZk'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/images/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/images/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the image.'
+        required: true
+        example: 2
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 31P6Va5EDfbehZdvkc6ag84'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/images/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'PUT/PATCH: api/images/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the image.'
+        required: true
+        example: 2
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: quis
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: quis
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zag1385VP6aheDfEb6c4kvd'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/images/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'DELETE: api/images/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the image.'
+        required: true
+        example: 2
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 163bgvZ64cVdhPefaaE85kD'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/posts
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Posts'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer k8Z54afE1vPg66edbhVc3aD'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/posts
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/Posts'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: tempora
+        type: string
+        custom: []
+      content:
+        name: content
+        description: ''
+        required: true
+        example: numquam
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: tempora
+      content: numquam
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer k6Ead64cDVZe5fgv381bPha'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/posts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Posts/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the post.'
+        required: true
+        example: 19
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 19
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer d5ek4avbPha183Eg6cVDZf6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/posts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'PUT/PATCH: api/Posts/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the post.'
+        required: true
+        example: 17
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 17
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: ut
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: ut
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Ef6a5hgd3kDbe4V8vaZcP16'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/posts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'DELETE: api/Posts/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the post.'
+        required: true
+        example: 5
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 5
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 86fghVDc13bedakP4E6Za5v'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/reactions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Reactions'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Zab3vdaech6DP4g186kVE5f'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/reactions
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/Reactions'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: atque
+        type: string
+        custom: []
+      post_id:
+        name: post_id
+        description: ''
+        required: true
+        example: nemo
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: atque
+      post_id: nemo
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer gab63ea8vVfc14k5DZEhP6d'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/reactions/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Reactions/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reaction.'
+        required: true
+        example: 2
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer fDae8kcdEZaPh6g1Vvb6435'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/reactions/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'DELETE: api/Reactions/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reaction.'
+        required: true
+        example: 2
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 2
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Efd5D1behag8aP6k3v6c4VZ'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/getReactionByPostUserId/{user_id}/{post_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'get: api/dgetReactionByPostUserId'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: aut
+        type: string
+        custom: []
+      post_id:
+        name: post_id
+        description: 'The ID of the post.'
+        required: true
+        example: omnis
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: aut
+      post_id: omnis
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer e6daZ8a6Vv4Ec13kPDgb5fh'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/deleteReactionByPostUserId/{user_id}/{post_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'delete: api/deleteReactionByPostUserId'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: error
+        type: string
+        custom: []
+      post_id:
+        name: post_id
+        description: 'The ID of the post.'
+        required: true
+        example: ut
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: error
+      post_id: ut
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer faEab6VZ85hvgkDec43P1d6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/postsByUserId/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Posts/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: commodi
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: commodi
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer D3h654ZgbcadPEakve816Vf'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/comments
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Comments'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer E5Vg4ahZ36f1b8DkcvadeP6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/comments
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/Comments'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: ea
+        type: string
+        custom: []
+      post_id:
+        name: post_id
+        description: ''
+        required: true
+        example: aut
+        type: string
+        custom: []
+      content:
+        name: content
+        description: ''
+        required: true
+        example: saepe
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: ea
+      post_id: aut
+      content: saepe
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer bek48g63dZhafvED1P6acV5'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/comments/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Comments/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the comment.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 8431efb6Zvk5aVghaEPcd6D'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/comments/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'PUT/PATCH: api/Comments/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the comment.'
+        required: true
+        example: 10
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 10
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: nobis
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: nobis
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Dk8ga63adhvfEZc6e4V1b5P'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/comments/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'DELETE: api/Comments/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the comment.'
+        required: true
+        example: 14
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 14
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 3ec5DkafZ8vd6VhP6a14gEb'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/commentsByPostId/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: Comment/commentsByPostId/{post_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: labore
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: labore
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer D5egkd3Vb6EafZv4Pc1h68a'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/replies
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Replys'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Pfhdb83cVaka6DvZg16e4E5'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/replies
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'POST: api/Replys'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: omnis
+        type: string
+        custom: []
+      comment_id:
+        name: comment_id
+        description: ''
+        required: true
+        example: reprehenderit
+        type: string
+        custom: []
+      content:
+        name: content
+        description: ''
+        required: true
+        example: quis
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: omnis
+      comment_id: reprehenderit
+      content: quis
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Za661kdE5c8hDPevV4b3agf'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/replies/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: api/Replys/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reply.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer haea1bDcd68v5E3fP4VZ6kg'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/replies/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'PUT/PATCH: api/Replys/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reply.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      user_id:
+        name: user_id
+        description: ''
+        required: true
+        example: et
+        type: string
+        custom: []
+      comment_id:
+        name: comment_id
+        description: ''
+        required: true
+        example: et
+        type: string
+        custom: []
+      content:
+        name: content
+        description: ''
+        required: true
+        example: sed
+        type: string
+        custom: []
+    cleanBodyParameters:
+      user_id: et
+      comment_id: et
+      content: sed
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer vZagkDP3b6E1Vcd4a6fe8h5'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/replies/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'DELETE: api/Replys/{id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the reply.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 8b3Eh6PfkDZe546g1avdVac'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/repliesByCommentId/{user_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'GET: repliesByCommentId/{comment_id}'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      user_id:
+        name: user_id
+        description: 'The ID of the user.'
+        required: true
+        example: laborum
+        type: string
+        custom: []
+    cleanUrlParameters:
+      user_id: laborum
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer Ea5P6b6hv4Ddf8g1cZ3Veka'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: 'api/workouts/exercises/{workout_id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Add exercise to workout.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      workout_id:
+        name: workout_id
+        description: 'The ID of the workout.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      workout_id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      workout_id:
+        name: workout_id
+        description: ''
+        required: true
+        example: deserunt
+        type: string
+        custom: []
+      exercise_id:
+        name: exercise_id
+        description: ''
+        required: true
+        example: sed
+        type: string
+        custom: []
+    cleanBodyParameters:
+      workout_id: deserunt
+      exercise_id: sed
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer bg3Df5k68VadEe1aZcP6hv4'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/workouts
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ZcPEvaD36bd4ekfV5gh8a61'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/workouts
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      program_id:
+        name: program_id
+        description: ''
+        required: true
+        example: est
+        type: string
+        custom: []
+      title:
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: true
+        example: nto
+        type: string
+        custom: []
+      duration:
+        name: duration
+        description: ''
+        required: true
+        example: minus
+        type: string
+        custom: []
+      day:
+        name: day
+        description: ''
+        required: true
+        example: molestias
+        type: string
+        custom: []
+    cleanBodyParameters:
+      program_id: est
+      title: nto
+      duration: minus
+      day: molestias
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer vbh34aZea51gckEVd8fP66D'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/workouts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workout.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer e6akg5cVd4bPEahfD83Z61v'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/workouts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workout.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: true
+        example: fphbryfbhjgvdbrhmjwfyateklodgbufgouvtqrqrafxpseeovisfzplbpihxlzwujfgr
+        type: string
+        custom: []
+      duration:
+        name: duration
+        description: ''
+        required: true
+        example: labore
+        type: string
+        custom: []
+      day:
+        name: day
+        description: ''
+        required: true
+        example: eligendi
+        type: string
+        custom: []
+    cleanBodyParameters:
+      title: fphbryfbhjgvdbrhmjwfyateklodgbufgouvtqrqrafxpseeovisfzplbpihxlzwujfgr
+      duration: labore
+      day: eligendi
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6V5h84gPbvakED16Zefd3ca'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/workouts/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workout.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer De4P6VdkZ35Ec6bfhvg18aa'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/workoutexercises
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer P3fvgV86cDE4ke6aZ1bda5h'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/workoutexercises
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      workout_id:
+        name: workout_id
+        description: ''
+        required: true
+        example: dolorum
+        type: string
+        custom: []
+      exercise_id:
+        name: exercise_id
+        description: ''
+        required: true
+        example: culpa
+        type: string
+        custom: []
+    cleanBodyParameters:
+      workout_id: dolorum
+      exercise_id: culpa
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 41D5ac3e6bvah6f8PgkVdZE'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/workoutexercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workoutexercise.'
+        required: true
+        example: 5
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 5
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer aV4dE568PaZDh31cefvb6gk'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/workoutexercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workoutexercise.'
+        required: true
+        example: 5
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 5
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 61Da5gb6ec4vh3fd8VaPkZE'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/workoutexercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the workoutexercise.'
+        required: true
+        example: 5
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 5
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer VaaPeZ43k6E6D1fvbd58gch'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/exercises/total
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Get total of exercises: api/exercises/total'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer efVc61aEDvahkZ6854Pg3bd'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: api/exercises
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display a listing of the resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer a1d56bgk4ehE3VPDafc6vZ8'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/exercises
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Store a newly created resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: true
+        example: hmiskjzubueakczdfoxtygwiuoynouiprqkybyjtupsocwynhdjxxishimdtrh
+        type: string
+        custom: []
+      description:
+        name: description
+        description: ''
+        required: true
+        example: modi
+        type: string
+        custom: []
+      category:
+        name: category
+        description: ''
+        required: true
+        example: voluptas
+        type: string
+        custom: []
+    cleanBodyParameters:
+      title: hmiskjzubueakczdfoxtygwiuoynouiprqkybyjtupsocwynhdjxxishimdtrh
+      description: modi
+      category: voluptas
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ZcP48abdvg65Dek3VEf1ah6'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - GET
+    uri: 'api/exercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Display the specified resource.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the exercise.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses:
+      -
+        status: 401
+        content: '{"message":"Unauthenticated."}'
+        headers:
+          cache-control: 'no-cache, private'
+          content-type: application/json
+          access-control-allow-origin: '*'
+        description: null
+        custom: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 34hd1a68ZefDag5v6PbVEkc'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - PUT
+      - PATCH
+    uri: 'api/exercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Update the specified resource in storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the exercise.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters:
+      title:
+        name: title
+        description: 'Must be at least 3 characters.'
+        required: true
+        example: txdmeuuthyqwuyxzgjeq
+        type: string
+        custom: []
+      description:
+        name: description
+        description: ''
+        required: true
+        example: doloremque
+        type: string
+        custom: []
+      category:
+        name: category
+        description: ''
+        required: true
+        example: vero
+        type: string
+        custom: []
+    cleanBodyParameters:
+      title: txdmeuuthyqwuyxzgjeq
+      description: doloremque
+      category: vero
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer ca4Db6hPkV6E1Z3e85afvgd'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - DELETE
+    uri: 'api/exercises/{id}'
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: 'Remove the specified resource from storage.'
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters:
+      id:
+        name: id
+        description: 'The ID of the exercise.'
+        required: true
+        example: 1
+        type: integer
+        custom: []
+    cleanUrlParameters:
+      id: 1
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer gv6fED8bc435dah6VaPek1Z'
     controller: null
     method: null
     route: null
@@ -1631,7 +4596,7 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer PcE6bd16a3gha84kf5eZvDV'
+      - 'Bearer ve6DfP4k5E86bgVZ1dc3aah'
     controller: null
     method: null
     route: null
@@ -1674,7 +4639,41 @@ endpoints:
     auth:
       - headers
       - Authorization
-      - 'Bearer 1a53vEc6VghPak8f4bD6Zed'
+      - 'Bearer a4ga3PDEv5k61db6ec8hfVZ'
+    controller: null
+    method: null
+    route: null
+    custom: []
+  -
+    httpMethods:
+      - POST
+    uri: api/upload
+    metadata:
+      groupName: Endpoints
+      groupDescription: ''
+      subgroup: ''
+      subgroupDescription: ''
+      title: ''
+      description: ''
+      authenticated: true
+      custom: []
+    headers:
+      Authorization: 'Bearer {YOUR_AUTH_KEY}'
+      Content-Type: application/json
+      Accept: application/json
+    urlParameters: []
+    cleanUrlParameters: []
+    queryParameters: []
+    cleanQueryParameters: []
+    bodyParameters: []
+    cleanBodyParameters: []
+    fileParameters: []
+    responses: []
+    responseFields: []
+    auth:
+      - headers
+      - Authorization
+      - 'Bearer 6ghdE38ZvbcD6fVk514Paae'
     controller: null
     method: null
     route: null
@@ -1705,34 +4704,34 @@ endpoints:
         name: name
         description: 'Must not be greater than 255 characters.'
         required: true
-        example: sz
+        example: dvvz
         type: string
         custom: []
       email:
         name: email
         description: 'Must be a valid email address. Must not be greater than 255 characters.'
         required: true
-        example: effie.witting@example.net
+        example: wschimmel@example.net
         type: string
         custom: []
       password:
         name: password
         description: 'Must be at least 8 characters.'
         required: true
-        example: 'wYRDp^6^;URA}'
+        example: '-d6_Y<9W<?5v'
         type: string
         custom: []
     cleanBodyParameters:
-      name: sz
-      email: effie.witting@example.net
-      password: 'wYRDp^6^;URA}'
+      name: dvvz
+      email: wschimmel@example.net
+      password: '-d6_Y<9W<?5v'
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer Pea3g6hfZk4Ec6b1aDvV8d5'
+      - 'Bearer a4dchEDvb6ePfa3gkZ1865V'
     controller: null
     method: null
     route: null
@@ -1763,26 +4762,26 @@ endpoints:
         name: email
         description: ''
         required: true
-        example: london55@example.org
+        example: savannah23@example.com
         type: string
         custom: []
       password:
         name: password
         description: ''
         required: true
-        example: ')hv?uy{\6'
+        example: "Q6e7BIKN'BbF*%50)["
         type: string
         custom: []
     cleanBodyParameters:
-      email: london55@example.org
-      password: ')hv?uy{\6'
+      email: savannah23@example.com
+      password: "Q6e7BIKN'BbF*%50)["
     fileParameters: []
     responses: []
     responseFields: []
     auth:
       - headers
       - Authorization
-      - 'Bearer Zad48ga36Pb1ce5EkD6hVfv'
+      - 'Bearer bZ3d15e6cE84fka6aDVvhPg'
     controller: null
     method: null
     route: null

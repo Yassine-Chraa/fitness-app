@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import React,{ useEffect, useState } from 'react';
 import { StyleSheet, View, TextInput, Text, FlatList, TouchableOpacity } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome5';
 
@@ -10,15 +10,17 @@ import { useProduct } from '../../context/providers/ProductContextProvider';
 import { useCategory } from '../../context/providers/CategoryConextProvider';
 
 const Cloths = ({ navigation }: any): JSX.Element => {
-  const { products, searchProduct } = useProduct();
+  const { products, setKeyword,keyword,setCategoryId,getProducts } = useProduct();
   const { categories } = useCategory();
 
-  const [keyword, setKeyword] = useState('');
-  const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
 
-  const search = () => {
-    searchProduct(keyword); setSelectedCategoryIndex(0)
+  const search = async () => {
+    await getProducts()
   }
+
+  useEffect(()=>{
+    setKeyword('')
+  },[])
   return (
     <View style={{ paddingHorizontal: 12, flex: 1 }}>
       <View style={{ flexDirection: 'row', marginTop: 12 }}>
@@ -37,7 +39,7 @@ const Cloths = ({ navigation }: any): JSX.Element => {
       <FlatList
         ListHeaderComponent={() => {
           return (
-            <ListCategories selectedCategoryIndex={selectedCategoryIndex} setSelectedCategoryIndex={setSelectedCategoryIndex} categories={categories.filter((category: any) => {
+            <ListCategories categories={categories.filter((category: any) => {
               return category.parent === 'gym_cloths'
             })} />
           )

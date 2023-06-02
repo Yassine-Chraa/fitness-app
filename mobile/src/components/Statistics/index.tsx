@@ -142,13 +142,7 @@ const Statistics = ({ user }: any): JSX.Element => {
                                 legendFontColor: theme.colors.text,
                                 legendFontSize: 14,
                             },
-                            {
-                                name: 'Rest',
-                                calories: (BMR - dailyNutrition?.energy_consumed) | 0,
-                                color: theme.colors.statusBar,
-                                legendFontColor: theme.colors.text,
-                                legendFontSize: 14,
-                            },
+                            
                         ]}
                         width={cardWidth}
                         height={180}
