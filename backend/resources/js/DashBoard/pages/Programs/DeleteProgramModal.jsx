@@ -5,8 +5,6 @@ import MDBox from '../../components/MDBox';
 import MDButton from '../../components/MDButton';
 import MDTypography from '../../components/MDTypography';
 
-import { async } from 'regenerator-runtime';
-import { get, result } from 'lodash';
 import { useProgram } from '../../context/APIContext/providers/ProgramContextProvider';
 import {
     setOpenDeleteProgramModalHandler,

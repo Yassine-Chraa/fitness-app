@@ -140,7 +140,7 @@ const Feedbacks = () => {
                     <Profile
                         name={user.name}
                         subtitle={user.email}
-                        image={"https://bit.ly/34BY10g"}
+                        image={user.profile}
                     />
                 ),
                 email: (

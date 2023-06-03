@@ -82,7 +82,7 @@ const routes = [
         name: null,
         key: "EditProgram",
         icon: null,
-        route: "/dashboard/Programs/:programID",
+        route: "/dashboard/programs/:programID",
         component: <EditProgram />,
     },
     {
@@ -90,7 +90,7 @@ const routes = [
         name: null,
         key: "EditWorkout",
         icon: null,
-        route: "/dashboard/Programs/:programID/workout/:workOutID",
+        route: "/dashboard/programs/:programID/workout/:workOutID",
         component: <EditWorkOut />,
     },
     {

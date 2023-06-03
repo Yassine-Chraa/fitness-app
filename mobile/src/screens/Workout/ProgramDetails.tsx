@@ -18,7 +18,7 @@ import Toast from 'react-native-toast-message';
 const allowedUsers = ['client', 'vip', 'admin'];
 const ProgramDetails = ({ navigation, route }: any) => {
   const { currentUser } = useAuth();
-  const { enrollProgram, useProgramAsCurrent } = useProgram();
+  const { enrollProgram,getUserPrograms } = useProgram();
   const { program } = route.params;
   const width = Dimensions.get('screen').width;
 
@@ -38,22 +38,25 @@ const ProgramDetails = ({ navigation, route }: any) => {
     setId(new_id);
 
   };
-  const enroll = () => {
+  const enroll = async () => {
     if (program.isFree == 1) {
-      enrollProgram(currentUser!.user.id, program.id);
-      useProgramAsCurrent(program.id)
+      await enrollProgram(currentUser!.user.id, program.id);
+      await getUserPrograms(currentUser!.user.id)
+      Toast.show({
+        type: 'success',
+        text1: 'Premium Program Enrolled !',
+      });
       navigation.navigate('Current')
     } else {
-      if (allowedUsers.includes(currentUser!.user.role)) { 
-        enrollProgram(currentUser!.user.id, program.id);
-        useProgramAsCurrent(program.id)
-        
+      if (allowedUsers.includes(currentUser!.user.role)) {
+        await enrollProgram(currentUser!.user.id, program.id);
+        await getUserPrograms(currentUser!.user.id)
         Toast.show({
           type: 'success',
           text1: 'Premium Program Enrolled !',
         });
         navigation.navigate('Current')
-      }else{
+      } else {
         Toast.show({
           type: 'error',
           text1: 'Became Client To Enroll This Program ! !',
@@ -68,7 +71,7 @@ const ProgramDetails = ({ navigation, route }: any) => {
         <View>
           <Image
             style={{ width: '100%', height: 240 }}
-            source={require('../../assets/images/program1.jpg')}
+            source={{ uri: program.main_img }}
           />
           <View
             style={{

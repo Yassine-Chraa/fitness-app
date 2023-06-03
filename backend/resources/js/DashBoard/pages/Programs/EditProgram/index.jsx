@@ -97,18 +97,6 @@ const EditProgram = () => {
     };
 
 
-    const firstChart = {
-        labels: ["Maintaining", "Cutting", "Bulking"],
-        datasets: { label: "Program Category Statistics", data: [10, 80, 100] },
-    };
-
-
-    const secondChart = {
-        labels: ["Unfinished", "Progress", "Finished"],
-        datasets: { label: "Program Progress Statistics", data: [70, 30, 300] },
-    };
-
-
     return (
         <DashboardLayout>
             <MDBox>

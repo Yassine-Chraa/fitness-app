@@ -39,7 +39,7 @@ const AddWorkOutModal = ({ ProgramID }) => {
             duration: localDuration,
             day: localDay,
             state: localState,
-            program_id: ProgramID.ProID,
+            program_id: ProgramID,
         }
         const result = await addWorkOut(workout);
         if (result) {

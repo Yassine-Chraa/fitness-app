@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { Image } from '@rneui/themed';
 import { useEffect, useState } from 'react';
 import { StyleSheet, Text, TouchableHighlight, View, Modal, TouchableOpacity, ScrollView, SafeAreaView, Pressable, TextInput } from 'react-native';
@@ -15,12 +15,12 @@ const levels = ['beginner', 'intermediate', 'advanced'];
 
 const MyPrograms = ({ navigation }: any) => {
   const { currentUser } = useAuth()
-  const { getUserPrograms, userPrograms, createProgram, deleteProgram,useProgramAsCurrent } = useProgram();
+  const { getUserPrograms, userPrograms, createProgram, deleteProgram, useProgramAsCurrent } = useProgram();
 
   const [form, setForm] = useState<specialType>({
     title: "",
     category: "bulking",
-    difficulty_level: "beginner"
+    difficulty_level: "beginner",
   })
   const [showForm, setShowForm] = useState(false)
 
@@ -36,7 +36,7 @@ const MyPrograms = ({ navigation }: any) => {
   }
 
   useEffect(() => {
-    getUserPrograms(currentUser!.user!.id);
+    getUserPrograms(currentUser?.user?.id);
   }, [currentUser])
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
@@ -48,18 +48,18 @@ const MyPrograms = ({ navigation }: any) => {
           </Text>
         </TouchableOpacity>
         {userPrograms?.map((program: any, index: number) => {
-          const { id, category, days, title } = program.details;
+          const { id, main_img, category, days, title } = program?.details;
           return (
             <TouchableHighlight
-              key={id+11*index}
+              key={id + 11 * index}
               style={styles.program}
               onPress={() =>
-                navigation.navigate('MyProgramsDetails', { programId: program.id, program: program.details })
+                navigation.navigate('MyProgramsDetails', { programId: program.id, program: program.details,isPublic:program.isPublic })
               }>
               <View>
                 <Image
                   style={{ width: '100%', height: 160, borderRadius: 12 }}
-                  source={require('../../assets/images/program1.jpg')}
+                  source={{ uri: main_img }}
                 />
                 <View
                   style={{
@@ -126,7 +126,7 @@ const MyPrograms = ({ navigation }: any) => {
             style={{ borderWidth: 1 }}>
             {categories.map((category, index) => {
               return (
-                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
+                <Picker.Item key={index + category + index} label={category.toUpperCase()} value={category} />
               )
             })}
           </Picker>
@@ -137,9 +137,9 @@ const MyPrograms = ({ navigation }: any) => {
             })}
 
             style={{ borderWidth: 1 }}>
-            {levels.map((category,index) => {
+            {levels.map((category, index) => {
               return (
-                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
+                <Picker.Item key={index + category + index} label={category.toUpperCase()} value={category} />
               )
             })}
           </Picker>

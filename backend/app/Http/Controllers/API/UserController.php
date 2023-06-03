@@ -25,7 +25,7 @@ class UserController extends Controller
     public function index(Request $request)
     {
         if ($request->has('week')) {
-            $data = DB::table('users')->selectRaw('MONTH(created_at) as month, Day(created_at) as day, COUNT(id) as count')->whereRaw("WEEK(created_at) = {$request->get('week')}")->orderBy('day')->groupBy('day','month')->get();
+            $data = DB::table('users')->selectRaw('MONTH(created_at) as month, Day(created_at) as day, COUNT(id) as count')->whereRaw("WEEK(created_at) = {$request->get('week')}")->orderBy('day')->groupBy('day', 'month')->get();
         } else {
             if ($request->has('role')) $data = User::where('role', $request->get('role'))->get();
             else $data = User::all();
@@ -465,12 +465,21 @@ class UserController extends Controller
             'user_id' => ['required'],
             'title' => ['required', 'min:3', 'max:255'],
         ]);
-        $newProgram = new Program([
-            "title" => $request->get('title'),
-            "difficulty_level" => $request->get('difficulty_level'),
-            'category' => $request->get('category'),
-            "isPublic" => 0
-        ]);
+        if($request->has("isPublic")){
+            $newProgram = new Program([
+                "title" => $request->get('title'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isPublic" =>  $request->get('isPublic')
+            ]);
+        }else{
+            $newProgram = new Program([
+                "title" => $request->get('title'),
+                "difficulty_level" => $request->get('difficulty_level'),
+                'category' => $request->get('category'),
+                "isPublic" =>  1
+            ]);
+        }
         $newProgram->save();
 
         $newUserProgram = new UserProgram([
@@ -494,22 +503,22 @@ class UserController extends Controller
 
 
         if ($request->has('isUsed')) {
-            $request->validate([
-                'isUsed' => 'required',
-            ]);
             $userProgram = UserProgram::findOrFail($program_id);
             $userProgram->isUsed = $request->get('isUsed');
+            $userProgram->save();
         } else {
             $request->validate([
                 'title' => ['required', 'min:3', 'max:255'],
             ]);
-            $userProgram = Program::findOrFail($program_id);
-            $userProgram->title = $request->get('title');
-            $userProgram->difficulty_level = $request->get('difficulty_level');
-            $userProgram->category = $request->get('category');
+            $tmp = UserProgram::findOrFail($program_id);
+            $program = Program::findOrFail($tmp->details->id);
+            $program->title = $request->get('title');
+            $program->difficulty_level = $request->get('difficulty_level');
+            $program->category = $request->get('category');
+            $program->save();
         }
 
-        $userProgram->save();
+
 
         return response()->json(['message' => 'Program Was Updated successfully !']);
     }
@@ -526,10 +535,7 @@ class UserController extends Controller
         $id = $userProgram->program_id;
         $userProgram->delete();
 
-        $program = Program::findOrFail($id);
-        $program->delete();
-
-        return response()->json(['message' => 'Program Was Deleted successfully !']);
+        return response()->json(['message' => 'User Program Was Deleted successfully !']);
     }
 
     /**
@@ -544,9 +550,15 @@ class UserController extends Controller
             'program_id' => ['required'],
             'user_id' => ['required'],
         ]);
+        $userPrograms = UserProgram::all();
+        foreach ($userPrograms as $i => $program) {
+            $program->isUsed = 0;
+            $program->save();
+        }
         $newUserProgram = new UserProgram([
             "program_id" => $request->get('program_id'),
             "user_id" => $request->get('user_id'),
+            "isUsed" => 1
         ]);
 
         $newUserProgram->save();
