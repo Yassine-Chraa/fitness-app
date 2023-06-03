@@ -9,10 +9,11 @@ import FullDropDownList from '../../components/profile/Settings/FullDropDownList
 import Devider from '../../components/tinyCompo/Divider';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import UserType from '../../types/UserType';
+import LogOutMOdal from '../../components/tinyCompo/LogOutModal';
 
 const Settings = ({ navigation }: any) => {
-
-    const { currentUser } = useAuth();
+    const [isVisible, setIsVisible] = useState(false);
+    const { currentUser, logout } = useAuth();
     const [user, setUser] = useState<UserType | any>(currentUser?.user)
 
     const updateProfile = () => {
@@ -39,9 +40,11 @@ const Settings = ({ navigation }: any) => {
                 <SettingsOptions />
                 <Devider />
                 <FullDropDownList />
-                <TouchableOpacity activeOpacity={0.6} style={styles.logoutBtn}>
+
+                <TouchableOpacity onPress={() => setIsVisible(() => true)} activeOpacity={0.6} style={styles.logoutBtn}>
                     <Text style={styles.logoutText}>Reset/Logout</Text>
                 </TouchableOpacity>
+                <LogOutMOdal isVisible={isVisible} setIsVisible={setIsVisible} logOut={logout}/>
             </ScrollView>
         </Screen>
     );
@@ -104,7 +107,7 @@ const styles = StyleSheet.create({
     logoutText: {
         fontSize: 24,
         fontWeight: "900",
-        color: "#222",
+        color: "#fff",
     },
     logoutBtn: {
         padding: 4,
