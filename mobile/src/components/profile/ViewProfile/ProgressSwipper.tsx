@@ -1,4 +1,4 @@
-import { useFocusEffect, useNavigation } from '@react-navigation/native';
+import { useNavigation } from '@react-navigation/native';
 import AnimatedLottieView from 'lottie-react-native';
 import React, { useState, useEffect } from 'react'
 import { StyleSheet, Image, ScrollView, View, Text, TouchableOpacity } from 'react-native';
@@ -10,17 +10,13 @@ import FAImagePicker from '../../FAImageHandlers/FAImagePicker';
 
 const ProgressSwipper = ({ imageStyle, title, user_id }: any): JSX.Element => {
     const navigation: any = useNavigation();
-    const [images, setImages] = useState<Array<ImageType>>([]);
-    const { getImages, addImage } = useImages();
+    const { images,getImages, addImage } = useImages();
     const [img_url, setImageURL] = useState<string>('');
     const [isVisible, setIsVisible] = useState(false);
     const [currentImageUrl, setCurrentImageUrl] = useState<string>('')
 
     const loadImages = async () => {
-        const data = await getImages(user_id);
-        if (data) {
-            setImages(() => data)
-        }
+        await getImages(user_id);
     }
 
     const addNewImage = async (img_url: string) => {
@@ -45,7 +41,6 @@ const ProgressSwipper = ({ imageStyle, title, user_id }: any): JSX.Element => {
             setImageURL(() => '')
         }
     }, [img_url])
-
     return (
         <>
             <FAImagePicker isVisible={isVisible}
@@ -69,7 +64,7 @@ const ProgressSwipper = ({ imageStyle, title, user_id }: any): JSX.Element => {
                         onPress={() => handleUploadNewImage()}>
                         <AnimatedLottieView
                             source={CameraTakeNewProgress}
-                            autoPlay
+                            //autoPlay
                             loop
                             speed={1}
                             resizeMode="contain"

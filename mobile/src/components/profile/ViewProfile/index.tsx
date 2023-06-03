@@ -24,15 +24,14 @@ const ViewProfile = ({ route }: any): JSX.Element => {
     const values = ['weight LBS', 'Body fat %', 'BMI']
 
     const loadPosts = async () => {
-        const posts = await getPostsByUserId(user_id);
-        if (posts) {
-            setPosts(() => posts);
+        const tmp = await getPostsByUserId(user_id);
+        if (tmp) {
+            setPosts(() => tmp);
         }
     }
     useEffect(() => {
         loadPosts();
     }, [])
-
     return (
         <Screen name={"Profile"} backButton allowScroll>
             <View style={styles.header}>
@@ -49,8 +48,6 @@ const ViewProfile = ({ route }: any): JSX.Element => {
 
             <ProgressSwipper user_id={user_id} title={'Progress Photos'}
                 imageStyle={{ width: 70, height: 70, borderRadius: 8 }} />
-
-
             <PostInput currentUserImgUrl={user?.profile} user_id={user_id} reLoadPosts={loadPosts} />
 
             {
