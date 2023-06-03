@@ -8,7 +8,6 @@ import { useNavigation } from '@react-navigation/native';
 
 function UserDesc({ userInfo }: any): JSX.Element {
   const navigation: any = useNavigation();
-  // onPress={() => navigation.navigate('ViewProfile',{user_id: userInfo.user_id})}
 
   return (
     <TouchableOpacity

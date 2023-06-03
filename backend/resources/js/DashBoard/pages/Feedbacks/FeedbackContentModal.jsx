@@ -10,6 +10,7 @@ import {
 } from "../../context/UIContext";
 import { useFeedback } from "../../context/APIContext/providers/FeedbackContextControler";
 
+const reactions = ['Very Good','Good','Fair','Poor'];
 const FeedbackContentModal = ({ selectedID }) => {
     const { getFeedback } = useFeedback();
     const [controller, dispatch] = useMaterialUIController();
@@ -25,7 +26,6 @@ const FeedbackContentModal = ({ selectedID }) => {
                 setFeedback(res);
             });
     }, [selectedID]);
-    console.log(feedback);
 
     return (
         <Modal
@@ -64,7 +64,7 @@ const FeedbackContentModal = ({ selectedID }) => {
                     </MDTypography>
                 </MDBox>
                 <Grid container spacing={2}>
-                    <Grid item xs={12} sm={4}>
+                    <Grid item xs={12} sm={3}>
                         <Card
                             style={{
                                 padding: "1rem 2rem",
@@ -81,7 +81,7 @@ const FeedbackContentModal = ({ selectedID }) => {
                             >
                                 <MDAvatar
                                     variant="gradient"
-                                    src={"https://bit.ly/34BY10g"}
+                                    src={feedback?.user?.profile}
                                     name={"ismail ben alla"}
                                     size="xxl"
                                 />
@@ -123,7 +123,7 @@ const FeedbackContentModal = ({ selectedID }) => {
                             </MDBox>
                         </Card>
                     </Grid>
-                    <Grid item xs={12} sm={8}>
+                    <Grid item xs={12} sm={9}>
                         <Card
                             style={{
                                 padding: "1rem 2rem",
@@ -141,6 +141,140 @@ const FeedbackContentModal = ({ selectedID }) => {
                                 {feedback?.message}
                             </MDTypography>
                         </Card>
+                        <Grid container columnSpacing={2}>
+                            <Grid item sm={6} md={3}>
+                                <Card
+                                    style={{
+                                        padding: "1rem 2rem",
+                                        marginBottom: "0.5rem",
+                                        borderRadius: "12px",
+                                    }}
+                                >
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "1rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                        }}
+                                    >
+                                        Feedback 1
+                                    </MDTypography>
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "0.9rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                            color:'#000',
+                                            textAlign:'center',
+                                            marginTop: 20,
+                                            backgroundColor: 'orange',
+                                            padding: 2
+                                        }}
+                                    >
+                                        {reactions[feedback.f1-1]}
+                                    </MDTypography>
+                                </Card>
+                            </Grid>
+                            <Grid item sm={6} md={3}>
+                                <Card
+                                    style={{
+                                        padding: "1rem 2rem",
+                                        marginBottom: "0.5rem",
+                                        borderRadius: "12px",
+                                    }}
+                                >
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "1rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                        }}
+                                    >
+                                        Feedback 2
+                                    </MDTypography>
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "0.9rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                            color:'#000',
+                                            textAlign:'center',
+                                            marginTop: 20,
+                                            backgroundColor: 'orange',
+                                            padding: 2
+                                        }}
+                                    >
+                                        {reactions[feedback.f2-1]}
+                                    </MDTypography>
+                                </Card>
+                            </Grid>
+                            <Grid item sm={6} md={3}>
+                                <Card
+                                    style={{
+                                        padding: "1rem 2rem",
+                                        marginBottom: "0.5rem",
+                                        borderRadius: "12px",
+                                    }}
+                                >
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "1rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                        }}
+                                    >
+                                        Feedback 3
+                                    </MDTypography>
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "0.9rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                            color:'#000',
+                                            textAlign:'center',
+                                            marginTop: 20,
+                                            backgroundColor: 'orange',
+                                            padding: 2
+                                        }}
+                                    >
+                                        {reactions[feedback.f3-1]}
+                                    </MDTypography>
+                                </Card>
+                            </Grid>
+                            <Grid item sm={6} md={3}>
+                                <Card
+                                    style={{
+                                        padding: "1rem 2rem",
+                                        marginBottom: "0.5rem",
+                                        borderRadius: "12px",
+                                    }}
+                                >
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "1rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                        }}
+                                    >
+                                        Feedback 4
+                                    </MDTypography>
+                                    <MDTypography
+                                        style={{
+                                            fontSize: "0.9rem",
+                                            fontWeight: "600",
+                                            lineHeight: "1.25",
+                                            color:'#000',
+                                            textAlign:'center',
+                                            marginTop: 20,
+                                            backgroundColor: 'orange',
+                                            padding: 2
+                                        }}
+                                    >
+                                        {reactions[feedback.f4-1]}
+                                    </MDTypography>
+                                </Card>
+                            </Grid>
+                        </Grid>
                     </Grid>
                 </Grid>
                 <MDBox

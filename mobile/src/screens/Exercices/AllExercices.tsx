@@ -29,7 +29,7 @@ const AllExercices = ({ route }: any) => {
     getExercises();
   }, [])
 
-  
+
   return (
     <Screen
       action="search"
@@ -62,7 +62,7 @@ const Exercice = ({ exercise, setChecked }: any) => {
 
   const [toggleCheckBox, setToggleCheckBox] = useState(false)
   return (<TouchableOpacity
-  key={exercise.id}
+    key={exercise.id}
     style={styles.exercice}
     onPress={() =>
       navigation.navigate('ExerciceDetails', { type: 'workout', exercise })

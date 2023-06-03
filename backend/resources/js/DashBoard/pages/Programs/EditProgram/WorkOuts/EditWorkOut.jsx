@@ -8,11 +8,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import { Menu, IconButton, Tooltip, Icon } from "@mui/material";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
-import EditIcon from "@mui/icons-material/Edit";
-import DeleteIcon from "@mui/icons-material/Delete";
-import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { IconButton, Tooltip, Icon } from "@mui/material";
 import MDTypography from "../../../../components/MDTypography";
 import DashboardLayout from "../../../../layouts/DashboardLayout";
 import { Link, useParams } from "react-router-dom";
@@ -38,7 +34,6 @@ const categories = ["all", "checked", "a", "b", "c", "d", "e", "f"];
 const states = ["unstarted", "progress", "finished"];
 
 const EditWorkOut = () => {
-    const { exercises } = useExercise();
     const { updateWorkOut, getWorkOut } = useWorkOut();
     const { getWorkOutExercises, workoutExercises } = useWorkOutExercise();
     const [localDay, setLocalDay] = useState(days[0]);
@@ -48,7 +43,6 @@ const EditWorkOut = () => {
     const [localCategory, setLocalCategory] = useState(categories[0]);
     const [localExercises, setLocalExercises] = useState([]);
     const [localSample, setLocalSample] = useState([]);
-    const [localWorkOutExercises, setLocalWorkOutExercises] = useState([]);
 
     const days_options = () =>
         days.map((item, index) => (
@@ -66,15 +60,6 @@ const EditWorkOut = () => {
     const { programID, workOutID } = useParams();
 
     const confirmEditHandler = async () => {
-        let allIds = [];
-        if (localExercises) {
-            let checkedExercises = localExercises.filter((exe) => exe.checked);
-            if (checkedExercises) {
-                for (let i = 0; i < checkedExercises.length; i++) {
-                    allIds[i] = checkedExercises[i].id;
-                }
-            }
-        }
 
         const workout = {
             id: workOutID,
@@ -83,7 +68,6 @@ const EditWorkOut = () => {
             day: localDay,
             state: localState,
             program_id: programID,
-            newExeIds: allIds,
         };
 
         const result = await updateWorkOut(workout);
@@ -102,26 +86,6 @@ const EditWorkOut = () => {
             setLocalDay(() => workout.day);
             setLocalState(() => workout.state);
 
-            console.log("==============================================");
-            console.log(workout.exercises);
-
-            const checkedExercises = workout.exercises.map((item) => {
-                return { ...item, checked: 1 };
-            });
-            setLocalWorkOutExercises(checkedExercises);
-
-            const allIds = workout.exercises.map((item) => item.id);
-
-            if (exercises) {
-                const all = exercises.map((item) => {
-                    return {
-                        ...item,
-                        checked: allIds.includes(item.id) ? 1 : 0,
-                    };
-                });
-                setLocalExercises(all);
-                setLocalSample(all);
-            }
         }
         await getWorkOutExercises(workOutID);
     };

@@ -22,11 +22,8 @@ const Discover = ({ navigation }: any) => {
   return (
     <SafeAreaView style={{ paddingHorizontal: 12, flex: 1 }}>
       <ScrollView style={{ marginTop: 12, marginBottom: 4 }} showsVerticalScrollIndicator={false}>
-        {programs.map((program: any) => {
-          const map = userPrograms.map((item) => {
-            return item.details.id;
-          })
-          if (map.includes(program.id) == false) {
+        {programs?.map((program: any) => {
+          if (program.isPublic) {
             return (
               <TouchableHighlight
                 key={program.id}
@@ -69,8 +66,9 @@ const Discover = ({ navigation }: any) => {
                 </View>
               </TouchableHighlight>
             );
+          } else {
+            return null
           }
-
         })}
       </ScrollView>
     </SafeAreaView>

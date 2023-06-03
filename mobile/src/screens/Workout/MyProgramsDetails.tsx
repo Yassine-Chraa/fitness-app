@@ -12,8 +12,8 @@ import { useAuth } from '../../context/providers/AuthContextProvider';
 const categories = ['bulking', 'maintaining', 'cutting'];
 const levels = ['beginner', 'intermediate', 'advanced'];
 const MyProgramsDetails = ({ navigation, route }: any) => {
-    const { program, programId } = route.params
-    const { title, category, difficulty_level, days } = program
+    const { program, programId,isPublic } = route.params
+    const { title, main_img, category, difficulty_level, days } = program
     const { currentUser } = useAuth()
     const { getUserPrograms, updateProgram } = useProgram();
     const [local, setLocal] = useState({
@@ -43,7 +43,7 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                 <View style={{ marginBottom: 12, marginTop: 12 }}>
                     <Image
                         style={{ width: '100%', height: 180, borderRadius: 12 }}
-                        source={require('../../assets/images/program1.jpg')}
+                        source={{ uri: main_img }}
                     />
                     <View
                         style={{
@@ -59,10 +59,10 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                         </Text>
                     </View>
                 </View>
-                {program?.workouts?.map((workout: any,index:number) => {
+                {program?.workouts?.map((workout: any) => {
                     return (
                         <TouchableOpacity
-                            key={index}
+                            key={workout.id}
                             style={styles.workout}
                             onPress={() =>
                                 navigation.navigate('WorkoutDetails', { name: workout.title, workoutId: workout.id })
@@ -106,11 +106,11 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                     </TouchableOpacity>
                 </View>
             </ScrollView>
-            <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
+            {!isPublic ? <TouchableOpacity style={styles.addButton} onPress={() => setShowForm(true)}>
                 <Text style={{ color: '#fff', fontSize: 18, fontWeight: 'bold' }}>
                     Update Program
                 </Text>
-            </TouchableOpacity>
+            </TouchableOpacity> : null}
             <Modal animationType="slide"
                 transparent={true}
                 visible={showForm}
@@ -140,9 +140,9 @@ const MyProgramsDetails = ({ navigation, route }: any) => {
                         })}
 
                         style={{ borderWidth: 1 }}>
-                        {levels.map((category,index) => {
+                        {levels.map((category, index) => {
                             return (
-                                <Picker.Item key={index+category+index} label={category.toUpperCase()} value={category} />
+                                <Picker.Item key={index + category + index} label={category.toUpperCase()} value={category} />
                             )
                         })}
                     </Picker>

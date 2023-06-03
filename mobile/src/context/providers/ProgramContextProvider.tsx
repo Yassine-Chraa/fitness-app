@@ -1,5 +1,5 @@
 import axios from '../../Helpers/axiosConfig';
-import  React,{ createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 import { getUrl } from '../../Helpers/APIConfig';
 import Program from '../../types/Program';
 import UserProgram from '../../types/UserProgram';
@@ -7,7 +7,7 @@ import UserProgram from '../../types/UserProgram';
 export type specialType = {
   title: string,
   category: 'bulking' | 'maintaining' | 'cutting',
-  difficulty_level: 'beginner' | 'intermediate' | 'advanced'
+  difficulty_level: 'beginner' | 'intermediate' | 'advanced',
 }
 export type programContextType = {
   currentProgram: UserProgram;
@@ -63,7 +63,7 @@ export const ProgramContextProvider = ({ children }: any) => {
   };
   const createProgram = async (program: specialType, user_id: number) => {
     try {
-      const { data } = await axios.post(userProgramsUrl, { ...program, user_id });
+      const { data } = await axios.post(userProgramsUrl, { ...program, isPublic: 0, user_id });
       return data.message;
     } catch (error) {
       console.log(error);
@@ -89,7 +89,7 @@ export const ProgramContextProvider = ({ children }: any) => {
     try {
       userPrograms.forEach(async (userProgram: UserProgram) => {
         if (userProgram.id == programId) {
-          await axios.put(`${userProgramsUrl}/${programId}`, { isUsed: 1 });
+          await axios.put(`${userProgramsUrl}/${userProgram.id}`, { isUsed: 1 });
         } else {
           await axios.put(`${userProgramsUrl}/${userProgram.id}`, { isUsed: 0 });
         }

@@ -13,16 +13,14 @@ import { useWorkOut } from "../../../context/APIContext/providers/WorkOutContext
 import { Stack } from "@mui/system";
 import AddWorkOutModal from "./WorkOuts/AddWorkOut";
 import EditWorkOutModal from "./WorkOuts/EditWorkOut";
-import { setOpenAddWorkOutModalHandler, useMaterialUIController } from "../../../context/UIContext";
+import { setOpenAddWorkOutModalHandler, setOpenDeleteWorkOutModalHandler, useMaterialUIController } from "../../../context/UIContext";
 import { Link, useParams } from "react-router-dom";
 import { useProgram } from "../../../context/APIContext/providers/ProgramContextProvider";
 
-const ListOfActivities = (ProID) => {
+const ListOfActivities = ({ProID}) => {
     const [totalPages, setTotalPages] = useState(0);
     const [sampleOfData, setSampleOfData] = useState([]);
-    const [search, setSearch] = useState("");
     const [controller, dispatch] = useMaterialUIController();
-    const { openEditProgramModalHandler } = controller;
     const [workouts, setWorkouts] = useState([]);
     const { getProgram } = useProgram();
     const [workoutID, setWorkoutID] = useState(0);
@@ -67,8 +65,8 @@ const ListOfActivities = (ProID) => {
 
     return (
         <>
-            {ProID ? <AddWorkOutModal ProgramID={ProID} /> : null}
-            {workoutID ? <EditWorkOutModal ProgramID={ProID} workOutID={workoutID} /> : null}
+            {ProID ? <AddWorkOutModal ProgramID={programID} /> : null}
+            {workoutID ? <EditWorkOutModal ProgramID={programID} workOutID={workoutID} /> : null}
 
             <Grid item xs={12} sm={12} md={12} lg={12}>
                 <Card style={{ padding: '1rem' }}>
@@ -105,7 +103,7 @@ const ListOfActivities = (ProID) => {
 
                         {
                             sampleOfData.map((workout) => (
-                                <WorkOutItem key={workout.id} workout={workout} setWorkoutID={setWorkoutID} selectedID={ProID} />
+                                <WorkOutItem  ProID={ProID} workout={workout} setWorkoutID={setWorkoutID} />
                             ))
                         }
 
@@ -193,7 +191,7 @@ export const StyledInputBase = styled(InputBase)(({ theme }) => ({
 //==================================================================================================
 
 
-export const WorkOutItem = ({ workout, ProID, setWorkoutID }) => {
+export const WorkOutItem = ({ProID, workout, setWorkoutID }) => {
 
     const title = workout.title;
 
@@ -255,7 +253,7 @@ export const WorkOutItem = ({ workout, ProID, setWorkoutID }) => {
                 </MDBox>
             </MDBox>
             <MDBox>
-                <ActionMenu WorkOutID={workout.id} ProID={1} setWorkoutID={setWorkoutID} />
+                <ActionMenu WorkOutID={workout.id} ProID={ProID} setWorkoutID={setWorkoutID} />
             </MDBox>
         </MDBox>
     );
@@ -266,6 +264,7 @@ export const WorkOutItem = ({ workout, ProID, setWorkoutID }) => {
 
 
 export const ActionMenu = ({ WorkOutID, ProID, setWorkoutID }) => {
+    const {deleteWorkOut} = useWorkOut();
     const [openMenu, setOpenMenu] = useState(false);
     const handleOpenMenu = (event) => setOpenMenu(event.currentTarget);
     const handleCloseMenu = () => setOpenMenu(false);
@@ -318,7 +317,7 @@ export const ActionMenu = ({ WorkOutID, ProID, setWorkoutID }) => {
 
                 <IconButton
                     size="small" disableRipple color="error" variant="outlined"
-                    onClick={openDeleteHandler}
+                    onClick={()=>deleteWorkOut(WorkOutID)}
                     sx={{
                         padding: '7px', transition: 'all 0.4s ease',
                         ":hover": {

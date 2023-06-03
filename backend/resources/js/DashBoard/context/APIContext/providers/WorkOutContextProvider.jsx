@@ -1,6 +1,7 @@
 import { createContext, useContext } from "react";
 import { useMaterialUIController, setLoadingAnimation } from "../../UIContext";
 import { getUrl } from "../Helper";
+import Swal from "sweetalert2";
 
 const workoutContext = createContext();
 
@@ -71,23 +72,27 @@ export const WorkOutContextProvider = ({ children }) => {
     };
 
     const deleteWorkOut = async (id) => {
-        try {
-            setLoadingAnimation(dispatch, true);
-            const config = {
-                headers: {
-                    authorization: `Bearer ${localStorage.getItem(
-                        "api_token"
-                    )}`,
-                },
-            };
-            const { data } = await axios.delete(`${WorkOutUrl}/${id}`, config);
-            setLoadingAnimation(dispatch, false);
-            return data;
-        } catch (error) {
-            console.log(error);
-            alert(error);
-            setLoadingAnimation(dispatch, false);
-        }
+        Swal.fire({
+            title: "Are you sure to delete workout",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: "Yes",
+            width: "max-content",
+            padding: "8px 16px",
+        }).then(async (result) => {
+            if (result.isConfirmed) {
+                try {
+                    setLoadingAnimation(dispatch, true);
+                    const { data } = await axios.delete(`${WorkOutUrl}/${id}`);
+                    setLoadingAnimation(dispatch, false);
+                    return data;
+                } catch (error) {
+                    console.log(error);
+                    alert(error);
+                    setLoadingAnimation(dispatch, false);
+                }
+            }
+        });
     };
     return (
         <workoutContext.Provider

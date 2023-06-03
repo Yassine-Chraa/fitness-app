@@ -60,7 +60,7 @@ const CurrentProgram = ({ navigation }: any) => {
         <View style={{ marginBottom: 12 }}>
           <Image
             style={{ width: '100%', height: 180, borderRadius: 12 }}
-            source={require('../../assets/images/program1.jpg')}
+            source={{uri: currentProgram?.details?.main_img || 'https://placehold.jp/600x200.png'}}
           />
           <View
             style={{
