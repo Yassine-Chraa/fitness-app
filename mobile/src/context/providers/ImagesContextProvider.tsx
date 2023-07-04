@@ -7,7 +7,7 @@ import ImageType from '../../types/ImageType';
 
 export type ImagesContextType = {
     images: Array<ImageType>
-    getImages: (id: number) => Promise<Array<ImageType>>;
+    getImages: (id: number) => Promise<void>;
     getCoachImages: (id: number) => Promise<void>;
     getImage: (id: number) => Promise<ImageType>;
     addImage: (Image: ImageType) => Promise<{ message: string }>;
@@ -33,7 +33,7 @@ export const ImagesContextProvider = ({ children }: any) => {
     const getImages = async (id: number) => {
         try {
             const { data } = await axios.get(`${ImagesUrl}?id=${id}`);
-            return data;
+            setImages(data)
         } catch (error) {
             console.log(error);
         }
